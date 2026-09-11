@@ -1,421 +1,86 @@
 <!doctype html>
 <html lang="ko">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <meta name="theme-color" content="#163b63">
-  <title>소망 찬양대</title>
-  <style>
-
-:root{
-  --navy:#163b63; --blue:#2d6ea7; --sky:#eef5fb; --line:#d7e0e8;
-  --text:#1d2733; --muted:#667788; --white:#fff; --accent:#b88746;
-}
-*{box-sizing:border-box}
-body{margin:0;background:#f4f7fa;color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",sans-serif}
-button,input,select{font:inherit}
-button{cursor:pointer}
-#app{max-width:720px;margin:0 auto;min-height:100vh;background:#fff;padding-bottom:78px}
-.topbar{position:sticky;top:0;z-index:10;display:flex;justify-content:space-between;align-items:center;padding:16px 18px;background:linear-gradient(135deg,var(--navy),#245f91);color:#fff}
-.brand{font-size:24px;font-weight:800;letter-spacing:-.4px}
-.sub{font-size:11px;letter-spacing:2px;opacity:.85;margin-top:2px}
-.ghost{background:transparent;border:1px solid rgba(255,255,255,.5);color:#fff;border-radius:10px;padding:8px 10px}
-main{padding:16px}
-.hero{background:linear-gradient(135deg,#173a61,#497ba5);color:#fff;border-radius:18px;padding:22px;margin-bottom:14px}
-.hero h1{margin:0 0 6px;font-size:25px}
-.hero p{margin:0;opacity:.9}
-.card{border:1px solid var(--line);border-radius:16px;padding:16px;margin:12px 0;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.03)}
-.card h3{margin:0 0 12px;font-size:18px}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
-.pill{border:1px solid var(--line);border-radius:10px;padding:10px;background:var(--sky);text-align:center}
-.primary{display:inline-block;background:var(--navy);color:#fff;border:0;border-radius:10px;padding:10px 14px}
-.secondary{background:#fff;color:var(--navy);border:1px solid var(--navy);border-radius:10px;padding:10px 14px}
-.row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 0;border-bottom:1px solid #edf0f3}
-.row:last-child{border-bottom:0}
-.muted{color:var(--muted);font-size:14px}
-.tag{display:inline-block;padding:4px 8px;border-radius:999px;background:#eef4fa;color:var(--navy);font-size:12px}
-.notice-tag{font-weight:700}
-.member{display:flex;gap:12px;align-items:center;padding:10px 0;border-bottom:1px solid #eef1f4}
-.avatar{width:50px;height:50px;border-radius:50%;background:#e7edf3;display:grid;place-items:center;font-weight:700;color:#5b6b7a;overflow:hidden}
-.avatar img{width:100%;height:100%;object-fit:cover}
-.bottom-nav{position:fixed;left:50%;transform:translateX(-50%);bottom:0;z-index:20;width:min(720px,100%);display:grid;grid-template-columns:repeat(5,1fr);border-top:1px solid var(--line);background:#fff}
-.bottom-nav button{padding:13px 4px;border:0;background:#fff;color:#69798a}
-.bottom-nav button.active{color:var(--navy);font-weight:800}
-.list-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
-.month{font-size:20px;font-weight:800;color:var(--navy);margin-top:18px}
-dialog{border:0;border-radius:18px;width:min(520px,92vw);padding:0}
-dialog::backdrop{background:rgba(0,0,0,.45)}
-.dialog-card{padding:20px}
-.dialog-card h2{margin-top:0}
-.dialog-card label{display:block;margin:12px 0;font-weight:700}
-.dialog-card input,.dialog-card select{width:100%;margin-top:6px;border:1px solid var(--line);border-radius:10px;padding:11px}
-.dialog-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:18px}
-.consent label{font-weight:400}
-.gallery{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.gallery-item{aspect-ratio:4/3;border-radius:14px;background:linear-gradient(135deg,#dce7f1,#a8bfd3);display:flex;align-items:end;padding:10px;color:#173a61;font-weight:800}
-.admin-box{background:#fff8ec;border:1px solid #ecd6b2;border-radius:14px;padding:14px}
-.table{width:100%;border-collapse:collapse;font-size:14px}
-.table th,.table td{border-bottom:1px solid #e9edf1;padding:10px 6px;text-align:left}
-.small{font-size:12px}
-.status{padding:8px 10px;border-radius:10px;background:#fff7db;color:#7b5b00;display:inline-block}
-@media (max-width:480px){
-  .grid4{grid-template-columns:repeat(2,1fr)}
-}
-
-.form-card label{display:block;margin:12px 0;font-weight:700}
-.form-card input,.form-card select,.form-card textarea{width:100%;margin-top:6px;border:1px solid var(--line);border-radius:10px;padding:11px;background:#fff}
-.form-card textarea{min-height:120px;resize:vertical}
-.danger{background:#fff;color:#9a2e2e;border:1px solid #cf9c9c;border-radius:10px;padding:10px 14px}
-
-.page-head{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:10px;margin:2px 0 16px}
-.page-head h2{margin:0;text-align:center;font-size:21px}
-.back-btn{border:0;background:#eef4fa;color:var(--navy);border-radius:10px;padding:9px 11px;font-weight:700}
-.action-row{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
-.gallery-card{border:1px solid var(--line);border-radius:14px;padding:10px;background:#fff}
-.gallery-item{overflow:hidden}
-.gallery-item img{width:100%;height:100%;object-fit:cover;border-radius:10px}
-.gallery-meta{display:flex;justify-content:space-between;gap:8px;margin-top:8px}
-
-.admin-tag{background:#fff0cd;color:#7a4f00}
-.wide{width:100%}
-.feature-title{font-size:20px;font-weight:800;margin:8px 0}
-.link-btn{border:0;background:transparent;color:var(--blue);font-weight:700}
-.chip-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
-.chip{font-size:12px;background:var(--sky);border:1px solid var(--line);padding:5px 8px;border-radius:999px}
-.menu-grid,.admin-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}
-.menu-grid button,.admin-grid button{border:1px solid var(--line);background:#fff;border-radius:14px;padding:16px;text-align:left;min-height:92px}
-.menu-grid b,.admin-grid b{display:block;color:var(--navy);font-size:16px}
-.menu-grid span,.admin-grid small{display:block;color:var(--muted);margin-top:6px}
-.admin-grid button{min-height:112px}
-.admin-icon{font-size:22px!important;color:var(--navy)!important;margin:0 0 6px!important}
-.dashboard-summary{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px}
-.dashboard-summary>div{border:1px solid var(--line);border-radius:12px;padding:12px 8px;text-align:center;background:#fff}
-.dashboard-summary b{display:block;font-size:17px;color:var(--navy)}
-.dashboard-summary span{display:block;font-size:11px;color:var(--muted);margin-top:4px}
-.section-title{margin:18px 0 8px}
-.perm-line{display:flex!important;align-items:center;gap:10px;border-bottom:1px solid #eef1f4;padding:10px 0;margin:0!important}
-.perm-line input{width:auto!important;margin:0!important}
-.thumb{width:120px;height:80px;margin-top:10px;border-radius:10px;overflow:hidden;background:#eef3f7}
-.thumb img{width:100%;height:100%;object-fit:cover}
-@media(max-width:480px){
- .dashboard-summary{grid-template-columns:1fr 1fr}
- .menu-grid,.admin-grid{grid-template-columns:1fr 1fr}
-}
-
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<title>소망 찬양대 · SOMANG CHOIR</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root{--bg:#f6f7fb;--card:#fff;--ink:#1f2937;--muted:#6b7280;--line:#e5e7eb;--brand:#2d5b52;--brand2:#eaf2ef;--danger:#b42318;--ok:#16794a;--shadow:0 10px 30px rgba(0,0,0,.07)}*{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;background:var(--bg);color:var(--ink)}button,input,select,textarea{font:inherit}.app{max-width:1050px;margin:0 auto;min-height:100vh;background:var(--bg)}header{position:sticky;top:0;z-index:10;background:rgba(255,255,255,.96);border-bottom:1px solid var(--line);backdrop-filter:blur(10px)}.head{display:flex;align-items:center;justify-content:space-between;padding:14px 18px}.brand b{font-size:19px}.brand small{display:block;color:var(--muted);margin-top:2px}.topbtn{border:0;background:var(--brand2);color:var(--brand);padding:9px 12px;border-radius:10px;font-weight:700}main{padding:18px 18px 90px}.hero{background:linear-gradient(135deg,#244d46,#4f756d);color:#fff;border-radius:22px;padding:24px;box-shadow:var(--shadow)}.hero h1{margin:0 0 7px;font-size:25px}.hero p{margin:0;opacity:.88}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:14px}.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:0 4px 16px rgba(0,0,0,.035)}.card h3{margin:0 0 8px}.muted{color:var(--muted);font-size:14px}.tag{display:inline-block;padding:4px 8px;border-radius:999px;background:var(--brand2);color:var(--brand);font-size:12px;font-weight:700}.important{background:#fff2f0;color:#b42318}.list{display:grid;gap:10px}.row{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px}.rowhead{display:flex;justify-content:space-between;gap:10px}.actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}.btn{border:0;border-radius:10px;padding:9px 12px;background:#eef1f4;color:#29313d;font-weight:700}.btn.primary{background:var(--brand);color:#fff}.btn.danger{background:#fff1f0;color:var(--danger)}.btn.ok{background:#ebf8f1;color:var(--ok)}.sectiontitle{display:flex;align-items:center;justify-content:space-between;margin:4px 0 14px}.sectiontitle h2{margin:0;font-size:21px}.loginwrap{max-width:520px;margin:36px auto}.loginbox{background:#fff;border:1px solid var(--line);border-radius:22px;padding:24px;box-shadow:var(--shadow)}.loginbox h1{margin-top:0}.field{margin:12px 0}.field label{display:block;font-size:13px;color:var(--muted);margin-bottom:6px}.field input,.field select,.field textarea{width:100%;border:1px solid #d6dae0;border-radius:11px;padding:12px;background:#fff}.field textarea{min-height:110px;resize:vertical}.wide{width:100%}.tabs{display:flex;gap:8px;margin-bottom:16px}.tabs button{flex:1}.statusbox{padding:18px;border-radius:16px;background:#fff;border:1px solid var(--line)}nav{position:fixed;left:0;right:0;bottom:0;background:rgba(255,255,255,.98);border-top:1px solid var(--line);z-index:20}.navin{max-width:1050px;margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr)}nav button{border:0;background:transparent;padding:11px 4px 12px;color:#6b7280;font-size:12px}nav button b{display:block;font-size:17px;margin-bottom:2px}nav button.active{color:var(--brand);font-weight:800}.adminGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.adminTile{background:#fff;border:1px solid var(--line);border-radius:15px;padding:15px;text-align:left}.adminTile b{display:block;margin-bottom:5px}.membergrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.member{background:#fff;border:1px solid var(--line);border-radius:14px;padding:13px}.member .name{font-weight:800;font-size:17px}.link{color:#245f9b;text-decoration:none;font-weight:700}.empty{text-align:center;padding:35px 15px;color:var(--muted)}.toast{position:fixed;left:50%;bottom:82px;transform:translateX(-50%);background:#20252b;color:#fff;padding:10px 14px;border-radius:10px;z-index:99;display:none;max-width:85%;text-align:center}.codehint{font-size:12px;color:#70757d;background:#f7f8fa;border-radius:9px;padding:8px;margin-top:10px}@media(max-width:720px){.grid,.membergrid{grid-template-columns:1fr}.adminGrid{grid-template-columns:repeat(2,minmax(0,1fr))}.hero{padding:20px}.head{padding:12px 14px}main{padding:14px 14px 90px}}
 </style>
 </head>
-<body>
-  <div id="app">
-    <header class="topbar">
-      <div>
-        <div class="brand">소망 찬양대</div>
-        <div class="sub">SOMANG CHOIR</div>
-      </div>
-      <button class="ghost" id="profileBtn">내 정보</button>
-    </header>
-
-    <main id="main"></main>
-
-    <nav class="bottom-nav" id="bottomNav">
-      <button data-page="home" class="active">홈</button>
-      <button data-page="songs">찬양</button>
-      <button data-page="notices">공지</button>
-      <button data-page="members">대원</button>
-      <button data-page="more">더보기</button>
-    </nav>
-  </div>
-
-  <dialog id="joinDialog">
-    <form method="dialog" class="dialog-card" id="joinForm">
-      <h2>소망 찬양대 가입 신청</h2>
-      <p class="muted">처음 가입할 때 본인 정보를 입력하고 총무의 승인을 받습니다.</p>
-
-      <label>이름<input name="name" required placeholder="홍길동"></label>
-      <label>직분<input name="title" placeholder="장로 / 권사 / 집사 / 성도"></label>
-      <label>파트
-        <select name="part" required>
-          <option value="">선택</option>
-          <option>Soprano</option>
-          <option>Alto</option>
-          <option>Tenor</option>
-          <option>Bass</option>
-        </select>
-      </label>
-      <label>연락처<input name="phone" placeholder="010-0000-0000"></label>
-      <label>사진<input name="photo" type="file" accept="image/*"></label>
-
-      <div class="consent">
-        <label><input type="checkbox" required> 대원명단 내 사진·연락처 공개에 동의합니다.</label>
-      </div>
-
-      <div class="dialog-actions">
-        <button value="cancel" class="secondary">취소</button>
-        <button id="submitJoin" value="default">가입 신청</button>
-      </div>
-    </form>
-  </dialog>
-
-  <dialog id="profileDialog">
-    <div class="dialog-card">
-      <h2>내 정보</h2>
-      <div id="profileContent"></div>
-      <div class="dialog-actions">
-        <button onclick="document.getElementById('profileDialog').close()">닫기</button>
-      </div>
-    </div>
-  </dialog>
-
-  <script>
-
-const seed = {
-  users:[
-    {id:'u1',name:'Harry Sohn',title:'최고관리자',part:'Tenor',phone:'',status:'approved',role:'superadmin',permissions:['all']},
-    {id:'u2',name:'김○○',title:'집사',part:'Soprano',phone:'010-1111-1111',status:'pending',role:'member',permissions:[]},
-    {id:'u3',name:'이○○',title:'권사',part:'Alto',phone:'010-2222-2222',status:'approved',role:'member',permissions:[]}
-  ],
-  songs:[
-    {id:'s1',date:'2026-09-13',title:'주 하나님 지으신 모든 세계',special:'주일',score:'',full:'',s:'',a:'',t:'',b:'',live:''},
-    {id:'s2',date:'2026-09-20',title:'은혜 아니면',special:'주일',score:'',full:'',s:'',a:'',t:'',b:'',live:''}
-  ],
-  prayers:[
-    {id:'p1',thuDate:'2026-09-17',sunDate:'2026-09-20',thuStart:'김○○',thuEnd:'이○○',sunStart:'박○○',sunEnd:'최○○'}
-  ],
-  notices:[
-    {id:'n1',scope:'전체',title:'목요일 정기연습 안내',body:'목요일 정기연습은 오후 7:30에 시작합니다.',date:'2026-09-10',important:true}
-  ],
-  intro:{id:'intro1',name:'소망 찬양대',englishName:'SOMANG CHOIR',description:'한 마음으로 하나님을 찬양하는 공동체',founded:'',service:'주일 2부 예배',rehearsal:'목요일 19:30–21:00 / 주일 08:00–08:45 / 10:40–12:00',history:'',vision:''},
-  leaders:[
-    {id:'l1',role:'찬양대장',name:'○○○',photo:''},{id:'l2',role:'지휘자',name:'○○○',photo:''},
-    {id:'l3',role:'반주자 1',name:'○○○',photo:''},{id:'l4',role:'반주자 2',name:'○○○',photo:''},
-    {id:'l5',role:'총무',name:'○○○',photo:''},{id:'l6',role:'회계',name:'○○○',photo:''}
-  ],
-  gallery:[
-    {id:'g1',title:'찬양제',date:'2026-06-01',description:'특별 찬양제',imageUrl:''},
-    {id:'g2',title:'부활절 찬양',date:'2026-04-05',description:'부활절 특별찬양',imageUrl:''}
-  ],
-  events:[
-    {id:'e1',date:'2026-09-17',time:'19:30',title:'목요 정기연습',place:'찬양대실',description:''},
-    {id:'e2',date:'2026-09-20',time:'08:00',title:'주일 예배 전 연습',place:'찬양대실',description:''}
-  ],
-  documents:[
-    {id:'d1',date:'2026-09-01',category:'운영자료',title:'2026 소망 찬양대 운영안',url:'',description:''}
-  ],
-  polls:[
-    {id:'v1',title:'찬양대 야유회 일정 선호',endDate:'2026-09-30',status:'진행중',options:'10/3, 10/9, 10/10'}
-  ],
-  tasks:[
-    {id:'t1',dueDate:'2026-09-20',title:'주일 찬양 영상 업로드',assignee:'영상담당',status:'진행중',note:''}
-  ]
+<body><div class="app"><header><div class="head"><div class="brand"><b>소망 찬양대</b><small>SOMANG CHOIR</small></div><button id="headerBtn" class="topbtn" onclick="headerAction()">로그인</button></div></header><main id="main"></main></div><nav id="nav" style="display:none"><div class="navin"><button onclick="go('home')" data-page="home"><b>⌂</b>홈</button><button onclick="go('songs')" data-page="songs"><b>♫</b>찬양</button><button onclick="go('prayers')" data-page="prayers"><b>♡</b>기도</button><button onclick="go('members')" data-page="members"><b>♙</b>대원</button><button onclick="go('more')" data-page="more"><b>☰</b>더보기</button></div></nav><div id="toast" class="toast"></div>
+<script>
+const SUPABASE_URL='https://chsfhwewskydnreodvvq.supabase.co';
+const SUPABASE_PUBLISHABLE_KEY='sb_publishable_MoLRdCftzWbvdGkWyeGoEg_My1j8-XB';
+const sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY);
+let session=null, me=null, perms=[], page='home';
+const PERM_LABELS={members:'대원명단/가입승인',notices:'공지 관리',songs:'찬양곡·악보·영상',prayers:'기도당번',events:'일정·행사',intro:'찬양대 소개',leaders:'섬기는 분들',gallery:'갤러리',documents:'자료실',polls:'투표·설문',tasks:'봉사·할일',permissions:'관리자 권한'};
+const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+const fmt=d=>d?new Date(d+'T00:00:00').toLocaleDateString('ko-KR'):'';
+function toast(t){const e=document.getElementById('toast');e.textContent=t;e.style.display='block';setTimeout(()=>e.style.display='none',2200)}
+function normalizePhone(v){let d=(v||'').replace(/\D/g,'');if(d.startsWith('82')) d='0'+d.slice(2);return d}
+function phoneDisplay(v){const d=normalizePhone(v);return d.length===11?`${d.slice(0,3)}-${d.slice(3,7)}-${d.slice(7)}`:d}
+function aliasEmail(phone){return normalizePhone(phone)+'@somangchoir.app'}
+function can(p){return me?.role==='superadmin'||perms.includes(p)}
+function headerAction(){if(!session) return renderAuth(); if(confirm('로그아웃하시겠습니까?')) logout()}
+async function logout(){await sb.auth.signOut();session=null;me=null;perms=[];renderAuth()}
+async function init(){const {data}=await sb.auth.getSession();session=data.session; if(session) await loadMe(); else renderAuth(); sb.auth.onAuthStateChange(async(_e,s)=>{session=s;if(s) await loadMe();else renderAuth()})}
+async function loadMe(){const uid=session.user.id;const {data,error}=await sb.from('profiles').select('*').eq('id',uid).single();if(error){main.innerHTML=`<div class="statusbox">프로필을 불러오지 못했습니다.<br>${esc(error.message)}</div>`;return}me=data;const pr=await sb.from('user_permissions').select('permission').eq('user_id',uid);perms=(pr.data||[]).map(x=>x.permission);document.getElementById('headerBtn').textContent='로그아웃';if(me.status==='approved'){document.getElementById('nav').style.display='block';go(page||'home')}else{document.getElementById('nav').style.display='none';renderPending()}}
+function renderPending(){const st={pending:'승인 대기 중',rejected:'가입 신청이 반려되었습니다',inactive:'현재 이용이 중지된 계정입니다'}[me.status]||me.status;main.innerHTML=`<div class="loginwrap"><div class="loginbox"><h1>${st}</h1><p><b>${esc(me.name)}</b> 님의 가입 정보가 등록되었습니다.</p><p class="muted">소망 찬양대 관리자가 확인 후 승인하면 전체 메뉴를 사용할 수 있습니다.</p><div class="codehint">휴대전화번호: ${esc(phoneDisplay(me.phone))} · 파트: ${esc(me.part||'-')}</div><button class="btn wide" style="margin-top:16px" onclick="logout()">로그아웃</button></div></div>`}
+function renderAuth(){document.getElementById('headerBtn').textContent='로그인';document.getElementById('nav').style.display='none';main.innerHTML=`<div class="loginwrap"><div class="loginbox"><h1>소망 찬양대</h1><p class="muted">대원 전용 소통·관리 앱</p><div class="tabs"><button class="btn primary" onclick="showLogin()">로그인</button><button class="btn" onclick="showSignup()">가입 신청</button></div><div id="authBody"></div></div></div>`;showLogin()}
+function showLogin(){authBody.innerHTML=`<div class="field"><label>휴대전화번호</label><input id="lphone" inputmode="tel" placeholder="010-1234-5678"></div><div class="field"><label>비밀번호</label><input id="lpw" type="password" placeholder="비밀번호"></div><button class="btn primary wide" onclick="doLogin()">로그인</button><p class="muted" style="margin-top:14px">비밀번호를 잊은 경우 총무/관리자에게 본인 확인 후 재설정을 요청해 주세요.</p>`}
+function showSignup(){authBody.innerHTML=`<div class="field"><label>이름</label><input id="sname" placeholder="홍길동"></div><div class="field"><label>직분/호칭</label><input id="stitle" placeholder="집사, 권사, 장로 등"></div><div class="field"><label>파트</label><select id="spart"><option>Soprano</option><option>Alto</option><option>Tenor</option><option>Bass</option></select></div><div class="field"><label>휴대전화번호</label><input id="sphone" inputmode="tel" placeholder="010-1234-5678"></div><div class="field"><label>비밀번호 (6자 이상)</label><input id="spw" type="password"></div><div class="field"><label>비밀번호 확인</label><input id="spw2" type="password"></div><button class="btn primary wide" onclick="doSignup()">가입 신청</button><p class="muted">가입 후 관리자 승인을 받아야 대원 전용 메뉴가 열립니다.</p>`}
+async function doLogin(){const p=normalizePhone(lphone.value),pw=lpw.value;if(p.length<10)return toast('휴대전화번호를 확인해 주세요.');const {error}=await sb.auth.signInWithPassword({email:aliasEmail(p),password:pw});if(error)toast('로그인 실패: '+error.message)}
+async function doSignup(){const p=normalizePhone(sphone.value),pw=spw.value;if(!sname.value.trim())return toast('이름을 입력해 주세요.');if(p.length<10)return toast('휴대전화번호를 확인해 주세요.');if(pw.length<6)return toast('비밀번호는 6자 이상입니다.');if(pw!==spw2.value)return toast('비밀번호가 서로 다릅니다.');const {error}=await sb.auth.signUp({email:aliasEmail(p),password:pw,options:{data:{name:sname.value.trim(),title:stitle.value.trim(),part:spart.value,phone:p}}});if(error)return toast('가입 실패: '+error.message);toast('가입 신청이 등록되었습니다.');setTimeout(()=>showLogin(),900)}
+function navActive(){document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===page))}
+async function go(p){page=p;navActive();main.innerHTML='<div class="empty">불러오는 중…</div>';const f={home:homePage,songs:songsPage,prayers:prayerPage,members:membersPage,more:morePage,notices:noticesPage,events:eventsPage,intro:introPage,leaders:leadersPage,gallery:galleryPage,documents:documentsPage,polls:pollsPage,tasks:tasksPage,admin:adminPage}[p];if(f)await f()}
+async function homePage(){const [n,s,e]=await Promise.all([sb.from('notices').select('*').order('important',{ascending:false}).order('notice_date',{ascending:false}).limit(4),sb.from('songs').select('*').gte('service_date',new Date().toISOString().slice(0,10)).order('service_date').limit(2),sb.from('events').select('*').gte('event_date',new Date().toISOString().slice(0,10)).order('event_date').limit(3)]);main.innerHTML=`<div class="hero"><h1>${esc(me.name)} 님, 반갑습니다</h1><p>${esc(me.part||'')} · ${esc(me.title||'대원')} · 함께 드리는 찬양</p></div><div class="grid"><div class="card"><h3>최근 공지</h3>${(n.data||[]).map(x=>`<div style="margin:9px 0"><span class="tag ${x.important?'important':''}">${esc(x.scope)}</span> <b>${esc(x.title)}</b><div class="muted">${fmt(x.notice_date)}</div></div>`).join('')||'<div class="muted">등록된 공지가 없습니다.</div>'}</div><div class="card"><h3>다가오는 찬양</h3>${(s.data||[]).map(x=>`<div style="margin:9px 0"><b>${fmt(x.service_date)} · ${esc(x.title)}</b><div class="muted">${esc(x.category)}</div></div>`).join('')||'<div class="muted">예정곡이 없습니다.</div>'}</div><div class="card"><h3>다가오는 일정</h3>${(e.data||[]).map(x=>`<div style="margin:8px 0"><b>${fmt(x.event_date)} ${esc(x.title)}</b><div class="muted">${esc(x.place||'')}</div></div>`).join('')||'<div class="muted">등록된 일정이 없습니다.</div>'}</div><div class="card"><h3>정기 연습</h3><b>목요일 19:30–21:00</b><div class="muted">시작기도 · 마침기도</div><br><b>주일 08:00–08:45 / 10:40–12:00</b><div class="muted">시작기도 · 마침기도</div></div></div>`}
+async function noticesPage(){const {data}=await sb.from('notices').select('*').order('notice_date',{ascending:false});main.innerHTML=title('공지사항')+list((data||[]).map(x=>`<div class="row"><div class="rowhead"><div><span class="tag ${x.important?'important':''}">${esc(x.scope)}</span> <b>${esc(x.title)}</b></div><span class="muted">${fmt(x.notice_date)}</span></div><div style="margin-top:8px">${esc(x.body||'').replace(/\n/g,'<br>')}</div></div>`))}
+async function songsPage(){const {data}=await sb.from('songs').select('*').order('service_date',{ascending:false});main.innerHTML=title('찬양곡 · 악보 · 연습영상')+list((data||[]).map(x=>`<div class="row"><div class="rowhead"><div><b>${fmt(x.service_date)} · ${esc(x.title)}</b><div class="muted">${esc(x.category)}</div></div></div><div class="actions">${linkBtn(x.score_path,'악보 PDF')}${linkBtn(x.full_url,'전체 연습')}${linkBtn(x.soprano_url,'S')}${linkBtn(x.alto_url,'A')}${linkBtn(x.tenor_url,'T')}${linkBtn(x.bass_url,'B')}${linkBtn(x.live_url,'실황')}</div></div>`))}
+function linkBtn(u,t){return u?`<a class="btn link" href="${esc(u)}" target="_blank" rel="noopener">${t}</a>`:''}
+async function prayerPage(){const {data}=await sb.from('prayer_assignments').select('*').order('thursday_date',{ascending:false}).limit(20);main.innerHTML=title('기도당번')+list((data||[]).map(x=>`<div class="row"><b>목요일 ${fmt(x.thursday_date)}</b><div class="muted">시작기도 ${esc(x.thursday_start||'-')} · 마침기도 ${esc(x.thursday_end||'-')}</div><div style="height:8px"></div><b>주일 ${fmt(x.sunday_date)}</b><div class="muted">시작기도 ${esc(x.sunday_start||'-')} · 마침기도 ${esc(x.sunday_end||'-')}</div></div>`))}
+async function membersPage(){const {data}=await sb.from('profiles').select('id,name,title,part,phone,role,status').eq('status','approved').order('part').order('name');main.innerHTML=title('대원명단')+`<div class="membergrid">${(data||[]).map(x=>`<div class="member"><div class="name">${esc(x.name)}</div><span class="tag">${esc(x.part||'-')}</span><div class="muted" style="margin-top:7px">${esc(x.title||'대원')}</div><div style="margin-top:8px">${esc(phoneDisplay(x.phone))}</div></div>`).join('')||'<div class="empty">대원이 없습니다.</div>'}</div>`}
+async function eventsPage(){const {data}=await sb.from('events').select('*').order('event_date',{ascending:false});main.innerHTML=title('일정 · 행사')+list((data||[]).map(x=>`<div class="row"><b>${fmt(x.event_date)} ${esc(x.event_time||'')} · ${esc(x.title)}</b><div class="muted">${esc(x.place||'')}</div><div>${esc(x.description||'')}</div></div>`))}
+async function introPage(){const {data}=await sb.from('choir_intro').select('*').eq('id',1).single();main.innerHTML=title('찬양대 소개')+`<div class="card"><h3>${esc(data?.name||'소망 찬양대')} <span class="muted">${esc(data?.english_name||'')}</span></h3><p>${esc(data?.description||'')}</p><p><b>예배</b><br>${esc(data?.service||'')}</p><p><b>연습</b><br>${esc(data?.rehearsal||'')}</p><p><b>역사</b><br>${esc(data?.history||'')}</p><p><b>비전</b><br>${esc(data?.vision||'')}</p></div>`}
+async function leadersPage(){const {data}=await sb.from('leaders').select('*').order('sort_order');main.innerHTML=title('섬기는 분들')+`<div class="membergrid">${(data||[]).map(x=>`<div class="member"><div class="muted">${esc(x.role_name)}</div><div class="name">${esc(x.name)}</div></div>`).join('')||'<div class="empty">등록된 정보가 없습니다.</div>'}</div>`}
+async function galleryPage(){const {data}=await sb.from('gallery').select('*').order('event_date',{ascending:false});main.innerHTML=title('갤러리')+list((data||[]).map(x=>`<div class="row"><b>${esc(x.title)}</b><div class="muted">${fmt(x.event_date)}</div><p>${esc(x.description||'')}</p>${linkBtn(x.cover_path,'사진 보기')}</div>`))}
+async function documentsPage(){const {data}=await sb.from('documents').select('*').order('document_date',{ascending:false});main.innerHTML=title('자료실')+list((data||[]).map(x=>`<div class="row"><span class="tag">${esc(x.category||'자료')}</span> <b>${esc(x.title)}</b><div class="muted">${fmt(x.document_date)}</div><p>${esc(x.description||'')}</p><div class="actions">${linkBtn(x.file_path||x.external_url,'자료 열기')}</div></div>`))}
+async function pollsPage(){const {data}=await sb.from('polls').select('*,poll_options(*)').order('created_at',{ascending:false});main.innerHTML=title('투표 · 설문')+list((data||[]).map(x=>`<div class="row"><b>${esc(x.title)}</b><div class="muted">${esc(x.status)} ${x.end_date?'· '+fmt(x.end_date):''}</div><div class="actions">${(x.poll_options||[]).sort((a,b)=>a.sort_order-b.sort_order).map(o=>`<button class="btn" onclick="vote('${x.id}','${o.id}')">${esc(o.option_text)}</button>`).join('')}</div></div>`))}
+async function vote(pid,oid){await sb.from('poll_votes').delete().eq('poll_id',pid).eq('user_id',me.id);const {error}=await sb.from('poll_votes').insert({poll_id:pid,option_id:oid,user_id:me.id});toast(error?error.message:'투표했습니다.')}
+async function tasksPage(){const {data}=await sb.from('tasks').select('*').order('due_date',{ascending:true});main.innerHTML=title('봉사 · 할일')+list((data||[]).map(x=>`<div class="row"><b>${esc(x.title)}</b> <span class="tag">${esc(x.status)}</span><div class="muted">${fmt(x.due_date)} · 담당 ${esc(x.assignee||'-')}</div><div>${esc(x.note||'')}</div></div>`))}
+function morePage(){const admin=me.role==='superadmin'||Object.keys(PERM_LABELS).some(can);main.innerHTML=title('더보기')+`<div class="grid"><button class="adminTile" onclick="go('notices')"><b>공지사항</b><span class="muted">전체/파트 공지</span></button><button class="adminTile" onclick="go('events')"><b>일정 · 행사</b><span class="muted">연습·행사 일정</span></button><button class="adminTile" onclick="go('intro')"><b>찬양대 소개</b><span class="muted">소개·역사·비전</span></button><button class="adminTile" onclick="go('leaders')"><b>섬기는 분들</b><span class="muted">대장·지휘자·반주·총무 등</span></button><button class="adminTile" onclick="go('gallery')"><b>갤러리</b><span class="muted">행사·절기·연습 사진</span></button><button class="adminTile" onclick="go('documents')"><b>자료실</b><span class="muted">문서·악보·링크</span></button><button class="adminTile" onclick="go('polls')"><b>투표 · 설문</b><span class="muted">대원 의견 수렴</span></button><button class="adminTile" onclick="go('tasks')"><b>봉사 · 할일</b><span class="muted">업무·봉사 배정</span></button>${admin?`<button class="adminTile" onclick="go('admin')"><b>⚙ 관리센터</b><span class="muted">가입 승인 및 콘텐츠 관리</span></button>`:''}</div>`}
+async function adminPage(){const tiles=[['members','가입 승인/대원'],['notices','공지'],['songs','찬양곡'],['prayers','기도당번'],['events','일정·행사'],['intro','찬양대 소개'],['leaders','섬기는 분들'],['gallery','갤러리'],['documents','자료실'],['polls','투표·설문'],['tasks','봉사·할일'],['permissions','권한 부여']].filter(([p])=>can(p));main.innerHTML=title('통합 관리센터')+`<div class="adminGrid">${tiles.map(([p,l])=>`<button class="adminTile" onclick="manage('${p}')"><b>${l}</b><span class="muted">등록 · 수정 · 삭제</span></button>`).join('')}</div><p class="muted" style="margin-top:18px">모든 운영 데이터 입력은 이 관리센터에서 처리합니다. 출석/회계 기능은 포함하지 않습니다.</p>`}
+async function manage(type){if(type==='members')return manageMembers();if(type==='permissions')return managePermissions();if(type==='intro')return editIntro();const map={notices:'notices',songs:'songs',prayers:'prayer_assignments',events:'events',leaders:'leaders',gallery:'gallery',documents:'documents',polls:'polls',tasks:'tasks'};const table=map[type];if(!table)return;const {data}=await sb.from(table).select('*').order('created_at',{ascending:false}).limit(100);main.innerHTML=title('관리 · '+(PERM_LABELS[type]||type),`<button class="btn primary" onclick="addRecord('${type}')">+ 새로 등록</button>`)+list((data||[]).map(x=>`<div class="row"><b>${esc(recordTitle(type,x))}</b><div class="muted">${esc(recordSub(type,x))}</div><div class="actions"><button class="btn" onclick='editRecord(${JSON.stringify(type)},${JSON.stringify(x)})'>수정</button><button class="btn danger" onclick="deleteRecord('${type}','${x.id}')">삭제</button></div></div>`))}
+function recordTitle(t,x){return x.title||x.name||x.role_name||((t==='prayers')?`${x.thursday_date} / ${x.sunday_date}`:'항목')}
+function recordSub(t,x){return x.notice_date||x.service_date||x.event_date||x.document_date||x.due_date||x.category||x.scope||''}
+const FIELDS={
+notices:[['scope','범위','select','전체|Soprano|Alto|Tenor|Bass'],['title','제목'],['body','내용','textarea'],['notice_date','공지일','date'],['important','중요공지','checkbox']],
+songs:[['service_date','예배일','date'],['category','구분'],['title','찬양곡'],['score_path','악보 URL'],['full_url','전체 연습 URL'],['soprano_url','Soprano URL'],['alto_url','Alto URL'],['tenor_url','Tenor URL'],['bass_url','Bass URL'],['live_url','실황 URL']],
+prayers:[['thursday_date','목요일 날짜','date'],['sunday_date','주일 날짜','date'],['thursday_start','목요일 시작기도'],['thursday_end','목요일 마침기도'],['sunday_start','주일 시작기도'],['sunday_end','주일 마침기도']],
+events:[['event_date','날짜','date'],['event_time','시간','time'],['title','행사명'],['place','장소'],['description','설명','textarea']],
+leaders:[['role_name','역할'],['name','이름'],['photo_path','사진 URL'],['sort_order','표시순서','number']],
+gallery:[['event_date','행사일','date'],['title','앨범 제목'],['description','설명','textarea'],['cover_path','대표사진 URL']],
+documents:[['document_date','날짜','date'],['category','분류'],['title','제목'],['file_path','파일 URL'],['external_url','외부 링크'],['description','설명','textarea']],
+polls:[['title','설문 제목'],['end_date','마감일','date'],['status','상태','select','진행중|마감']],
+tasks:[['due_date','기한','date'],['title','할일'],['assignee','담당자'],['status','상태','select','진행중|완료|보류'],['note','메모','textarea']]
 };
-
-const PERMISSIONS = [
-  ['members','대원명단/가입 승인'],
-  ['notices','공지 관리'],
-  ['songs','찬양곡·악보·연습/실제영상'],
-  ['prayers','기도당번 관리'],
-  ['events','일정·행사 관리'],
-  ['intro','찬양대 소개 관리'],
-  ['leaders','임원·섬기는 분들 관리'],
-  ['gallery','갤러리 관리'],
-  ['documents','자료실 관리'],
-  ['polls','투표·설문 관리'],
-  ['tasks','봉사·할일 관리'],
-  ['permissions','관리자 권한 부여']
-];
-
-function loadDB(){
-  let x=JSON.parse(localStorage.getItem('somangChoirDBv5')||'null');
-  if(!x){x=seed;localStorage.setItem('somangChoirDBv5',JSON.stringify(x))}
-  return x;
-}
-function saveDB(){localStorage.setItem('somangChoirDBv5',JSON.stringify(db))}
-let db=loadDB();
-let state={currentPage:'home',history:[]};
-
-const main=document.getElementById('main');
-const nav=document.getElementById('bottomNav');
-function me(){return db.users.find(x=>x.id==='u1')||db.users[0]}
-function isSuperAdmin(){return me().role==='superadmin'||(me().permissions||[]).includes('all')}
-function can(p){return isSuperAdmin()||(me().permissions||[]).includes(p)}
-function uid(p){return p+Date.now().toString(36)+Math.random().toString(36).slice(2,5)}
-function v(id){return document.getElementById(id)?.value?.trim()||''}
-function esc(s){return (s||'').replaceAll('"','&quot;')}
-function field(label,id,val,type='text'){return `<label>${label}<input id="${id}" type="${type}" value="${esc(val)}"></label>`}
-function area(label,id,val){return `<label>${label}<textarea id="${id}">${val||''}</textarea></label>`}
-function badge(t){return `<span class="tag">${t}</span>`}
-function adminBadge(){return isSuperAdmin()?'<span class="tag admin-tag">SUPER ADMIN</span>':''}
-function go(page){if(state.currentPage!==page)state.history.push(state.currentPage);state.currentPage=page;render()}
-function goBack(fallback='home'){state.currentPage=state.history.length?state.history.pop():fallback;render()}
-function pageHeader(title,right=''){return `<div class="page-head"><button class="back-btn" onclick="goBack()">‹ 뒤로</button><h2>${title}</h2><div>${right}</div></div>`}
-function actions(edit,del){return `<div class="action-row"><button class="secondary" onclick="${edit}">수정</button><button class="danger" onclick="${del}">삭제</button></div>`}
-function money(n){return Number(n||0).toLocaleString('ko-KR')+'원'}
-
-function render(){
-  [...nav.querySelectorAll('button')].forEach(b=>b.classList.toggle('active',b.dataset.page===state.currentPage));
-  ({home:renderHome,songs:renderSongs,notices:renderNotices,members:renderMembers,more:renderMore,admin:renderAdmin}[state.currentPage]||renderHome)();
-}
-
-function renderHome(){
-  const p=[...db.prayers].sort((a,b)=>(a.sunDate||'').localeCompare(b.sunDate||''))[0];
-  const nextEvent=[...db.events].sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time))[0];
-  main.innerHTML=`
-  <section class="hero"><h1>${db.intro.name||'소망 찬양대'}</h1><p>${db.intro.description||''}</p><div style="margin-top:14px">${adminBadge()}</div></section>
-  <section class="card"><div class="list-head"><h3>이번 주 찬양</h3><button class="link-btn" onclick="go('songs')">전체보기</button></div>
-    <div class="feature-title">${db.songs[0]?.title||'미등록'}</div><div class="muted">${db.songs[0]?.date||''}</div></section>
-  <section class="card"><h3>다가오는 일정</h3>${nextEvent?`<div class="row"><div><b>${nextEvent.title}</b><div class="muted">${nextEvent.date} ${nextEvent.time} · ${nextEvent.place}</div></div></div>`:'<div class="muted">등록된 일정이 없습니다.</div>'}</section>
-  <section class="card"><h3>이번 주 기도 담당</h3>${p?`
-    <div class="row"><span>목요일 ${p.thuDate}</span><b>시작 ${p.thuStart} / 마침 ${p.thuEnd}</b></div>
-    <div class="row"><span>주일 ${p.sunDate}</span><b>시작 ${p.sunStart} / 마침 ${p.sunEnd}</b></div>`:'<div class="muted">미등록</div>'}</section>
-  <section class="card"><h3>최근 공지</h3>${db.notices.slice(0,3).map(n=>`<div class="row"><div>${badge(n.scope)} <b>${n.title}</b></div><span class="muted">${n.date}</span></div>`).join('')}</section>
-  ${isSuperAdmin()?`<section class="admin-box"><h3>통합 관리센터</h3><p class="muted">모든 데이터 입력·수정·삭제 및 권한 부여</p><button class="primary wide" onclick="go('admin')">관리센터 열기</button></section>`:''}`;
-}
-
-function renderSongs(){
-  main.innerHTML=`${pageHeader('연간 주일별 찬양곡',can('songs')?'<button class="primary" onclick="openSong()">+ 등록</button>':'')}
-  ${db.songs.sort((a,b)=>a.date.localeCompare(b.date)).map(x=>`<section class="card">
-  <div class="row"><div><div class="muted">${x.date} · ${x.special}</div><b>${x.title}</b></div>${can('songs')?actions(`openSong('${x.id}')`,`delItem('songs','${x.id}','songs')`):''}</div>
-  <div class="chip-row"><span class="chip">악보 ${x.score?'✓':''}</span><span class="chip">전체 ${x.full?'✓':''}</span><span class="chip">S ${x.s?'✓':''}</span><span class="chip">A ${x.a?'✓':''}</span><span class="chip">T ${x.t?'✓':''}</span><span class="chip">B ${x.b?'✓':''}</span><span class="chip">실황 ${x.live?'✓':''}</span></div></section>`).join('')}`;
-}
-function openSong(id=''){
- const x=db.songs.find(y=>y.id===id)||{date:'',title:'',special:'주일',score:'',full:'',s:'',a:'',t:'',b:'',live:''};
- main.innerHTML=`${pageHeader(id?'찬양곡 수정':'찬양곡 등록')}<section class="card form-card">
- ${field('날짜','xDate',x.date,'date')}${field('구분','xSpecial',x.special)}${field('곡명','xTitle',x.title)}
- ${field('악보 PDF/링크','xScore',x.score)}${field('전체 연습영상 URL','xFull',x.full)}${field('Soprano URL','xS',x.s)}${field('Alto URL','xA',x.a)}${field('Tenor URL','xT',x.t)}${field('Bass URL','xB',x.b)}${field('실제 찬양영상 URL','xLive',x.live)}
- <div class="dialog-actions"><button class="secondary" onclick="goBack('songs')">취소</button><button class="primary" onclick="saveSong('${id}')">저장</button></div></section>`;
-}
-function saveSong(id){let o={id:id||uid('s'),date:v('xDate'),special:v('xSpecial'),title:v('xTitle'),score:v('xScore'),full:v('xFull'),s:v('xS'),a:v('xA'),t:v('xT'),b:v('xB'),live:v('xLive')};upsert('songs',o,id);goBack('songs')}
-
-function renderNotices(){
- main.innerHTML=`${pageHeader('공지사항',can('notices')?'<button class="primary" onclick="openNotice()">+ 등록</button>':'')}
- ${db.notices.sort((a,b)=>b.date.localeCompare(a.date)).map(x=>`<section class="card">${badge(x.scope)} ${x.important?badge('중요'):''}<h3>${x.title}</h3><p>${x.body||''}</p><div class="row"><span class="muted">${x.date}</span>${can('notices')?actions(`openNotice('${x.id}')`,`delItem('notices','${x.id}','notices')`):''}</div></section>`).join('')}`;
-}
-function openNotice(id=''){const x=db.notices.find(y=>y.id===id)||{scope:'전체',title:'',body:'',date:new Date().toISOString().slice(0,10),important:false};main.innerHTML=`${pageHeader(id?'공지 수정':'공지 등록')}<section class="card form-card">
-<label>대상<select id="nScope">${['전체','Soprano','Alto','Tenor','Bass'].map(o=>`<option ${x.scope===o?'selected':''}>${o}</option>`).join('')}</select></label>
-${field('제목','nTitle',x.title)}${area('내용','nBody',x.body)}${field('게시일','nDate',x.date,'date')}<label><input id="nImportant" type="checkbox" ${x.important?'checked':''}> 중요공지</label>
-<div class="dialog-actions"><button class="secondary" onclick="goBack('notices')">취소</button><button class="primary" onclick="saveNotice('${id}')">저장</button></div></section>`}
-function saveNotice(id){upsert('notices',{id:id||uid('n'),scope:v('nScope'),title:v('nTitle'),body:v('nBody'),date:v('nDate'),important:document.getElementById('nImportant').checked},id);goBack('notices')}
-
-function renderMembers(){
- main.innerHTML=`${pageHeader('대원명단',isSuperAdmin()?`<button class="primary" onclick="go('admin')">관리</button>`:'')}
- <section class="card">${db.users.filter(u=>u.status==='approved').map(u=>`<div class="member"><div class="avatar">${u.name[0]}</div><div style="flex:1"><b>${u.name}</b><div class="muted">${u.title||''} · ${u.part||''}<br>${u.phone||''}</div></div>${can('permissions')||isSuperAdmin()?`<button class="secondary" onclick="editPermissions('${u.id}')">권한</button>`:''}</div>`).join('')}</section>`;
-}
-
-function renderMore(){
- main.innerHTML=`${pageHeader('더보기')}
- <section class="menu-grid">
-   <button onclick="openModule('intro')"><b>찬양대 소개</b><span>소개·연혁·비전</span></button>
-   <button onclick="openModule('leaders')"><b>섬기는 분들</b><span>임원·파트장</span></button>
-   <button onclick="openModule('prayers')"><b>기도당번</b><span>목요일·주일</span></button>
-   <button onclick="openModule('events')"><b>일정·행사</b><span>연습·특별행사</span></button>
-   <button onclick="openModule('gallery')"><b>갤러리</b><span>사진·행사앨범</span></button>
-   <button onclick="openModule('documents')"><b>자료실</b><span>문서·링크</span></button>
-   <button onclick="openModule('polls')"><b>투표·설문</b><span>의견수렴</span></button>
-   <button onclick="openModule('tasks')"><b>봉사·할일</b><span>담당·마감</span></button>
- </section>
- ${isSuperAdmin()?`<section class="admin-box"><button class="primary wide" onclick="go('admin')">통합 관리센터</button></section>`:''}`;
-}
-
-function renderAdmin(){
- if(!isSuperAdmin()&&!can('permissions')){main.innerHTML='<p>접근 권한이 없습니다.</p>';return}
- const pending=db.users.filter(u=>u.status==='pending');
- const modules=[
-  ['members','대원/가입','가입승인·대원정보','👥'],['notices','공지','전체·파트 공지','📣'],['songs','찬양','곡·악보·영상','🎼'],
-  ['prayers','기도당번','목요일·주일 기도','🙏'],['events','일정/행사','연습·행사 캘린더','📅'],
-  ['intro','찬양대 소개','소개·연혁·비전','ℹ'],['leaders','섬기는 분들','임원·파트장','★'],['gallery','갤러리','앨범·사진','▣'],
-  ['documents','자료실','문서·링크','📎'],['polls','투표/설문','의견수렴','☑'],['tasks','봉사/할일','담당업무·마감','☰'],
-  ['permissions','권한 관리','데이터군별 관리자','🔐']
- ];
- main.innerHTML=`${pageHeader('통합 관리센터',adminBadge())}
- <section class="dashboard-summary"><div><b>${db.users.filter(u=>u.status==='approved').length}</b><span>승인 대원</span></div><div><b>${pending.length}</b><span>가입 대기</span></div><div><b>${db.events.length}</b><span>일정</span></div><div><b>${db.songs.length}</b><span>찬양곡</span></div></section>
- ${pending.length?`<section class="card"><h3>가입 승인 대기</h3>${pending.map(u=>`<div class="member"><div class="avatar">${u.name[0]}</div><div style="flex:1"><b>${u.name}</b><div class="muted">${u.title||''} · ${u.part||''}</div></div><button class="primary" onclick="approve('${u.id}')">승인</button><button class="danger" onclick="reject('${u.id}')">거절</button></div>`).join('')}</section>`:''}
- <h3 class="section-title">데이터 관리</h3><section class="admin-grid">${modules.filter(m=>can(m[0])||isSuperAdmin()).map(m=>`<button onclick="openModule('${m[0]}')"><span class="admin-icon">${m[3]}</span><b>${m[1]}</b><small>${m[2]}</small></button>`).join('')}</section>`;
-}
-
-function openModule(type){
- if(type==='members'){renderMemberAdmin();return}
- if(type==='permissions'){renderPermissionAdmin();return}
- if(type==='intro'){renderIntroAdmin();return}
- if(type==='leaders'){renderGeneric(type,'섬기는 분들');return}
- if(type==='prayers'){renderPrayerAdmin();return}
- if(type==='events'){renderGeneric(type,'일정·행사');return}
- if(type==='gallery'){renderGeneric(type,'갤러리');return}
- if(type==='documents'){renderGeneric(type,'자료실');return}
- if(type==='polls'){renderGeneric(type,'투표·설문');return}
- if(type==='tasks'){renderGeneric(type,'봉사·할일');return}
- if(type==='songs'){state.history.push(state.currentPage);state.currentPage='songs';render();return}
- if(type==='notices'){state.history.push(state.currentPage);state.currentPage='notices';render();return}
-}
-
-function renderMemberAdmin(){
- main.innerHTML=`${pageHeader('대원/가입 관리','<button class="primary" onclick="openMember()">+ 대원 등록</button>')}
- ${db.users.map(u=>`<section class="card"><div class="row"><div><b>${u.name}</b> ${badge(u.status==='approved'?'승인':'대기')}<div class="muted">${u.title||''} · ${u.part||''} · ${u.phone||''}</div></div><div class="action-row"><button class="secondary" onclick="openMember('${u.id}')">수정</button>${u.id!=='u1'?`<button class="danger" onclick="delItem('users','${u.id}','admin')">삭제</button>`:''}</div></div></section>`).join('')}`;
-}
-function openMember(id=''){const x=db.users.find(y=>y.id===id)||{name:'',title:'',part:'',phone:'',status:'approved',role:'member',permissions:[]};main.innerHTML=`${pageHeader(id?'대원정보 수정':'대원 등록')}<section class="card form-card">
-${field('이름','mName',x.name)}${field('직분','mTitle',x.title)}<label>파트<select id="mPart">${['Soprano','Alto','Tenor','Bass'].map(o=>`<option ${x.part===o?'selected':''}>${o}</option>`).join('')}</select></label>${field('연락처','mPhone',x.phone)}
-<label>상태<select id="mStatus"><option value="approved" ${x.status==='approved'?'selected':''}>승인</option><option value="pending" ${x.status==='pending'?'selected':''}>대기</option><option value="inactive" ${x.status==='inactive'?'selected':''}>비활성</option></select></label>
-<div class="dialog-actions"><button class="secondary" onclick="goBack()">취소</button><button class="primary" onclick="saveMember('${id}')">저장</button></div></section>`}
-function saveMember(id){const old=db.users.find(x=>x.id===id)||{};upsert('users',{...old,id:id||uid('u'),name:v('mName'),title:v('mTitle'),part:v('mPart'),phone:v('mPhone'),status:v('mStatus'),role:old.role||'member',permissions:old.permissions||[]},id);goBack()}
-
-function renderPermissionAdmin(){
- main.innerHTML=`${pageHeader('권한 관리')}<section class="card"><p class="muted">각 대원에게 필요한 데이터군만 선택해서 관리 권한을 부여합니다. 최고관리자는 모든 권한을 가집니다.</p>
- ${db.users.filter(u=>u.status==='approved').map(u=>`<div class="member"><div class="avatar">${u.name[0]}</div><div style="flex:1"><b>${u.name}</b><div class="muted">${u.title||''} · ${u.part||''}</div></div><button class="secondary" onclick="editPermissions('${u.id}')">권한 설정</button></div>`).join('')}</section>`;
-}
-function editPermissions(id){const u=db.users.find(x=>x.id===id);main.innerHTML=`${pageHeader('권한 설정')}<section class="card form-card"><div class="row"><span>대원</span><b>${u.name}</b></div>
-<label>기본 역할<select id="pRole"><option value="member" ${u.role==='member'?'selected':''}>일반대원</option><option value="manager" ${u.role==='manager'?'selected':''}>관리담당</option><option value="superadmin" ${u.role==='superadmin'?'selected':''}>최고관리자</option></select></label>
-<h3>데이터군별 관리 권한</h3>${PERMISSIONS.map(([c,l])=>`<label class="perm-line"><input type="checkbox" id="perm_${c}" ${(u.permissions||[]).includes(c)||u.role==='superadmin'?'checked':''}> <span>${l}</span></label>`).join('')}
-<div class="dialog-actions"><button class="secondary" onclick="goBack()">취소</button><button class="primary" onclick="savePermissions('${id}')">저장</button></div></section>`}
-function savePermissions(id){const u=db.users.find(x=>x.id===id);u.role=v('pRole');u.permissions=u.role==='superadmin'?['all']:PERMISSIONS.map(x=>x[0]).filter(c=>document.getElementById('perm_'+c).checked);saveDB();goBack()}
-
-function renderIntroAdmin(){
- const x=db.intro;
- main.innerHTML=`${pageHeader('찬양대 소개 관리','<button class="primary" onclick="editIntro()">수정</button>')}<section class="card">
- <div class="row"><span>찬양대명</span><b>${x.name||'-'}</b></div><div class="row"><span>영문명</span><b>${x.englishName||'-'}</b></div>
- <div class="row"><span>섬기는 예배</span><b>${x.service||'-'}</b></div><p>${x.description||'소개 미등록'}</p><p class="muted">${x.rehearsal||''}</p>
- <h3>연혁</h3><p>${x.history||'미등록'}</p><h3>비전</h3><p>${x.vision||'미등록'}</p><button class="danger" onclick="deleteIntro()">소개 삭제</button></section>`;
-}
-function editIntro(){const x=db.intro;main.innerHTML=`${pageHeader('찬양대 소개 수정')}<section class="card form-card">${field('찬양대명','iName',x.name)}${field('영문명','iEng',x.englishName)}${area('소개글','iDesc',x.description)}${field('창단연도','iFounded',x.founded)}${field('섬기는 예배','iService',x.service)}${area('연습시간','iRehearsal',x.rehearsal)}${area('연혁','iHistory',x.history)}${area('비전','iVision',x.vision)}<div class="dialog-actions"><button class="secondary" onclick="goBack()">취소</button><button class="primary" onclick="saveIntro()">저장</button></div></section>`}
-function saveIntro(){db.intro={id:'intro1',name:v('iName'),englishName:v('iEng'),description:v('iDesc'),founded:v('iFounded'),service:v('iService'),rehearsal:v('iRehearsal'),history:v('iHistory'),vision:v('iVision')};saveDB();goBack()}
-function deleteIntro(){if(confirm('소개 내용을 삭제할까요?')){db.intro={id:'intro1',name:'소망 찬양대',englishName:'SOMANG CHOIR',description:'',founded:'',service:'',rehearsal:'',history:'',vision:''};saveDB();renderIntroAdmin()}}
-
-function renderPrayerAdmin(){
- main.innerHTML=`${pageHeader('기도당번 관리','<button class="primary" onclick="openPrayer()">+ 등록</button>')}
- ${db.prayers.sort((a,b)=>a.thuDate.localeCompare(b.thuDate)).map(x=>`<section class="card"><div class="row"><div><b>목요일 ${x.thuDate}</b><div class="muted">시작 ${x.thuStart} · 마침 ${x.thuEnd}</div><b>주일 ${x.sunDate}</b><div class="muted">08:00 시작 ${x.sunStart} · 예배 후 마침 ${x.sunEnd}</div></div>${actions(`openPrayer('${x.id}')`,`delItem('prayers','${x.id}','admin')`)}</div></section>`).join('')}`;
-}
-function openPrayer(id=''){const x=db.prayers.find(y=>y.id===id)||{thuDate:'',sunDate:'',thuStart:'',thuEnd:'',sunStart:'',sunEnd:''};main.innerHTML=`${pageHeader(id?'기도당번 수정':'기도당번 등록')}<section class="card form-card">${field('목요일 날짜','pThuDate',x.thuDate,'date')}${field('목요일 시작기도','pThuStart',x.thuStart)}${field('목요일 마침기도','pThuEnd',x.thuEnd)}${field('주일 날짜','pSunDate',x.sunDate,'date')}${field('주일 08:00 시작기도','pSunStart',x.sunStart)}${field('주일 예배 후 마침기도','pSunEnd',x.sunEnd)}<div class="dialog-actions"><button class="secondary" onclick="goBack()">취소</button><button class="primary" onclick="savePrayer('${id}')">저장</button></div></section>`}
-function savePrayer(id){upsert('prayers',{id:id||uid('p'),thuDate:v('pThuDate'),thuStart:v('pThuStart'),thuEnd:v('pThuEnd'),sunDate:v('pSunDate'),sunStart:v('pSunStart'),sunEnd:v('pSunEnd')},id);goBack()}
-
-const moduleDefs={
- leaders:{title:'섬기는 분들',fields:[['role','역할','text'],['name','이름','text'],['photo','사진 URL','text']],summary:x=>`${x.role} · ${x.name}`},
- events:{title:'일정·행사',fields:[['date','날짜','date'],['time','시간','time'],['title','일정명','text'],['place','장소','text'],['description','설명','area']],summary:x=>`${x.date} ${x.time} · ${x.title} · ${x.place||''}`},
- gallery:{title:'갤러리',fields:[['date','날짜','date'],['title','행사명','text'],['description','설명','area'],['imageUrl','대표사진 URL','text']],summary:x=>`${x.date} · ${x.title}`},
- documents:{title:'자료실',fields:[['date','등록일','date'],['category','분류','text'],['title','자료명','text'],['url','파일/링크 URL','text'],['description','설명','area']],summary:x=>`${x.date} · ${x.category} · ${x.title}`},
- polls:{title:'투표·설문',fields:[['title','제목','text'],['endDate','마감일','date'],['status','상태','text'],['options','선택지(쉼표 구분)','area']],summary:x=>`${x.title} · ${x.status} · 마감 ${x.endDate}`},
- tasks:{title:'봉사·할일',fields:[['dueDate','마감일','date'],['title','할일','text'],['assignee','담당자','text'],['status','상태','text'],['note','비고','area']],summary:x=>`${x.dueDate} · ${x.title} · ${x.assignee} · ${x.status}`}
-};
-
-function renderGeneric(type,title){
- const def=moduleDefs[type];main.innerHTML=`${pageHeader(def.title,`<button class="primary" onclick="openGeneric('${type}')">+ 등록</button>`)}
- ${(db[type]||[]).map(x=>`<section class="card"><div class="row"><div><b>${def.summary(x)}</b>${type==='gallery'&&x.imageUrl?`<div class="thumb"><img src="${x.imageUrl}"></div>`:''}</div>${actions(`openGeneric('${type}','${x.id}')`,`delItem('${type}','${x.id}','admin')`)}</div></section>`).join('')||'<div class="muted">등록된 데이터가 없습니다.</div>'}`;
-}
-function openGeneric(type,id=''){
- const def=moduleDefs[type], x=(db[type]||[]).find(y=>y.id===id)||{};
- main.innerHTML=`${pageHeader(id?def.title+' 수정':def.title+' 등록')}<section class="card form-card">${def.fields.map(([k,l,t])=>t==='area'?area(l,'gen_'+k,x[k]||''):field(l,'gen_'+k,x[k]||'',t)).join('')}
- <div class="dialog-actions"><button class="secondary" onclick="goBack()">취소</button><button class="primary" onclick="saveGeneric('${type}','${id}')">저장</button></div></section>`;
-}
-function saveGeneric(type,id){const def=moduleDefs[type],o={id:id||uid(type[0])};def.fields.forEach(([k])=>o[k]=v('gen_'+k));upsert(type,o,id);goBack()}
-
-
-function upsert(type,obj,id){db[type]=id?db[type].map(x=>x.id===id?obj:x):[...db[type],obj];saveDB()}
-function delItem(type,id,back='admin'){if(confirm('삭제할까요?')){db[type]=db[type].filter(x=>x.id!==id);saveDB(); if(type==='songs'){renderSongs()} else if(type==='notices'){renderNotices()} else openModule(type)}}
-function approve(id){const u=db.users.find(x=>x.id===id);u.status='approved';saveDB();renderAdmin()}
-function reject(id){if(confirm('가입 신청을 거절할까요?')){db.users=db.users.filter(x=>x.id!==id);saveDB();renderAdmin()}}
-
-document.getElementById('profileBtn').addEventListener('click',()=>{const u=me();document.getElementById('profileContent').innerHTML=`<div class="row"><span>이름</span><b>${u.name}</b></div><div class="row"><span>파트</span><b>${u.part||'-'}</b></div><div class="row"><span>권한</span><b>${isSuperAdmin()?'최고관리자 · 모든 권한':u.role}</b></div>`;document.getElementById('profileDialog').showModal()});
-document.getElementById('joinForm').addEventListener('submit',e=>{if(e.submitter&&e.submitter.value==='cancel')return;e.preventDefault();const fd=new FormData(e.target);db.users.push({id:uid('u'),name:fd.get('name'),title:fd.get('title'),part:fd.get('part'),phone:fd.get('phone'),status:'pending',role:'member',permissions:[]});saveDB();document.getElementById('joinDialog').close();alert('가입 신청이 접수되었습니다.')});
-nav.addEventListener('click',e=>{const b=e.target.closest('button[data-page]');if(!b)return;state.history=[];state.currentPage=b.dataset.page;render()});
-render();
-
-</script>
-</body>
-</html>
+function formHTML(type,obj={}){return (FIELDS[type]||[]).map(([k,l,kind='text',opts=''])=>{const v=obj[k]??'';if(kind==='textarea')return `<div class="field"><label>${l}</label><textarea id="f_${k}">${esc(v)}</textarea></div>`;if(kind==='select')return `<div class="field"><label>${l}</label><select id="f_${k}">${opts.split('|').map(o=>`<option ${o==v?'selected':''}>${o}</option>`).join('')}</select></div>`;if(kind==='checkbox')return `<div class="field"><label><input id="f_${k}" type="checkbox" ${v?'checked':''}> ${l}</label></div>`;return `<div class="field"><label>${l}</label><input id="f_${k}" type="${kind}" value="${esc(v)}"></div>`}).join('')}
+function collect(type){const o={};for(const [k,,kind='text'] of FIELDS[type]||[]){const e=document.getElementById('f_'+k);o[k]=kind==='checkbox'?e.checked:kind==='number'?(e.value?Number(e.value):null):(e.value||null)}return o}
+function addRecord(type){main.innerHTML=title('새로 등록')+`<div class="card">${formHTML(type)}<button class="btn primary" onclick="saveNew('${type}')">저장</button> <button class="btn" onclick="manage('${type}')">취소</button></div>`}
+function editRecord(type,obj){window._editObj=obj;main.innerHTML=title('수정')+`<div class="card">${formHTML(type,obj)}<button class="btn primary" onclick="saveEdit('${type}','${obj.id}')">저장</button> <button class="btn" onclick="manage('${type}')">취소</button></div>`}
+async function saveNew(type){const map={notices:'notices',songs:'songs',prayers:'prayer_assignments',events:'events',leaders:'leaders',gallery:'gallery',documents:'documents',polls:'polls',tasks:'tasks'};const o=collect(type);if(['notices','songs','prayers','events','leaders','gallery','documents','polls','tasks'].includes(type))o.created_by=me.id;const {error}=await sb.from(map[type]).insert(o);if(error)return toast(error.message);toast('저장되었습니다.');manage(type)}
+async function saveEdit(type,id){const map={notices:'notices',songs:'songs',prayers:'prayer_assignments',events:'events',leaders:'leaders',gallery:'gallery',documents:'documents',polls:'polls',tasks:'tasks'};const {error}=await sb.from(map[type]).update(collect(type)).eq('id',id);if(error)return toast(error.message);toast('수정되었습니다.');manage(type)}
+async function deleteRecord(type,id){if(!confirm('삭제하시겠습니까?'))return;const map={notices:'notices',songs:'songs',prayers:'prayer_assignments',events:'events',leaders:'leaders',gallery:'gallery',documents:'documents',polls:'polls',tasks:'tasks'};const {error}=await sb.from(map[type]).delete().eq('id',id);if(error)return toast(error.message);toast('삭제되었습니다.');manage(type)}
+async function manageMembers(){const {data}=await sb.from('profiles').select('*').order('created_at',{ascending:false});main.innerHTML=title('가입 승인 · 대원 관리')+list((data||[]).map(x=>`<div class="row"><b>${esc(x.name)}</b> <span class="tag">${esc(x.part||'-')}</span><div class="muted">${esc(phoneDisplay(x.phone))} · ${esc(x.title||'')} · ${esc(x.status)} · ${esc(x.role)}</div><div class="actions">${x.status!=='approved'?`<button class="btn ok" onclick="setStatus('${x.id}','approved')">승인</button>`:''}${x.status==='approved'?`<button class="btn" onclick="setStatus('${x.id}','inactive')">중지</button>`:''}<button class="btn danger" onclick="setStatus('${x.id}','rejected')">반려</button>${me.role==='superadmin'?`<button class="btn" onclick="setRolePrompt('${x.id}','${x.role}')">역할</button>`:''}</div></div>`))}
+async function setStatus(id,st){const {error}=await sb.rpc('admin_set_member_status',{p_user_id:id,p_status:st});if(error)return toast(error.message);toast('처리되었습니다.');manageMembers()}
+async function setRolePrompt(id,cur){const r=prompt('역할을 입력하세요: member / manager / superadmin',cur);if(!r)return;const {error}=await sb.rpc('superadmin_set_member_role',{p_user_id:id,p_role:r});if(error)return toast(error.message);toast('역할이 변경되었습니다.');manageMembers()}
+async function managePermissions(){if(me.role!=='superadmin')return toast('최고관리자만 가능합니다.');const {data}=await sb.from('profiles').select('id,name,part,status,role').eq('status','approved').order('name');main.innerHTML=title('관리자 권한 부여')+list((data||[]).map(x=>`<div class="row"><b>${esc(x.name)}</b> <span class="tag">${esc(x.role)}</span><div class="muted">${esc(x.part||'')}</div><div class="actions"><button class="btn" onclick="editPerms('${x.id}','${esc(x.name)}')">세부 권한 설정</button></div></div>`))}
+async function editPerms(id,name){const {data}=await sb.from('user_permissions').select('permission').eq('user_id',id);const cur=(data||[]).map(x=>x.permission);main.innerHTML=title(name+' 권한')+`<div class="card">${Object.entries(PERM_LABELS).filter(([k])=>k!=='permissions').map(([k,l])=>`<div class="field"><label><input type="checkbox" class="permcheck" value="${k}" ${cur.includes(k)?'checked':''}> ${l}</label></div>`).join('')}<button class="btn primary" onclick="savePerms('${id}')">저장</button> <button class="btn" onclick="managePermissions()">취소</button></div>`}
+async function savePerms(id){const arr=[...document.querySelectorAll('.permcheck:checked')].map(x=>x.value);const {error}=await sb.rpc('superadmin_set_permissions',{p_user_id:id,p_permissions:arr});if(error)return toast(error.message);toast('권한이 저장되었습니다.');managePermissions()}
+async function editIntro(){const {data}=await sb.from('choir_intro').select('*').eq('id',1).single();main.innerHTML=title('찬양대 소개 수정')+`<div class="card">${[['name','이름'],['english_name','영문명'],['description','소개'],['founded','창단/역사 요약'],['service','예배'],['rehearsal','연습'],['history','역사'],['vision','비전']].map(([k,l])=>`<div class="field"><label>${l}</label>${['description','history','vision'].includes(k)?`<textarea id="i_${k}">${esc(data?.[k]||'')}</textarea>`:`<input id="i_${k}" value="${esc(data?.[k]||'')}">`}</div>`).join('')}<button class="btn primary" onclick="saveIntro()">저장</button></div>`}
+async function saveIntro(){const o={};['name','english_name','description','founded','service','rehearsal','history','vision'].forEach(k=>o[k]=document.getElementById('i_'+k).value);o.updated_by=me.id;o.updated_at=new Date().toISOString();const {error}=await sb.from('choir_intro').update(o).eq('id',1);if(error)return toast(error.message);toast('저장되었습니다.');go('intro')}
+function title(t,right=''){return `<div class="sectiontitle"><h2>${esc(t)}</h2><div>${right}</div></div>`}
+function list(a){return `<div class="list">${a.join('')||'<div class="empty">등록된 내용이 없습니다.</div>'}</div>`}
+init();
+</script></body></html>
