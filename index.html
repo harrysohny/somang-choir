@@ -140,7 +140,7 @@
 
 </style>
 </head>
-<body><div class="app"><header><div class="head"><div class="brandPro"><img src="assets/changdong-symbol.png" alt="창동교회 로고"><div><small>대한예수교장로회 창동교회</small><b>소망찬양대</b><span>SOMANG CHOIR · V14.6</span></div></div><button id="headerBtn" class="topbtn" onclick="headerAction()">로그인</button></div></header><main id="main"></main></div><nav id="nav" style="display:none"><div class="navin"><button onclick="go('home')" data-page="home"><b>⌂</b>홈</button><button onclick="go('songs')" data-page="songs"><b>♫</b>찬양</button><button onclick="go('prayers')" data-page="prayers"><b>♡</b>기도</button><button onclick="go('members')" data-page="members"><b>♙</b>대원</button><button onclick="go('more')" data-page="more"><b>☰</b>더보기</button></div></nav><div id="toast" class="toast"></div>
+<body><div class="app"><header><div class="head"><div class="brandPro"><img src="assets/changdong-symbol.png" alt="창동교회 로고"><div><small>대한예수교장로회 창동교회</small><b>소망찬양대</b><span>SOMANG CHOIR · V14.7</span></div></div><button id="headerBtn" class="topbtn" onclick="headerAction()">로그인</button></div></header><main id="main"></main></div><nav id="nav" style="display:none"><div class="navin"><button onclick="go('home')" data-page="home"><b>⌂</b>홈</button><button onclick="go('songs')" data-page="songs"><b>♫</b>찬양</button><button onclick="go('prayers')" data-page="prayers"><b>♡</b>기도</button><button onclick="go('members')" data-page="members"><b>♙</b>대원</button><button onclick="go('more')" data-page="more"><b>☰</b>더보기</button></div></nav><div id="toast" class="toast"></div>
 <script>
 const SUPABASE_URL='https://chsfhwewskydnreodvvq.supabase.co';
 const SUPABASE_PUBLISHABLE_KEY='sb_publishable_MoLRdCftzWbvdGkWyeGoEg_My1j8-XB';
@@ -190,27 +190,45 @@ function navActive(){document.querySelectorAll('nav button').forEach(b=>b.classL
 async function go(p){page=p;navActive();main.innerHTML='<div class="empty">불러오는 중…</div>';const f={home:homePage,songs:songsPage,prayers:prayerPage,members:membersPage,more:morePage,notices:noticesPage,events:eventsPage,intro:introPage,leaders:leadersPage,gallery:galleryPage,documents:documentsPage,polls:pollsPage,tasks:tasksPage,admin:adminPage}[p];if(f)await f()}
 async function homePage(){
  const today=new Date().toISOString().slice(0,10),plus14=addDaysISO(today,14),plus30=addDaysISO(today,30);
- const safe=async(q)=>{try{const r=await q;return r.error?[]:(r.data||[])}catch(e){return []}};
- const n=await safe(sb.from('notices').select('*').order('important',{ascending:false}).order('notice_date',{ascending:false}).limit(3));
- const u=await safe(sb.from('songs').select('*').gte('practice_date',today).order('practice_date').limit(3));
- const past=await safe(sb.from('songs').select('*').not('live_url','is',null).order('replay_date',{ascending:false}).limit(1));
- const e=await safe(sb.from('events').select('*').gte('event_date',today).lte('event_date',plus30).order('event_date').limit(5));
- const p=await safe(sb.from('prayer_assignments').select('*').limit(40));
- const intro=await safe(sb.from('choir_intro').select('*').limit(1));
- const leaders=await safe(sb.from('leaders').select('*').order('sort_order').limit(6));
- const mine=p.flatMap(prayerRolesForMe).filter(x=>x.date&&x.date>=today&&x.date<=plus30).sort((a,b)=>a.date.localeCompare(b.date));
- const p2=p.filter(x=>(x.thursday_date&&x.thursday_date>=today&&x.thursday_date<=plus14)||(x.sunday_date&&x.sunday_date>=today&&x.sunday_date<=plus14));
- const schedule=[...e.map(x=>({date:x.event_date,html:`<b>${esc(x.title)}</b>`})),...mine.map(x=>({date:x.date,html:`<span class="schedulePrayer">나의 기도 순서 · ${esc(x.when)} ${esc(x.role)}</span>`}))].sort((a,b)=>a.date.localeCompare(b.date)).slice(0,6);
- const replay=past[0],ci=intro[0];
- main.innerHTML=`<div class="homeHero"><img src="assets/choir-group.jpg" alt="창동교회 소망찬양대 단체사진"><div class="homeHeroShade"></div><div class="homeHeroText"><small>대한예수교장로회 창동교회</small><h1>소망찬양대</h1><p>${esc(me.name)} ${esc(me.title||'대원')} · ${esc(me.part||'')}</p></div></div>
- <section class="homeSection"><div class="homeSectionHead"><h2>이번 주 소망찬양대</h2></div><div class="weekStrip">
- <div class="featureCard emphasis"><div class="eyebrow">REHEARSAL</div><h3>정기 연습</h3><div>목요일 19:30–21:00</div><div>주일 08:00–08:45 · 10:40–12:00</div>${mine[0]?`<div class="myPrayer"><b>나의 기도 순서</b><br>${fmt(mine[0].date)} · ${esc(mine[0].when)} · ${esc(mine[0].role)}</div>`:'<div class="muted" style="margin-top:8px">한 달 이내 나의 기도 순서가 없습니다.</div>'}</div>
- <div class="featureCard"><div class="eyebrow">PRACTICE SONG</div><h3>${u[0]?esc(u[0].title):'다가오는 연습곡'}</h3>${u[0]?`<div class="muted">${fmt(u[0].practice_date)} · ${esc(categoryDisplay(u[0].category))}</div><div class="actions">${linkBtn(u[0].full_url,'전체 합창')}${me.part==='Soprano'?linkBtn(u[0].soprano_url,'내 파트'):me.part==='Alto'?linkBtn(u[0].alto_url,'내 파트'):me.part==='Tenor'?linkBtn(u[0].tenor_url,'내 파트'):me.part==='Bass'?linkBtn(u[0].bass_url,'내 파트'):''}</div>`:'<div class="muted">다가오는 연습곡이 없습니다.</div>'}</div></div></section>
- <section class="homeSection"><div class="homeSectionHead"><h2>찬양곡 다시보기</h2><button class="textBtn" onclick="go('songs')">전체보기 ›</button></div><div class="featureCard">${replay?`<div class="replayFeature"><div class="replayIcon">▶</div><div><b>${esc(replay.title)}</b><div class="muted">${fmt(replay.replay_date)}</div><div class="actions">${linkBtn(replay.live_url,'찬양 다시보기')}</div></div></div>`:'<div class="muted">등록된 다시보기 영상이 없습니다.</div>'}</div></section>
- <section class="homeSection"><div class="homeSectionHead"><h2>다가오는 일정</h2><button class="textBtn" onclick="go('events')">전체보기 ›</button></div><div class="featureCard">${schedule.map(x=>`<div class="scheduleLine"><span class="muted">${fmt(x.date)}</span><br>${x.html}</div>`).join('')||'<div class="muted">한 달 이내 등록된 일정이 없습니다.</div>'}</div></section>
- <section class="homeSection"><div class="homeSectionHead"><h2>다가오는 2주 기도 순서</h2><button class="textBtn" onclick="go('prayers')">전체보기 ›</button></div><div class="featureCard">${p2.map(x=>`<div class="scheduleLine"><b>목요일 ${fmt(x.thursday_date)} · 연습</b><div class="muted">시작기도 · ${esc(x.thursday_start||'-')} / 마침기도 · ${esc(x.thursday_end||'-')}</div><b>일요일 ${fmt(x.sunday_date)} · 연습</b><div class="muted">시작기도 · ${esc(x.sunday_start||'-')} / 마침기도 · ${esc(x.sunday_end||'-')}</div></div>`).join('')||'<div class="muted">2주 이내 등록된 기도 순서가 없습니다.</div>'}</div></section>
- <section class="homeSection"><div class="homeSectionHead"><h2>최근 공지</h2><button class="textBtn" onclick="go('notices')">전체보기 ›</button></div><div class="featureCard">${n.map(x=>`<div class="scheduleLine"><span class="tag ${x.important?'important':''}">${esc(x.scope)}</span> <b>${esc(x.title)}</b><div class="muted">${fmt(x.notice_date)}</div></div>`).join('')||'<div class="muted">등록된 공지가 없습니다.</div>'}</div></section>
- <section class="homeSection"><div class="homeSectionHead"><h2>우리 소망찬양대</h2></div><div class="introMini"><div class="featureCard"><img class="choirMiniPhoto" src="assets/choir-group.jpg" alt="소망찬양대"><h3>${esc(ci?.name||'소망찬양대')}</h3><p class="muted">${esc((ci?.description||'찬양으로 하나님께 영광을 드리는 창동교회 소망찬양대입니다.').slice(0,130))}</p><button class="btn" onclick="go('intro')">찬양대 소개 ›</button></div><div class="featureCard"><div class="eyebrow">SERVING</div><h3>섬기는 분들</h3>${leaders.map(x=>`<span class="leaderChip"><b>${esc(x.role_name||x.role||'')}</b> ${esc(x.name||'')}</span>`).join('')||'<div class="muted">등록된 정보가 없습니다.</div>'}<div><button class="btn" style="margin-top:12px" onclick="go('leaders')">전체보기 ›</button></div></div></div></section>`;
+ let n=[],u=[],past=[],e=[],p=[],intro=[],leaders=[],mine=[],p2=[],schedule=[];
+ function prepare(){
+   try{mine=p.flatMap(prayerRolesForMe).filter(x=>x.date&&x.date>=today&&x.date<=plus30).sort((a,b)=>a.date.localeCompare(b.date))}catch(_){mine=[]}
+   p2=p.filter(x=>(x.thursday_date&&x.thursday_date>=today&&x.thursday_date<=plus14)||(x.sunday_date&&x.sunday_date>=today&&x.sunday_date<=plus14));
+   schedule=[...e.map(x=>({date:x.event_date,html:`<b>${esc(x.title||'')}</b>`})),...mine.map(x=>({date:x.date,html:`<span class="schedulePrayer">나의 기도 순서 · ${esc(x.when)} ${esc(x.role)}</span>`}))].sort((a,b)=>a.date.localeCompare(b.date)).slice(0,6);
+ }
+ function renderHome(){
+   prepare();
+   const replay=past[0],ci=intro[0];
+    main.innerHTML=`<div class="homeHero"><img src="assets/choir-group.jpg" alt="창동교회 소망찬양대 단체사진"><div class="homeHeroShade"></div><div class="homeHeroText"><small>대한예수교장로회 창동교회</small><h1>소망찬양대</h1><p>${esc(me.name)} ${esc(me.title||'대원')} · ${esc(me.part||'')}</p></div></div>
+    <section class="homeSection"><div class="homeSectionHead"><h2>이번 주 소망찬양대</h2></div><div class="weekStrip">
+    <div class="featureCard emphasis"><div class="eyebrow">REHEARSAL</div><h3>정기 연습</h3><div>목요일 19:30–21:00</div><div>주일 08:00–08:45 · 10:40–12:00</div>${mine[0]?`<div class="myPrayer"><b>나의 기도 순서</b><br>${fmt(mine[0].date)} · ${esc(mine[0].when)} · ${esc(mine[0].role)}</div>`:'<div class="muted" style="margin-top:8px">한 달 이내 나의 기도 순서가 없습니다.</div>'}</div>
+    <div class="featureCard"><div class="eyebrow">PRACTICE SONG</div><h3>${u[0]?esc(u[0].title):'다가오는 연습곡'}</h3>${u[0]?`<div class="muted">${fmt(u[0].practice_date)} · ${esc(categoryDisplay(u[0].category))}</div><div class="actions">${linkBtn(u[0].full_url,'전체 합창')}${me.part==='Soprano'?linkBtn(u[0].soprano_url,'내 파트'):me.part==='Alto'?linkBtn(u[0].alto_url,'내 파트'):me.part==='Tenor'?linkBtn(u[0].tenor_url,'내 파트'):me.part==='Bass'?linkBtn(u[0].bass_url,'내 파트'):''}</div>`:'<div class="muted">다가오는 연습곡이 없습니다.</div>'}</div></div></section>
+    <section class="homeSection"><div class="homeSectionHead"><h2>찬양곡 다시보기</h2><button class="textBtn" onclick="go('songs')">전체보기 ›</button></div><div class="featureCard">${replay?`<div class="replayFeature"><div class="replayIcon">▶</div><div><b>${esc(replay.title)}</b><div class="muted">${fmt(replay.replay_date)}</div><div class="actions">${linkBtn(replay.live_url,'찬양 다시보기')}</div></div></div>`:'<div class="muted">등록된 다시보기 영상이 없습니다.</div>'}</div></section>
+    <section class="homeSection"><div class="homeSectionHead"><h2>다가오는 일정</h2><button class="textBtn" onclick="go('events')">전체보기 ›</button></div><div class="featureCard">${schedule.map(x=>`<div class="scheduleLine"><span class="muted">${fmt(x.date)}</span><br>${x.html}</div>`).join('')||'<div class="muted">한 달 이내 등록된 일정이 없습니다.</div>'}</div></section>
+    <section class="homeSection"><div class="homeSectionHead"><h2>다가오는 2주 기도 순서</h2><button class="textBtn" onclick="go('prayers')">전체보기 ›</button></div><div class="featureCard">${p2.map(x=>`<div class="scheduleLine"><b>목요일 ${fmt(x.thursday_date)} · 연습</b><div class="muted">시작기도 · ${esc(x.thursday_start||'-')} / 마침기도 · ${esc(x.thursday_end||'-')}</div><b>일요일 ${fmt(x.sunday_date)} · 연습</b><div class="muted">시작기도 · ${esc(x.sunday_start||'-')} / 마침기도 · ${esc(x.sunday_end||'-')}</div></div>`).join('')||'<div class="muted">2주 이내 등록된 기도 순서가 없습니다.</div>'}</div></section>
+    <section class="homeSection"><div class="homeSectionHead"><h2>최근 공지</h2><button class="textBtn" onclick="go('notices')">전체보기 ›</button></div><div class="featureCard">${n.map(x=>`<div class="scheduleLine"><span class="tag ${x.important?'important':''}">${esc(x.scope)}</span> <b>${esc(x.title)}</b><div class="muted">${fmt(x.notice_date)}</div></div>`).join('')||'<div class="muted">등록된 공지가 없습니다.</div>'}</div></section>
+    <section class="homeSection"><div class="homeSectionHead"><h2>우리 소망찬양대</h2></div><div class="introMini"><div class="featureCard"><img class="choirMiniPhoto" src="assets/choir-group.jpg" alt="소망찬양대"><h3>${esc(ci?.name||'소망찬양대')}</h3><p class="muted">${esc((ci?.description||'찬양으로 하나님께 영광을 드리는 창동교회 소망찬양대입니다.').slice(0,130))}</p><button class="btn" onclick="go('intro')">찬양대 소개 ›</button></div><div class="featureCard"><div class="eyebrow">SERVING</div><h3>섬기는 분들</h3>${leaders.map(x=>`<span class="leaderChip"><b>${esc(x.role_name||x.role||'')}</b> ${esc(x.name||'')}</span>`).join('')||'<div class="muted">등록된 정보가 없습니다.</div>'}<div><button class="btn" style="margin-top:12px" onclick="go('leaders')">전체보기 ›</button></div></div></div></section>`;
+ }
+ // Critical fix: paint the real home BEFORE any Supabase query.
+ renderHome();
+
+ async function timed(q,ms=2200){
+   try{
+     const r=await Promise.race([q,new Promise(resolve=>setTimeout(()=>resolve({data:[],error:null}),ms))]);
+     return r&& !r.error ? (r.data||[]) : [];
+   }catch(_){return []}
+ }
+ const results=await Promise.all([
+   timed(sb.from('notices').select('*').order('notice_date',{ascending:false}).limit(3)),
+   timed(sb.from('songs').select('*').gte('practice_date',today).order('practice_date').limit(3)),
+   timed(sb.from('songs').select('*').not('live_url','is',null).order('replay_date',{ascending:false}).limit(1)),
+   timed(sb.from('events').select('*').gte('event_date',today).lte('event_date',plus30).order('event_date').limit(5)),
+   timed(sb.from('prayer_assignments').select('*').limit(40)),
+   timed(sb.from('choir_intro').select('*').limit(1)),
+   timed(sb.from('leaders').select('*').limit(6))
+ ]);
+ [n,u,past,e,p,intro,leaders]=results;
+ renderHome();
 }
 async function songsPage(){const [{data:practice},{data:replay}]=await Promise.all([sb.from('songs').select('*').not('practice_date','is',null).order('practice_date',{ascending:false}).limit(100),sb.from('songs').select('*').not('replay_date','is',null).order('replay_date',{ascending:false}).limit(100)]);const a=(practice||[]).map(x=>`<div class="row"><b>${fmt(x.practice_date)} · ${esc(x.title)}</b><div class="muted">${esc(categoryDisplay(x.category))}</div><div class="actions">${linkBtn(x.full_url,'전체 합창')}${linkBtn(x.soprano_url,'Soprano')}${linkBtn(x.alto_url,'Alto')}${linkBtn(x.tenor_url,'Tenor')}${linkBtn(x.bass_url,'Bass')}</div></div>`);const b=(replay||[]).map(x=>`<div class="row"><b>${fmt(x.replay_date)} · ${esc(x.title)}</b><div class="actions">${linkBtn(x.live_url,'다시보기')}</div></div>`);main.innerHTML=title('찬양')+`<h3>연습 찬양곡</h3>${list(a)}<h3 style="margin-top:24px">찬양곡 다시보기</h3>${list(b)}`}
 function youtubeId(url){
