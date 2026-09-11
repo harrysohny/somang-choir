@@ -3,27 +3,13 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-<title>소망 찬양대 · SOMANG CHOIR</title>
+<title>소망 찬양대 · SOMANG CHOIR · V11.7</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 :root{--bg:#f6f7fb;--card:#fff;--ink:#1f2937;--muted:#6b7280;--line:#e5e7eb;--brand:#2d5b52;--brand2:#eaf2ef;--danger:#b42318;--ok:#16794a;--shadow:0 10px 30px rgba(0,0,0,.07)}*{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;background:var(--bg);color:var(--ink)}button,input,select,textarea{font:inherit}.app{max-width:1050px;margin:0 auto;min-height:100vh;background:var(--bg)}header{position:sticky;top:0;z-index:10;background:rgba(255,255,255,.96);border-bottom:1px solid var(--line);backdrop-filter:blur(10px)}.head{display:flex;align-items:center;justify-content:space-between;padding:14px 18px}.brand b{font-size:19px}.brand small{display:block;color:var(--muted);margin-top:2px}.topbtn{border:0;background:var(--brand2);color:var(--brand);padding:9px 12px;border-radius:10px;font-weight:700}main{padding:18px 18px 90px}.hero{background:linear-gradient(135deg,#244d46,#4f756d);color:#fff;border-radius:22px;padding:24px;box-shadow:var(--shadow)}.hero h1{margin:0 0 7px;font-size:25px}.hero p{margin:0;opacity:.88}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:14px}.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:0 4px 16px rgba(0,0,0,.035)}.card h3{margin:0 0 8px}.muted{color:var(--muted);font-size:14px}.tag{display:inline-block;padding:4px 8px;border-radius:999px;background:var(--brand2);color:var(--brand);font-size:12px;font-weight:700}.important{background:#fff2f0;color:#b42318}.list{display:grid;gap:10px}.row{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px}.rowhead{display:flex;justify-content:space-between;gap:10px}.actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}.btn{border:0;border-radius:10px;padding:9px 12px;background:#eef1f4;color:#29313d;font-weight:700}.btn.primary{background:var(--brand);color:#fff}.btn.danger{background:#fff1f0;color:var(--danger)}.btn.ok{background:#ebf8f1;color:var(--ok)}.sectiontitle{display:flex;align-items:center;justify-content:space-between;margin:4px 0 14px}.sectiontitle h2{margin:0;font-size:21px}.loginwrap{max-width:520px;margin:36px auto}.loginbox{background:#fff;border:1px solid var(--line);border-radius:22px;padding:24px;box-shadow:var(--shadow)}.loginbox h1{margin-top:0}.field{margin:12px 0}.field label{display:block;font-size:13px;color:var(--muted);margin-bottom:6px}.field input,.field select,.field textarea{width:100%;border:1px solid #d6dae0;border-radius:11px;padding:12px;background:#fff}.field textarea{min-height:110px;resize:vertical}.wide{width:100%}.tabs{display:flex;gap:8px;margin-bottom:16px}.tabs button{flex:1}.statusbox{padding:18px;border-radius:16px;background:#fff;border:1px solid var(--line)}nav{position:fixed;left:0;right:0;bottom:0;background:rgba(255,255,255,.98);border-top:1px solid var(--line);z-index:20}.navin{max-width:1050px;margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr)}nav button{border:0;background:transparent;padding:11px 4px 12px;color:#6b7280;font-size:12px}nav button b{display:block;font-size:17px;margin-bottom:2px}nav button.active{color:var(--brand);font-weight:800}.adminGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.adminTile{background:#fff;border:1px solid var(--line);border-radius:15px;padding:15px;text-align:left}.adminTile b{display:block;margin-bottom:5px}.membergrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.member{background:#fff;border:1px solid var(--line);border-radius:14px;padding:13px}.member .name{font-weight:800;font-size:17px}.link{color:#245f9b;text-decoration:none;font-weight:700}.empty{text-align:center;padding:35px 15px;color:var(--muted)}.toast{position:fixed;left:50%;bottom:82px;transform:translateX(-50%);background:#20252b;color:#fff;padding:10px 14px;border-radius:10px;z-index:99;display:none;max-width:85%;text-align:center}.codehint{font-size:12px;color:#70757d;background:#f7f8fa;border-radius:9px;padding:8px;margin-top:10px}@media(max-width:720px){.grid,.membergrid{grid-template-columns:1fr}.adminGrid{grid-template-columns:repeat(2,minmax(0,1fr))}.hero{padding:20px}.head{padding:12px 14px}main{padding:14px 14px 90px}}
-
-.ytModal{position:fixed;inset:0;background:rgba(0,0,0,.62);display:none;align-items:center;justify-content:center;z-index:9999;padding:18px}
-.ytModal.show{display:flex}
-.ytBox{width:min(900px,96vw);background:#fff;border-radius:18px;box-shadow:0 20px 60px rgba(0,0,0,.35);overflow:hidden}
-.ytHead{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid #e5e7eb}
-.ytHead b{font-size:18px}
-.ytClose{border:0;background:#eef2f2;border-radius:10px;padding:8px 12px;font-weight:700;cursor:pointer}
-.ytFrameWrap{position:relative;width:100%;padding-top:56.25%;background:#000}
-.ytFrameWrap iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-.ytSearchRow{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-.ytIconBtn{border:0;background:#fff0f0;color:#c62828;border-radius:10px;padding:9px 12px;font-weight:700;cursor:pointer}
-.ytIconBtn:hover{background:#ffe2e2}
-@media(max-width:700px){.ytBox{width:98vw}.ytHead b{font-size:16px}}
-
-</style>
+.ytModal{position:fixed;inset:0;background:rgba(0,0,0,.62);display:none;align-items:center;justify-content:center;z-index:9999;padding:18px}.ytModal.show{display:flex}.ytBox{width:min(900px,96vw);background:#fff;border-radius:18px;overflow:hidden}.ytHead{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid #e5e7eb}.ytClose{border:0;background:#eef2f2;border-radius:10px;padding:8px 12px;font-weight:700}.ytFrameWrap{position:relative;padding-top:56.25%;background:#000}.ytFrameWrap iframe{position:absolute;inset:0;width:100%;height:100%;border:0}.ytSearchRow{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.ytIconBtn{border:0;background:#fff0f0;color:#c62828;border-radius:10px;padding:9px 12px;font-weight:700;cursor:pointer}</style>
 </head>
-<body><div class="app"><header><div class="head"><div class="brand"><b>소망 찬양대</b><small>SOMANG CHOIR · V11.6</small></div><button id="headerBtn" class="topbtn" onclick="headerAction()">로그인</button></div></header><main id="main"></main></div><nav id="nav" style="display:none"><div class="navin"><button onclick="go('home')" data-page="home"><b>⌂</b>홈</button><button onclick="go('songs')" data-page="songs"><b>♫</b>찬양</button><button onclick="go('prayers')" data-page="prayers"><b>♡</b>기도</button><button onclick="go('members')" data-page="members"><b>♙</b>대원</button><button onclick="go('more')" data-page="more"><b>☰</b>더보기</button></div></nav><div id="toast" class="toast"></div>
+<body><div class="app"><header><div class="head"><div class="brand"><b>소망 찬양대</b><small>SOMANG CHOIR</small></div><button id="headerBtn" class="topbtn" onclick="headerAction()">로그인</button></div></header><main id="main"></main></div><nav id="nav" style="display:none"><div class="navin"><button onclick="go('home')" data-page="home"><b>⌂</b>홈</button><button onclick="go('songs')" data-page="songs"><b>♫</b>찬양</button><button onclick="go('prayers')" data-page="prayers"><b>♡</b>기도</button><button onclick="go('members')" data-page="members"><b>♙</b>대원</button><button onclick="go('more')" data-page="more"><b>☰</b>더보기</button></div></nav><div id="toast" class="toast"></div>
 <script>
 const SUPABASE_URL='https://chsfhwewskydnreodvvq.supabase.co';
 const SUPABASE_PUBLISHABLE_KEY='sb_publishable_MoLRdCftzWbvdGkWyeGoEg_My1j8-XB';
@@ -31,6 +17,8 @@ const sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY);
 let session=null, me=null, perms=[], page='home';
 const PERM_LABELS={members:'대원명단/가입승인',notices:'공지 관리',songs:'찬양곡 기본정보·전체합창 (총무)',song_soprano:'Soprano 영상 입력',song_alto:'Alto 영상 입력',song_tenor:'Tenor 영상 입력',song_bass:'Bass 영상 입력',prayers:'기도당번',events:'일정·행사',intro:'찬양대 소개',leaders:'섬기는 분들',gallery:'갤러리',documents:'자료실',polls:'투표·설문',tasks:'봉사·할일',permissions:'관리자 권한'};
 const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+function partKo(part){return ({Soprano:'소프라노',Alto:'알토',Tenor:'테너',Bass:'베이스'})[part]||part||''}
+function memberPrayerLabel(m){return [partKo(m?.part),m?.name,m?.title].filter(Boolean).join(' ')}
 const fmt=d=>d?new Date(d+'T00:00:00').toLocaleDateString('ko-KR'):'';
 function toast(t){const e=document.getElementById('toast');e.textContent=t;e.style.display='block';setTimeout(()=>e.style.display='none',2200)}
 function normalizePhone(v){let d=(v||'').replace(/\D/g,'');if(d.startsWith('82')) d='0'+d.slice(2);return d}
@@ -52,95 +40,18 @@ function showSignup(){const authBody=document.getElementById('authBody');if(!aut
 async function doLogin(){const p=normalizePhone(lphone.value),pw=lpw.value;if(p.length<10)return toast('휴대전화번호를 확인해 주세요.');const {error}=await sb.auth.signInWithPassword({email:aliasEmail(p),password:pw});if(error)toast('로그인 실패: '+error.message)}
 async function doSignup(){const p=normalizePhone(sphone.value),pw=spw.value;if(!sname.value.trim())return toast('이름을 입력해 주세요.');if(p.length<10)return toast('휴대전화번호를 확인해 주세요.');if(pw.length<6)return toast('비밀번호는 6자 이상입니다.');if(pw!==spw2.value)return toast('비밀번호가 서로 다릅니다.');const {error}=await sb.auth.signUp({email:aliasEmail(p),password:pw,options:{data:{name:sname.value.trim(),title:stitle.value.trim(),part:spart.value,phone:p}}});if(error)return toast('가입 실패: '+error.message);toast('가입 신청이 등록되었습니다.');setTimeout(()=>showLogin(),900)}
 function navActive(){document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===page))}
-async function go(p){
-  page=p;
-  navActive();
-  main.innerHTML='<div class="empty">불러오는 중…</div>';
-  const f={home:homePage,songs:songsPage,prayers:prayerPage,members:membersPage,more:morePage,notices:noticesPage,events:eventsPage,intro:introPage,leaders:leadersPage,gallery:galleryPage,documents:documentsPage,polls:pollsPage,tasks:tasksPage,admin:adminPage}[p];
-  if(!f){main.innerHTML='<div class="empty">페이지를 찾을 수 없습니다.</div>';return}
-  try{await f()}
-  catch(err){
-    console.error('PAGE ERROR',p,err);
-    main.innerHTML=`<div class="statusbox"><b>화면을 불러오는 중 오류가 발생했습니다.</b><br><span class="muted">${esc(err?.message||String(err))}</span><br><br><button class="btn" onclick="go('home')">홈 다시 시도</button> <button class="btn" onclick="go('more')">더보기</button></div>`;
-  }
-}
-async function safeSelect(builder,label){
-  try{
-    const r=await builder;
-    if(r.error){console.warn(label,r.error);return []}
-    return r.data||[];
-  }catch(e){console.warn(label,e);return []}
-}
-async function homePage(){
-  const today=new Date().toISOString().slice(0,10);
-  const notices=await safeSelect(sb.from('notices').select('*').order('important',{ascending:false}).order('notice_date',{ascending:false}).limit(4),'notices');
-  const upcoming=await safeSelect(sb.from('songs').select('*').gte('service_date',today).order('service_date').limit(2),'upcoming songs');
-  const past=await safeSelect(sb.from('songs').select('*').lt('service_date',today).not('live_url','is',null).order('service_date',{ascending:false}).limit(1),'past live');
-  const events=await safeSelect(sb.from('events').select('*').gte('event_date',today).order('event_date').limit(3),'events');
-  const prayers=await safeSelect(sb.from('prayer_assignments').select('*').gte('sunday_date',today).order('sunday_date').limit(1),'prayers');
-
-  main.innerHTML=`<div class="hero"><h1>${esc(me.name)} 님, 반갑습니다</h1><p>${esc(me.part||'')} · ${esc(me.title||'대원')} · 함께 드리는 찬양</p></div>
-  <div class="grid">
-    <div class="card"><h3>최근 공지</h3>${notices.map(x=>`<div style="margin:9px 0"><span class="tag ${x.important?'important':''}">${esc(x.scope)}</span> <b>${esc(x.title)}</b><div class="muted">${fmt(x.notice_date)}</div></div>`).join('')||'<div class="muted">등록된 공지가 없습니다.</div>'}</div>
-    <div class="card"><h3>다가오는 주일 · 연습곡</h3>${upcoming.map(x=>`<div style="margin:9px 0"><b>${fmt(x.service_date)} · ${esc(x.title)}</b><div class="muted">${esc(categoryDisplay(x.category))}</div><div class="actions">${linkBtn(x.full_url,'전체 합창')}${me.part==='Soprano'?linkBtn(x.soprano_url,'내 파트'):me.part==='Alto'?linkBtn(x.alto_url,'내 파트'):me.part==='Tenor'?linkBtn(x.tenor_url,'내 파트'):me.part==='Bass'?linkBtn(x.bass_url,'내 파트'):''}</div></div>`).join('')||'<div class="muted">다가오는 주일 연습곡이 없습니다.</div>'}</div>
-    <div class="card"><h3>지난주 실제 찬양</h3>${past.map(x=>`<div style="margin:9px 0"><b>${fmt(x.service_date)} · ${esc(x.title)}</b><div class="actions">${linkBtn(x.live_url,'실제 찬양 영상')}</div></div>`).join('')||'<div class="muted">등록된 실제 찬양 영상이 없습니다.</div>'}</div>
-    <div class="card"><h3>이번 주 기도당번</h3>${prayers.map(x=>`<b>목요일 ${fmt(x.thursday_date)}</b><div class="muted">시작기도 ${esc(x.thursday_start||'-')} · 마침기도 ${esc(x.thursday_end||'-')}</div><div style="height:8px"></div><b>일요일 ${fmt(x.sunday_date)}</b><div class="muted">시작기도 ${esc(x.sunday_start||'-')} · 마침기도 ${esc(x.sunday_end||'-')}</div>`).join('')||'<div class="muted">등록된 기도당번이 없습니다.</div>'}</div>
-    <div class="card"><h3>다가오는 일정</h3>${events.map(x=>`<div style="margin:8px 0"><b>${fmt(x.event_date)} ${esc(x.title)}</b><div class="muted">${esc(x.place||'')}</div></div>`).join('')||'<div class="muted">등록된 일정이 없습니다.</div>'}</div>
-    <div class="card"><h3>정기 연습</h3><b>목요일 19:30–21:00</b><div class="muted">시작기도 · 마침기도</div><br><b>주일 08:00–08:45 / 10:40–12:00</b><div class="muted">시작기도 · 마침기도</div></div>
-  </div>`;
-}
-async function songsPage(){const {data}=await sb.from('songs').select('*').order('service_date',{ascending:false});const today=new Date().toISOString().slice(0,10);const rows=(data||[]).map(x=>{const upcoming=(x.service_date||'')>=today;const myPart={Soprano:['soprano_url','Soprano'],Alto:['alto_url','Alto'],Tenor:['tenor_url','Tenor'],Bass:['bass_url','Bass']}[me.part];const mine=myPart&&x[myPart[0]]?`<a class="btn primary" target="_blank" rel="noopener" href="${esc(x[myPart[0]])}">내 파트 ${myPart[1]}</a>`:'';return `<div class="row"><div class="rowhead"><div><span class="tag">${upcoming?'다가오는 주일':'지난 찬양'}</span> <b>${fmt(x.service_date)} · ${esc(x.title)}</b><div class="muted">${esc(categoryDisplay(x.category))}</div></div></div><div class="actions">${mine}${linkBtn(x.full_url,'전체 합창')}${linkBtn(x.soprano_url,'Soprano')}${linkBtn(x.alto_url,'Alto')}${linkBtn(x.tenor_url,'Tenor')}${linkBtn(x.bass_url,'Bass')}${linkBtn(x.live_url,'실제 주일찬양')}</div></div>`});main.innerHTML=title('찬양 · 연습영상')+`<p class="muted">전체 합창과 파트별 연습영상은 YouTube 링크로 연결됩니다. 지난 찬양도 삭제하지 않고 기록으로 보관됩니다.</p>`+list(rows)}
-
-function youtubeId(url){
-  try{
-    const u=new URL(url);
-    if(u.hostname.includes('youtu.be')) return u.pathname.replace('/','').split('/')[0]||null;
-    if(u.hostname.includes('youtube.com')){
-      if(u.pathname==='/watch') return u.searchParams.get('v');
-      const m=u.pathname.match(/\/(?:embed|shorts|live)\/([^/?#]+)/); if(m) return m[1];
-    }
-  }catch(e){}
-  return null;
-}
-function openYouTubeModal(url,title='YouTube'){
-  const id=youtubeId(url);
-  if(!id){toast('올바른 YouTube 링크가 아닙니다.');return}
-  document.getElementById('ytModalTitle').textContent=title;
-  document.getElementById('ytFrame').src=`https://www.youtube.com/embed/${id}?autoplay=1&rel=0`;
-  document.getElementById('ytModal').classList.add('show');
-}
-function closeYouTubeModal(){
-  const f=document.getElementById('ytFrame'); if(f)f.src='';
-  document.getElementById('ytModal')?.classList.remove('show');
-}
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeYouTubeModal()});
-function openYouTubeSearch(part=''){
-  if(typeof saveSongDraft==='function') saveSongDraft();
-  const title=document.getElementById('f_title')?.value?.trim()||'합창 연습';
-  const q=[title,part,'찬양'].filter(Boolean).join(' ');
-  window.open('https://www.youtube.com/results?search_query='+encodeURIComponent(q),'somangYoutubeSearch','popup=yes,width=920,height=760,resizable=yes,scrollbars=yes');
-}
-async function pasteClipboardTo(id){
-  try{
-    const text=await navigator.clipboard.readText();
-    const el=document.getElementById(id); if(!el)return;
-    el.value=text.trim(); el.dispatchEvent(new Event('input',{bubbles:true}));
-  }catch(e){toast('클립보드 자동 붙여넣기가 제한되었습니다. ⌘V 또는 길게 눌러 붙여넣어 주세요.')}
-}
-function linkBtn(u,t){return u?`<button class="btn link" type="button" onclick='openYouTubeModal(${JSON.stringify(u)},${JSON.stringify(t)})'>▶ ${esc(t)}</button>`:''}
-async function prayerPage(){
-  const {data,error}=await sb.from('prayer_assignments').select('*').order('sunday_date',{ascending:false}).limit(24);
-  if(error) throw error;
-  main.innerHTML=title('기도당번')+list((data||[]).map(x=>`<div class="row">
-    <div class="rowhead"><div><b>목요일 ${fmt(x.thursday_date)}</b><div class="muted">연습</div></div></div>
-    <div style="margin:8px 0">시작기도 · <b>${esc(x.thursday_start||'-')}</b></div>
-    <div style="margin:8px 0">마침기도 · <b>${esc(x.thursday_end||'-')}</b></div>
-    <hr style="border:0;border-top:1px solid #e5e7eb;margin:14px 0">
-    <div class="rowhead"><div><b>일요일 ${fmt(x.sunday_date)}</b><div class="muted">연습</div></div></div>
-    <div style="margin:8px 0">시작기도 · <b>${esc(x.sunday_start||'-')}</b></div>
-    <div style="margin:8px 0">마침기도 · <b>${esc(x.sunday_end||'-')}</b></div>
-  </div>`));
-}
+async function go(p){page=p;navActive();main.innerHTML='<div class="empty">불러오는 중…</div>';const f={home:homePage,songs:songsPage,prayers:prayerPage,members:membersPage,more:morePage,notices:noticesPage,events:eventsPage,intro:introPage,leaders:leadersPage,gallery:galleryPage,documents:documentsPage,polls:pollsPage,tasks:tasksPage,admin:adminPage}[p];if(f)await f()}
+async function homePage(){const today=new Date().toISOString().slice(0,10);const safe=async(q)=>{try{const r=await q;return r.error?[]:(r.data||[])}catch(e){return []}};const n=await safe(sb.from('notices').select('*').order('important',{ascending:false}).order('notice_date',{ascending:false}).limit(4));const u=await safe(sb.from('songs').select('*').gte('service_date',today).order('service_date').limit(2));const past=await safe(sb.from('songs').select('*').lt('service_date',today).not('live_url','is',null).order('service_date',{ascending:false}).limit(1));const e=await safe(sb.from('events').select('*').gte('event_date',today).order('event_date').limit(3));const p=await safe(sb.from('prayer_assignments').select('*').gte('sunday_date',today).order('sunday_date').limit(1));main.innerHTML=`<div class="hero"><h1>${esc(me.name)} 님, 반갑습니다</h1><p>${esc(me.part||'')} · ${esc(me.title||'대원')} · 함께 드리는 찬양</p></div><div class="grid"><div class="card"><h3>최근 공지</h3>${n.map(x=>`<div style="margin:9px 0"><span class="tag ${x.important?'important':''}">${esc(x.scope)}</span> <b>${esc(x.title)}</b><div class="muted">${fmt(x.notice_date)}</div></div>`).join('')||'<div class="muted">등록된 공지가 없습니다.</div>'}</div><div class="card"><h3>다가오는 주일 · 연습곡</h3>${u.map(x=>`<div style="margin:9px 0"><b>${fmt(x.service_date)} · ${esc(x.title)}</b><div class="muted">${esc(categoryDisplay(x.category))}</div><div class="actions">${linkBtn(x.full_url,'전체 합창')}${me.part==='Soprano'?linkBtn(x.soprano_url,'내 파트'):me.part==='Alto'?linkBtn(x.alto_url,'내 파트'):me.part==='Tenor'?linkBtn(x.tenor_url,'내 파트'):me.part==='Bass'?linkBtn(x.bass_url,'내 파트'):''}</div></div>`).join('')||'<div class="muted">다가오는 주일 연습곡이 없습니다.</div>'}</div><div class="card"><h3>지난주 실제 찬양</h3>${past.map(x=>`<div style="margin:9px 0"><b>${fmt(x.service_date)} · ${esc(x.title)}</b><div class="actions">${linkBtn(x.live_url,'실제 찬양 영상')}</div></div>`).join('')||'<div class="muted">등록된 실제 찬양 영상이 없습니다.</div>'}</div><div class="card"><h3>이번 주 기도당번</h3>${p.map(x=>`<b>목요일 ${fmt(x.thursday_date)}</b><div class="muted">시작기도 ${esc(x.thursday_start||'-')} · 마침기도 ${esc(x.thursday_end||'-')}</div><div style="height:8px"></div><b>일요일 ${fmt(x.sunday_date)}</b><div class="muted">시작기도 ${esc(x.sunday_start||'-')} · 마침기도 ${esc(x.sunday_end||'-')}</div>`).join('')||'<div class="muted">등록된 기도당번이 없습니다.</div>'}</div><div class="card"><h3>다가오는 일정</h3>${e.map(x=>`<div style="margin:8px 0"><b>${fmt(x.event_date)} ${esc(x.title)}</b></div>`).join('')||'<div class="muted">등록된 일정이 없습니다.</div>'}</div></div>`}
+async function noticesPage(){const {data}=await sb.from('notices').select('*').order('notice_date',{ascending:false});main.innerHTML=title('공지사항')+list((data||[]).map(x=>`<div class="row"><div class="rowhead"><div><span class="tag ${x.important?'important':''}">${esc(x.scope)}</span> <b>${esc(x.title)}</b></div><span class="muted">${fmt(x.notice_date)}</span></div><div style="margin-top:8px">${esc(x.body||'').replace(/\n/g,'<br>')}</div></div>`))}
+async function songsPage(){const {data}=await sb.from('songs').select('*').order('service_date',{ascending:false});const today=new Date().toISOString().slice(0,10);const rows=(data||[]).map(x=>{const upcoming=(x.service_date||'')>=today;const myPart={Soprano:['soprano_url','Soprano'],Alto:['alto_url','Alto'],Tenor:['tenor_url','Tenor'],Bass:['bass_url','Bass']}[me.part];const mine=myPart&&x[myPart[0]]?`<a class="btn primary" target="_blank" rel="noopener" href="${esc(x[myPart[0]])}">내 파트 ${myPart[1]}</a>`:'';return `<div class="row"><div class="rowhead"><div><span class="tag">${upcoming?'예정':'지난 찬양'}</span> <b>${fmt(x.service_date)} · ${esc(x.title)}</b><div class="muted">${esc(categoryDisplay(x.category))}</div></div></div><div class="actions">${mine}${linkBtn(x.full_url,'전체 합창')}${linkBtn(x.soprano_url,'Soprano')}${linkBtn(x.alto_url,'Alto')}${linkBtn(x.tenor_url,'Tenor')}${linkBtn(x.bass_url,'Bass')}${linkBtn(x.live_url,'실제 주일찬양')}</div></div>`});main.innerHTML=title('찬양 · 연습영상')+`<p class="muted">전체 합창과 파트별 연습영상은 YouTube 링크로 연결됩니다. 지난 찬양도 삭제하지 않고 기록으로 보관됩니다.</p>`+list(rows)}
+function youtubeId(url){try{const u=new URL(url);if(u.hostname.includes('youtu.be'))return u.pathname.replace('/','').split('/')[0]||null;if(u.hostname.includes('youtube.com')){if(u.pathname==='/watch')return u.searchParams.get('v');const m=u.pathname.match(/\/(?:embed|shorts|live)\/([^/?#]+)/);if(m)return m[1]}}catch(e){}return null}
+function openYouTubeModal(url,title='YouTube'){const id=youtubeId(url);if(!id)return toast('올바른 YouTube 링크가 아닙니다.');document.getElementById('ytModalTitle').textContent=title;document.getElementById('ytFrame').src=`https://www.youtube.com/embed/${id}?autoplay=1&rel=0`;document.getElementById('ytModal').classList.add('show')}
+function closeYouTubeModal(){const f=document.getElementById('ytFrame');if(f)f.src='';document.getElementById('ytModal')?.classList.remove('show')}
+function openYouTubeSearch(part=''){saveSongDraft();const title=document.getElementById('f_title')?.value?.trim()||window._editObj?.title||'합창 연습';const q=[title,part,'찬양'].filter(Boolean).join(' ');window.open('https://www.youtube.com/results?search_query='+encodeURIComponent(q),'somangYoutubeSearch','popup=yes,width=920,height=760,resizable=yes,scrollbars=yes')}
+async function pasteClipboardTo(id){try{const text=await navigator.clipboard.readText();const e=document.getElementById(id);if(e){e.value=text.trim();e.dispatchEvent(new Event('input',{bubbles:true}))}}catch(err){toast('자동 붙여넣기가 제한되었습니다. ⌘V로 붙여넣어 주세요.')}}
+function linkBtn(u,t){return u?`<a class="btn link" href="${esc(u)}" target="_blank" rel="noopener">${t}</a>`:''}
+async function prayerPage(){const {data,error}=await sb.from('prayer_assignments').select('*').order('sunday_date',{ascending:false}).limit(24);if(error)throw error;main.innerHTML=title('기도당번')+list((data||[]).map(x=>`<div class="row"><b>목요일 ${fmt(x.thursday_date)} · 연습</b><div style="margin:8px 0">시작기도 · <b>${esc(x.thursday_start||'-')}</b></div><div style="margin:8px 0">마침기도 · <b>${esc(x.thursday_end||'-')}</b></div><hr style="border:0;border-top:1px solid #e5e7eb;margin:14px 0"><b>일요일 ${fmt(x.sunday_date)} · 연습</b><div style="margin:8px 0">시작기도 · <b>${esc(x.sunday_start||'-')}</b></div><div style="margin:8px 0">마침기도 · <b>${esc(x.sunday_end||'-')}</b></div></div>`))}
+async function membersPage(){const {data}=await sb.from('profiles').select('id,name,title,part,phone,role,status').eq('status','approved').order('part').order('name');main.innerHTML=title('대원명단')+`<div class="membergrid">${(data||[]).map(x=>`<div class="member"><div class="name">${esc(x.name)}</div><span class="tag">${esc(x.part||'-')}</span><div class="muted" style="margin-top:7px">${esc(x.title||'대원')}</div><div style="margin-top:8px">${esc(phoneDisplay(x.phone))}</div></div>`).join('')||'<div class="empty">대원이 없습니다.</div>'}</div>`}
 async function eventsPage(){const {data}=await sb.from('events').select('*').order('event_date',{ascending:false});main.innerHTML=title('일정 · 행사')+list((data||[]).map(x=>`<div class="row"><b>${fmt(x.event_date)} ${esc(x.event_time||'')} · ${esc(x.title)}</b><div class="muted">${esc(x.place||'')}</div><div>${esc(x.description||'')}</div></div>`))}
 async function introPage(){const {data}=await sb.from('choir_intro').select('*').eq('id',1).single();main.innerHTML=title('찬양대 소개')+`<div class="card"><h3>${esc(data?.name||'소망 찬양대')} <span class="muted">${esc(data?.english_name||'')}</span></h3><p>${esc(data?.description||'')}</p><p><b>예배</b><br>${esc(data?.service||'')}</p><p><b>연습</b><br>${esc(data?.rehearsal||'')}</p><p><b>역사</b><br>${esc(data?.history||'')}</p><p><b>비전</b><br>${esc(data?.vision||'')}</p></div>`}
 async function leadersPage(){const {data}=await sb.from('leaders').select('*').order('sort_order');main.innerHTML=title('섬기는 분들')+`<div class="membergrid">${(data||[]).map(x=>`<div class="member"><div class="muted">${esc(x.role_name)}</div><div class="name">${esc(x.name)}</div></div>`).join('')||'<div class="empty">등록된 정보가 없습니다.</div>'}</div>`}
@@ -150,11 +61,7 @@ async function pollsPage(){const {data}=await sb.from('polls').select('*,poll_op
 async function vote(pid,oid){await sb.from('poll_votes').delete().eq('poll_id',pid).eq('user_id',me.id);const {error}=await sb.from('poll_votes').insert({poll_id:pid,option_id:oid,user_id:me.id});toast(error?error.message:'투표했습니다.')}
 async function tasksPage(){const {data}=await sb.from('tasks').select('*').order('due_date',{ascending:true});main.innerHTML=title('봉사 · 할일')+list((data||[]).map(x=>`<div class="row"><b>${esc(x.title)}</b> <span class="tag">${esc(x.status)}</span><div class="muted">${fmt(x.due_date)} · 담당 ${esc(x.assignee||'-')}</div><div>${esc(x.note||'')}</div></div>`))}
 function morePage(){const admin=me.role==='superadmin'||Object.keys(PERM_LABELS).some(can)||canAnySong();main.innerHTML=title('더보기')+`<div class="grid"><button class="adminTile" onclick="go('notices')"><b>공지사항</b><span class="muted">전체/파트 공지</span></button><button class="adminTile" onclick="go('events')"><b>일정 · 행사</b><span class="muted">연습·행사 일정</span></button><button class="adminTile" onclick="go('intro')"><b>찬양대 소개</b><span class="muted">소개·역사·비전</span></button><button class="adminTile" onclick="go('leaders')"><b>섬기는 분들</b><span class="muted">대장·지휘자·반주·총무 등</span></button><button class="adminTile" onclick="go('gallery')"><b>갤러리</b><span class="muted">행사·절기·연습 사진</span></button><button class="adminTile" onclick="go('documents')"><b>자료실</b><span class="muted">문서·링크</span></button><button class="adminTile" onclick="go('polls')"><b>투표 · 설문</b><span class="muted">대원 의견 수렴</span></button><button class="adminTile" onclick="go('tasks')"><b>봉사 · 할일</b><span class="muted">업무·봉사 배정</span></button>${admin?`<button class="adminTile" onclick="go('admin')"><b>⚙ 관리센터</b><span class="muted">가입 승인 및 콘텐츠 관리</span></button>`:''}</div>`}
-async function adminPage(){
-  let tiles=[['members','가입 승인/대원'],['notices','공지'],['prayers','기도당번'],['events','일정·행사'],['intro','찬양대 소개'],['leaders','섬기는 분들'],['gallery','갤러리'],['documents','자료실'],['polls','투표·설문'],['tasks','봉사·할일'],['permissions','권한 부여']].filter(([p])=>can(p));
-  if(canAnySong()) tiles.splice(Math.min(2,tiles.length),0,['songs','찬양곡 · YouTube 영상']);
-  main.innerHTML=title('통합 관리센터')+`<div class="adminGrid">${tiles.map(([p,l])=>`<button class="adminTile" onclick="manage('${p}')"><b>${l}</b><span class="muted">${p==='songs'?'총무/파트장 분담 입력':'등록 · 수정 · 삭제'}</span></button>`).join('')}</div><p class="muted" style="margin-top:18px">모든 운영 데이터 입력은 이 관리센터에서 처리합니다. 출석/회계 기능은 포함하지 않습니다.</p>`;
-}
+async function adminPage(){const tiles=[['members','가입 승인/대원'],['notices','공지'],['songs','찬양곡'],['prayers','기도당번'],['events','일정·행사'],['intro','찬양대 소개'],['leaders','섬기는 분들'],['gallery','갤러리'],['documents','자료실'],['polls','투표·설문'],['tasks','봉사·할일'],['permissions','권한 부여']].filter(([p])=>can(p));main.innerHTML=title('통합 관리센터')+`<div class="adminGrid">${tiles.map(([p,l])=>`<button class="adminTile" onclick="manage('${p}')"><b>${l}</b><span class="muted">등록 · 수정 · 삭제</span></button>`).join('')}</div><p class="muted" style="margin-top:18px">모든 운영 데이터 입력은 이 관리센터에서 처리합니다. 출석/회계 기능은 포함하지 않습니다.</p>`}
 async function manage(type){if(type==='members')return manageMembers();if(type==='permissions')return managePermissions();if(type==='intro')return editIntro();if(type==='songs')return manageSongs();const map={notices:'notices',prayers:'prayer_assignments',events:'events',leaders:'leaders',gallery:'gallery',documents:'documents',polls:'polls',tasks:'tasks'};const table=map[type];if(!table)return;const {data}=await sb.from(table).select('*').order('created_at',{ascending:false}).limit(100);main.innerHTML=title('관리 · '+(PERM_LABELS[type]||type),`<button class="btn primary" onclick="addRecord('${type}')">+ 새로 등록</button>`)+list((data||[]).map(x=>`<div class="row"><b>${esc(recordTitle(type,x))}</b><div class="muted">${esc(recordSub(type,x))}</div><div class="actions"><button class="btn" onclick='editRecord(${JSON.stringify(type)},${JSON.stringify(x)})'>수정</button><button class="btn danger" onclick="deleteRecord('${type}','${x.id}')">삭제</button></div></div>`))}
 async function manageSongs(){clearSongEditorState();const {data,error}=await sb.from('songs').select('*').order('service_date',{ascending:false,nullsFirst:false}).order('created_at',{ascending:false}).limit(200);if(error)return toast(error.message);const add=canSongBase()?`<button class="btn primary" onclick="addRecord('songs')">+ 새 찬양 등록</button>`:'';main.innerHTML=title('관리 · 찬양곡 · YouTube 영상',add)+`<p class="muted">총무는 곡 기본정보와 전체 합창 영상을, 각 파트장은 자기 파트 영상만 입력·수정합니다.</p>`+list((data||[]).map(x=>`<div class="row"><b>${esc(x.title||'제목 없음')}</b><div class="muted">${fmt(x.service_date)} · ${esc(categoryDisplay(x.category))}</div><div class="actions"><button class="btn" onclick='editRecord("songs",${JSON.stringify(x)})'>${canSongBase()?'수정':'내 파트 영상 입력'}</button>${canSongBase()?`<button class="btn danger" onclick="deleteRecord('songs','${x.id}')">삭제</button>`:''}</div></div>`))}
 function recordTitle(t,x){return x.title||x.name||x.role_name||((t==='prayers')?`${x.thursday_date} / ${x.sunday_date}`:'항목')}
@@ -203,7 +110,7 @@ function songFormHTML(obj={},isNew=false){
     const k=part.toLowerCase()+'_url';
     if(canSongPart(part))h+=songUrlField(k,part+' YouTube 링크',val(k),true);
   }
-  h+=`<div class="codehint">YouTube 검색 버튼은 작은 검색창을 엽니다. 링크를 복사해 돌아온 뒤 붙여넣기 하세요. 작성 내용은 자동 임시저장되며, 연습영상은 전주에, 실제 찬양영상은 예배 후 월요일에 나중에 추가할 수 있습니다.</div>`;
+  h+=`<div class="codehint">YouTube로 이동했다가 돌아와도 작성 내용이 자동 임시저장됩니다. 링크는 모두 선택 입력이며, 나중에 추가해도 됩니다.</div>`;
   return h;
 }
 function bindSongDraft(){
@@ -228,35 +135,22 @@ function collectSong(){
 
 function formHTML(type,obj={}){return (FIELDS[type]||[]).map(([k,l,kind='text',opts=''])=>{const v=obj[k]??'';if(kind==='textarea')return `<div class="field"><label>${l}</label><textarea id="f_${k}">${esc(v)}</textarea></div>`;if(kind==='select')return `<div class="field"><label>${l}</label><select id="f_${k}">${opts.split('|').map(o=>`<option ${o==v?'selected':''}>${o}</option>`).join('')}</select></div>`;if(kind==='checkbox')return `<div class="field"><label><input id="f_${k}" type="checkbox" ${v?'checked':''}> ${l}</label></div>`;return `<div class="field"><label>${l}</label><input id="f_${k}" type="${kind}" value="${esc(v)}"></div>`}).join('')}
 function collect(type){const o={};for(const [k,,kind='text'] of FIELDS[type]||[]){const e=document.getElementById('f_'+k);o[k]=kind==='checkbox'?e.checked:kind==='number'?(e.value?Number(e.value):null):(e.value||null)}return o}
-async function prayerFormHTML(obj={}){
-  const {data,error}=await sb.from('profiles').select('name,title,part').eq('status','approved').order('name');
-  if(error) throw error;
-  const members=data||[];
-  const sel=(k,l)=>{
-    const current=obj[k]||'';
-    return `<div class="field"><label>${l}</label><select id="f_${k}">
-      <option value="">선택</option>
-      ${members.map(m=>{
-        const label=memberPrayerLabel(m);
-        return `<option value="${esc(label)}" ${label===current?'selected':''}>${esc(label)}</option>`;
-      }).join('')}
-    </select></div>`;
-  };
-  return `<div class="field"><label>목요일 날짜</label><input id="f_thursday_date" type="date" value="${esc(obj.thursday_date||'')}"></div>
-  <div class="field"><label>일요일 날짜</label><input id="f_sunday_date" type="date" value="${esc(obj.sunday_date||'')}"></div>
-  <h3 style="margin-top:18px">목요일 연습</h3>
-  ${sel('thursday_start','시작기도')}
-  ${sel('thursday_end','마침기도')}
-  <h3 style="margin-top:18px">일요일 연습</h3>
-  ${sel('sunday_start','시작기도')}
-  ${sel('sunday_end','마침기도')}`;
-}
-function memberPrayerLabel(m){
-  return [partKo(m?.part),m?.name,m?.title].filter(Boolean).join(' ');
-}
-
-// V11.6 boot
-init().catch(err=>{console.error(err);const el=document.getElementById('main');if(el)el.innerHTML=`<div class="statusbox"><b>앱 시작 오류</b><br>${esc(err?.message||err)}</div>`;});
-</script>
-</body>
-</html>
+async function prayerFormHTML(obj={}){const {data,error}=await sb.from('profiles').select('name,title,part').eq('status','approved').order('name');if(error)throw error;const members=data||[];const sel=(k,l)=>{const current=obj[k]||'';return `<div class="field"><label>${l}</label><select id="f_${k}"><option value="">선택</option>${members.map(m=>{const label=memberPrayerLabel(m);return `<option value="${esc(label)}" ${label===current?'selected':''}>${esc(label)}</option>`}).join('')}</select></div>`};return `<div class="field"><label>목요일 날짜</label><input id="f_thursday_date" type="date" value="${esc(obj.thursday_date||'')}"></div><div class="field"><label>일요일 날짜</label><input id="f_sunday_date" type="date" value="${esc(obj.sunday_date||'')}"></div><h3 style="margin-top:18px">목요일 연습</h3>${sel('thursday_start','시작기도')}${sel('thursday_end','마침기도')}<h3 style="margin-top:18px">일요일 연습</h3>${sel('sunday_start','시작기도')}${sel('sunday_end','마침기도')}`;}
+async function addRecord(type,restored=false){if(type==='songs'){if(!canSongBase())return toast('새 찬양 등록은 총무/기본정보 담당자만 가능합니다.');setSongEditorState({mode:'new'});main.innerHTML=title('새 찬양 등록')+`<div class="card">${songFormHTML({},true)}<div class="actions"><button class="btn primary" onclick="saveNew('songs')">저장</button><button class="btn" onclick="cancelSongEdit()">취소</button></div></div>`;bindSongDraft();return}const html=type==='prayers'?await prayerFormHTML():formHTML(type);main.innerHTML=title('새로 등록')+`<div class="card">${html}<button class="btn primary" onclick="saveNew('${type}')">저장</button> <button class="btn" onclick="manage('${type}')">취소</button></div>`}
+async function editRecord(type,obj,restored=false){window._editObj=obj;if(type==='songs'){setSongEditorState({mode:'edit',id:obj.id});main.innerHTML=title(canSongBase()?'찬양 수정':'내 파트 영상 입력')+`<div class="card">${songFormHTML(obj,false)}<div class="actions"><button class="btn primary" onclick="saveEdit('songs','${obj.id}')">저장</button><button class="btn" onclick="cancelSongEdit()">취소</button></div></div>`;bindSongDraft();return}const html=type==='prayers'?await prayerFormHTML(obj):formHTML(type,obj);main.innerHTML=title('수정')+`<div class="card">${html}<button class="btn primary" onclick="saveEdit('${type}','${obj.id}')">저장</button> <button class="btn" onclick="manage('${type}')">취소</button></div>`}
+function cancelSongEdit(){clearSongEditorState();manageSongs()}
+async function saveNew(type){if(type==='songs'){const o=collectSong();if(!o.title)return toast('찬양곡명만 입력하면 저장할 수 있습니다.');o.created_by=me.id;const {error}=await sb.rpc('song_create_base',{p_service_date:o.service_date,p_category:o.category,p_title:o.title,p_full_url:o.full_url,p_live_url:o.live_url});if(error)return toast(error.message);clearSongEditorState();toast('찬양곡이 등록되었습니다. 파트별 영상은 각 파트장이 추가할 수 있습니다.');return manageSongs()}const map={notices:'notices',prayers:'prayer_assignments',events:'events',leaders:'leaders',gallery:'gallery',documents:'documents',polls:'polls',tasks:'tasks'};const o=collect(type);if(['notices','prayers','events','leaders','gallery','documents','polls','tasks'].includes(type))o.created_by=me.id;const {error}=await sb.from(map[type]).insert(o);if(error)return toast(error.message);toast('저장되었습니다.');manage(type)}
+async function saveEdit(type,id){if(type==='songs'){const o=collectSong();if(canSongBase()){if(!o.title)return toast('찬양곡명은 필수입니다.');const {error}=await sb.rpc('song_update_base',{p_song_id:id,p_service_date:o.service_date,p_category:o.category,p_title:o.title,p_full_url:o.full_url,p_live_url:o.live_url});if(error)return toast(error.message)}for(const part of ['Soprano','Alto','Tenor','Bass']){if(canSongPart(part)){const k=part.toLowerCase()+'_url';if(k in o){const {error}=await sb.rpc('song_update_part',{p_song_id:id,p_part:part,p_url:o[k]});if(error)return toast(error.message)}}}clearSongEditorState();toast('수정되었습니다.');return manageSongs()}const map={notices:'notices',prayers:'prayer_assignments',events:'events',leaders:'leaders',gallery:'gallery',documents:'documents',polls:'polls',tasks:'tasks'};const {error}=await sb.from(map[type]).update(collect(type)).eq('id',id);if(error)return toast(error.message);toast('수정되었습니다.');manage(type)}
+async function deleteRecord(type,id){if(!confirm('삭제하시겠습니까?'))return;if(type==='songs'){const {error}=await sb.rpc('song_delete',{p_song_id:id});if(error)return toast(error.message);toast('삭제되었습니다.');return manageSongs()}const map={notices:'notices',prayers:'prayer_assignments',events:'events',leaders:'leaders',gallery:'gallery',documents:'documents',polls:'polls',tasks:'tasks'};const {error}=await sb.from(map[type]).delete().eq('id',id);if(error)return toast(error.message);toast('삭제되었습니다.');manage(type)}
+async function manageMembers(){const {data}=await sb.from('profiles').select('*').order('created_at',{ascending:false});main.innerHTML=title('가입 승인 · 대원 관리')+list((data||[]).map(x=>`<div class="row"><b>${esc(x.name)}</b> <span class="tag">${esc(x.part||'-')}</span><div class="muted">${esc(phoneDisplay(x.phone))} · ${esc(x.title||'')} · ${esc(x.status)} · ${esc(x.role)}</div><div class="actions">${x.status!=='approved'?`<button class="btn ok" onclick="setStatus('${x.id}','approved')">승인</button>`:''}${x.status==='approved'?`<button class="btn" onclick="setStatus('${x.id}','inactive')">중지</button>`:''}<button class="btn danger" onclick="setStatus('${x.id}','rejected')">반려</button>${me.role==='superadmin'?`<button class="btn" onclick="setRolePrompt('${x.id}','${x.role}')">역할</button>`:''}</div></div>`))}
+async function setStatus(id,st){const {error}=await sb.rpc('admin_set_member_status',{p_user_id:id,p_status:st});if(error)return toast(error.message);toast('처리되었습니다.');manageMembers()}
+async function setRolePrompt(id,cur){const r=prompt('역할을 입력하세요: member / manager / superadmin',cur);if(!r)return;const {error}=await sb.rpc('superadmin_set_member_role',{p_user_id:id,p_role:r});if(error)return toast(error.message);toast('역할이 변경되었습니다.');manageMembers()}
+async function managePermissions(){if(me.role!=='superadmin')return toast('최고관리자만 가능합니다.');const {data}=await sb.from('profiles').select('id,name,part,status,role').eq('status','approved').order('name');main.innerHTML=title('관리자 권한 부여')+list((data||[]).map(x=>`<div class="row"><b>${esc(x.name)}</b> <span class="tag">${esc(x.role)}</span><div class="muted">${esc(x.part||'')}</div><div class="actions"><button class="btn" onclick="editPerms('${x.id}','${esc(x.name)}')">세부 권한 설정</button></div></div>`))}
+async function editPerms(id,name){const {data}=await sb.from('user_permissions').select('permission').eq('user_id',id);const cur=(data||[]).map(x=>x.permission);main.innerHTML=title(name+' 권한')+`<div class="card">${Object.entries(PERM_LABELS).filter(([k])=>k!=='permissions').map(([k,l])=>`<div class="field"><label><input type="checkbox" class="permcheck" value="${k}" ${cur.includes(k)?'checked':''}> ${l}</label></div>`).join('')}<button class="btn primary" onclick="savePerms('${id}')">저장</button> <button class="btn" onclick="managePermissions()">취소</button></div>`}
+async function savePerms(id){const arr=[...document.querySelectorAll('.permcheck:checked')].map(x=>x.value);const {error}=await sb.rpc('superadmin_set_permissions',{p_user_id:id,p_permissions:arr});if(error)return toast(error.message);toast('권한이 저장되었습니다.');managePermissions()}
+async function editIntro(){const {data}=await sb.from('choir_intro').select('*').eq('id',1).single();main.innerHTML=title('찬양대 소개 수정')+`<div class="card">${[['name','이름'],['english_name','영문명'],['description','소개'],['founded','창단/역사 요약'],['service','예배'],['rehearsal','연습'],['history','역사'],['vision','비전']].map(([k,l])=>`<div class="field"><label>${l}</label>${['description','history','vision'].includes(k)?`<textarea id="i_${k}">${esc(data?.[k]||'')}</textarea>`:`<input id="i_${k}" value="${esc(data?.[k]||'')}">`}</div>`).join('')}<button class="btn primary" onclick="saveIntro()">저장</button></div>`}
+async function saveIntro(){const o={};['name','english_name','description','founded','service','rehearsal','history','vision'].forEach(k=>o[k]=document.getElementById('i_'+k).value);o.updated_by=me.id;o.updated_at=new Date().toISOString();const {error}=await sb.from('choir_intro').update(o).eq('id',1);if(error)return toast(error.message);toast('저장되었습니다.');go('intro')}
+function title(t,right=''){return `<div class="sectiontitle"><h2>${esc(t)}</h2><div>${right}</div></div>`}
+function list(a){return `<div class="list">${a.join('')||'<div class="empty">등록된 내용이 없습니다.</div>'}</div>`}
+init();
+</script><div id="ytModal" class="ytModal" onclick="if(event.target===this)closeYouTubeModal()"><div class="ytBox"><div class="ytHead"><b id="ytModalTitle">YouTube</b><button class="ytClose" onclick="closeYouTubeModal()">닫기 ×</button></div><div class="ytFrameWrap"><iframe id="ytFrame" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe></div></div></div></body></html>
