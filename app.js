@@ -1,198 +1,266 @@
 
 const seed = {
-  users: [
-    {id:'u1', name:'Harry Sohn', title:'최고관리자', part:'Tenor', phone:'', status:'approved', role:'superadmin', permissions:['all']},
-    {id:'u2', name:'김○○', title:'집사', part:'Soprano', phone:'010-1111-1111', status:'pending', role:'member', permissions:[]},
-    {id:'u3', name:'이○○', title:'권사', part:'Alto', phone:'010-2222-2222', status:'approved', role:'member', permissions:[]}
+  users:[
+    {id:'u1',name:'Harry Sohn',title:'최고관리자',part:'Tenor',phone:'',status:'approved',role:'superadmin',permissions:['all']},
+    {id:'u2',name:'김○○',title:'집사',part:'Soprano',phone:'010-1111-1111',status:'pending',role:'member',permissions:[]},
+    {id:'u3',name:'이○○',title:'권사',part:'Alto',phone:'010-2222-2222',status:'approved',role:'member',permissions:[]}
   ],
-  songs: [
-    {id:'s1', date:'2026-09-13', title:'주 하나님 지으신 모든 세계', special:'주일', full:'', s:'', a:'', t:'', b:'', live:''},
-    {id:'s2', date:'2026-09-20', title:'은혜 아니면', special:'주일', full:'', s:'', a:'', t:'', b:'', live:''}
+  songs:[
+    {id:'s1',date:'2026-09-13',title:'주 하나님 지으신 모든 세계',special:'주일',score:'',full:'',s:'',a:'',t:'',b:'',live:''},
+    {id:'s2',date:'2026-09-20',title:'은혜 아니면',special:'주일',score:'',full:'',s:'',a:'',t:'',b:'',live:''}
   ],
-  prayers: [
-    {id:'p1', thuDate:'2026-09-17', sunDate:'2026-09-20', thuStart:'김○○', thuEnd:'이○○', sunStart:'박○○', sunEnd:'최○○'}
+  prayers:[
+    {id:'p1',thuDate:'2026-09-17',sunDate:'2026-09-20',thuStart:'김○○',thuEnd:'이○○',sunStart:'박○○',sunEnd:'최○○'}
   ],
-  notices: [
-    {id:'n1', scope:'전체', title:'목요일 정기연습 안내', body:'목요일 정기연습은 오후 7:30에 시작합니다.', date:'2026-09-10', important:true}
+  notices:[
+    {id:'n1',scope:'전체',title:'목요일 정기연습 안내',body:'목요일 정기연습은 오후 7:30에 시작합니다.',date:'2026-09-10',important:true}
   ],
-  choirIntro: {
-    id:'intro1',
-    name:'소망 찬양대',
-    englishName:'SOMANG CHOIR',
-    description:'한 마음으로 하나님을 찬양하는 공동체',
-    founded:'',
-    service:'',
-    rehearsal:'목요일 19:30–21:00 / 주일 08:00–08:45 / 주일 10:40–12:00',
-    history:'',
-    vision:''
-  },
-  leaders: [
-    {id:'l1', role:'찬양대장', name:'○○○', photo:''},
-    {id:'l2', role:'지휘자', name:'○○○', photo:''},
-    {id:'l3', role:'반주자 1', name:'○○○', photo:''},
-    {id:'l4', role:'반주자 2', name:'○○○', photo:''},
-    {id:'l5', role:'총무', name:'○○○', photo:''},
-    {id:'l6', role:'회계', name:'○○○', photo:''},
-    {id:'l7', role:'Soprano 파트장', name:'○○○', photo:''},
-    {id:'l8', role:'Alto 파트장', name:'○○○', photo:''},
-    {id:'l9', role:'Tenor 파트장', name:'○○○', photo:''},
-    {id:'l10', role:'Bass 파트장', name:'○○○', photo:''}
+  intro:{id:'intro1',name:'소망 찬양대',englishName:'SOMANG CHOIR',description:'한 마음으로 하나님을 찬양하는 공동체',founded:'',service:'주일 2부 예배',rehearsal:'목요일 19:30–21:00 / 주일 08:00–08:45 / 10:40–12:00',history:'',vision:''},
+  leaders:[
+    {id:'l1',role:'찬양대장',name:'○○○',photo:''},{id:'l2',role:'지휘자',name:'○○○',photo:''},
+    {id:'l3',role:'반주자 1',name:'○○○',photo:''},{id:'l4',role:'반주자 2',name:'○○○',photo:''},
+    {id:'l5',role:'총무',name:'○○○',photo:''},{id:'l6',role:'회계',name:'○○○',photo:''}
   ],
-  gallery: [
-    {id:'g1', title:'찬양제', date:'2026-06-01', description:'특별 찬양제', imageUrl:''},
-    {id:'g2', title:'부활절 찬양', date:'2026-04-05', description:'부활절 특별찬양', imageUrl:''}
+  gallery:[
+    {id:'g1',title:'찬양제',date:'2026-06-01',description:'특별 찬양제',imageUrl:''},
+    {id:'g2',title:'부활절 찬양',date:'2026-04-05',description:'부활절 특별찬양',imageUrl:''}
+  ],
+  events:[
+    {id:'e1',date:'2026-09-17',time:'19:30',title:'목요 정기연습',place:'찬양대실',description:''},
+    {id:'e2',date:'2026-09-20',time:'08:00',title:'주일 예배 전 연습',place:'찬양대실',description:''}
+  ],
+  attendance:[
+    {id:'a1',date:'2026-09-10',type:'목요연습',present:82,absent:8,note:''}
+  ],
+  documents:[
+    {id:'d1',date:'2026-09-01',category:'운영자료',title:'2026 소망 찬양대 운영안',url:'',description:''}
+  ],
+  polls:[
+    {id:'v1',title:'찬양대 야유회 일정 선호',endDate:'2026-09-30',status:'진행중',options:'10/3, 10/9, 10/10'}
+  ],
+  tasks:[
+    {id:'t1',dueDate:'2026-09-20',title:'주일 찬양 영상 업로드',assignee:'영상담당',status:'진행중',note:''}
+  ],
+  finance:[
+    {id:'f1',date:'2026-09-01',type:'수입',category:'회비',amount:'500000',memo:'9월 회비'}
   ]
 };
 
+const PERMISSIONS = [
+  ['members','대원명단/가입 승인'],
+  ['notices','공지 관리'],
+  ['songs','찬양곡·악보·연습/실제영상'],
+  ['prayers','기도당번 관리'],
+  ['events','일정·행사 관리'],
+  ['attendance','출석 관리'],
+  ['intro','찬양대 소개 관리'],
+  ['leaders','임원·섬기는 분들 관리'],
+  ['gallery','갤러리 관리'],
+  ['documents','자료실 관리'],
+  ['polls','투표·설문 관리'],
+  ['tasks','봉사·할일 관리'],
+  ['finance','회비·회계 관리'],
+  ['permissions','관리자 권한 부여']
+];
+
 function loadDB(){
-  let db = JSON.parse(localStorage.getItem('somangChoirDBv3') || 'null');
-  if(!db){ db = seed; localStorage.setItem('somangChoirDBv3', JSON.stringify(db)); }
-  return db;
+  let x=JSON.parse(localStorage.getItem('somangChoirDBv5')||'null');
+  if(!x){x=seed;localStorage.setItem('somangChoirDBv5',JSON.stringify(x))}
+  return x;
 }
-function saveDB(){ localStorage.setItem('somangChoirDBv3', JSON.stringify(db)); }
-
-let db = loadDB();
-let state = { currentPage:'home' };
-
-function me(){ return db.users.find(u=>u.id==='u1') || db.users[0]; }
-function isSuperAdmin(){ const u=me(); return u && (u.role==='superadmin' || (u.permissions||[]).includes('all')); }
-function can(p){ const u=me(); return isSuperAdmin() || (u.permissions||[]).includes(p); }
-function uid(prefix){ return prefix + Date.now().toString(36) + Math.random().toString(36).slice(2,6); }
-function v(id){ return document.getElementById(id)?.value?.trim()||'' }
-function field(label,id,val,type='text'){return `<label>${label}<input id="${id}" type="${type}" value="${(val||'').replaceAll('"','&quot;')}"></label>`}
-function textarea(label,id,val){return `<label>${label}<textarea id="${id}">${val||''}</textarea></label>`}
-function badge(t){return `<span class="tag">${t}</span>`}
-function adminBadge(){return isSuperAdmin()?'<span class="tag" style="background:#fff0cd;color:#7a4f00">SUPER ADMIN</span>':''}
+function saveDB(){localStorage.setItem('somangChoirDBv5',JSON.stringify(db))}
+let db=loadDB();
+let state={currentPage:'home',history:[]};
 
 const main=document.getElementById('main');
 const nav=document.getElementById('bottomNav');
+function me(){return db.users.find(x=>x.id==='u1')||db.users[0]}
+function isSuperAdmin(){return me().role==='superadmin'||(me().permissions||[]).includes('all')}
+function can(p){return isSuperAdmin()||(me().permissions||[]).includes(p)}
+function uid(p){return p+Date.now().toString(36)+Math.random().toString(36).slice(2,5)}
+function v(id){return document.getElementById(id)?.value?.trim()||''}
+function esc(s){return (s||'').replaceAll('"','&quot;')}
+function field(label,id,val,type='text'){return `<label>${label}<input id="${id}" type="${type}" value="${esc(val)}"></label>`}
+function area(label,id,val){return `<label>${label}<textarea id="${id}">${val||''}</textarea></label>`}
+function badge(t){return `<span class="tag">${t}</span>`}
+function adminBadge(){return isSuperAdmin()?'<span class="tag admin-tag">SUPER ADMIN</span>':''}
+function go(page){if(state.currentPage!==page)state.history.push(state.currentPage);state.currentPage=page;render()}
+function goBack(fallback='home'){state.currentPage=state.history.length?state.history.pop():fallback;render()}
+function pageHeader(title,right=''){return `<div class="page-head"><button class="back-btn" onclick="goBack()">‹ 뒤로</button><h2>${title}</h2><div>${right}</div></div>`}
+function actions(edit,del){return `<div class="action-row"><button class="secondary" onclick="${edit}">수정</button><button class="danger" onclick="${del}">삭제</button></div>`}
+function money(n){return Number(n||0).toLocaleString('ko-KR')+'원'}
 
 function render(){
   [...nav.querySelectorAll('button')].forEach(b=>b.classList.toggle('active',b.dataset.page===state.currentPage));
-  const map={home:renderHome,songs:renderSongs,notices:renderNotices,members:renderMembers,more:renderMore,admin:renderAdmin};
-  (map[state.currentPage]||renderHome)();
+  ({home:renderHome,songs:renderSongs,notices:renderNotices,members:renderMembers,more:renderMore,admin:renderAdmin}[state.currentPage]||renderHome)();
 }
 
 function renderHome(){
-  const p=db.prayers[0];
+  const p=[...db.prayers].sort((a,b)=>(a.sunDate||'').localeCompare(b.sunDate||''))[0];
+  const nextEvent=[...db.events].sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time))[0];
   main.innerHTML=`
-    <section class="hero"><h1>${db.choirIntro.name}</h1><p>${db.choirIntro.description}</p><div style="margin-top:14px">${adminBadge()}</div></section>
-    <section class="card"><h3>이번 주 찬양</h3><div style="font-size:20px;font-weight:800">${db.songs[0]?.title||'미등록'}</div></section>
-    <section class="card">
-      <h3>정기 연습</h3>
-      <div class="row"><span>목요일</span><b>19:30–21:00</b></div>
-      <div class="row"><span>주일 예배 전</span><b>08:00–08:45</b></div>
-      <div class="row"><span>주일 예배 후</span><b>10:40–12:00</b></div>
-    </section>
-    <section class="card"><h3>이번 주 기도 담당</h3>
-      ${p?`<div class="row"><span>목요일 ${p.thuDate}</span><b>시작 ${p.thuStart} / 마침 ${p.thuEnd}</b></div>
-      <div class="row"><span>주일 ${p.sunDate}</span><b>08:00 ${p.sunStart} / 마침 ${p.sunEnd}</b></div>`:'<div class="muted">미등록</div>'}
-    </section>
-    ${isSuperAdmin()?`<section class="admin-box"><button class="primary" onclick="state.currentPage='admin';render()">최고관리자 센터</button></section>`:''}
-  `;
+  <section class="hero"><h1>${db.intro.name||'소망 찬양대'}</h1><p>${db.intro.description||''}</p><div style="margin-top:14px">${adminBadge()}</div></section>
+  <section class="card"><div class="list-head"><h3>이번 주 찬양</h3><button class="link-btn" onclick="go('songs')">전체보기</button></div>
+    <div class="feature-title">${db.songs[0]?.title||'미등록'}</div><div class="muted">${db.songs[0]?.date||''}</div></section>
+  <section class="card"><h3>다가오는 일정</h3>${nextEvent?`<div class="row"><div><b>${nextEvent.title}</b><div class="muted">${nextEvent.date} ${nextEvent.time} · ${nextEvent.place}</div></div></div>`:'<div class="muted">등록된 일정이 없습니다.</div>'}</section>
+  <section class="card"><h3>이번 주 기도 담당</h3>${p?`
+    <div class="row"><span>목요일 ${p.thuDate}</span><b>시작 ${p.thuStart} / 마침 ${p.thuEnd}</b></div>
+    <div class="row"><span>주일 ${p.sunDate}</span><b>시작 ${p.sunStart} / 마침 ${p.sunEnd}</b></div>`:'<div class="muted">미등록</div>'}</section>
+  <section class="card"><h3>최근 공지</h3>${db.notices.slice(0,3).map(n=>`<div class="row"><div>${badge(n.scope)} <b>${n.title}</b></div><span class="muted">${n.date}</span></div>`).join('')}</section>
+  ${isSuperAdmin()?`<section class="admin-box"><h3>통합 관리센터</h3><p class="muted">모든 데이터 입력·수정·삭제 및 권한 부여</p><button class="primary wide" onclick="go('admin')">관리센터 열기</button></section>`:''}`;
 }
 
 function renderSongs(){
-  main.innerHTML=`<div class="list-head"><div><h2 style="margin:0">연간 주일별 찬양곡</h2></div>${can('songs')?'<button class="primary" onclick="openSongForm()">+ 추가</button>':''}</div>
-  ${db.songs.sort((a,b)=>a.date.localeCompare(b.date)).map(song=>`<section class="card">
-    <div class="row"><div><div class="muted">${song.date} · ${song.special}</div><b>${song.title}</b></div>${can('songs')?`<button class="secondary" onclick="openSongForm('${song.id}')">수정</button>`:''}</div>
-    <div class="grid4" style="margin-top:10px"><div class="pill small">전체 ${song.full?'✓':''}</div><div class="pill small">S ${song.s?'✓':''}</div><div class="pill small">A ${song.a?'✓':''}</div><div class="pill small">T/B ${(song.t||song.b)?'✓':''}</div></div>
-  </section>`).join('')}`;
+  main.innerHTML=`${pageHeader('연간 주일별 찬양곡',can('songs')?'<button class="primary" onclick="openSong()">+ 등록</button>':'')}
+  ${db.songs.sort((a,b)=>a.date.localeCompare(b.date)).map(x=>`<section class="card">
+  <div class="row"><div><div class="muted">${x.date} · ${x.special}</div><b>${x.title}</b></div>${can('songs')?actions(`openSong('${x.id}')`,`delItem('songs','${x.id}','songs')`):''}</div>
+  <div class="chip-row"><span class="chip">악보 ${x.score?'✓':''}</span><span class="chip">전체 ${x.full?'✓':''}</span><span class="chip">S ${x.s?'✓':''}</span><span class="chip">A ${x.a?'✓':''}</span><span class="chip">T ${x.t?'✓':''}</span><span class="chip">B ${x.b?'✓':''}</span><span class="chip">실황 ${x.live?'✓':''}</span></div></section>`).join('')}`;
 }
-function openSongForm(id=''){
-  const x=db.songs.find(s=>s.id===id)||{date:'',title:'',special:'주일',full:'',s:'',a:'',t:'',b:'',live:''};
-  main.innerHTML=`<h2>${id?'찬양곡 수정':'찬양곡 등록'}</h2><section class="card form-card">
-    ${field('날짜','songDate',x.date,'date')}${field('구분','songSpecial',x.special)}${field('곡명','songTitle',x.title)}
-    ${field('전체합창 URL','songFull',x.full)}${field('Soprano URL','songS',x.s)}${field('Alto URL','songA',x.a)}${field('Tenor URL','songT',x.t)}${field('Bass URL','songB',x.b)}${field('실제 찬양영상 URL','songLive',x.live)}
-    <div class="dialog-actions"><button class="secondary" onclick="state.currentPage='songs';render()">취소</button>${id?`<button class="danger" onclick="delSong('${id}')">삭제</button>`:''}<button class="primary" onclick="saveSong('${id}')">저장</button></div>
-  </section>`;
+function openSong(id=''){
+ const x=db.songs.find(y=>y.id===id)||{date:'',title:'',special:'주일',score:'',full:'',s:'',a:'',t:'',b:'',live:''};
+ main.innerHTML=`${pageHeader(id?'찬양곡 수정':'찬양곡 등록')}<section class="card form-card">
+ ${field('날짜','xDate',x.date,'date')}${field('구분','xSpecial',x.special)}${field('곡명','xTitle',x.title)}
+ ${field('악보 PDF/링크','xScore',x.score)}${field('전체 연습영상 URL','xFull',x.full)}${field('Soprano URL','xS',x.s)}${field('Alto URL','xA',x.a)}${field('Tenor URL','xT',x.t)}${field('Bass URL','xB',x.b)}${field('실제 찬양영상 URL','xLive',x.live)}
+ <div class="dialog-actions"><button class="secondary" onclick="goBack('songs')">취소</button><button class="primary" onclick="saveSong('${id}')">저장</button></div></section>`;
 }
-function saveSong(id){const o={id:id||uid('s'),date:v('songDate'),special:v('songSpecial'),title:v('songTitle'),full:v('songFull'),s:v('songS'),a:v('songA'),t:v('songT'),b:v('songB'),live:v('songLive')};db.songs=id?db.songs.map(x=>x.id===id?o:x):[...db.songs,o];saveDB();state.currentPage='songs';render();}
-function delSong(id){if(confirm('삭제할까요?')){db.songs=db.songs.filter(x=>x.id!==id);saveDB();state.currentPage='songs';render();}}
+function saveSong(id){let o={id:id||uid('s'),date:v('xDate'),special:v('xSpecial'),title:v('xTitle'),score:v('xScore'),full:v('xFull'),s:v('xS'),a:v('xA'),t:v('xT'),b:v('xB'),live:v('xLive')};upsert('songs',o,id);goBack('songs')}
 
 function renderNotices(){
-  main.innerHTML=`<div class="list-head"><h2 style="margin:0">공지사항</h2>${can('notices')?'<button class="primary" onclick="openNoticeForm()">+ 등록</button>':''}</div>
-  ${db.notices.map(n=>`<section class="card">${badge(n.scope)} ${n.important?badge('중요'):''}<h3>${n.title}</h3><p>${n.body||''}</p><div class="row"><span class="muted">${n.date}</span>${can('notices')?`<button class="secondary" onclick="openNoticeForm('${n.id}')">수정</button>`:''}</div></section>`).join('')}`;
+ main.innerHTML=`${pageHeader('공지사항',can('notices')?'<button class="primary" onclick="openNotice()">+ 등록</button>':'')}
+ ${db.notices.sort((a,b)=>b.date.localeCompare(a.date)).map(x=>`<section class="card">${badge(x.scope)} ${x.important?badge('중요'):''}<h3>${x.title}</h3><p>${x.body||''}</p><div class="row"><span class="muted">${x.date}</span>${can('notices')?actions(`openNotice('${x.id}')`,`delItem('notices','${x.id}','notices')`):''}</div></section>`).join('')}`;
 }
-function openNoticeForm(id=''){const n=db.notices.find(x=>x.id===id)||{scope:'전체',title:'',body:'',date:new Date().toISOString().slice(0,10),important:false};main.innerHTML=`<h2>${id?'공지 수정':'공지 등록'}</h2><section class="card form-card">
-<label>대상<select id="noticeScope"><option ${n.scope==='전체'?'selected':''}>전체</option><option ${n.scope==='Soprano'?'selected':''}>Soprano</option><option ${n.scope==='Alto'?'selected':''}>Alto</option><option ${n.scope==='Tenor'?'selected':''}>Tenor</option><option ${n.scope==='Bass'?'selected':''}>Bass</option></select></label>
-${field('제목','noticeTitle',n.title)}${textarea('내용','noticeBody',n.body)}${field('게시일','noticeDate',n.date,'date')}<label><input type="checkbox" id="noticeImportant" ${n.important?'checked':''}> 중요공지</label>
-<div class="dialog-actions"><button class="secondary" onclick="state.currentPage='notices';render()">취소</button>${id?`<button class="danger" onclick="delNotice('${id}')">삭제</button>`:''}<button class="primary" onclick="saveNotice('${id}')">저장</button></div></section>`}
-function saveNotice(id){const o={id:id||uid('n'),scope:v('noticeScope'),title:v('noticeTitle'),body:v('noticeBody'),date:v('noticeDate'),important:document.getElementById('noticeImportant').checked};db.notices=id?db.notices.map(x=>x.id===id?o:x):[...db.notices,o];saveDB();state.currentPage='notices';render()}
-function delNotice(id){if(confirm('삭제할까요?')){db.notices=db.notices.filter(x=>x.id!==id);saveDB();state.currentPage='notices';render()}}
+function openNotice(id=''){const x=db.notices.find(y=>y.id===id)||{scope:'전체',title:'',body:'',date:new Date().toISOString().slice(0,10),important:false};main.innerHTML=`${pageHeader(id?'공지 수정':'공지 등록')}<section class="card form-card">
+<label>대상<select id="nScope">${['전체','Soprano','Alto','Tenor','Bass'].map(o=>`<option ${x.scope===o?'selected':''}>${o}</option>`).join('')}</select></label>
+${field('제목','nTitle',x.title)}${area('내용','nBody',x.body)}${field('게시일','nDate',x.date,'date')}<label><input id="nImportant" type="checkbox" ${x.important?'checked':''}> 중요공지</label>
+<div class="dialog-actions"><button class="secondary" onclick="goBack('notices')">취소</button><button class="primary" onclick="saveNotice('${id}')">저장</button></div></section>`}
+function saveNotice(id){upsert('notices',{id:id||uid('n'),scope:v('nScope'),title:v('nTitle'),body:v('nBody'),date:v('nDate'),important:document.getElementById('nImportant').checked},id);goBack('notices')}
 
 function renderMembers(){
-  main.innerHTML=`<div class="list-head"><h2 style="margin:0">대원명단</h2>${isSuperAdmin()?'<button class="primary" onclick="state.currentPage=\'admin\';render()">권한관리</button>':''}</div>
-  <section class="card">${db.users.filter(u=>u.status==='approved').map(u=>`<div class="member"><div class="avatar">${u.name[0]}</div><div style="flex:1"><b>${u.name}</b><div class="muted">${u.title||''} · ${u.part||''}</div></div>${isSuperAdmin()?`<button class="secondary" onclick="editUser('${u.id}')">권한</button>`:''}</div>`).join('')}</section>`;
+ main.innerHTML=`${pageHeader('대원명단',isSuperAdmin()?'<button class="primary" onclick="go(\\'admin\\')">관리</button>':'')}
+ <section class="card">${db.users.filter(u=>u.status==='approved').map(u=>`<div class="member"><div class="avatar">${u.name[0]}</div><div style="flex:1"><b>${u.name}</b><div class="muted">${u.title||''} · ${u.part||''}<br>${u.phone||''}</div></div>${can('permissions')||isSuperAdmin()?`<button class="secondary" onclick="editPermissions('${u.id}')">권한</button>`:''}</div>`).join('')}</section>`;
 }
 
 function renderMore(){
-  main.innerHTML=`<h2>더보기</h2>
-  <section class="card"><div class="list-head"><h3 style="margin:0">소망 찬양대 소개</h3>${can('intro')?'<button class="secondary" onclick="openIntroForm()">수정</button>':''}</div>
-    <p>${db.choirIntro.description||''}</p><div class="muted">${db.choirIntro.rehearsal||''}</div></section>
-  <section class="card"><div class="list-head"><h3 style="margin:0">섬기는 분들</h3>${can('leaders')?'<button class="secondary" onclick="openLeaderForm()">+ 등록</button>':''}</div>
-    ${db.leaders.map(l=>`<div class="row"><span>${l.role}</span><b>${l.name}</b>${can('leaders')?`<button class="secondary" onclick="openLeaderForm('${l.id}')">수정</button>`:''}</div>`).join('')}</section>
-  <section class="card"><div class="list-head"><h3 style="margin:0">기도당번</h3>${can('prayers')?'<button class="secondary" onclick="openPrayerForm()">+ 등록</button>':''}</div>
-    ${db.prayers.map(p=>`<div class="row"><div><b>목 ${p.thuDate} / 주일 ${p.sunDate}</b><div class="muted">목: ${p.thuStart} / ${p.thuEnd} · 주일: ${p.sunStart} / ${p.sunEnd}</div></div>${can('prayers')?`<button class="secondary" onclick="openPrayerForm('${p.id}')">수정</button>`:''}</div>`).join('')}</section>
-  <section class="card"><div class="list-head"><h3 style="margin:0">갤러리</h3>${can('gallery')?'<button class="secondary" onclick="openGalleryForm()">+ 등록</button>':''}</div>
-    <div class="gallery">${db.gallery.map(g=>`<div class="gallery-item" onclick="${can('gallery')?`openGalleryForm('${g.id}')`:''}"><div>${g.title}<div class="small">${g.date}</div></div></div>`).join('')}</div></section>
-  ${isSuperAdmin()?`<section class="admin-box"><button class="primary" onclick="state.currentPage='admin';render()">최고관리자 센터</button></section>`:''}`;
+ main.innerHTML=`${pageHeader('더보기')}
+ <section class="menu-grid">
+   <button onclick="openModule('intro')"><b>찬양대 소개</b><span>소개·연혁·비전</span></button>
+   <button onclick="openModule('leaders')"><b>섬기는 분들</b><span>임원·파트장</span></button>
+   <button onclick="openModule('prayers')"><b>기도당번</b><span>목요일·주일</span></button>
+   <button onclick="openModule('events')"><b>일정·행사</b><span>연습·특별행사</span></button>
+   <button onclick="openModule('gallery')"><b>갤러리</b><span>사진·행사앨범</span></button>
+   <button onclick="openModule('documents')"><b>자료실</b><span>문서·링크</span></button>
+   <button onclick="openModule('polls')"><b>투표·설문</b><span>의견수렴</span></button>
+   <button onclick="openModule('tasks')"><b>봉사·할일</b><span>담당·마감</span></button>
+ </section>
+ ${isSuperAdmin()?`<section class="admin-box"><button class="primary wide" onclick="go('admin')">통합 관리센터</button></section>`:''}`;
 }
-
-function openIntroForm(){
-  const x=db.choirIntro;
-  main.innerHTML=`<h2>찬양대 소개 수정</h2><section class="card form-card">
-    ${field('찬양대명','introName',x.name)}${field('영문명','introEng',x.englishName)}${textarea('소개글','introDesc',x.description)}${field('창단연도','introFounded',x.founded)}${field('섬기는 예배','introService',x.service)}${textarea('정기연습','introRehearsal',x.rehearsal)}${textarea('연혁','introHistory',x.history)}${textarea('비전','introVision',x.vision)}
-    <div class="dialog-actions"><button class="secondary" onclick="state.currentPage='more';render()">취소</button><button class="danger" onclick="clearIntro()">내용 초기화</button><button class="primary" onclick="saveIntro()">저장</button></div>
-  </section>`;
-}
-function saveIntro(){db.choirIntro={id:'intro1',name:v('introName'),englishName:v('introEng'),description:v('introDesc'),founded:v('introFounded'),service:v('introService'),rehearsal:v('introRehearsal'),history:v('introHistory'),vision:v('introVision')};saveDB();state.currentPage='more';render();}
-function clearIntro(){if(confirm('소개 내용을 초기화할까요?')){db.choirIntro={id:'intro1',name:'소망 찬양대',englishName:'SOMANG CHOIR',description:'',founded:'',service:'',rehearsal:'',history:'',vision:''};saveDB();state.currentPage='more';render();}}
-
-function openLeaderForm(id=''){const x=db.leaders.find(l=>l.id===id)||{role:'',name:'',photo:''};main.innerHTML=`<h2>${id?'섬기는 분 수정':'섬기는 분 등록'}</h2><section class="card form-card">${field('역할','leaderRole',x.role)}${field('이름','leaderName',x.name)}${field('사진 URL','leaderPhoto',x.photo)}<div class="dialog-actions"><button class="secondary" onclick="state.currentPage='more';render()">취소</button>${id?`<button class="danger" onclick="delLeader('${id}')">삭제</button>`:''}<button class="primary" onclick="saveLeader('${id}')">저장</button></div></section>`}
-function saveLeader(id){const o={id:id||uid('l'),role:v('leaderRole'),name:v('leaderName'),photo:v('leaderPhoto')};db.leaders=id?db.leaders.map(x=>x.id===id?o:x):[...db.leaders,o];saveDB();state.currentPage='more';render()}
-function delLeader(id){if(confirm('삭제할까요?')){db.leaders=db.leaders.filter(x=>x.id!==id);saveDB();state.currentPage='more';render()}}
-
-function openPrayerForm(id=''){const x=db.prayers.find(p=>p.id===id)||{thuDate:'',sunDate:'',thuStart:'',thuEnd:'',sunStart:'',sunEnd:''};main.innerHTML=`<h2>${id?'기도당번 수정':'기도당번 등록'}</h2><section class="card form-card">
-${field('목요일 날짜','prayThuDate',x.thuDate,'date')}${field('주일 날짜','praySunDate',x.sunDate,'date')}${field('목요일 시작기도','prayThuStart',x.thuStart)}${field('목요일 마침기도','prayThuEnd',x.thuEnd)}${field('주일 08:00 시작기도','praySunStart',x.sunStart)}${field('주일 예배후 마침기도','praySunEnd',x.sunEnd)}
-<div class="dialog-actions"><button class="secondary" onclick="state.currentPage='more';render()">취소</button>${id?`<button class="danger" onclick="delPrayer('${id}')">삭제</button>`:''}<button class="primary" onclick="savePrayer('${id}')">저장</button></div></section>`}
-function savePrayer(id){const o={id:id||uid('p'),thuDate:v('prayThuDate'),sunDate:v('praySunDate'),thuStart:v('prayThuStart'),thuEnd:v('prayThuEnd'),sunStart:v('praySunStart'),sunEnd:v('praySunEnd')};db.prayers=id?db.prayers.map(x=>x.id===id?o:x):[...db.prayers,o];saveDB();state.currentPage='more';render()}
-function delPrayer(id){if(confirm('삭제할까요?')){db.prayers=db.prayers.filter(x=>x.id!==id);saveDB();state.currentPage='more';render()}}
-
-function openGalleryForm(id=''){const x=db.gallery.find(g=>g.id===id)||{title:'',date:'',description:'',imageUrl:''};main.innerHTML=`<h2>${id?'갤러리 수정':'갤러리 등록'}</h2><section class="card form-card">
-${field('행사명','galleryTitle',x.title)}${field('날짜','galleryDate',x.date,'date')}${textarea('설명','galleryDesc',x.description)}${field('대표사진 URL','galleryImage',x.imageUrl)}
-<div class="dialog-actions"><button class="secondary" onclick="state.currentPage='more';render()">취소</button>${id?`<button class="danger" onclick="delGallery('${id}')">삭제</button>`:''}<button class="primary" onclick="saveGallery('${id}')">저장</button></div></section>`}
-function saveGallery(id){const o={id:id||uid('g'),title:v('galleryTitle'),date:v('galleryDate'),description:v('galleryDesc'),imageUrl:v('galleryImage')};db.gallery=id?db.gallery.map(x=>x.id===id?o:x):[...db.gallery,o];saveDB();state.currentPage='more';render()}
-function delGallery(id){if(confirm('삭제할까요?')){db.gallery=db.gallery.filter(x=>x.id!==id);saveDB();state.currentPage='more';render()}}
 
 function renderAdmin(){
-  if(!isSuperAdmin()){main.innerHTML='<p>접근 권한이 없습니다.</p>';return}
-  const pending=db.users.filter(u=>u.status==='pending');
-  main.innerHTML=`<div class="list-head"><div><h2 style="margin:0">최고관리자 센터</h2><div class="muted">모든 콘텐츠와 권한을 관리합니다.</div></div>${adminBadge()}</div>
-  <section class="card"><h3>가입 승인</h3>${pending.length?pending.map(u=>`<div class="member"><div class="avatar">${u.name[0]}</div><div style="flex:1"><b>${u.name}</b><div class="muted">${u.title||''} · ${u.part||''}</div></div><button class="primary" onclick="approveUser('${u.id}')">승인</button><button class="secondary" onclick="rejectUser('${u.id}')">거절</button></div>`).join(''):'<div class="muted">승인 대기자가 없습니다.</div>'}</section>
-  <section class="card"><h3>대원 및 권한</h3>${db.users.filter(u=>u.status==='approved').map(u=>`<div class="member"><div class="avatar">${u.name[0]}</div><div style="flex:1"><b>${u.name}</b><div class="muted">${u.title||''} · ${u.part||''}</div></div><button class="secondary" onclick="editUser('${u.id}')">권한설정</button></div>`).join('')}</section>
-  <section class="card"><h3>콘텐츠 관리</h3><div class="grid2">
-    <button class="primary" onclick="state.currentPage='notices';render()">공지</button><button class="primary" onclick="state.currentPage='songs';render()">연간 찬양곡</button>
-    <button class="primary" onclick="openPrayerForm()">기도당번</button><button class="primary" onclick="openIntroForm()">찬양대 소개</button>
-    <button class="primary" onclick="openLeaderForm()">섬기는 분들</button><button class="primary" onclick="openGalleryForm()">갤러리</button>
-  </div></section>`;
+ if(!isSuperAdmin()&&!can('permissions')){main.innerHTML='<p>접근 권한이 없습니다.</p>';return}
+ const pending=db.users.filter(u=>u.status==='pending');
+ const modules=[
+  ['members','대원/가입','가입승인·대원정보','👥'],['notices','공지','전체·파트 공지','📣'],['songs','찬양','곡·악보·영상','🎼'],
+  ['prayers','기도당번','목요일·주일 기도','🙏'],['events','일정/행사','연습·행사 캘린더','📅'],['attendance','출석','연습·주일 출석','✓'],
+  ['intro','찬양대 소개','소개·연혁·비전','ℹ'],['leaders','섬기는 분들','임원·파트장','★'],['gallery','갤러리','앨범·사진','▣'],
+  ['documents','자료실','문서·링크','📎'],['polls','투표/설문','의견수렴','☑'],['tasks','봉사/할일','담당업무·마감','☰'],
+  ['finance','회비/회계','수입·지출·잔액','₩'],['permissions','권한 관리','데이터군별 관리자','🔐']
+ ];
+ main.innerHTML=`${pageHeader('통합 관리센터',adminBadge())}
+ <section class="dashboard-summary"><div><b>${db.users.filter(u=>u.status==='approved').length}</b><span>승인 대원</span></div><div><b>${pending.length}</b><span>가입 대기</span></div><div><b>${db.events.length}</b><span>일정</span></div><div><b>${db.songs.length}</b><span>찬양곡</span></div></section>
+ ${pending.length?`<section class="card"><h3>가입 승인 대기</h3>${pending.map(u=>`<div class="member"><div class="avatar">${u.name[0]}</div><div style="flex:1"><b>${u.name}</b><div class="muted">${u.title||''} · ${u.part||''}</div></div><button class="primary" onclick="approve('${u.id}')">승인</button><button class="danger" onclick="reject('${u.id}')">거절</button></div>`).join('')}</section>`:''}
+ <h3 class="section-title">데이터 관리</h3><section class="admin-grid">${modules.filter(m=>can(m[0])||isSuperAdmin()).map(m=>`<button onclick="openModule('${m[0]}')"><span class="admin-icon">${m[3]}</span><b>${m[1]}</b><small>${m[2]}</small></button>`).join('')}</section>`;
 }
-function approveUser(id){const u=db.users.find(x=>x.id===id);if(u){u.status='approved';saveDB();renderAdmin()}}
-function rejectUser(id){if(confirm('거절할까요?')){db.users=db.users.filter(x=>x.id!==id);saveDB();renderAdmin()}}
 
-function editUser(id){
-  const u=db.users.find(x=>x.id===id);if(!u)return;
-  main.innerHTML=`<h2>권한 설정</h2><section class="card form-card">
-  <div class="row"><span>이름</span><b>${u.name}</b></div><div class="row"><span>파트</span><b>${u.part||'-'}</b></div>
-  <label>역할<select id="userRole"><option value="member" ${u.role==='member'?'selected':''}>일반대원</option><option value="manager" ${u.role==='manager'?'selected':''}>운영담당</option><option value="superadmin" ${u.role==='superadmin'?'selected':''}>최고관리자</option></select></label>
-  <h3>세부 권한</h3>
-  ${permCheck('notices','공지 관리',u)}${permCheck('songs','연간 찬양곡/연습영상/실제영상 관리',u)}${permCheck('prayers','기도당번 관리',u)}${permCheck('intro','찬양대 소개 관리',u)}${permCheck('leaders','섬기는 분들 관리',u)}${permCheck('gallery','갤러리 관리',u)}${permCheck('members','대원명단 관리',u)}${permCheck('permissions','다른 대원 권한 부여',u)}
-  <div class="dialog-actions"><button class="secondary" onclick="state.currentPage='admin';render()">취소</button><button class="primary" onclick="saveUserPerms('${id}')">저장</button></div></section>`;
+function openModule(type){
+ if(type==='members'){renderMemberAdmin();return}
+ if(type==='permissions'){renderPermissionAdmin();return}
+ if(type==='intro'){renderIntroAdmin();return}
+ if(type==='leaders'){renderGeneric(type,'섬기는 분들');return}
+ if(type==='prayers'){renderPrayerAdmin();return}
+ if(type==='events'){renderGeneric(type,'일정·행사');return}
+ if(type==='attendance'){renderGeneric(type,'출석');return}
+ if(type==='gallery'){renderGeneric(type,'갤러리');return}
+ if(type==='documents'){renderGeneric(type,'자료실');return}
+ if(type==='polls'){renderGeneric(type,'투표·설문');return}
+ if(type==='tasks'){renderGeneric(type,'봉사·할일');return}
+ if(type==='finance'){renderFinanceAdmin();return}
+ if(type==='songs'){state.history.push(state.currentPage);state.currentPage='songs';render();return}
+ if(type==='notices'){state.history.push(state.currentPage);state.currentPage='notices';render();return}
 }
-function permCheck(code,label,u){const c=(u.permissions||[]).includes(code)||u.role==='superadmin'?'checked':'';return `<label><input type="checkbox" id="perm_${code}" ${c}> ${label}</label>`}
-function saveUserPerms(id){const u=db.users.find(x=>x.id===id);if(!u)return;u.role=v('userRole');const perms=['notices','songs','prayers','intro','leaders','gallery','members','permissions'];u.permissions=u.role==='superadmin'?['all']:perms.filter(p=>document.getElementById('perm_'+p).checked);saveDB();state.currentPage='admin';render();}
 
-document.getElementById('profileBtn').addEventListener('click',()=>{const u=me();document.getElementById('profileContent').innerHTML=`<div class="row"><span>이름</span><b>${u.name}</b></div><div class="row"><span>권한</span><b>${isSuperAdmin()?'최고관리자 · 모든 권한':u.role}</b></div>`;document.getElementById('profileDialog').showModal()});
+function renderMemberAdmin(){
+ main.innerHTML=`${pageHeader('대원/가입 관리','<button class="primary" onclick="openMember()">+ 대원 등록</button>')}
+ ${db.users.map(u=>`<section class="card"><div class="row"><div><b>${u.name}</b> ${badge(u.status==='approved'?'승인':'대기')}<div class="muted">${u.title||''} · ${u.part||''} · ${u.phone||''}</div></div><div class="action-row"><button class="secondary" onclick="openMember('${u.id}')">수정</button>${u.id!=='u1'?`<button class="danger" onclick="delItem('users','${u.id}','admin')">삭제</button>`:''}</div></div></section>`).join('')}`;
+}
+function openMember(id=''){const x=db.users.find(y=>y.id===id)||{name:'',title:'',part:'',phone:'',status:'approved',role:'member',permissions:[]};main.innerHTML=`${pageHeader(id?'대원정보 수정':'대원 등록')}<section class="card form-card">
+${field('이름','mName',x.name)}${field('직분','mTitle',x.title)}<label>파트<select id="mPart">${['Soprano','Alto','Tenor','Bass'].map(o=>`<option ${x.part===o?'selected':''}>${o}</option>`).join('')}</select></label>${field('연락처','mPhone',x.phone)}
+<label>상태<select id="mStatus"><option value="approved" ${x.status==='approved'?'selected':''}>승인</option><option value="pending" ${x.status==='pending'?'selected':''}>대기</option><option value="inactive" ${x.status==='inactive'?'selected':''}>비활성</option></select></label>
+<div class="dialog-actions"><button class="secondary" onclick="goBack()">취소</button><button class="primary" onclick="saveMember('${id}')">저장</button></div></section>`}
+function saveMember(id){const old=db.users.find(x=>x.id===id)||{};upsert('users',{...old,id:id||uid('u'),name:v('mName'),title:v('mTitle'),part:v('mPart'),phone:v('mPhone'),status:v('mStatus'),role:old.role||'member',permissions:old.permissions||[]},id);goBack()}
+
+function renderPermissionAdmin(){
+ main.innerHTML=`${pageHeader('권한 관리')}<section class="card"><p class="muted">각 대원에게 필요한 데이터군만 선택해서 관리 권한을 부여합니다. 최고관리자는 모든 권한을 가집니다.</p>
+ ${db.users.filter(u=>u.status==='approved').map(u=>`<div class="member"><div class="avatar">${u.name[0]}</div><div style="flex:1"><b>${u.name}</b><div class="muted">${u.title||''} · ${u.part||''}</div></div><button class="secondary" onclick="editPermissions('${u.id}')">권한 설정</button></div>`).join('')}</section>`;
+}
+function editPermissions(id){const u=db.users.find(x=>x.id===id);main.innerHTML=`${pageHeader('권한 설정')}<section class="card form-card"><div class="row"><span>대원</span><b>${u.name}</b></div>
+<label>기본 역할<select id="pRole"><option value="member" ${u.role==='member'?'selected':''}>일반대원</option><option value="manager" ${u.role==='manager'?'selected':''}>관리담당</option><option value="superadmin" ${u.role==='superadmin'?'selected':''}>최고관리자</option></select></label>
+<h3>데이터군별 관리 권한</h3>${PERMISSIONS.map(([c,l])=>`<label class="perm-line"><input type="checkbox" id="perm_${c}" ${(u.permissions||[]).includes(c)||u.role==='superadmin'?'checked':''}> <span>${l}</span></label>`).join('')}
+<div class="dialog-actions"><button class="secondary" onclick="goBack()">취소</button><button class="primary" onclick="savePermissions('${id}')">저장</button></div></section>`}
+function savePermissions(id){const u=db.users.find(x=>x.id===id);u.role=v('pRole');u.permissions=u.role==='superadmin'?['all']:PERMISSIONS.map(x=>x[0]).filter(c=>document.getElementById('perm_'+c).checked);saveDB();goBack()}
+
+function renderIntroAdmin(){
+ const x=db.intro;
+ main.innerHTML=`${pageHeader('찬양대 소개 관리','<button class="primary" onclick="editIntro()">수정</button>')}<section class="card">
+ <div class="row"><span>찬양대명</span><b>${x.name||'-'}</b></div><div class="row"><span>영문명</span><b>${x.englishName||'-'}</b></div>
+ <div class="row"><span>섬기는 예배</span><b>${x.service||'-'}</b></div><p>${x.description||'소개 미등록'}</p><p class="muted">${x.rehearsal||''}</p>
+ <h3>연혁</h3><p>${x.history||'미등록'}</p><h3>비전</h3><p>${x.vision||'미등록'}</p><button class="danger" onclick="deleteIntro()">소개 삭제</button></section>`;
+}
+function editIntro(){const x=db.intro;main.innerHTML=`${pageHeader('찬양대 소개 수정')}<section class="card form-card">${field('찬양대명','iName',x.name)}${field('영문명','iEng',x.englishName)}${area('소개글','iDesc',x.description)}${field('창단연도','iFounded',x.founded)}${field('섬기는 예배','iService',x.service)}${area('연습시간','iRehearsal',x.rehearsal)}${area('연혁','iHistory',x.history)}${area('비전','iVision',x.vision)}<div class="dialog-actions"><button class="secondary" onclick="goBack()">취소</button><button class="primary" onclick="saveIntro()">저장</button></div></section>`}
+function saveIntro(){db.intro={id:'intro1',name:v('iName'),englishName:v('iEng'),description:v('iDesc'),founded:v('iFounded'),service:v('iService'),rehearsal:v('iRehearsal'),history:v('iHistory'),vision:v('iVision')};saveDB();goBack()}
+function deleteIntro(){if(confirm('소개 내용을 삭제할까요?')){db.intro={id:'intro1',name:'소망 찬양대',englishName:'SOMANG CHOIR',description:'',founded:'',service:'',rehearsal:'',history:'',vision:''};saveDB();renderIntroAdmin()}}
+
+function renderPrayerAdmin(){
+ main.innerHTML=`${pageHeader('기도당번 관리','<button class="primary" onclick="openPrayer()">+ 등록</button>')}
+ ${db.prayers.sort((a,b)=>a.thuDate.localeCompare(b.thuDate)).map(x=>`<section class="card"><div class="row"><div><b>목요일 ${x.thuDate}</b><div class="muted">시작 ${x.thuStart} · 마침 ${x.thuEnd}</div><b>주일 ${x.sunDate}</b><div class="muted">08:00 시작 ${x.sunStart} · 예배 후 마침 ${x.sunEnd}</div></div>${actions(`openPrayer('${x.id}')`,`delItem('prayers','${x.id}','admin')`)}</div></section>`).join('')}`;
+}
+function openPrayer(id=''){const x=db.prayers.find(y=>y.id===id)||{thuDate:'',sunDate:'',thuStart:'',thuEnd:'',sunStart:'',sunEnd:''};main.innerHTML=`${pageHeader(id?'기도당번 수정':'기도당번 등록')}<section class="card form-card">${field('목요일 날짜','pThuDate',x.thuDate,'date')}${field('목요일 시작기도','pThuStart',x.thuStart)}${field('목요일 마침기도','pThuEnd',x.thuEnd)}${field('주일 날짜','pSunDate',x.sunDate,'date')}${field('주일 08:00 시작기도','pSunStart',x.sunStart)}${field('주일 예배 후 마침기도','pSunEnd',x.sunEnd)}<div class="dialog-actions"><button class="secondary" onclick="goBack()">취소</button><button class="primary" onclick="savePrayer('${id}')">저장</button></div></section>`}
+function savePrayer(id){upsert('prayers',{id:id||uid('p'),thuDate:v('pThuDate'),thuStart:v('pThuStart'),thuEnd:v('pThuEnd'),sunDate:v('pSunDate'),sunStart:v('pSunStart'),sunEnd:v('pSunEnd')},id);goBack()}
+
+const moduleDefs={
+ leaders:{title:'섬기는 분들',fields:[['role','역할','text'],['name','이름','text'],['photo','사진 URL','text']],summary:x=>`${x.role} · ${x.name}`},
+ events:{title:'일정·행사',fields:[['date','날짜','date'],['time','시간','time'],['title','일정명','text'],['place','장소','text'],['description','설명','area']],summary:x=>`${x.date} ${x.time} · ${x.title} · ${x.place||''}`},
+ attendance:{title:'출석',fields:[['date','날짜','date'],['type','구분','text'],['present','출석 인원','number'],['absent','결석 인원','number'],['note','비고','area']],summary:x=>`${x.date} · ${x.type} · 출석 ${x.present} / 결석 ${x.absent}`},
+ gallery:{title:'갤러리',fields:[['date','날짜','date'],['title','행사명','text'],['description','설명','area'],['imageUrl','대표사진 URL','text']],summary:x=>`${x.date} · ${x.title}`},
+ documents:{title:'자료실',fields:[['date','등록일','date'],['category','분류','text'],['title','자료명','text'],['url','파일/링크 URL','text'],['description','설명','area']],summary:x=>`${x.date} · ${x.category} · ${x.title}`},
+ polls:{title:'투표·설문',fields:[['title','제목','text'],['endDate','마감일','date'],['status','상태','text'],['options','선택지(쉼표 구분)','area']],summary:x=>`${x.title} · ${x.status} · 마감 ${x.endDate}`},
+ tasks:{title:'봉사·할일',fields:[['dueDate','마감일','date'],['title','할일','text'],['assignee','담당자','text'],['status','상태','text'],['note','비고','area']],summary:x=>`${x.dueDate} · ${x.title} · ${x.assignee} · ${x.status}`}
+};
+
+function renderGeneric(type,title){
+ const def=moduleDefs[type];main.innerHTML=`${pageHeader(def.title,`<button class="primary" onclick="openGeneric('${type}')">+ 등록</button>`)}
+ ${(db[type]||[]).map(x=>`<section class="card"><div class="row"><div><b>${def.summary(x)}</b>${type==='gallery'&&x.imageUrl?`<div class="thumb"><img src="${x.imageUrl}"></div>`:''}</div>${actions(`openGeneric('${type}','${x.id}')`,`delItem('${type}','${x.id}','admin')`)}</div></section>`).join('')||'<div class="muted">등록된 데이터가 없습니다.</div>'}`;
+}
+function openGeneric(type,id=''){
+ const def=moduleDefs[type], x=(db[type]||[]).find(y=>y.id===id)||{};
+ main.innerHTML=`${pageHeader(id?def.title+' 수정':def.title+' 등록')}<section class="card form-card">${def.fields.map(([k,l,t])=>t==='area'?area(l,'gen_'+k,x[k]||''):field(l,'gen_'+k,x[k]||'',t)).join('')}
+ <div class="dialog-actions"><button class="secondary" onclick="goBack()">취소</button><button class="primary" onclick="saveGeneric('${type}','${id}')">저장</button></div></section>`;
+}
+function saveGeneric(type,id){const def=moduleDefs[type],o={id:id||uid(type[0])};def.fields.forEach(([k])=>o[k]=v('gen_'+k));upsert(type,o,id);goBack()}
+
+function renderFinanceAdmin(){
+ const income=db.finance.filter(x=>x.type==='수입').reduce((a,x)=>a+Number(x.amount||0),0), expense=db.finance.filter(x=>x.type==='지출').reduce((a,x)=>a+Number(x.amount||0),0);
+ main.innerHTML=`${pageHeader('회비·회계 관리','<button class="primary" onclick="openFinance()">+ 등록</button>')}<section class="dashboard-summary"><div><b>${money(income)}</b><span>수입</span></div><div><b>${money(expense)}</b><span>지출</span></div><div><b>${money(income-expense)}</b><span>잔액</span></div></section>
+ ${db.finance.map(x=>`<section class="card"><div class="row"><div><b>${x.date} · ${x.type} · ${x.category}</b><div class="muted">${x.memo||''}</div></div><div><b>${money(x.amount)}</b>${actions(`openFinance('${x.id}')`,`delItem('finance','${x.id}','admin')`)}</div></div></section>`).join('')}`;
+}
+function openFinance(id=''){const x=db.finance.find(y=>y.id===id)||{date:'',type:'수입',category:'',amount:'',memo:''};main.innerHTML=`${pageHeader(id?'회계 수정':'회계 등록')}<section class="card form-card">${field('날짜','fDate',x.date,'date')}<label>구분<select id="fType"><option ${x.type==='수입'?'selected':''}>수입</option><option ${x.type==='지출'?'selected':''}>지출</option></select></label>${field('항목','fCategory',x.category)}${field('금액','fAmount',x.amount,'number')}${area('메모','fMemo',x.memo)}<div class="dialog-actions"><button class="secondary" onclick="goBack()">취소</button><button class="primary" onclick="saveFinance('${id}')">저장</button></div></section>`}
+function saveFinance(id){upsert('finance',{id:id||uid('f'),date:v('fDate'),type:v('fType'),category:v('fCategory'),amount:v('fAmount'),memo:v('fMemo')},id);goBack()}
+
+function upsert(type,obj,id){db[type]=id?db[type].map(x=>x.id===id?obj:x):[...db[type],obj];saveDB()}
+function delItem(type,id,back='admin'){if(confirm('삭제할까요?')){db[type]=db[type].filter(x=>x.id!==id);saveDB(); if(type==='songs'){renderSongs()} else if(type==='notices'){renderNotices()} else openModule(type)}}
+function approve(id){const u=db.users.find(x=>x.id===id);u.status='approved';saveDB();renderAdmin()}
+function reject(id){if(confirm('가입 신청을 거절할까요?')){db.users=db.users.filter(x=>x.id!==id);saveDB();renderAdmin()}}
+
+document.getElementById('profileBtn').addEventListener('click',()=>{const u=me();document.getElementById('profileContent').innerHTML=`<div class="row"><span>이름</span><b>${u.name}</b></div><div class="row"><span>파트</span><b>${u.part||'-'}</b></div><div class="row"><span>권한</span><b>${isSuperAdmin()?'최고관리자 · 모든 권한':u.role}</b></div>`;document.getElementById('profileDialog').showModal()});
 document.getElementById('joinForm').addEventListener('submit',e=>{if(e.submitter&&e.submitter.value==='cancel')return;e.preventDefault();const fd=new FormData(e.target);db.users.push({id:uid('u'),name:fd.get('name'),title:fd.get('title'),part:fd.get('part'),phone:fd.get('phone'),status:'pending',role:'member',permissions:[]});saveDB();document.getElementById('joinDialog').close();alert('가입 신청이 접수되었습니다.')});
-nav.addEventListener('click',e=>{const b=e.target.closest('button[data-page]');if(!b)return;state.currentPage=b.dataset.page;render()});
+nav.addEventListener('click',e=>{const b=e.target.closest('button[data-page]');if(!b)return;state.history=[];state.currentPage=b.dataset.page;render()});
 render();
