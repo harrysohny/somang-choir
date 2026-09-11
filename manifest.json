@@ -1,0 +1,8 @@
+{
+  "name": "소망 찬양대",
+  "short_name": "소망찬양대",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#163b63"
+}
