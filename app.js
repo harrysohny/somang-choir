@@ -1,7 +1,15 @@
 
 const state = {
   currentPage:'home',
-  user: JSON.parse(localStorage.getItem('somangUser') || 'null'),
+  user: JSON.parse(localStorage.getItem('somangUser') || 'null') || {
+    name:'Harry Sohn',
+    title:'최고관리자',
+    part:'Tenor',
+    phone:'',
+    status:'approved',
+    role:'superadmin',
+    permissions:['all']
+  },
   songs:[
     {date:'2026-09-13', title:'주 하나님 지으신 모든 세계', special:'주일', live:'#'},
     {date:'2026-09-20', title:'은혜 아니면', special:'주일', live:''},
@@ -23,6 +31,13 @@ const state = {
   ]
 };
 
+function isSuperAdmin(){
+  return state.user && (state.user.role === 'superadmin' || (state.user.permissions||[]).includes('all'));
+}
+function adminBadge(){
+  return isSuperAdmin() ? '<span class="tag" style="background:#fff3d9;color:#7a4f00">SUPER ADMIN</span>' : '';
+}
+
 const main = document.getElementById('main');
 const nav = document.getElementById('bottomNav');
 
@@ -37,7 +52,7 @@ function render(){
 
 function renderHome(){
   const userBox = state.user
-    ? `<span class="status">${state.user.status === 'approved' ? '승인 완료' : '가입 승인 대기중'}</span>`
+    ? `<span class="status">${state.user.status === 'approved' ? '승인 완료' : '가입 승인 대기중'}</span> ${adminBadge()}`
     : `<button class="primary" onclick="openJoin()">대원 가입 신청</button>`;
 
   main.innerHTML = `
@@ -169,7 +184,19 @@ function renderMore(){
     </section>
 
     <section class="admin-box">
-      <h3 style="margin-top:0">권한별 관리</h3>
+      <h3 style="margin-top:0">최고관리자 센터 ${adminBadge()}</h3>
+      <p class="muted">현재 계정은 모든 데이터와 사용자 권한을 관리할 수 있습니다.</p>
+      <div class="grid2" style="margin-bottom:12px">
+        <button class="primary">가입 승인 관리</button>
+        <button class="primary">사용자 권한 관리</button>
+        <button class="primary">전체 공지 관리</button>
+        <button class="primary">연간 찬양곡 관리</button>
+        <button class="primary">기도당번 관리</button>
+        <button class="primary">영상/악보 관리</button>
+        <button class="primary">대원명단 관리</button>
+        <button class="primary">갤러리 관리</button>
+      </div>
+      <h3>권한별 관리 구조</h3>
       <p class="muted">최고관리자 · 총무 · 음악담당 · 파트장 · 영상담당 · 일반대원</p>
       <div class="row"><span>일반대원</span><span>본인 사진·연락처 수정</span></div>
       <div class="row"><span>총무</span><span>공지·일정·기도당번</span></div>
@@ -204,7 +231,8 @@ document.getElementById('profileBtn').addEventListener('click',()=>{
       <div class="row"><span>직분</span><b>${state.user.title||'-'}</b></div>
       <div class="row"><span>파트</span><b>${state.user.part}</b></div>
       <div class="row"><span>연락처</span><b>${state.user.phone||'-'}</b></div>
-      <div class="row"><span>상태</span><b>${state.user.status==='approved'?'승인 완료':'총무 승인 대기'}</b></div>`;
+      <div class="row"><span>상태</span><b>${state.user.status==='approved'?'승인 완료':'총무 승인 대기'}</b></div>
+      <div class="row"><span>권한</span><b>${isSuperAdmin()?'최고관리자 · 모든 권한':'일반대원'}</b></div>`;
   }
   document.getElementById('profileDialog').showModal();
 });
