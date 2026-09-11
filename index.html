@@ -3,11 +3,94 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-<title>소망 찬양대 · SOMANG CHOIR · V11.7</title>
+<title>소망 찬양대 · SOMANG CHOIR · V11.8</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 :root{--bg:#f6f7fb;--card:#fff;--ink:#1f2937;--muted:#6b7280;--line:#e5e7eb;--brand:#2d5b52;--brand2:#eaf2ef;--danger:#b42318;--ok:#16794a;--shadow:0 10px 30px rgba(0,0,0,.07)}*{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;background:var(--bg);color:var(--ink)}button,input,select,textarea{font:inherit}.app{max-width:1050px;margin:0 auto;min-height:100vh;background:var(--bg)}header{position:sticky;top:0;z-index:10;background:rgba(255,255,255,.96);border-bottom:1px solid var(--line);backdrop-filter:blur(10px)}.head{display:flex;align-items:center;justify-content:space-between;padding:14px 18px}.brand b{font-size:19px}.brand small{display:block;color:var(--muted);margin-top:2px}.topbtn{border:0;background:var(--brand2);color:var(--brand);padding:9px 12px;border-radius:10px;font-weight:700}main{padding:18px 18px 90px}.hero{background:linear-gradient(135deg,#244d46,#4f756d);color:#fff;border-radius:22px;padding:24px;box-shadow:var(--shadow)}.hero h1{margin:0 0 7px;font-size:25px}.hero p{margin:0;opacity:.88}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:14px}.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:0 4px 16px rgba(0,0,0,.035)}.card h3{margin:0 0 8px}.muted{color:var(--muted);font-size:14px}.tag{display:inline-block;padding:4px 8px;border-radius:999px;background:var(--brand2);color:var(--brand);font-size:12px;font-weight:700}.important{background:#fff2f0;color:#b42318}.list{display:grid;gap:10px}.row{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px}.rowhead{display:flex;justify-content:space-between;gap:10px}.actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}.btn{border:0;border-radius:10px;padding:9px 12px;background:#eef1f4;color:#29313d;font-weight:700}.btn.primary{background:var(--brand);color:#fff}.btn.danger{background:#fff1f0;color:var(--danger)}.btn.ok{background:#ebf8f1;color:var(--ok)}.sectiontitle{display:flex;align-items:center;justify-content:space-between;margin:4px 0 14px}.sectiontitle h2{margin:0;font-size:21px}.loginwrap{max-width:520px;margin:36px auto}.loginbox{background:#fff;border:1px solid var(--line);border-radius:22px;padding:24px;box-shadow:var(--shadow)}.loginbox h1{margin-top:0}.field{margin:12px 0}.field label{display:block;font-size:13px;color:var(--muted);margin-bottom:6px}.field input,.field select,.field textarea{width:100%;border:1px solid #d6dae0;border-radius:11px;padding:12px;background:#fff}.field textarea{min-height:110px;resize:vertical}.wide{width:100%}.tabs{display:flex;gap:8px;margin-bottom:16px}.tabs button{flex:1}.statusbox{padding:18px;border-radius:16px;background:#fff;border:1px solid var(--line)}nav{position:fixed;left:0;right:0;bottom:0;background:rgba(255,255,255,.98);border-top:1px solid var(--line);z-index:20}.navin{max-width:1050px;margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr)}nav button{border:0;background:transparent;padding:11px 4px 12px;color:#6b7280;font-size:12px}nav button b{display:block;font-size:17px;margin-bottom:2px}nav button.active{color:var(--brand);font-weight:800}.adminGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.adminTile{background:#fff;border:1px solid var(--line);border-radius:15px;padding:15px;text-align:left}.adminTile b{display:block;margin-bottom:5px}.membergrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.member{background:#fff;border:1px solid var(--line);border-radius:14px;padding:13px}.member .name{font-weight:800;font-size:17px}.link{color:#245f9b;text-decoration:none;font-weight:700}.empty{text-align:center;padding:35px 15px;color:var(--muted)}.toast{position:fixed;left:50%;bottom:82px;transform:translateX(-50%);background:#20252b;color:#fff;padding:10px 14px;border-radius:10px;z-index:99;display:none;max-width:85%;text-align:center}.codehint{font-size:12px;color:#70757d;background:#f7f8fa;border-radius:9px;padding:8px;margin-top:10px}@media(max-width:720px){.grid,.membergrid{grid-template-columns:1fr}.adminGrid{grid-template-columns:repeat(2,minmax(0,1fr))}.hero{padding:20px}.head{padding:12px 14px}main{padding:14px 14px 90px}}
-.ytModal{position:fixed;inset:0;background:rgba(0,0,0,.62);display:none;align-items:center;justify-content:center;z-index:9999;padding:18px}.ytModal.show{display:flex}.ytBox{width:min(900px,96vw);background:#fff;border-radius:18px;overflow:hidden}.ytHead{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid #e5e7eb}.ytClose{border:0;background:#eef2f2;border-radius:10px;padding:8px 12px;font-weight:700}.ytFrameWrap{position:relative;padding-top:56.25%;background:#000}.ytFrameWrap iframe{position:absolute;inset:0;width:100%;height:100%;border:0}.ytSearchRow{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.ytIconBtn{border:0;background:#fff0f0;color:#c62828;border-radius:10px;padding:9px 12px;font-weight:700;cursor:pointer}</style>
+.ytModal{position:fixed;inset:0;background:rgba(0,0,0,.62);display:none;align-items:center;justify-content:center;z-index:9999;padding:18px}.ytModal.show{display:flex}.ytBox{width:min(900px,96vw);background:#fff;border-radius:18px;overflow:hidden}.ytHead{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid #e5e7eb}.ytClose{border:0;background:#eef2f2;border-radius:10px;padding:8px 12px;font-weight:700}.ytFrameWrap{position:relative;padding-top:56.25%;background:#000}.ytFrameWrap iframe{position:absolute;inset:0;width:100%;height:100%;border:0}.ytSearchRow{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.ytIconBtn{border:0;background:#fff0f0;color:#c62828;border-radius:10px;padding:9px 12px;font-weight:700;cursor:pointer}
+/* V11.8 YouTube popup refinements */
+.ytModal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.68);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:99999;
+  padding:16px;
+  box-sizing:border-box;
+}
+.ytModal.show{display:flex}
+.ytBox{
+  position:relative;
+  width:min(920px,96vw);
+  max-height:92vh;
+  background:#fff;
+  border-radius:16px;
+  overflow:hidden;
+  box-shadow:0 22px 70px rgba(0,0,0,.45);
+}
+.ytHead{
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  min-height:52px;
+  padding:10px 12px 10px 16px;
+  border-bottom:1px solid #e5e7eb;
+  background:#fff;
+}
+.ytHead b{
+  min-width:0;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+.ytClose{
+  flex:0 0 auto;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width:78px;
+  height:38px;
+  padding:0 14px;
+  border:1px solid #cfd8d6;
+  border-radius:10px;
+  background:#f3f7f6;
+  color:#24594e;
+  font-size:15px;
+  font-weight:800;
+  line-height:1;
+  cursor:pointer;
+  appearance:none;
+  -webkit-appearance:none;
+  box-shadow:none;
+}
+.ytClose:hover{background:#e7f0ed}
+.ytClose:active{transform:translateY(1px)}
+.ytFrameWrap{
+  position:relative;
+  width:100%;
+  aspect-ratio:16/9;
+  padding-top:0 !important;
+  background:#000;
+}
+.ytFrameWrap iframe{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  border:0;
+}
+@media(max-width:640px){
+  .ytModal{padding:8px}
+  .ytBox{width:100%;border-radius:12px}
+  .ytHead{min-height:48px;padding:8px 8px 8px 12px}
+  .ytClose{min-width:68px;height:36px;padding:0 10px;font-size:14px}
+}
+
+</style>
 </head>
 <body><div class="app"><header><div class="head"><div class="brand"><b>소망 찬양대</b><small>SOMANG CHOIR</small></div><button id="headerBtn" class="topbtn" onclick="headerAction()">로그인</button></div></header><main id="main"></main></div><nav id="nav" style="display:none"><div class="navin"><button onclick="go('home')" data-page="home"><b>⌂</b>홈</button><button onclick="go('songs')" data-page="songs"><b>♫</b>찬양</button><button onclick="go('prayers')" data-page="prayers"><b>♡</b>기도</button><button onclick="go('members')" data-page="members"><b>♙</b>대원</button><button onclick="go('more')" data-page="more"><b>☰</b>더보기</button></div></nav><div id="toast" class="toast"></div>
 <script>
@@ -45,8 +128,8 @@ async function homePage(){const today=new Date().toISOString().slice(0,10);const
 async function noticesPage(){const {data}=await sb.from('notices').select('*').order('notice_date',{ascending:false});main.innerHTML=title('공지사항')+list((data||[]).map(x=>`<div class="row"><div class="rowhead"><div><span class="tag ${x.important?'important':''}">${esc(x.scope)}</span> <b>${esc(x.title)}</b></div><span class="muted">${fmt(x.notice_date)}</span></div><div style="margin-top:8px">${esc(x.body||'').replace(/\n/g,'<br>')}</div></div>`))}
 async function songsPage(){const {data}=await sb.from('songs').select('*').order('service_date',{ascending:false});const today=new Date().toISOString().slice(0,10);const rows=(data||[]).map(x=>{const upcoming=(x.service_date||'')>=today;const myPart={Soprano:['soprano_url','Soprano'],Alto:['alto_url','Alto'],Tenor:['tenor_url','Tenor'],Bass:['bass_url','Bass']}[me.part];const mine=myPart&&x[myPart[0]]?`<a class="btn primary" target="_blank" rel="noopener" href="${esc(x[myPart[0]])}">내 파트 ${myPart[1]}</a>`:'';return `<div class="row"><div class="rowhead"><div><span class="tag">${upcoming?'예정':'지난 찬양'}</span> <b>${fmt(x.service_date)} · ${esc(x.title)}</b><div class="muted">${esc(categoryDisplay(x.category))}</div></div></div><div class="actions">${mine}${linkBtn(x.full_url,'전체 합창')}${linkBtn(x.soprano_url,'Soprano')}${linkBtn(x.alto_url,'Alto')}${linkBtn(x.tenor_url,'Tenor')}${linkBtn(x.bass_url,'Bass')}${linkBtn(x.live_url,'실제 주일찬양')}</div></div>`});main.innerHTML=title('찬양 · 연습영상')+`<p class="muted">전체 합창과 파트별 연습영상은 YouTube 링크로 연결됩니다. 지난 찬양도 삭제하지 않고 기록으로 보관됩니다.</p>`+list(rows)}
 function youtubeId(url){try{const u=new URL(url);if(u.hostname.includes('youtu.be'))return u.pathname.replace('/','').split('/')[0]||null;if(u.hostname.includes('youtube.com')){if(u.pathname==='/watch')return u.searchParams.get('v');const m=u.pathname.match(/\/(?:embed|shorts|live)\/([^/?#]+)/);if(m)return m[1]}}catch(e){}return null}
-function openYouTubeModal(url,title='YouTube'){const id=youtubeId(url);if(!id)return toast('올바른 YouTube 링크가 아닙니다.');document.getElementById('ytModalTitle').textContent=title;document.getElementById('ytFrame').src=`https://www.youtube.com/embed/${id}?autoplay=1&rel=0`;document.getElementById('ytModal').classList.add('show')}
-function closeYouTubeModal(){const f=document.getElementById('ytFrame');if(f)f.src='';document.getElementById('ytModal')?.classList.remove('show')}
+function openYouTubeModal(url,title='YouTube'){const id=youtubeId(url);if(!id)return toast('올바른 YouTube 링크가 아닙니다.');document.getElementById('ytModalTitle').textContent=title;document.getElementById('ytFrame').src=`https://www.youtube.com/embed/${id}?autoplay=1&rel=0`;document.getElementById('ytModal').classList.add('show');document.body.style.overflow='hidden'}
+function closeYouTubeModal(){const f=document.getElementById('ytFrame');if(f)f.src='';document.getElementById('ytModal')?.classList.remove('show');document.body.style.overflow=''}
 function openYouTubeSearch(part=''){saveSongDraft();const title=document.getElementById('f_title')?.value?.trim()||window._editObj?.title||'합창 연습';const q=[title,part,'찬양'].filter(Boolean).join(' ');window.open('https://www.youtube.com/results?search_query='+encodeURIComponent(q),'somangYoutubeSearch','popup=yes,width=920,height=760,resizable=yes,scrollbars=yes')}
 async function pasteClipboardTo(id){try{const text=await navigator.clipboard.readText();const e=document.getElementById(id);if(e){e.value=text.trim();e.dispatchEvent(new Event('input',{bubbles:true}))}}catch(err){toast('자동 붙여넣기가 제한되었습니다. ⌘V로 붙여넣어 주세요.')}}
 function linkBtn(u,t){return u?`<a class="btn link" href="${esc(u)}" target="_blank" rel="noopener">${t}</a>`:''}
@@ -153,4 +236,4 @@ async function saveIntro(){const o={};['name','english_name','description','foun
 function title(t,right=''){return `<div class="sectiontitle"><h2>${esc(t)}</h2><div>${right}</div></div>`}
 function list(a){return `<div class="list">${a.join('')||'<div class="empty">등록된 내용이 없습니다.</div>'}</div>`}
 init();
-</script><div id="ytModal" class="ytModal" onclick="if(event.target===this)closeYouTubeModal()"><div class="ytBox"><div class="ytHead"><b id="ytModalTitle">YouTube</b><button class="ytClose" onclick="closeYouTubeModal()">닫기 ×</button></div><div class="ytFrameWrap"><iframe id="ytFrame" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe></div></div></div></body></html>
+</script><div id="ytModal" class="ytModal" onclick="if(event.target===this)closeYouTubeModal()"><div class="ytBox"><div class="ytHead"><b id="ytModalTitle">YouTube</b><button type="button" class="ytClose" aria-label="영상 닫기" onclick="closeYouTubeModal()">닫기</button></div><div class="ytFrameWrap"><iframe id="ytFrame" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe></div></div></div></body></html>
