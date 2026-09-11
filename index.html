@@ -132,7 +132,7 @@
 @media(max-width:640px){.scheduleTable th,.scheduleTable td{padding:9px 6px;font-size:12px}.scheduleTable th{font-size:11px}}
 </style>
 </head>
-<body><div class="app"><header><div class="head"><div class="brandPro"><img src="assets/changdong-symbol.png" alt="창동교회 로고"><div><small>대한예수교장로회 창동교회</small><b>소망찬양대</b><span>SOMANG CHOIR · V14.3</span></div></div><button id="headerBtn" class="topbtn" onclick="headerAction()">로그인</button></div></header><main id="main"></main></div><nav id="nav" style="display:none"><div class="navin"><button onclick="go('home')" data-page="home"><b>⌂</b>홈</button><button onclick="go('songs')" data-page="songs"><b>♫</b>찬양</button><button onclick="go('prayers')" data-page="prayers"><b>♡</b>기도</button><button onclick="go('members')" data-page="members"><b>♙</b>대원</button><button onclick="go('more')" data-page="more"><b>☰</b>더보기</button></div></nav><div id="toast" class="toast"></div>
+<body><div class="app"><header><div class="head"><div class="brandPro"><img src="assets/changdong-symbol.png" alt="창동교회 로고"><div><small>대한예수교장로회 창동교회</small><b>소망찬양대</b><span>SOMANG CHOIR · V14.4</span></div></div><button id="headerBtn" class="topbtn" onclick="headerAction()">로그인</button></div></header><main id="main"></main></div><nav id="nav" style="display:none"><div class="navin"><button onclick="go('home')" data-page="home"><b>⌂</b>홈</button><button onclick="go('songs')" data-page="songs"><b>♫</b>찬양</button><button onclick="go('prayers')" data-page="prayers"><b>♡</b>기도</button><button onclick="go('members')" data-page="members"><b>♙</b>대원</button><button onclick="go('more')" data-page="more"><b>☰</b>더보기</button></div></nav><div id="toast" class="toast"></div>
 <script>
 const SUPABASE_URL='https://chsfhwewskydnreodvvq.supabase.co';
 const SUPABASE_PUBLISHABLE_KEY='sb_publishable_MoLRdCftzWbvdGkWyeGoEg_My1j8-XB';
@@ -170,8 +170,68 @@ function smartBack(){
 
 function headerAction(){if(!session) return renderAuth(); if(confirm('로그아웃하시겠습니까?')) logout()}
 async function logout(){await sb.auth.signOut();session=null;me=null;perms=[];renderAuth()}
-async function init(){const {data}=await sb.auth.getSession();session=data.session; if(session) await loadMe(); else renderAuth(); sb.auth.onAuthStateChange(async(e,s)=>{session=s;if(e==='TOKEN_REFRESHED')return;if(e==='SIGNED_OUT'||!s){me=null;perms=[];renderAuth();return}if(e==='SIGNED_IN'||e==='USER_UPDATED')await loadMe()})}
-async function loadMe(){const uid=session.user.id;const {data,error}=await sb.from('profiles').select('*').eq('id',uid).single();if(error){main.innerHTML=`<div class="statusbox">프로필을 불러오지 못했습니다.<br>${esc(error.message)}</div>`;return}me=data;const pr=await sb.from('user_permissions').select('permission').eq('user_id',uid);perms=(pr.data||[]).map(x=>x.permission);document.getElementById('headerBtn').textContent='로그아웃';if(me.status==='approved'){document.getElementById('nav').style.display='block';const ed=getSongEditorState();if(ed){if(ed.mode==='practice-new')await addPracticeSong();else if(ed.mode==='replay-new')await addReplaySong();else if(ed.mode==='practice-edit'&&ed.id){const r=await sb.from('songs').select('*').eq('id',ed.id).single();if(r.data)await editPracticeSong(r.data);else go('home')}else if(ed.mode==='replay-edit'&&ed.id){const r=await sb.from('songs').select('*').eq('id',ed.id).single();if(r.data)await editReplaySong(r.data);else go('home')}else go(page||'home')}else go(page||'home')}else{document.getElementById('nav').style.display='none';renderPending()}}
+async function init(){
+ try{
+   const r=await Promise.race([
+     sb.auth.getSession(),
+     new Promise(resolve=>setTimeout(()=>resolve({data:{session:null},_timeout:true}),5000))
+   ]);
+   session=r.data?.session||null;
+   if(session) await loadMe(); else renderAuth();
+ }catch(e){console.error(e);renderAuth()}
+ sb.auth.onAuthStateChange(async(e,s)=>{
+   session=s;
+   if(e==='TOKEN_REFRESHED')return;
+   if(e==='SIGNED_OUT'||!s){me=null;perms=[];renderAuth();return}
+   if(e==='SIGNED_IN'||e==='USER_UPDATED')await loadMe();
+ });
+}
+async function loadMe(){
+ const uid=session.user.id;
+ let prof;
+ try{
+   const r=await Promise.race([
+     sb.from('profiles').select('*').eq('id',uid).single(),
+     new Promise(resolve=>setTimeout(()=>resolve({error:{message:'프로필 조회 시간이 초과되었습니다.'}}),5000))
+   ]);
+   if(r.error){main.innerHTML=`<div class="statusbox">프로필을 불러오지 못했습니다.<br>${esc(r.error.message)}</div>`;return}
+   prof=r.data;
+ }catch(e){main.innerHTML=`<div class="statusbox">프로필을 불러오지 못했습니다.<br>${esc(e.message||e)}</div>`;return}
+ me=prof;
+ document.getElementById('headerBtn').textContent='로그아웃';
+
+ // Permissions must never block the home screen.
+ perms=[];
+ try{
+   const pr=await Promise.race([
+     sb.from('user_permissions').select('permission').eq('user_id',uid),
+     new Promise(resolve=>setTimeout(()=>resolve({data:[],_timeout:true}),1800))
+   ]);
+   perms=(pr.data||[]).map(x=>x.permission);
+ }catch(e){console.warn('permission load skipped',e)}
+
+ if(me.status==='approved'){
+   document.getElementById('nav').style.display='block';
+   const ed=getSongEditorState();
+   if(ed){
+     try{
+       if(ed.mode==='practice-new')return await addPracticeSong();
+       if(ed.mode==='replay-new')return await addReplaySong();
+       if(ed.mode==='practice-edit'&&ed.id){
+         const r=await sb.from('songs').select('*').eq('id',ed.id).single();
+         if(r.data)return await editPracticeSong(r.data);
+       }
+       if(ed.mode==='replay-edit'&&ed.id){
+         const r=await sb.from('songs').select('*').eq('id',ed.id).single();
+         if(r.data)return await editReplaySong(r.data);
+       }
+     }catch(e){console.warn('editor restore skipped',e)}
+   }
+   return go(page||'home');
+ }
+ document.getElementById('nav').style.display='none';
+ renderPending();
+}
 function renderPending(){const st={pending:'승인 대기 중',rejected:'가입 신청이 반려되었습니다',inactive:'현재 이용이 중지된 계정입니다'}[me.status]||me.status;main.innerHTML=`<div class="loginwrap"><div class="loginbox"><h1>${st}</h1><p><b>${esc(me.name)}</b> 님의 가입 정보가 등록되었습니다.</p><p class="muted">소망 찬양대 관리자가 확인 후 승인하면 전체 메뉴를 사용할 수 있습니다.</p><div class="codehint">휴대전화번호: ${esc(phoneDisplay(me.phone))} · 파트: ${esc(me.part||'-')}</div><button class="btn wide" style="margin-top:16px" onclick="logout()">로그아웃</button></div></div>`}
 function renderAuth(){const mainEl=document.getElementById('main');document.getElementById('headerBtn').textContent='로그인';document.getElementById('nav').style.display='none';mainEl.innerHTML=`<div class="loginwrap"><div class="loginbox"><h1>소망 찬양대</h1><p class="muted">대원 전용 소통·관리 앱</p><div class="tabs"><button class="btn primary" onclick="showLogin()">로그인</button><button class="btn" onclick="showSignup()">가입 신청</button></div><div id="authBody"></div></div></div>`;showLogin()}
 function showLogin(){const authBody=document.getElementById('authBody');if(!authBody)return;authBody.innerHTML=`<div class="field"><label>휴대전화번호</label><input id="lphone" inputmode="tel" placeholder="010-1234-5678"></div><div class="field"><label>비밀번호</label><input id="lpw" type="password" placeholder="비밀번호"></div><button class="btn primary wide" onclick="doLogin()">로그인</button><p class="muted" style="margin-top:14px">비밀번호를 잊은 경우 총무/관리자에게 본인 확인 후 재설정을 요청해 주세요.</p>`}
