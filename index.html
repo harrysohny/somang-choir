@@ -132,7 +132,7 @@
 @media(max-width:640px){.scheduleTable th,.scheduleTable td{padding:9px 6px;font-size:12px}.scheduleTable th{font-size:11px}}
 </style>
 </head>
-<body><div class="app"><header><div class="head"><div class="brandPro"><img src="assets/changdong-symbol.png" alt="창동교회 로고"><div><small>대한예수교장로회 창동교회</small><b>소망찬양대</b><span>SOMANG CHOIR · V14.4</span></div></div><button id="headerBtn" class="topbtn" onclick="headerAction()">로그인</button></div></header><main id="main"></main></div><nav id="nav" style="display:none"><div class="navin"><button onclick="go('home')" data-page="home"><b>⌂</b>홈</button><button onclick="go('songs')" data-page="songs"><b>♫</b>찬양</button><button onclick="go('prayers')" data-page="prayers"><b>♡</b>기도</button><button onclick="go('members')" data-page="members"><b>♙</b>대원</button><button onclick="go('more')" data-page="more"><b>☰</b>더보기</button></div></nav><div id="toast" class="toast"></div>
+<body><div class="app"><header><div class="head"><div class="brandPro"><img src="assets/changdong-symbol.png" alt="창동교회 로고"><div><small>대한예수교장로회 창동교회</small><b>소망찬양대</b><span>SOMANG CHOIR · V14.5</span></div></div><button id="headerBtn" class="topbtn" onclick="headerAction()">로그인</button></div></header><main id="main"></main></div><nav id="nav" style="display:none"><div class="navin"><button onclick="go('home')" data-page="home"><b>⌂</b>홈</button><button onclick="go('songs')" data-page="songs"><b>♫</b>찬양</button><button onclick="go('prayers')" data-page="prayers"><b>♡</b>기도</button><button onclick="go('members')" data-page="members"><b>♙</b>대원</button><button onclick="go('more')" data-page="more"><b>☰</b>더보기</button></div></nav><div id="toast" class="toast"></div>
 <script>
 const SUPABASE_URL='https://chsfhwewskydnreodvvq.supabase.co';
 const SUPABASE_PUBLISHABLE_KEY='sb_publishable_MoLRdCftzWbvdGkWyeGoEg_My1j8-XB';
@@ -212,6 +212,7 @@ async function loadMe(){
 
  if(me.status==='approved'){
    document.getElementById('nav').style.display='block';
+   emergencyHome();
    const ed=getSongEditorState();
    if(ed){
      try{
@@ -239,7 +240,31 @@ function showSignup(){const authBody=document.getElementById('authBody');if(!aut
 async function doLogin(){const p=normalizePhone(lphone.value),pw=lpw.value;if(p.length<10)return toast('휴대전화번호를 확인해 주세요.');const {error}=await sb.auth.signInWithPassword({email:aliasEmail(p),password:pw});if(error)toast('로그인 실패: '+error.message)}
 async function doSignup(){const p=normalizePhone(sphone.value),pw=spw.value;if(!sname.value.trim())return toast('이름을 입력해 주세요.');if(p.length<10)return toast('휴대전화번호를 확인해 주세요.');if(pw.length<6)return toast('비밀번호는 6자 이상입니다.');if(pw!==spw2.value)return toast('비밀번호가 서로 다릅니다.');const {error}=await sb.auth.signUp({email:aliasEmail(p),password:pw,options:{data:{name:sname.value.trim(),title:stitle.value.trim(),part:spart.value,phone:p}}});if(error)return toast('가입 실패: '+error.message);toast('가입 신청이 등록되었습니다.');setTimeout(()=>showLogin(),900)}
 function navActive(){document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===page))}
-async function go(p){page=p;navActive();main.innerHTML='<div class="empty">불러오는 중…</div>';const f={home:homePage,songs:songsPage,prayers:prayerPage,members:membersPage,more:morePage,notices:noticesPage,events:eventsPage,intro:introPage,leaders:leadersPage,gallery:galleryPage,documents:documentsPage,polls:pollsPage,tasks:tasksPage,admin:adminPage}[p];try{if(f)await f();else main.innerHTML='<div class="empty">페이지를 찾을 수 없습니다.</div>'}catch(err){console.error('PAGE ERROR',p,err);main.innerHTML=`<div class="card"><h2>화면을 불러오지 못했습니다</h2><p class="muted">${esc(err?.message||err||'알 수 없는 오류')}</p><button class="btn primary" onclick="go('home')">다시 시도</button></div>`}}
+async function go(p){page=p;navActive();if(p==='home')emergencyHome();else main.innerHTML='<div class="empty">불러오는 중…</div>';const f={home:homePage,songs:songsPage,prayers:prayerPage,members:membersPage,more:morePage,notices:noticesPage,events:eventsPage,intro:introPage,leaders:leadersPage,gallery:galleryPage,documents:documentsPage,polls:pollsPage,tasks:tasksPage,admin:adminPage}[p];try{if(f)await f();else main.innerHTML='<div class="empty">페이지를 찾을 수 없습니다.</div>'}catch(err){console.error('PAGE ERROR',p,err);main.innerHTML=`<div class="card"><h2>화면을 불러오지 못했습니다</h2><p class="muted">${esc(err?.message||err||'알 수 없는 오류')}</p><button class="btn primary" onclick="go('home')">다시 시도</button></div>`}}
+
+function emergencyHome(){
+  const el=document.getElementById('main');
+  if(!el)return;
+  el.innerHTML=`<div class="homeHero"><img src="assets/choir-group.jpg" alt="소망찬양대 단체사진"><div class="homeHeroShade"></div><div class="homeHeroText"><small>대한예수교장로회 창동교회</small><h1>소망찬양대</h1><p>${esc(me?.name||'')} ${esc(me?.title||'대원')} · ${esc(partKo(me?.part||''))}</p></div></div>
+  <section class="homeSection"><div class="homeSectionHead"><h2>이번 주 소망찬양대</h2></div><div class="weekStrip">
+  <div class="featureCard"><div class="eyebrow">REHEARSAL</div><h3>정기 연습</h3><div>목요일 19:30–21:00</div><div>주일 08:00–08:45 · 10:40–12:00</div></div>
+  <div class="featureCard"><div class="eyebrow">PRACTICE SONG</div><h3>찬양 연습</h3><div class="muted">찬양 메뉴에서 연습곡을 확인할 수 있습니다.</div><div class="actions"><button class="btn" onclick="go('songs')">찬양 보기</button></div></div></div></section>
+  <section class="homeSection"><div class="homeSectionHead"><h2>바로가기</h2></div><div class="featureCard"><div class="actions"><button class="btn" onclick="go('notices')">공지</button><button class="btn" onclick="go('events')">일정</button><button class="btn" onclick="go('prayers')">기도당번</button><button class="btn" onclick="go('more')">더보기</button></div></div></section>`;
+}
+
+function installLoadingWatchdog(){
+  setInterval(()=>{
+    try{
+      const el=document.getElementById('main');
+      if(!el || !session || !me || me.status!=='approved')return;
+      const text=(el.textContent||'').trim();
+      if(text==='불러오는 중…' || text==='불러오는 중...'){
+        console.warn('Loading watchdog recovered home');
+        emergencyHome();
+      }
+    }catch(e){console.warn('watchdog',e)}
+  },1200);
+}
 async function homePage(){
  const today=new Date().toISOString().slice(0,10), plus14=addDaysISO(today,14), plus30=addDaysISO(today,30);
  let notices=[],practice=[],replays=[],events=[],prayers=[],intro=[],leaders=[];
@@ -572,6 +597,7 @@ async function editIntro(){setBackAction(()=>adminPage());const {data}=await sb.
 async function saveIntro(){const o={};['name','english_name','description','founded','service','rehearsal','history','vision'].forEach(k=>o[k]=document.getElementById('i_'+k).value);o.updated_by=me.id;o.updated_at=new Date().toISOString();const {error}=await sb.from('choir_intro').update(o).eq('id',1);if(error)return toast(error.message);toast('저장되었습니다.');go('intro')}
 function title(t,right='',showBack=true){return `<div class="sectiontitle"><div class="sectiontitleLeft">${showBack?`<button class="backBtn" type="button" onclick="smartBack()">← 이전</button>`:''}<h2>${esc(t)}</h2></div><div>${right}</div></div>`}
 function list(a){return `<div class="list">${a.join('')||'<div class="empty">등록된 내용이 없습니다.</div>'}</div>`}
+installLoadingWatchdog();
 init();
 </script><div id="ytModal" class="ytModal" aria-hidden="true">
   <div class="ytBox" role="dialog" aria-modal="true" aria-labelledby="ytModalTitle">
