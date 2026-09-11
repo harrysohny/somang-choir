@@ -53,10 +53,64 @@ async function doLogin(){const p=normalizePhone(lphone.value),pw=lpw.value;if(p.
 async function doSignup(){const p=normalizePhone(sphone.value),pw=spw.value;if(!sname.value.trim())return toast('이름을 입력해 주세요.');if(p.length<10)return toast('휴대전화번호를 확인해 주세요.');if(pw.length<6)return toast('비밀번호는 6자 이상입니다.');if(pw!==spw2.value)return toast('비밀번호가 서로 다릅니다.');const {error}=await sb.auth.signUp({email:aliasEmail(p),password:pw,options:{data:{name:sname.value.trim(),title:stitle.value.trim(),part:spart.value,phone:p}}});if(error)return toast('가입 실패: '+error.message);toast('가입 신청이 등록되었습니다.');setTimeout(()=>showLogin(),900)}
 function navActive(){document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===page))}
 async function go(p){page=p;navActive();main.innerHTML='<div class="empty">불러오는 중…</div>';const f={home:homePage,songs:songsPage,prayers:prayerPage,members:membersPage,more:morePage,notices:noticesPage,events:eventsPage,intro:introPage,leaders:leadersPage,gallery:galleryPage,documents:documentsPage,polls:pollsPage,tasks:tasksPage,admin:adminPage}[p];if(f)await f()}
-async function homePage(){const [n,s,e,p]=await Promise.all([sb.from('notices').select('*').order('important',{ascending:false}).order('notice_date',{ascending:false}).limit(4),sb.from('songs').select('*').gte('service_date',new Date().toISOString().slice(0,10)).order('service_date').limit(2),sb.from('events').select('*').gte('event_date',new Date().toISOString().slice(0,10)).order('event_date').limit(3),sb.from('prayer_assignments').select('*').gte('sunday_date',new Date().toISOString().slice(0,10)).order('sunday_date').limit(1)]);main.innerHTML=`<div class="hero"><h1>${esc(me.name)} 님, 반갑습니다</h1><p>${esc(me.part||'')} · ${esc(me.title||'대원')} · 함께 드리는 찬양</p></div><div class="grid"><div class="card"><h3>최근 공지</h3>${(n.data||[]).map(x=>`<div style="margin:9px 0"><span class="tag ${x.important?'important':''}">${esc(x.scope)}</span> <b>${esc(x.title)}</b><div class="muted">${fmt(x.notice_date)}</div></div>`).join('')||'<div class="muted">등록된 공지가 없습니다.</div>'}</div><div class="card"><h3>다가오는 주일 · 연습곡</h3>${(s.data||[]).map(x=>`<div style="margin:9px 0"><b>${fmt(x.service_date)} · ${esc(x.title)}</b><div class="muted">${esc(categoryDisplay(x.category))}</div><div class="actions">${linkBtn(x.full_url,'전체 합창')}${me.part==='Soprano'?linkBtn(x.soprano_url,'내 파트'):me.part==='Alto'?linkBtn(x.alto_url,'내 파트'):me.part==='Tenor'?linkBtn(x.tenor_url,'내 파트'):me.part==='Bass'?linkBtn(x.bass_url,'내 파트'):''}</div></div>`).join('')||'<div class="muted">다가오는 주일 연습곡이 없습니다.</div>'}</div><div class="card"><h3>지난주 실제 찬양</h3>${(past.data||[]).map(x=>`<div style="margin:9px 0"><b>${fmt(x.service_date)} · ${esc(x.title)}</b><div class="actions">${linkBtn(x.live_url,'실제 찬양 영상')}</div></div>`).join('')||'<div class="muted">등록된 실제 찬양 영상이 없습니다.</div>'}</div><div class="card"><h3>이번 주 기도당번</h3>${(p.data||[]).map(x=>`<b>목요일 ${fmt(x.thursday_date)}</b><div class="muted">시작 ${esc(x.thursday_start||'-')} · 마침 ${esc(x.thursday_end||'-')}</div><div style="height:8px"></div><b>주일 ${fmt(x.sunday_date)}</b><div class="muted">시작 ${esc(x.sunday_start||'-')} · 마침 ${esc(x.sunday_end||'-')}</div>`).join('')||'<div class="muted">등록된 기도당번이 없습니다.</div>'}</div><div class="card"><h3>다가오는 일정</h3>${(e.data||[]).map(x=>`<div style="margin:8px 0"><b>${fmt(x.event_date)} ${esc(x.title)}</b><div class="muted">${esc(x.place||'')}</div></div>`).join('')||'<div class="muted">등록된 일정이 없습니다.</div>'}</div><div class="card"><h3>정기 연습</h3><b>목요일 19:30–21:00</b><div class="muted">시작기도 · 마침기도</div><br><b>주일 08:00–08:45 / 10:40–12:00</b><div class="muted">시작기도 · 마침기도</div></div></div>`}
-async function noticesPage(){const {data}=await sb.from('notices').select('*').order('notice_date',{ascending:false});main.innerHTML=title('공지사항')+list((data||[]).map(x=>`<div class="row"><div class="rowhead"><div><span class="tag ${x.important?'important':''}">${esc(x.scope)}</span> <b>${esc(x.title)}</b></div><span class="muted">${fmt(x.notice_date)}</span></div><div style="margin-top:8px">${esc(x.body||'').replace(/\n/g,'<br>')}</div></div>`))}
+async function homePage(){
+  const today=new Date().toISOString().slice(0,10);
+  const [n,songsUpcoming,songsPast,e,p]=await Promise.all([
+    sb.from('notices').select('*').order('important',{ascending:false}).order('notice_date',{ascending:false}).limit(4),
+    sb.from('songs').select('*').gte('service_date',today).order('service_date').limit(2),
+    sb.from('songs').select('*').lt('service_date',today).not('live_url','is',null).order('service_date',{ascending:false}).limit(1),
+    sb.from('events').select('*').gte('event_date',today).order('event_date').limit(3),
+    sb.from('prayer_assignments').select('*').gte('sunday_date',today).order('sunday_date').limit(1)
+  ]);
+  main.innerHTML=`<div class="hero"><h1>${esc(me.name)} 님, 반갑습니다</h1><p>${esc(me.part||'')} · ${esc(me.title||'대원')} · 함께 드리는 찬양</p></div>
+  <div class="grid">
+    <div class="card"><h3>최근 공지</h3>${(n.data||[]).map(x=>`<div style="margin:9px 0"><span class="tag ${x.important?'important':''}">${esc(x.scope)}</span> <b>${esc(x.title)}</b><div class="muted">${fmt(x.notice_date)}</div></div>`).join('')||'<div class="muted">등록된 공지가 없습니다.</div>'}</div>
+    <div class="card"><h3>다가오는 주일 · 연습곡</h3>${(songsUpcoming.data||[]).map(x=>`<div style="margin:9px 0"><b>${fmt(x.service_date)} · ${esc(x.title)}</b><div class="muted">${esc(categoryDisplay(x.category))}</div><div class="actions">${linkBtn(x.full_url,'전체 합창')}${me.part==='Soprano'?linkBtn(x.soprano_url,'내 파트'):me.part==='Alto'?linkBtn(x.alto_url,'내 파트'):me.part==='Tenor'?linkBtn(x.tenor_url,'내 파트'):me.part==='Bass'?linkBtn(x.bass_url,'내 파트'):''}</div></div>`).join('')||'<div class="muted">다가오는 주일 연습곡이 없습니다.</div>'}</div>
+    <div class="card"><h3>지난주 실제 찬양</h3>${(songsPast.data||[]).map(x=>`<div style="margin:9px 0"><b>${fmt(x.service_date)} · ${esc(x.title)}</b><div class="actions">${linkBtn(x.live_url,'실제 찬양 영상')}</div></div>`).join('')||'<div class="muted">등록된 실제 찬양 영상이 없습니다.</div>'}</div>
+    <div class="card"><h3>이번 주 기도당번</h3>${(p.data||[]).map(x=>`<b>목요일 ${fmt(x.thursday_date)}</b><div class="muted">시작 ${esc(x.thursday_start||'-')} · 마침 ${esc(x.thursday_end||'-')}</div><div style="height:8px"></div><b>주일 ${fmt(x.sunday_date)}</b><div class="muted">시작 ${esc(x.sunday_start||'-')} · 마침 ${esc(x.sunday_end||'-')}</div>`).join('')||'<div class="muted">등록된 기도당번이 없습니다.</div>'}</div>
+    <div class="card"><h3>다가오는 일정</h3>${(e.data||[]).map(x=>`<div style="margin:8px 0"><b>${fmt(x.event_date)} ${esc(x.title)}</b><div class="muted">${esc(x.place||'')}</div></div>`).join('')||'<div class="muted">등록된 일정이 없습니다.</div>'}</div>
+    <div class="card"><h3>정기 연습</h3><b>목요일 19:30–21:00</b><div class="muted">시작기도 · 마침기도</div><br><b>주일 08:00–08:45 / 10:40–12:00</b><div class="muted">시작기도 · 마침기도</div></div>
+  </div>`;
+}
 async function songsPage(){const {data}=await sb.from('songs').select('*').order('service_date',{ascending:false});const today=new Date().toISOString().slice(0,10);const rows=(data||[]).map(x=>{const upcoming=(x.service_date||'')>=today;const myPart={Soprano:['soprano_url','Soprano'],Alto:['alto_url','Alto'],Tenor:['tenor_url','Tenor'],Bass:['bass_url','Bass']}[me.part];const mine=myPart&&x[myPart[0]]?`<a class="btn primary" target="_blank" rel="noopener" href="${esc(x[myPart[0]])}">내 파트 ${myPart[1]}</a>`:'';return `<div class="row"><div class="rowhead"><div><span class="tag">${upcoming?'다가오는 주일':'지난 찬양'}</span> <b>${fmt(x.service_date)} · ${esc(x.title)}</b><div class="muted">${esc(categoryDisplay(x.category))}</div></div></div><div class="actions">${mine}${linkBtn(x.full_url,'전체 합창')}${linkBtn(x.soprano_url,'Soprano')}${linkBtn(x.alto_url,'Alto')}${linkBtn(x.tenor_url,'Tenor')}${linkBtn(x.bass_url,'Bass')}${linkBtn(x.live_url,'실제 주일찬양')}</div></div>`});main.innerHTML=title('찬양 · 연습영상')+`<p class="muted">전체 합창과 파트별 연습영상은 YouTube 링크로 연결됩니다. 지난 찬양도 삭제하지 않고 기록으로 보관됩니다.</p>`+list(rows)}
-function linkBtn(u,t){return u?`<a class="btn link" href="${esc(u)}" target="_blank" rel="noopener">${t}</a>`:''}
+
+function youtubeId(url){
+  try{
+    const u=new URL(url);
+    if(u.hostname.includes('youtu.be')) return u.pathname.replace('/','').split('/')[0]||null;
+    if(u.hostname.includes('youtube.com')){
+      if(u.pathname==='/watch') return u.searchParams.get('v');
+      const m=u.pathname.match(/\/(?:embed|shorts|live)\/([^/?#]+)/); if(m) return m[1];
+    }
+  }catch(e){}
+  return null;
+}
+function openYouTubeModal(url,title='YouTube'){
+  const id=youtubeId(url);
+  if(!id){toast('올바른 YouTube 링크가 아닙니다.');return}
+  document.getElementById('ytModalTitle').textContent=title;
+  document.getElementById('ytFrame').src=`https://www.youtube.com/embed/${id}?autoplay=1&rel=0`;
+  document.getElementById('ytModal').classList.add('show');
+}
+function closeYouTubeModal(){
+  const f=document.getElementById('ytFrame'); if(f)f.src='';
+  document.getElementById('ytModal')?.classList.remove('show');
+}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeYouTubeModal()});
+function openYouTubeSearch(part=''){
+  if(typeof saveSongDraft==='function') saveSongDraft();
+  const title=document.getElementById('f_title')?.value?.trim()||'합창 연습';
+  const q=[title,part,'찬양'].filter(Boolean).join(' ');
+  window.open('https://www.youtube.com/results?search_query='+encodeURIComponent(q),'somangYoutubeSearch','popup=yes,width=920,height=760,resizable=yes,scrollbars=yes');
+}
+async function pasteClipboardTo(id){
+  try{
+    const text=await navigator.clipboard.readText();
+    const el=document.getElementById(id); if(!el)return;
+    el.value=text.trim(); el.dispatchEvent(new Event('input',{bubbles:true}));
+  }catch(e){toast('클립보드 자동 붙여넣기가 제한되었습니다. ⌘V 또는 길게 눌러 붙여넣어 주세요.')}
+}
+function linkBtn(u,t){return u?`<button class="btn link" type="button" onclick='openYouTubeModal(${JSON.stringify(u)},${JSON.stringify(t)})'>▶ ${esc(t)}</button>`:''}
 async function prayerPage(){const {data}=await sb.from('prayer_assignments').select('*').order('thursday_date',{ascending:false}).limit(20);main.innerHTML=title('기도당번')+list((data||[]).map(x=>`<div class="row"><b>목요일 ${fmt(x.thursday_date)}</b><div class="muted">시작기도 ${esc(x.thursday_start||'-')} · 마침기도 ${esc(x.thursday_end||'-')}</div><div style="height:8px"></div><b>주일 ${fmt(x.sunday_date)}</b><div class="muted">시작기도 ${esc(x.sunday_start||'-')} · 마침기도 ${esc(x.sunday_end||'-')}</div></div>`))}
 async function membersPage(){const {data}=await sb.from('profiles').select('id,name,title,part,phone,role,status').eq('status','approved').order('part').order('name');main.innerHTML=title('대원명단')+`<div class="membergrid">${(data||[]).map(x=>`<div class="member"><div class="name">${esc(x.name)}</div><span class="tag">${esc(x.part||'-')}</span><div class="muted" style="margin-top:7px">${esc(x.title||'대원')}</div><div style="margin-top:8px">${esc(phoneDisplay(x.phone))}</div></div>`).join('')||'<div class="empty">대원이 없습니다.</div>'}</div>`}
 async function eventsPage(){const {data}=await sb.from('events').select('*').order('event_date',{ascending:false});main.innerHTML=title('일정 · 행사')+list((data||[]).map(x=>`<div class="row"><b>${fmt(x.event_date)} ${esc(x.event_time||'')} · ${esc(x.title)}</b><div class="muted">${esc(x.place||'')}</div><div>${esc(x.description||'')}</div></div>`))}
