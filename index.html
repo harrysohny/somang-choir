@@ -198,9 +198,6 @@ const seed = {
     {id:'e1',date:'2026-09-17',time:'19:30',title:'목요 정기연습',place:'찬양대실',description:''},
     {id:'e2',date:'2026-09-20',time:'08:00',title:'주일 예배 전 연습',place:'찬양대실',description:''}
   ],
-  attendance:[
-    {id:'a1',date:'2026-09-10',type:'목요연습',present:82,absent:8,note:''}
-  ],
   documents:[
     {id:'d1',date:'2026-09-01',category:'운영자료',title:'2026 소망 찬양대 운영안',url:'',description:''}
   ],
@@ -209,9 +206,6 @@ const seed = {
   ],
   tasks:[
     {id:'t1',dueDate:'2026-09-20',title:'주일 찬양 영상 업로드',assignee:'영상담당',status:'진행중',note:''}
-  ],
-  finance:[
-    {id:'f1',date:'2026-09-01',type:'수입',category:'회비',amount:'500000',memo:'9월 회비'}
   ]
 };
 
@@ -221,14 +215,12 @@ const PERMISSIONS = [
   ['songs','찬양곡·악보·연습/실제영상'],
   ['prayers','기도당번 관리'],
   ['events','일정·행사 관리'],
-  ['attendance','출석 관리'],
   ['intro','찬양대 소개 관리'],
   ['leaders','임원·섬기는 분들 관리'],
   ['gallery','갤러리 관리'],
   ['documents','자료실 관리'],
   ['polls','투표·설문 관리'],
   ['tasks','봉사·할일 관리'],
-  ['finance','회비·회계 관리'],
   ['permissions','관리자 권한 부여']
 ];
 
@@ -329,10 +321,10 @@ function renderAdmin(){
  const pending=db.users.filter(u=>u.status==='pending');
  const modules=[
   ['members','대원/가입','가입승인·대원정보','👥'],['notices','공지','전체·파트 공지','📣'],['songs','찬양','곡·악보·영상','🎼'],
-  ['prayers','기도당번','목요일·주일 기도','🙏'],['events','일정/행사','연습·행사 캘린더','📅'],['attendance','출석','연습·주일 출석','✓'],
+  ['prayers','기도당번','목요일·주일 기도','🙏'],['events','일정/행사','연습·행사 캘린더','📅'],
   ['intro','찬양대 소개','소개·연혁·비전','ℹ'],['leaders','섬기는 분들','임원·파트장','★'],['gallery','갤러리','앨범·사진','▣'],
   ['documents','자료실','문서·링크','📎'],['polls','투표/설문','의견수렴','☑'],['tasks','봉사/할일','담당업무·마감','☰'],
-  ['finance','회비/회계','수입·지출·잔액','₩'],['permissions','권한 관리','데이터군별 관리자','🔐']
+  ['permissions','권한 관리','데이터군별 관리자','🔐']
  ];
  main.innerHTML=`${pageHeader('통합 관리센터',adminBadge())}
  <section class="dashboard-summary"><div><b>${db.users.filter(u=>u.status==='approved').length}</b><span>승인 대원</span></div><div><b>${pending.length}</b><span>가입 대기</span></div><div><b>${db.events.length}</b><span>일정</span></div><div><b>${db.songs.length}</b><span>찬양곡</span></div></section>
@@ -347,12 +339,10 @@ function openModule(type){
  if(type==='leaders'){renderGeneric(type,'섬기는 분들');return}
  if(type==='prayers'){renderPrayerAdmin();return}
  if(type==='events'){renderGeneric(type,'일정·행사');return}
- if(type==='attendance'){renderGeneric(type,'출석');return}
  if(type==='gallery'){renderGeneric(type,'갤러리');return}
  if(type==='documents'){renderGeneric(type,'자료실');return}
  if(type==='polls'){renderGeneric(type,'투표·설문');return}
  if(type==='tasks'){renderGeneric(type,'봉사·할일');return}
- if(type==='finance'){renderFinanceAdmin();return}
  if(type==='songs'){state.history.push(state.currentPage);state.currentPage='songs';render();return}
  if(type==='notices'){state.history.push(state.currentPage);state.currentPage='notices';render();return}
 }
@@ -398,7 +388,6 @@ function savePrayer(id){upsert('prayers',{id:id||uid('p'),thuDate:v('pThuDate'),
 const moduleDefs={
  leaders:{title:'섬기는 분들',fields:[['role','역할','text'],['name','이름','text'],['photo','사진 URL','text']],summary:x=>`${x.role} · ${x.name}`},
  events:{title:'일정·행사',fields:[['date','날짜','date'],['time','시간','time'],['title','일정명','text'],['place','장소','text'],['description','설명','area']],summary:x=>`${x.date} ${x.time} · ${x.title} · ${x.place||''}`},
- attendance:{title:'출석',fields:[['date','날짜','date'],['type','구분','text'],['present','출석 인원','number'],['absent','결석 인원','number'],['note','비고','area']],summary:x=>`${x.date} · ${x.type} · 출석 ${x.present} / 결석 ${x.absent}`},
  gallery:{title:'갤러리',fields:[['date','날짜','date'],['title','행사명','text'],['description','설명','area'],['imageUrl','대표사진 URL','text']],summary:x=>`${x.date} · ${x.title}`},
  documents:{title:'자료실',fields:[['date','등록일','date'],['category','분류','text'],['title','자료명','text'],['url','파일/링크 URL','text'],['description','설명','area']],summary:x=>`${x.date} · ${x.category} · ${x.title}`},
  polls:{title:'투표·설문',fields:[['title','제목','text'],['endDate','마감일','date'],['status','상태','text'],['options','선택지(쉼표 구분)','area']],summary:x=>`${x.title} · ${x.status} · 마감 ${x.endDate}`},
@@ -416,13 +405,6 @@ function openGeneric(type,id=''){
 }
 function saveGeneric(type,id){const def=moduleDefs[type],o={id:id||uid(type[0])};def.fields.forEach(([k])=>o[k]=v('gen_'+k));upsert(type,o,id);goBack()}
 
-function renderFinanceAdmin(){
- const income=db.finance.filter(x=>x.type==='수입').reduce((a,x)=>a+Number(x.amount||0),0), expense=db.finance.filter(x=>x.type==='지출').reduce((a,x)=>a+Number(x.amount||0),0);
- main.innerHTML=`${pageHeader('회비·회계 관리','<button class="primary" onclick="openFinance()">+ 등록</button>')}<section class="dashboard-summary"><div><b>${money(income)}</b><span>수입</span></div><div><b>${money(expense)}</b><span>지출</span></div><div><b>${money(income-expense)}</b><span>잔액</span></div></section>
- ${db.finance.map(x=>`<section class="card"><div class="row"><div><b>${x.date} · ${x.type} · ${x.category}</b><div class="muted">${x.memo||''}</div></div><div><b>${money(x.amount)}</b>${actions(`openFinance('${x.id}')`,`delItem('finance','${x.id}','admin')`)}</div></div></section>`).join('')}`;
-}
-function openFinance(id=''){const x=db.finance.find(y=>y.id===id)||{date:'',type:'수입',category:'',amount:'',memo:''};main.innerHTML=`${pageHeader(id?'회계 수정':'회계 등록')}<section class="card form-card">${field('날짜','fDate',x.date,'date')}<label>구분<select id="fType"><option ${x.type==='수입'?'selected':''}>수입</option><option ${x.type==='지출'?'selected':''}>지출</option></select></label>${field('항목','fCategory',x.category)}${field('금액','fAmount',x.amount,'number')}${area('메모','fMemo',x.memo)}<div class="dialog-actions"><button class="secondary" onclick="goBack()">취소</button><button class="primary" onclick="saveFinance('${id}')">저장</button></div></section>`}
-function saveFinance(id){upsert('finance',{id:id||uid('f'),date:v('fDate'),type:v('fType'),category:v('fCategory'),amount:v('fAmount'),memo:v('fMemo')},id);goBack()}
 
 function upsert(type,obj,id){db[type]=id?db[type].map(x=>x.id===id?obj:x):[...db[type],obj];saveDB()}
 function delItem(type,id,back='admin'){if(confirm('삭제할까요?')){db[type]=db[type].filter(x=>x.id!==id);saveDB(); if(type==='songs'){renderSongs()} else if(type==='notices'){renderNotices()} else openModule(type)}}
