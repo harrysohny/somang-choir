@@ -23,7 +23,7 @@
 
 </style>
 </head>
-<body><div class="app"><header><div class="head"><div class="brand"><b>소망 찬양대</b><small>SOMANG CHOIR · V11.5</small></div><button id="headerBtn" class="topbtn" onclick="headerAction()">로그인</button></div></header><main id="main"></main></div><nav id="nav" style="display:none"><div class="navin"><button onclick="go('home')" data-page="home"><b>⌂</b>홈</button><button onclick="go('songs')" data-page="songs"><b>♫</b>찬양</button><button onclick="go('prayers')" data-page="prayers"><b>♡</b>기도</button><button onclick="go('members')" data-page="members"><b>♙</b>대원</button><button onclick="go('more')" data-page="more"><b>☰</b>더보기</button></div></nav><div id="toast" class="toast"></div>
+<body><div class="app"><header><div class="head"><div class="brand"><b>소망 찬양대</b><small>SOMANG CHOIR · V11.6</small></div><button id="headerBtn" class="topbtn" onclick="headerAction()">로그인</button></div></header><main id="main"></main></div><nav id="nav" style="display:none"><div class="navin"><button onclick="go('home')" data-page="home"><b>⌂</b>홈</button><button onclick="go('songs')" data-page="songs"><b>♫</b>찬양</button><button onclick="go('prayers')" data-page="prayers"><b>♡</b>기도</button><button onclick="go('members')" data-page="members"><b>♙</b>대원</button><button onclick="go('more')" data-page="more"><b>☰</b>더보기</button></div></nav><div id="toast" class="toast"></div>
 <script>
 const SUPABASE_URL='https://chsfhwewskydnreodvvq.supabase.co';
 const SUPABASE_PUBLISHABLE_KEY='sb_publishable_MoLRdCftzWbvdGkWyeGoEg_My1j8-XB';
@@ -255,4 +255,8 @@ function memberPrayerLabel(m){
   return [partKo(m?.part),m?.name,m?.title].filter(Boolean).join(' ');
 }
 
-
+// V11.6 boot
+init().catch(err=>{console.error(err);const el=document.getElementById('main');if(el)el.innerHTML=`<div class="statusbox"><b>앱 시작 오류</b><br>${esc(err?.message||err)}</div>`;});
+</script>
+</body>
+</html>
