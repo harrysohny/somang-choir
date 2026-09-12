@@ -133,6 +133,9 @@
 .v14bHome{margin-top:16px}.v14bHead{display:flex;align-items:baseline;gap:8px;margin:0 2px 9px}.v14bHead b{font-size:18px}.v14bHead span{font-size:12px;color:var(--muted)}
 .v14bGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.v14bGrid2{grid-template-columns:repeat(2,minmax(0,1fr))}.v14bCard{background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px;min-height:130px}.v14bCard b{display:block;margin:7px 0}.v14bLabel{font-size:11px;font-weight:900;color:var(--brand);letter-spacing:.03em}.v14bPrayer{border-color:#b8cec7;background:#f8fbfa}.v14bCard .btn{margin-top:10px}
 @media(max-width:760px){.v14bGrid,.v14bGrid2{grid-template-columns:1fr}.v14bCard{min-height:auto}}
+
+.v14cHome{margin-top:16px}.v14cGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.v14cCard{background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px}.v14cCard> b{display:block;margin:7px 0}.v14cCard p{line-height:1.6}.v14cLeaders{display:flex;flex-wrap:wrap;gap:7px;margin:10px 0 12px}.v14cLeaders span{background:#f4f7f6;border-radius:11px;padding:7px 9px;display:flex;gap:5px;align-items:baseline}.v14cLeaders small{color:var(--muted)}.v14cLeaders b{font-size:13px}
+@media(max-width:760px){.v14cGrid{grid-template-columns:1fr}}
 </style>
 </head>
 <body><div class="app"><header><div class="head"><div class="brand"><b>소망 찬양대</b><small>SOMANG CHOIR</small></div><button id="headerBtn" class="topbtn" onclick="headerAction()">로그인</button></div></header><main id="main"></main></div><nav id="nav" style="display:none"><div class="navin"><button onclick="go('home')" data-page="home"><b>⌂</b>홈</button><button onclick="go('songs')" data-page="songs"><b>♫</b>찬양</button><button onclick="go('prayers')" data-page="prayers"><b>♡</b>기도</button><button onclick="go('members')" data-page="members"><b>♙</b>대원</button><button onclick="go('more')" data-page="more"><b>☰</b>더보기</button></div></nav><div id="toast" class="toast"></div>
@@ -237,6 +240,35 @@ async function homePage(){
         </div>
       </div>`;
     main.appendChild(box);
+
+    // V14-C: choir introduction + serving leaders, appended only after the existing home is complete.
+    try{
+      const [ir,lr]=await Promise.all([
+        sb.from('choir_intro').select('*').eq('id',1).single(),
+        sb.from('leaders').select('*').order('sort_order').limit(6)
+      ]);
+      const ci=ir.error?null:ir.data;
+      const leaders=lr.error?[]:(lr.data||[]);
+      const info=document.createElement('section');
+      info.className='v14cHome';
+      info.innerHTML=`<div class="v14bHead"><b>소망찬양대</b><span>소개와 섬기는 분들</span></div>
+        <div class="v14cGrid">
+          <div class="v14cCard">
+            <div class="v14bLabel">찬양대 소개</div>
+            <b>${esc(ci?.name||'소망 찬양대')}${ci?.english_name?` <span class="muted">${esc(ci.english_name)}</span>`:''}</b>
+            <p class="muted">${esc((ci?.description||'찬양으로 하나님께 영광을 드리는 소망찬양대입니다.').slice(0,160))}</p>
+            <button class="btn" onclick="go('intro')">찬양대 소개 보기</button>
+          </div>
+          <div class="v14cCard">
+            <div class="v14bLabel">섬기는 분들</div>
+            <div class="v14cLeaders">${leaders.map(x=>`<span><small>${esc(x.role_name||'')}</small><b>${esc(x.name||'')}</b></span>`).join('')||'<div class="muted">등록된 정보가 없습니다.</div>'}</div>
+            <button class="btn" onclick="go('leaders')">전체 보기</button>
+          </div>
+        </div>`;
+      main.appendChild(info);
+    }catch(e){
+      console.warn('V14-C intro/leaders skipped',e);
+    }
   }catch(e){
     console.warn('V14-B2 home cards skipped',e);
   }
