@@ -136,9 +136,39 @@
 
 .v14cHome{margin-top:16px}.v14cGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.v14cCard{background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px}.v14cCard> b{display:block;margin:7px 0}.v14cCard p{line-height:1.6}.v14cLeaders{display:flex;flex-wrap:wrap;gap:7px;margin:10px 0 12px}.v14cLeaders span{background:#f4f7f6;border-radius:11px;padding:7px 9px;display:flex;gap:5px;align-items:baseline}.v14cLeaders small{color:var(--muted)}.v14cLeaders b{font-size:13px}
 @media(max-width:760px){.v14cGrid{grid-template-columns:1fr}}
+
+/* V14-D1 confirmed professional layout */
+.brandPro{display:flex!important;align-items:center;gap:10px}
+.brandPro img{width:34px;height:42px;object-fit:contain;flex:none}
+.brandPro>div{display:flex;flex-direction:column;line-height:1.08}
+.brandPro .churchName{font-size:10px;font-weight:800;color:#50645f;margin-bottom:3px}
+.brandPro b{font-size:20px;letter-spacing:-.04em}
+.brandPro small{font-size:10px;letter-spacing:.12em;margin-top:4px}
+.choirIntroCompact{display:flex;flex-direction:column;justify-content:center}
+.choirIntroCompact h3{margin-bottom:5px}
+.choirIntroCompact p{margin:0 0 12px;line-height:1.5}
+.introActions{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.introActions .btn{margin:0;min-height:42px}
+.v14bGrid2 .v14bCard{border-radius:18px;padding:17px}
+.v14bPrayer{border-color:#a9c9bf!important}
+.introPhoto{overflow:hidden;border-radius:18px;margin-bottom:14px;background:#e9eeec}
+.introPhoto img{display:block;width:100%;max-height:460px;object-fit:cover;object-position:center 32%}
+@media(max-width:640px){
+ .brandPro img{width:29px;height:36px}.brandPro b{font-size:18px}.brandPro .churchName{font-size:9px}
+ .introActions{grid-template-columns:1fr}
+ .introPhoto img{max-height:300px;object-position:center 28%}
+}
 </style>
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="apple-touch-icon" href="./assets/apple-touch-icon.png">
+<meta name="theme-color" content="#0f6656">
+<meta property="og:title" content="소망찬양대 | 창동교회">
+<meta property="og:description" content="대한예수교장로회 창동교회 소망찬양대">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://harrysohny.github.io/somang-choir/">
+<meta property="og:image" content="https://harrysohny.github.io/somang-choir/assets/og-somang-choir.jpg">
 </head>
-<body><div class="app"><header><div class="head"><div class="brand"><b>소망 찬양대</b><small>SOMANG CHOIR</small></div><button id="headerBtn" class="topbtn" onclick="headerAction()">로그인</button></div></header><main id="main"></main></div><nav id="nav" style="display:none"><div class="navin"><button onclick="go('home')" data-page="home"><b>⌂</b>홈</button><button onclick="go('songs')" data-page="songs"><b>♫</b>찬양</button><button onclick="go('prayers')" data-page="prayers"><b>♡</b>기도</button><button onclick="go('members')" data-page="members"><b>♙</b>대원</button><button onclick="go('more')" data-page="more"><b>☰</b>더보기</button></div></nav><div id="toast" class="toast"></div>
+<body><div class="app"><header><div class="head"><div class="brand brandPro"><img src="./assets/changdong-symbol.png" alt=""><div><span class="churchName">대한예수교장로회 창동교회</span><b>소망찬양대</b><small>SOMANG CHOIR · V14-D1</small></div></div><button id="headerBtn" class="topbtn" onclick="headerAction()">로그인</button></div></header><main id="main"></main></div><nav id="nav" style="display:none"><div class="navin"><button onclick="go('home')" data-page="home"><b>⌂</b>홈</button><button onclick="go('songs')" data-page="songs"><b>♫</b>찬양</button><button onclick="go('prayers')" data-page="prayers"><b>♡</b>기도</button><button onclick="go('members')" data-page="members"><b>♙</b>대원</button><button onclick="go('more')" data-page="more"><b>☰</b>더보기</button></div></nav><div id="toast" class="toast"></div>
 <script>
 const SUPABASE_URL='https://chsfhwewskydnreodvvq.supabase.co';
 const SUPABASE_PUBLISHABLE_KEY='sb_publishable_MoLRdCftzWbvdGkWyeGoEg_My1j8-XB';
@@ -193,6 +223,23 @@ async function noticesPage(){const {data}=await sb.from('notices').select('*').o
 async function homePage(){
   await homePageBase();
 
+  // V14-D1 confirmed layout: fill the empty grid slot beside '다가오는 일정'.
+  try{
+    const cards=[...main.querySelectorAll('.grid > .card')];
+    const eventCard=cards.find(c=>c.querySelector('h3')?.textContent.trim()==='다가오는 일정');
+    if(eventCard){
+      const introCard=document.createElement('div');
+      introCard.className='card choirIntroCompact';
+      introCard.innerHTML=`<h3>소망찬양대 소개</h3>
+        <p class="muted">찬양대 소개와 섬기는 분들을 확인해 보세요.</p>
+        <div class="introActions">
+          <button class="btn" onclick="go('intro')">찬양대 소개 보기</button>
+          <button class="btn" onclick="go('leaders')">섬기는 분들 보기</button>
+        </div>`;
+      eventCard.insertAdjacentElement('afterend',introCard);
+    }
+  }catch(e){console.warn('V14-D1 intro card skipped',e)}
+
   // V14-B2: append only two non-duplicated personal cards.
   try{
     const today=new Date().toISOString().slice(0,10);
@@ -241,34 +288,6 @@ async function homePage(){
       </div>`;
     main.appendChild(box);
 
-    // V14-C: choir introduction + serving leaders, appended only after the existing home is complete.
-    try{
-      const [ir,lr]=await Promise.all([
-        sb.from('choir_intro').select('*').eq('id',1).single(),
-        sb.from('leaders').select('*').order('sort_order').limit(6)
-      ]);
-      const ci=ir.error?null:ir.data;
-      const leaders=lr.error?[]:(lr.data||[]);
-      const info=document.createElement('section');
-      info.className='v14cHome';
-      info.innerHTML=`<div class="v14bHead"><b>소망찬양대</b><span>소개와 섬기는 분들</span></div>
-        <div class="v14cGrid">
-          <div class="v14cCard">
-            <div class="v14bLabel">찬양대 소개</div>
-            <b>${esc(ci?.name||'소망 찬양대')}${ci?.english_name?` <span class="muted">${esc(ci.english_name)}</span>`:''}</b>
-            <p class="muted">${esc((ci?.description||'찬양으로 하나님께 영광을 드리는 소망찬양대입니다.').slice(0,160))}</p>
-            <button class="btn" onclick="go('intro')">찬양대 소개 보기</button>
-          </div>
-          <div class="v14cCard">
-            <div class="v14bLabel">섬기는 분들</div>
-            <div class="v14cLeaders">${leaders.map(x=>`<span><small>${esc(x.role_name||'')}</small><b>${esc(x.name||'')}</b></span>`).join('')||'<div class="muted">등록된 정보가 없습니다.</div>'}</div>
-            <button class="btn" onclick="go('leaders')">전체 보기</button>
-          </div>
-        </div>`;
-      main.appendChild(info);
-    }catch(e){
-      console.warn('V14-C intro/leaders skipped',e);
-    }
   }catch(e){
     console.warn('V14-B2 home cards skipped',e);
   }
@@ -325,7 +344,7 @@ function linkBtn(u,t){return u?`<button class="btn ytPlayBtn" type="button" data
 async function prayerPage(){const {data,error}=await sb.from('prayer_assignments').select('*').order('sunday_date',{ascending:false}).limit(24);if(error)throw error;main.innerHTML=title('기도 순서')+list((data||[]).map(x=>`<div class="row"><b>목요일 ${fmt(x.thursday_date)} · 연습</b><div style="margin:8px 0">시작기도 · <b>${esc(x.thursday_start||'-')}</b></div><div style="margin:8px 0">마침기도 · <b>${esc(x.thursday_end||'-')}</b></div><hr style="border:0;border-top:1px solid #e5e7eb;margin:14px 0"><b>일요일 ${fmt(x.sunday_date)} · 연습</b><div style="margin:8px 0">시작기도 · <b>${esc(x.sunday_start||'-')}</b></div><div style="margin:8px 0">마침기도 · <b>${esc(x.sunday_end||'-')}</b></div></div>`))}
 async function membersPage(){const {data}=await sb.from('profiles').select('id,name,title,part,phone,role,status').eq('status','approved').order('part').order('name');main.innerHTML=title('대원명단')+`<div class="membergrid">${(data||[]).map(x=>`<div class="member"><div class="name">${esc(x.name)}</div><span class="tag">${esc(x.part||'-')}</span><div class="muted" style="margin-top:7px">${esc(x.title||'대원')}</div><div style="margin-top:8px">${esc(phoneDisplay(x.phone))}</div></div>`).join('')||'<div class="empty">대원이 없습니다.</div>'}</div>`}
 async function eventsPage(){const today=new Date().toISOString().slice(0,10),plus30=addDaysISO(today,30);const [{data:ev,error},{data:prs}]=await Promise.all([sb.from('events').select('*').order('event_date',{ascending:true}),sb.from('prayer_assignments').select('*').gte('sunday_date',today).lte('sunday_date',plus30).order('sunday_date')]);if(error)throw error;const mine=(prs||[]).flatMap(prayerRolesForMe).filter(x=>x.date&&x.date>=today&&x.date<=plus30).sort((a,b)=>a.date.localeCompare(b.date));main.innerHTML=title('일정 · 행사')+`<div class="card"><h3>내 기도 일정 · 한 달 전부터</h3>${mine.map(x=>`<div style="margin:8px 0"><b>${fmt(x.date)} · ${esc(x.when)} ${esc(x.role)}</b><div class="muted">${esc(myPrayerLabel())}</div></div>`).join('')||'<div class="muted">앞으로 한 달 이내 배정된 기도 일정이 없습니다.</div>'}</div>`+list((ev||[]).map(x=>`<div class="row"><b>${fmt(x.event_date)} · ${esc(x.title)}</b><div class="muted">${esc(x.place||'')}</div><div>${esc(x.description||'')}</div></div>`))}
-async function introPage(){const {data}=await sb.from('choir_intro').select('*').eq('id',1).single();main.innerHTML=title('찬양대 소개')+`<div class="card"><h3>${esc(data?.name||'소망 찬양대')} <span class="muted">${esc(data?.english_name||'')}</span></h3><p>${esc(data?.description||'')}</p><p><b>예배</b><br>${esc(data?.service||'')}</p><p><b>연습</b><br>${esc(data?.rehearsal||'')}</p><p><b>역사</b><br>${esc(data?.history||'')}</p><p><b>비전</b><br>${esc(data?.vision||'')}</p></div>`}
+async function introPage(){const {data}=await sb.from('choir_intro').select('*').eq('id',1).single();main.innerHTML=title('찬양대 소개')+`<div class="introPhoto"><img src="./assets/choir-group.jpg" alt="소망찬양대 단체사진"></div><div class="card"><h3>${esc(data?.name||'소망 찬양대')} <span class="muted">${esc(data?.english_name||'')}</span></h3><p>${esc(data?.description||'')}</p><p><b>예배</b><br>${esc(data?.service||'')}</p><p><b>연습</b><br>${esc(data?.rehearsal||'')}</p><p><b>역사</b><br>${esc(data?.history||'')}</p><p><b>비전</b><br>${esc(data?.vision||'')}</p></div>`}
 async function leadersPage(){const {data}=await sb.from('leaders').select('*').order('sort_order');main.innerHTML=title('섬기는 분들')+`<div class="membergrid">${(data||[]).map(x=>`<div class="member"><div class="muted">${esc(x.role_name)}</div><div class="name">${esc(x.name)}</div></div>`).join('')||'<div class="empty">등록된 정보가 없습니다.</div>'}</div>`}
 
 async function signedGalleryUrl(path,expires=3600){
