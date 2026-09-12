@@ -137,7 +137,7 @@
 .v14cHome{margin-top:16px}.v14cGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.v14cCard{background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px}.v14cCard> b{display:block;margin:7px 0}.v14cCard p{line-height:1.6}.v14cLeaders{display:flex;flex-wrap:wrap;gap:7px;margin:10px 0 12px}.v14cLeaders span{background:#f4f7f6;border-radius:11px;padding:7px 9px;display:flex;gap:5px;align-items:baseline}.v14cLeaders small{color:var(--muted)}.v14cLeaders b{font-size:13px}
 @media(max-width:760px){.v14cGrid{grid-template-columns:1fr}}
 
-/* V14-D1 confirmed professional layout */
+/* V14-D2 confirmed professional layout */
 .brandPro{display:flex!important;align-items:center;gap:10px}
 .brandPro img{width:34px;height:42px;object-fit:contain;flex:none}
 .brandPro>div{display:flex;flex-direction:column;line-height:1.08}
@@ -158,6 +158,44 @@
  .introActions{grid-template-columns:1fr}
  .introPhoto img{max-height:300px;object-position:center 28%}
 }
+
+/* V14-D2 final visual polish — CSS only */
+html{-webkit-text-size-adjust:100%}
+body{background:#f5f7f8}
+header{background:rgba(255,255,255,.96);backdrop-filter:saturate(160%) blur(12px)}
+.head{min-height:76px}
+main{padding-bottom:92px}
+.card,.v14bCard,.choirIntroCompact{box-shadow:0 5px 18px rgba(31,52,47,.045)}
+.grid{gap:12px}
+.btn,.topbtn{transition:transform .12s ease,background .12s ease}
+.btn:active,.topbtn:active{transform:scale(.98)}
+.choirIntroCompact .introActions .btn{white-space:normal;line-height:1.25}
+.v14bHead{margin-top:2px}
+.v14bHead b{letter-spacing:-.025em}
+.v14bLabel{letter-spacing:0}
+.introPhoto{box-shadow:0 8px 28px rgba(24,45,40,.08)}
+.introPhoto img{height:auto;max-height:none;object-fit:contain;object-position:center;background:#eef2f1}
+@media(max-width:760px){
+  .app{width:100%}
+  header{position:sticky;top:0;z-index:30}
+  .head{min-height:68px;padding-left:16px;padding-right:16px}
+  main{padding-left:14px;padding-right:14px}
+  .grid{gap:10px}
+  .card,.v14bCard,.choirIntroCompact{border-radius:16px}
+  .introActions{grid-template-columns:1fr 1fr}
+  .introActions .btn{font-size:13px;padding-left:8px;padding-right:8px}
+  .introPhoto{border-radius:16px}
+  .introPhoto img{width:100%;height:auto;max-height:none;object-fit:contain}
+}
+@media(max-width:390px){
+  .brandPro{gap:7px}
+  .brandPro img{width:26px;height:33px}
+  .brandPro b{font-size:17px}
+  .brandPro .churchName{font-size:8px}
+  .brandPro small{font-size:8px}
+  .topbtn{padding:10px 11px}
+  .introActions{grid-template-columns:1fr}
+}
 </style>
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="apple-touch-icon" href="./assets/apple-touch-icon.png">
@@ -168,7 +206,7 @@
 <meta property="og:url" content="https://harrysohny.github.io/somang-choir/">
 <meta property="og:image" content="https://harrysohny.github.io/somang-choir/assets/og-somang-choir.jpg">
 </head>
-<body><div class="app"><header><div class="head"><div class="brand brandPro"><img src="./assets/changdong-symbol.png" alt=""><div><span class="churchName">대한예수교장로회 창동교회</span><b>소망찬양대</b><small>SOMANG CHOIR · V14-D1</small></div></div><button id="headerBtn" class="topbtn" onclick="headerAction()">로그인</button></div></header><main id="main"></main></div><nav id="nav" style="display:none"><div class="navin"><button onclick="go('home')" data-page="home"><b>⌂</b>홈</button><button onclick="go('songs')" data-page="songs"><b>♫</b>찬양</button><button onclick="go('prayers')" data-page="prayers"><b>♡</b>기도</button><button onclick="go('members')" data-page="members"><b>♙</b>대원</button><button onclick="go('more')" data-page="more"><b>☰</b>더보기</button></div></nav><div id="toast" class="toast"></div>
+<body><div class="app"><header><div class="head"><div class="brand brandPro"><img src="./assets/changdong-symbol.png" alt=""><div><span class="churchName">대한예수교장로회 창동교회</span><b>소망찬양대</b><small>SOMANG CHOIR · V14-D2</small></div></div><button id="headerBtn" class="topbtn" onclick="headerAction()">로그인</button></div></header><main id="main"></main></div><nav id="nav" style="display:none"><div class="navin"><button onclick="go('home')" data-page="home"><b>⌂</b>홈</button><button onclick="go('songs')" data-page="songs"><b>♫</b>찬양</button><button onclick="go('prayers')" data-page="prayers"><b>♡</b>기도</button><button onclick="go('members')" data-page="members"><b>♙</b>대원</button><button onclick="go('more')" data-page="more"><b>☰</b>더보기</button></div></nav><div id="toast" class="toast"></div>
 <script>
 const SUPABASE_URL='https://chsfhwewskydnreodvvq.supabase.co';
 const SUPABASE_PUBLISHABLE_KEY='sb_publishable_MoLRdCftzWbvdGkWyeGoEg_My1j8-XB';
@@ -223,7 +261,7 @@ async function noticesPage(){const {data}=await sb.from('notices').select('*').o
 async function homePage(){
   await homePageBase();
 
-  // V14-D1 confirmed layout: fill the empty grid slot beside '다가오는 일정'.
+  // V14-D2 confirmed layout: fill the empty grid slot beside '다가오는 일정'.
   try{
     const cards=[...main.querySelectorAll('.grid > .card')];
     const eventCard=cards.find(c=>c.querySelector('h3')?.textContent.trim()==='다가오는 일정');
@@ -238,7 +276,7 @@ async function homePage(){
         </div>`;
       eventCard.insertAdjacentElement('afterend',introCard);
     }
-  }catch(e){console.warn('V14-D1 intro card skipped',e)}
+  }catch(e){console.warn('V14-D2 intro card skipped',e)}
 
   // V14-B2: append only two non-duplicated personal cards.
   try{
