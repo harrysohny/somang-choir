@@ -241,6 +241,72 @@ main{padding-bottom:92px}
 .brandPro{column-gap:0!important}
 .brandPro img{margin-right:-11px!important}
 @media(max-width:600px){.brandPro{column-gap:0!important}.brandPro img{margin-right:-9px!important}}
+
+/* V14-D3.7: home card alignment / unified mobile layout */
+.grid > .card{
+  display:grid;
+  grid-template-columns:42px minmax(0,1fr);
+  column-gap:12px;
+  align-content:start;
+  align-items:start;
+}
+.grid > .card > .cardLeadIcon{
+  grid-column:1;
+  grid-row:1 / span 20;
+  float:none!important;
+  margin:0!important;
+}
+.grid > .card > h3,
+.grid > .card > p,
+.grid > .card > div:not(.cardLeadIcon){
+  grid-column:2;
+  min-width:0;
+}
+.grid > .card > h3{margin:4px 0 8px!important;line-height:1.25}
+.grid > .card > div:not(.cardLeadIcon){margin-left:0!important}
+.grid > .card:after{display:none!important}
+.grid > .choirIntroCompact{display:grid!important;justify-content:initial!important}
+.grid > .choirIntroCompact .introActions{margin-top:2px}
+
+.v14bGrid2 > .v14bCard{
+  display:grid;
+  grid-template-columns:36px minmax(0,1fr);
+  column-gap:10px;
+  align-content:start;
+  align-items:start;
+}
+.v14bGrid2 > .v14bCard > .personalHead{display:contents}
+.v14bGrid2 > .v14bCard .personalHead > .cardLeadIcon{
+  grid-column:1;
+  grid-row:1 / span 20;
+  float:none!important;
+  margin:0!important;
+}
+.v14bGrid2 > .v14bCard .personalHead > .v14bLabel{
+  grid-column:2;
+  align-self:center;
+  min-height:36px;
+  display:flex;
+  align-items:center;
+}
+.v14bGrid2 > .v14bCard > b,
+.v14bGrid2 > .v14bCard > .muted,
+.v14bGrid2 > .v14bCard > .btn{
+  grid-column:2;
+  min-width:0;
+}
+.v14bGrid2 > .v14bCard > b{margin:6px 0 4px!important;line-height:1.35}
+.v14bGrid2 > .v14bCard > .muted{line-height:1.4}
+.v14bGrid2 > .v14bCard > .btn{justify-self:start;margin-top:10px!important}
+
+@media(max-width:760px){
+  .grid > .card{grid-template-columns:38px minmax(0,1fr);column-gap:10px;padding:16px}
+  .grid > .card > h3{margin-top:3px!important}
+  .grid > .card .actions{margin-top:10px}
+  .grid > .card .actions .btn{min-height:40px}
+  .v14bGrid2 > .v14bCard{grid-template-columns:36px minmax(0,1fr);column-gap:10px;padding:16px}
+  .v14bGrid2 > .v14bCard > .btn{min-height:40px}
+}
 </style>
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="apple-touch-icon" href="./assets/apple-touch-icon.png">
