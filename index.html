@@ -226,6 +226,16 @@ main{padding-bottom:92px}
 @media(max-width:640px){
  .adminGrid .iconTile,.grid .iconTile{padding-left:54px!important}
 }
+
+/* V14-D3.2 Header identity refinement */
+.brandPro{gap:11px}
+.brandPro img{width:40px;height:50px;object-fit:contain;flex:none}
+.brandPro>div{width:168px;align-items:stretch;line-height:1}
+.brandPro .churchName{display:block;width:100%;font-size:8.5px;font-weight:600;color:#596863;letter-spacing:.13em;white-space:nowrap;text-align:center;margin:0 0 4px}
+.brandPro b{display:block;width:100%;font-size:22px;font-weight:850;letter-spacing:.08em;color:#244f46;white-space:nowrap;text-align:center}
+.brandPro small{display:block;width:100%;font-family:Arial,Helvetica,sans-serif;font-size:9px;font-weight:600;letter-spacing:.06em;color:#6b7280;text-align:center;margin-top:5px;white-space:nowrap}
+@media(max-width:720px){.brandPro{gap:8px}.brandPro img{width:34px;height:43px}.brandPro>div{width:146px}.brandPro .churchName{font-size:7.4px;letter-spacing:.11em}.brandPro b{font-size:19px}.brandPro small{font-size:8px;letter-spacing:.045em}}
+@media(max-width:390px){.brandPro img{width:30px;height:38px}.brandPro>div{width:132px}.brandPro .churchName{font-size:6.7px}.brandPro b{font-size:17px}.brandPro small{font-size:7.4px}.topbtn{padding:8px 9px}}
 </style>
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="apple-touch-icon" href="./assets/apple-touch-icon.png">
@@ -236,7 +246,7 @@ main{padding-bottom:92px}
 <meta property="og:url" content="https://harrysohny.github.io/somang-choir/">
 <meta property="og:image" content="https://harrysohny.github.io/somang-choir/assets/og-somang-choir.jpg">
 </head>
-<body><div class="app"><header><div class="head"><div class="brand brandPro"><img src="./assets/changdong-symbol.png" alt=""><div><span class="churchName">대한예수교장로회 창동교회</span><b>소망찬양대</b><small>SOMANG CHOIR · V14-D3.1</small></div></div><button id="headerBtn" class="topbtn" onclick="headerAction()">로그인</button></div></header><main id="main"></main></div><nav id="nav" style="display:none"><div class="navin"><button onclick="go('home')" data-page="home"><b>⌂</b>홈</button><button onclick="go('songs')" data-page="songs"><b>♫</b>찬양</button><button onclick="go('prayers')" data-page="prayers"><b>♡</b>기도</button><button onclick="go('members')" data-page="members"><b>♙</b>대원</button><button onclick="go('more')" data-page="more"><b>☰</b>더보기</button></div></nav><div id="toast" class="toast"></div>
+<body><div class="app"><header><div class="head"><div class="brand brandPro"><img src="./assets/changdong-symbol.png" alt=""><div><span class="churchName">대한예수교장로회 창동교회</span><b>소망찬양대</b><small>Hope Church Choir</small></div></div><button id="headerBtn" class="topbtn" onclick="headerAction()">로그인</button></div></header><main id="main"></main></div><nav id="nav" style="display:none"><div class="navin"><button onclick="go('home')" data-page="home"><b>⌂</b>홈</button><button onclick="go('songs')" data-page="songs"><b>♫</b>찬양</button><button onclick="go('prayers')" data-page="prayers"><b>♡</b>기도</button><button onclick="go('members')" data-page="members"><b>♙</b>대원</button><button onclick="go('more')" data-page="more"><b>☰</b>더보기</button></div></nav><div id="toast" class="toast"></div>
 <script>
 const SUPABASE_URL='https://chsfhwewskydnreodvvq.supabase.co';
 const SUPABASE_PUBLISHABLE_KEY='sb_publishable_MoLRdCftzWbvdGkWyeGoEg_My1j8-XB';
