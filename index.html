@@ -137,7 +137,7 @@
 .v14cHome{margin-top:16px}.v14cGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.v14cCard{background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px}.v14cCard> b{display:block;margin:7px 0}.v14cCard p{line-height:1.6}.v14cLeaders{display:flex;flex-wrap:wrap;gap:7px;margin:10px 0 12px}.v14cLeaders span{background:#f4f7f6;border-radius:11px;padding:7px 9px;display:flex;gap:5px;align-items:baseline}.v14cLeaders small{color:var(--muted)}.v14cLeaders b{font-size:13px}
 @media(max-width:760px){.v14cGrid{grid-template-columns:1fr}}
 
-/* V14-D3 confirmed professional layout */
+/* V14-D3.1 confirmed professional layout */
 .brandPro{display:flex!important;align-items:center;gap:10px}
 .brandPro img{width:34px;height:42px;object-fit:contain;flex:none}
 .brandPro>div{display:flex;flex-direction:column;line-height:1.08}
@@ -159,7 +159,7 @@
  .introPhoto img{max-height:300px;object-position:center 28%}
 }
 
-/* V14-D3 final visual polish — CSS only */
+/* V14-D3.1 final visual polish — CSS only */
 html{-webkit-text-size-adjust:100%}
 body{background:#f5f7f8}
 header{background:rgba(255,255,255,.96);backdrop-filter:saturate(160%) blur(12px)}
@@ -197,7 +197,7 @@ main{padding-bottom:92px}
   .introActions{grid-template-columns:1fr}
 }
 
-/* V14-D3 unified icon UI */
+/* V14-D3.1 unified icon UI */
 .uiIcon{width:20px;height:20px;display:block;flex:none}
 .pageTitleIcon,.cardLeadIcon,.tileIcon{display:inline-flex;align-items:center;justify-content:center;color:#0f6656;background:#e8f3ef;border-radius:50%}
 .pageTitleIcon{width:38px;height:38px;flex:none}
@@ -219,6 +219,13 @@ main{padding-bottom:92px}
  .iconTile{padding-left:54px!important}
  .tileIcon{left:12px;width:32px;height:32px}
 }
+
+/* V14-D3.1 complete icon coverage */
+.adminGrid .iconTile,.grid .iconTile{display:flex;flex-direction:column;justify-content:center;position:relative;padding-left:62px!important}
+.adminGrid .iconTile .tileIcon,.grid .iconTile .tileIcon{display:inline-flex}
+@media(max-width:640px){
+ .adminGrid .iconTile,.grid .iconTile{padding-left:54px!important}
+}
 </style>
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="apple-touch-icon" href="./assets/apple-touch-icon.png">
@@ -229,7 +236,7 @@ main{padding-bottom:92px}
 <meta property="og:url" content="https://harrysohny.github.io/somang-choir/">
 <meta property="og:image" content="https://harrysohny.github.io/somang-choir/assets/og-somang-choir.jpg">
 </head>
-<body><div class="app"><header><div class="head"><div class="brand brandPro"><img src="./assets/changdong-symbol.png" alt=""><div><span class="churchName">대한예수교장로회 창동교회</span><b>소망찬양대</b><small>SOMANG CHOIR · V14-D3</small></div></div><button id="headerBtn" class="topbtn" onclick="headerAction()">로그인</button></div></header><main id="main"></main></div><nav id="nav" style="display:none"><div class="navin"><button onclick="go('home')" data-page="home"><b>⌂</b>홈</button><button onclick="go('songs')" data-page="songs"><b>♫</b>찬양</button><button onclick="go('prayers')" data-page="prayers"><b>♡</b>기도</button><button onclick="go('members')" data-page="members"><b>♙</b>대원</button><button onclick="go('more')" data-page="more"><b>☰</b>더보기</button></div></nav><div id="toast" class="toast"></div>
+<body><div class="app"><header><div class="head"><div class="brand brandPro"><img src="./assets/changdong-symbol.png" alt=""><div><span class="churchName">대한예수교장로회 창동교회</span><b>소망찬양대</b><small>SOMANG CHOIR · V14-D3.1</small></div></div><button id="headerBtn" class="topbtn" onclick="headerAction()">로그인</button></div></header><main id="main"></main></div><nav id="nav" style="display:none"><div class="navin"><button onclick="go('home')" data-page="home"><b>⌂</b>홈</button><button onclick="go('songs')" data-page="songs"><b>♫</b>찬양</button><button onclick="go('prayers')" data-page="prayers"><b>♡</b>기도</button><button onclick="go('members')" data-page="members"><b>♙</b>대원</button><button onclick="go('more')" data-page="more"><b>☰</b>더보기</button></div></nav><div id="toast" class="toast"></div>
 <script>
 const SUPABASE_URL='https://chsfhwewskydnreodvvq.supabase.co';
 const SUPABASE_PUBLISHABLE_KEY='sb_publishable_MoLRdCftzWbvdGkWyeGoEg_My1j8-XB';
@@ -284,7 +291,7 @@ async function noticesPage(){const {data}=await sb.from('notices').select('*').o
 async function homePage(){
   await homePageBase();
 
-  // V14-D3 icon layer for existing home cards.
+  // V14-D3.1 icon layer for existing home cards.
   try{
     const homeIconMap={
       '최근 공지':'bell',
@@ -299,9 +306,9 @@ async function homePage(){
         h.insertAdjacentHTML('beforebegin',`<span class="cardLeadIcon">${uiIcon(n)}</span>`);
       }
     });
-  }catch(e){console.warn('V14-D3 home icons skipped',e)}
+  }catch(e){console.warn('V14-D3.1 home icons skipped',e)}
 
-  // V14-D3 confirmed layout: fill the empty grid slot beside '다가오는 일정'.
+  // V14-D3.1 confirmed layout: fill the empty grid slot beside '다가오는 일정'.
   try{
     const cards=[...main.querySelectorAll('.grid > .card')];
     const eventCard=cards.find(c=>c.querySelector('h3')?.textContent.trim()==='다가오는 일정');
@@ -316,7 +323,7 @@ async function homePage(){
         </div>`;
       eventCard.insertAdjacentElement('afterend',introCard);
     }
-  }catch(e){console.warn('V14-D3 intro card skipped',e)}
+  }catch(e){console.warn('V14-D3.1 intro card skipped',e)}
 
   // V14-B2: append only two non-duplicated personal cards.
   try{
@@ -585,9 +592,18 @@ async function deleteSongSchedule(id){
   manageSongSchedule();
 }
 
-function morePage(){const admin=me.role==='superadmin'||Object.keys(PERM_LABELS).some(can)||canAnySong();main.innerHTML=title('더보기')+`<div class="grid"><button class="adminTile iconTile" onclick="songSchedulePage()"><span class="tileIcon">${uiIcon('calendar')}</span><b>찬양 일정표</b><span class="muted">날짜 · 곡명 · 찬양집 · 페이지 · 비고</span></button><button class="adminTile" onclick="go('notices')"><span class="tileIcon">${uiIcon('bell')}</span><b>공지사항</b><span class="muted">전체/파트 공지</span></button><button class="adminTile" onclick="go('events')"><span class="tileIcon">${uiIcon('calendar')}</span><b>일정 · 행사</b><span class="muted">연습·행사 일정</span></button><button class="adminTile" onclick="go('intro')"><span class="tileIcon">${uiIcon('people')}</span><b>찬양대 소개</b><span class="muted">소개·역사·비전</span></button><button class="adminTile" onclick="go('leaders')"><span class="tileIcon">${uiIcon('people')}</span><b>섬기는 분들</b><span class="muted">대장·지휘자·반주·총무 등</span></button><button class="adminTile" onclick="go('gallery')"><span class="tileIcon">${uiIcon('image')}</span><b>갤러리</b><span class="muted">행사·절기·연습 사진</span></button><button class="adminTile" onclick="go('documents')"><span class="tileIcon">${uiIcon('folder')}</span><b>자료실</b><span class="muted">문서·링크</span></button><button class="adminTile" onclick="go('polls')"><span class="tileIcon">${uiIcon('check')}</span><b>투표 · 설문</b><span class="muted">대원 의견 수렴</span></button><button class="adminTile" onclick="go('tasks')"><span class="tileIcon">${uiIcon('task')}</span><b>봉사 · 할일</b><span class="muted">업무·봉사 배정</span></button>${admin?`<button class="adminTile" onclick="go('admin')"><span class="tileIcon">${uiIcon('gear')}</span><b>관리센터</b><span class="muted">가입 승인 및 콘텐츠 관리</span></button>`:''}</div>`}
-async function adminPage(){setBackAction(()=>go('more'));let tiles=[['members','가입 승인/대원'],['notices','공지'],['prayers','기도 순서'],['events','일정·행사'],['intro','찬양대 소개'],['leaders','섬기는 분들'],['gallery','갤러리'],['documents','자료실'],['polls','투표·설문'],['tasks','봉사·할일'],['permissions','권한 부여']].filter(([p])=>can(p));if(canSongBase()||['song_soprano','song_alto','song_tenor','song_bass'].some(can))tiles.splice(2,0,['practiceSongs','연습 찬양곡 등록']);if(canSongReplay())tiles.splice(3,0,['replaySongs','찬양곡 다시보기 등록']);if(can('songs'))tiles.splice(4,0,['songSchedule','찬양 일정표 관리']);main.innerHTML=title('통합 관리센터')+`<div class="adminGrid">${tiles.map(([p,l])=>`<button class="adminTile" onclick="${p==='practiceSongs'?'managePracticeSongs()':p==='replaySongs'?'manageReplaySongs()':p==='songSchedule'?'manageSongSchedule()':`manage('${p}')`}"><b>${l}</b><span class="muted">${p==='practiceSongs'?'다가오는 찬양 연습영상':p==='replaySongs'?'지난 찬양 실제영상':p==='songSchedule'?'날짜 · 곡명 · 찬양집 · 페이지 · 비고':'등록 · 수정 · 삭제'}</span></button>`).join('')}</div><p class="muted" style="margin-top:18px">모든 운영 데이터 입력은 이 관리센터에서 처리합니다. 출석/회계 기능은 포함하지 않습니다.</p>`}
-async function manage(type){setBackAction(()=>adminPage());if(type==='members')return manageMembers();if(type==='permissions')return managePermissions();if(type==='intro')return editIntro();if(type==='songs')return manageSongs();if(type==='gallery')return manageGallery();const map={notices:'notices',prayers:'prayer_assignments',events:'events',leaders:'leaders',gallery:'gallery',documents:'documents',polls:'polls',tasks:'tasks'};const table=map[type];if(!table)return;const {data}=await sb.from(table).select('*').order('created_at',{ascending:false}).limit(100);main.innerHTML=title('관리 · '+(PERM_LABELS[type]||type),`<button class="btn primary" onclick="addRecord('${type}')">+ 새로 등록</button>`)+list((data||[]).map(x=>`<div class="row"><b>${esc(recordTitle(type,x))}</b><div class="muted">${esc(recordSub(type,x))}</div><div class="actions"><button class="btn" onclick='editRecord(${JSON.stringify(type)},${JSON.stringify(x)})'>수정</button><button class="btn danger" onclick="deleteRecord('${type}','${x.id}')">삭제</button></div></div>`))}
+function morePage(){const admin=me.role==='superadmin'||Object.keys(PERM_LABELS).some(can)||canAnySong();main.innerHTML=title('더보기')+`<div class="grid"><button class="adminTile iconTile" onclick="songSchedulePage()"><span class="tileIcon">${uiIcon('calendar')}</span><b>찬양 일정표</b><span class="muted">날짜 · 곡명 · 찬양집 · 페이지 · 비고</span></button><button class="adminTile iconTile" onclick="go('notices')"><span class="tileIcon">${uiIcon('bell')}</span><b>공지사항</b><span class="muted">전체/파트 공지</span></button><button class="adminTile iconTile" onclick="go('events')"><span class="tileIcon">${uiIcon('calendar')}</span><b>일정 · 행사</b><span class="muted">연습·행사 일정</span></button><button class="adminTile iconTile" onclick="go('intro')"><span class="tileIcon">${uiIcon('people')}</span><b>찬양대 소개</b><span class="muted">소개·역사·비전</span></button><button class="adminTile iconTile" onclick="go('leaders')"><span class="tileIcon">${uiIcon('people')}</span><b>섬기는 분들</b><span class="muted">대장·지휘자·반주·총무 등</span></button><button class="adminTile iconTile" onclick="go('gallery')"><span class="tileIcon">${uiIcon('image')}</span><b>갤러리</b><span class="muted">행사·절기·연습 사진</span></button><button class="adminTile iconTile" onclick="go('documents')"><span class="tileIcon">${uiIcon('folder')}</span><b>자료실</b><span class="muted">문서·링크</span></button><button class="adminTile iconTile" onclick="go('polls')"><span class="tileIcon">${uiIcon('check')}</span><b>투표 · 설문</b><span class="muted">대원 의견 수렴</span></button><button class="adminTile iconTile" onclick="go('tasks')"><span class="tileIcon">${uiIcon('task')}</span><b>봉사 · 할일</b><span class="muted">업무·봉사 배정</span></button>${admin?`<button class="adminTile iconTile" onclick="go('admin')"><span class="tileIcon">${uiIcon('gear')}</span><b>관리센터</b><span class="muted">가입 승인 및 콘텐츠 관리</span></button>`:''}</div>`}
+function adminTileIcon(p){
+ const m={
+  members:'people',notices:'bell',practiceSongs:'music',replaySongs:'play',
+  songSchedule:'calendar',prayers:'pray',events:'calendar',intro:'people',
+  leaders:'people',gallery:'image',documents:'folder',polls:'check',
+  tasks:'task',permissions:'gear'
+ };
+ return m[p]||'gear';
+}
+async function adminPage(){setBackAction(()=>go('more'));let tiles=[['members','가입 승인/대원'],['notices','공지'],['prayers','기도 순서'],['events','일정·행사'],['intro','찬양대 소개'],['leaders','섬기는 분들'],['gallery','갤러리'],['documents','자료실'],['polls','투표·설문'],['tasks','봉사·할일'],['permissions','권한 부여']].filter(([p])=>can(p));if(canSongBase()||['song_soprano','song_alto','song_tenor','song_bass'].some(can))tiles.splice(2,0,['practiceSongs','연습 찬양곡 등록']);if(canSongReplay())tiles.splice(3,0,['replaySongs','찬양곡 다시보기 등록']);if(can('songs'))tiles.splice(4,0,['songSchedule','찬양 일정표 관리']);main.innerHTML=title('통합 관리센터')+`<div class="adminGrid">${tiles.map(([p,l])=>`<button class="adminTile iconTile" onclick="${p==='practiceSongs'?'managePracticeSongs()':p==='replaySongs'?'manageReplaySongs()':p==='songSchedule'?'manageSongSchedule()':`manage('${p}')`}"><span class="tileIcon">${uiIcon(adminTileIcon(p))}</span><b>${l}</b><span class="muted">${p==='practiceSongs'?'다가오는 찬양 연습영상':p==='replaySongs'?'지난 찬양 실제영상':p==='songSchedule'?'날짜 · 곡명 · 찬양집 · 페이지 · 비고':'등록 · 수정 · 삭제'}</span></button>`).join('')}</div><p class="muted" style="margin-top:18px">모든 운영 데이터 입력은 이 관리센터에서 처리합니다. 출석/회계 기능은 포함하지 않습니다.</p>`}
+async function manage(type){setBackAction(()=>adminPage());if(type==='members')return manageMembers();if(type==='permissions')return managePermissions();if(type==='intro')return editIntro();if(type==='songs')return manageSongs();if(type==='gallery')return manageGallery();const map={notices:'notices',prayers:'prayer_assignments',events:'events',leaders:'leaders',gallery:'gallery',documents:'documents',polls:'polls',tasks:'tasks'};const table=map[type];if(!table)return;const {data}=await sb.from(table).select('*').order('created_at',{ascending:false}).limit(100);main.innerHTML=title('관리 · '+(PERM_LABELS[type]||type),`<button class="btn primary iconBtn" onclick="addRecord('${type}')">${uiIcon('file')}<span>새로 등록</span></button>`)+list((data||[]).map(x=>`<div class="row"><b>${esc(recordTitle(type,x))}</b><div class="muted">${esc(recordSub(type,x))}</div><div class="actions"><button class="btn" onclick='editRecord(${JSON.stringify(type)},${JSON.stringify(x)})'>수정</button><button class="btn danger" onclick="deleteRecord('${type}','${x.id}')">삭제</button></div></div>`))}
 
 async function manageGallery(){
   setBackAction(()=>adminPage());
