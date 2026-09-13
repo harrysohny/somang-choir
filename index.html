@@ -410,6 +410,42 @@ main{padding-bottom:92px}
   .memberPartBadge{grid-column:2;justify-self:start;margin-top:-2px}
 }
 
+
+/* V15.3 Member directory privacy-aware compact layout */
+.memberListItem{
+  display:grid;
+  grid-template-columns:58px minmax(0,1fr);
+  align-items:start;
+  gap:12px;
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:11px 12px;
+}
+.memberListInfo{min-width:0}
+.memberListTop{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.memberListName{font-size:16px;font-weight:900;line-height:1.25}
+.memberPartBadge{
+  display:inline-flex;align-items:center;justify-content:center;
+  min-width:auto;border-radius:999px;padding:3px 8px;
+  background:#f2f7f5;color:var(--brand);font-size:11px;font-weight:800;
+}
+.memberTitle{font-size:13px;color:var(--muted);font-weight:700}
+.memberDetail{margin-top:5px;font-size:13px;line-height:1.45;color:#374151;word-break:break-word}
+.memberDetailLine{margin-top:2px}
+.memberBio{margin-top:5px;font-size:13px;color:#1f2937}
+.memberPrivate{margin-top:6px;padding-top:6px;border-top:1px dashed #e5e7eb;font-size:12px;line-height:1.45;color:#59616d}
+.memberPrivateBadge{display:inline-block;margin-right:5px;border-radius:999px;padding:2px 6px;background:#f8f3e8;color:#8a641d;font-size:10px;font-weight:800}
+.memberSelfBadge{display:inline-block;border-radius:999px;padding:2px 6px;background:#edf4ff;color:#315e9b;font-size:10px;font-weight:800}
+@media(max-width:520px){
+  .memberList{gap:6px}
+  .memberListItem{grid-template-columns:52px minmax(0,1fr);gap:10px;padding:9px 10px;border-radius:12px}
+  .memberListPhoto{width:48px;height:48px}
+  .memberListName{font-size:15px}
+  .memberDetail,.memberBio{font-size:12px}
+  .memberPrivate{font-size:11.5px}
+}
+
 </style>
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="apple-touch-icon" href="./assets/apple-touch-icon.png">
@@ -623,14 +659,31 @@ async function signedProfilePhoto(path,expires=3600){
   }catch(e){return ''}
 }
 async function membersPage(){
+  const isMemberAdmin=(me?.role==='superadmin'||can('members'));
+
   const {data,error}=await sb.from('profiles')
-    .select('id,name,title,part,photo_path')
+    .select('id,name,title,part,phone,contact_email,phone_public,email_public,photo_path,choir_positions,bio,role,status')
     .eq('status','approved').order('part').order('name');
   if(error)return toast(error.message);
 
+  // profile_private RLS:
+  // 일반 대원 -> 본인 행만, 대원관리자 -> 전체 행 조회
+  let privateMap={};
+  try{
+    const {data:priv,error:privErr}=await sb.from('profile_private')
+      .select('user_id,birth_date,address');
+    if(!privErr) privateMap=Object.fromEntries((priv||[]).map(x=>[x.user_id,x]));
+  }catch(e){}
+
   const rows=[];
   for(const x of (data||[])){
-    rows.push({...x,photo_url:await signedProfilePhoto(x.photo_path)});
+    rows.push({
+      ...x,
+      ...(privateMap[x.id]||{}),
+      photo_url:await signedProfilePhoto(x.photo_path),
+      is_self:x.id===me?.id,
+      can_view_all:isMemberAdmin||x.id===me?.id
+    });
   }
 
   window._memberDirectoryRows=rows;
@@ -648,6 +701,26 @@ async function membersPage(){
   renderMemberDirectory(rows,'');
 }
 
+function memberContactHTML(x){
+  const full=x.can_view_all;
+  const lines=[];
+  if(x.phone && (full||x.phone_public)) lines.push(`<div class="memberDetailLine">☎ ${esc(phoneDisplay(x.phone))}</div>`);
+  if(x.contact_email && (full||x.email_public)) lines.push(`<div class="memberDetailLine">✉ ${esc(x.contact_email)}</div>`);
+  return lines.join('');
+}
+
+function memberPrivateHTML(x){
+  if(!x.can_view_all)return '';
+  const pos=Array.isArray(x.choir_positions)?x.choir_positions:[];
+  const rows=[];
+  if(pos.length)rows.push(`<div><b>찬양대 직위</b> · ${esc(pos.join(', '))}</div>`);
+  if(x.birth_date)rows.push(`<div><b>생년월일</b> · ${esc(x.birth_date)}</div>`);
+  if(x.address)rows.push(`<div><b>주소</b> · ${esc(x.address)}</div>`);
+  if(x.role)rows.push(`<div><b>시스템 역할</b> · ${esc(x.role)}</div>`);
+  if(!rows.length)return '';
+  return `<div class="memberPrivate"><span class="memberPrivateBadge">${x.is_self?'내 정보':'관리자 열람'}</span>${rows.join('')}</div>`;
+}
+
 function renderMemberDirectory(rows,query=''){
   const listEl=document.getElementById('memberList');
   const countEl=document.getElementById('memberCount');
@@ -661,13 +734,17 @@ function renderMemberDirectory(rows,query=''){
       <div class="memberListPhoto">
         ${x.photo_url?`<img src="${esc(x.photo_url)}" alt="${esc(x.name)}">`:esc((x.name||'?').slice(0,1))}
       </div>
-      <div class="memberListMain">
-        <div class="memberListName">${esc(x.name||'')}</div>
-        <div class="memberListMeta">
-          <span>${esc(x.title||'성도')}</span>
+      <div class="memberListInfo">
+        <div class="memberListTop">
+          <span class="memberListName">${esc(x.name||'')}</span>
+          <span class="memberPartBadge">${esc(partKo(x.part)||'-')}</span>
+          <span class="memberTitle">${esc(x.title||'성도')}</span>
+          ${x.is_self?'<span class="memberSelfBadge">나</span>':''}
         </div>
+        ${x.bio?`<div class="memberBio">${esc(x.bio)}</div>`:''}
+        <div class="memberDetail">${memberContactHTML(x)}</div>
+        ${memberPrivateHTML(x)}
       </div>
-      <div class="memberPartBadge">${esc(partKo(x.part)||'-')}</div>
     </div>`).join(''):`<div class="memberListEmpty">${q?'검색 결과가 없습니다.':'등록된 대원이 없습니다.'}</div>`;
 }
 
