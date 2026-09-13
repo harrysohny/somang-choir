@@ -3,7 +3,8 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-<title>소망 찬양대 · Hope Church Choir · V14-D3.14</title>
+<title>소망찬양대 · SOMANG CHURCH CHOIR</title>
+<!-- V14-D3.15-R1 SAFE MERGE: 2026-09-13 21:56 baseline + D3.15 additive UX -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 :root{--bg:#f6f7fb;--card:#fff;--ink:#1f2937;--muted:#6b7280;--line:#e5e7eb;--brand:#2d5b52;--brand2:#eaf2ef;--danger:#b42318;--ok:#16794a;--shadow:0 10px 30px rgba(0,0,0,.07)}*{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;background:var(--bg);color:var(--ink)}button,input,select,textarea{font:inherit}.app{max-width:1050px;margin:0 auto;min-height:100vh;background:var(--bg)}header{position:sticky;top:0;z-index:10;background:rgba(255,255,255,.96);border-bottom:1px solid var(--line);backdrop-filter:blur(10px)}.head{display:flex;align-items:center;justify-content:space-between;padding:14px 18px}.brand b{font-size:19px}.brand small{display:block;color:var(--muted);margin-top:2px}.topbtn{border:0;background:var(--brand2);color:var(--brand);padding:9px 12px;border-radius:10px;font-weight:700}main{padding:18px 18px 90px}.hero{background:linear-gradient(135deg,#244d46,#4f756d);color:#fff;border-radius:22px;padding:24px;box-shadow:var(--shadow)}.hero h1{margin:0 0 7px;font-size:25px}.hero p{margin:0;opacity:.88}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:14px}.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:0 4px 16px rgba(0,0,0,.035)}.card h3{margin:0 0 8px}.muted{color:var(--muted);font-size:14px}.tag{display:inline-block;padding:4px 8px;border-radius:999px;background:var(--brand2);color:var(--brand);font-size:12px;font-weight:700}.important{background:#fff2f0;color:#b42318}.list{display:grid;gap:10px}.row{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px}.rowhead{display:flex;justify-content:space-between;gap:10px}.actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}.btn{border:0;border-radius:10px;padding:9px 12px;background:#eef1f4;color:#29313d;font-weight:700}.btn.primary{background:var(--brand);color:#fff}.btn.danger{background:#fff1f0;color:var(--danger)}.btn.ok{background:#ebf8f1;color:var(--ok)}.sectiontitle{display:flex;align-items:center;justify-content:space-between;margin:4px 0 14px}.sectiontitle h2{margin:0;font-size:21px}.loginwrap{max-width:520px;margin:36px auto}.loginbox{background:#fff;border:1px solid var(--line);border-radius:22px;padding:24px;box-shadow:var(--shadow)}.loginbox h1{margin-top:0}.field{margin:12px 0}.field label{display:block;font-size:13px;color:var(--muted);margin-bottom:6px}.field input,.field select,.field textarea{width:100%;border:1px solid #d6dae0;border-radius:11px;padding:12px;background:#fff}.field textarea{min-height:110px;resize:vertical}.wide{width:100%}.tabs{display:flex;gap:8px;margin-bottom:16px}.tabs button{flex:1}.statusbox{padding:18px;border-radius:16px;background:#fff;border:1px solid var(--line)}nav{position:fixed;left:0;right:0;bottom:0;background:rgba(255,255,255,.98);border-top:1px solid var(--line);z-index:20}.navin{max-width:1050px;margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr)}nav button{border:0;background:transparent;padding:11px 4px 12px;color:#6b7280;font-size:12px}nav button b{display:block;font-size:17px;margin-bottom:2px}nav button.active{color:var(--brand);font-weight:800}.adminGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.adminTile{background:#fff;border:1px solid var(--line);border-radius:15px;padding:15px;text-align:left}.adminTile b{display:block;margin-bottom:5px}.membergrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.member{background:#fff;border:1px solid var(--line);border-radius:14px;padding:13px}.member .name{font-weight:800;font-size:17px}.link{color:#245f9b;text-decoration:none;font-weight:700}.empty{text-align:center;padding:35px 15px;color:var(--muted)}.toast{position:fixed;left:50%;bottom:82px;transform:translateX(-50%);background:#20252b;color:#fff;padding:10px 14px;border-radius:10px;z-index:99;display:none;max-width:85%;text-align:center}.codehint{font-size:12px;color:#70757d;background:#f7f8fa;border-radius:9px;padding:8px;margin-top:10px}@media(max-width:720px){.grid,.membergrid{grid-template-columns:1fr}.adminGrid{grid-template-columns:repeat(2,minmax(0,1fr))}.hero{padding:20px}.head{padding:12px 14px}main{padding:14px 14px 90px}}
@@ -344,13 +345,742 @@ main{padding-bottom:92px}
 .pushHelp{background:#f7faf9;border:1px solid #dce8e4;border-radius:12px;padding:12px 14px;margin:12px 0;font-size:14px;line-height:1.55}
 .pushAdminBox{margin-top:18px;border-top:1px solid var(--line);padding-top:16px}
 
+/* V15 My Profile */
+.profileHero{display:flex;align-items:center;gap:16px;background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px;margin-bottom:14px}
+.profileAvatar{width:86px;height:86px;border-radius:50%;overflow:hidden;background:var(--brand2);display:flex;align-items:center;justify-content:center;color:var(--brand);font-size:30px;font-weight:900;flex:none;border:1px solid #d8e5e1}
+.profileAvatar img{width:100%;height:100%;object-fit:cover}
+.profileMeta{min-width:0}.profileMeta h3{margin:0 0 6px;font-size:21px}.profileMeta .muted{line-height:1.55}
+.profileGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.profileItem{background:#fff;border:1px solid var(--line);border-radius:14px;padding:13px}
+.profileItem small{display:block;color:var(--muted);margin-bottom:5px}.profileItem b{display:block;word-break:break-word}
+.privateBadge{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:800;color:#7b5b00;background:#fff7db;border-radius:999px;padding:4px 7px;margin-left:6px}
+.profilePhotoEdit{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.profilePhotoPreview{width:92px;height:92px;border-radius:50%;overflow:hidden;background:var(--brand2);display:flex;align-items:center;justify-content:center;color:var(--brand);font-size:30px;font-weight:900;border:1px solid #d8e5e1}
+.profilePhotoPreview img{width:100%;height:100%;object-fit:cover}
+.multiChecks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:7px}
+.multiChecks label{display:flex!important;align-items:center;gap:8px;margin:0!important;padding:9px 10px;border:1px solid var(--line);border-radius:10px;background:#fff;font-weight:600!important}
+.multiChecks input{width:auto!important;margin:0!important}
+.charCount{text-align:right;font-size:12px;color:var(--muted);margin-top:5px}
+.privacyNote{background:#f7faf9;border:1px solid #dce8e4;border-radius:12px;padding:12px 14px;font-size:13px;line-height:1.55}
+@media(max-width:640px){.profileGrid{grid-template-columns:1fr}.profileHero{align-items:flex-start}.profileAvatar{width:74px;height:74px}.multiChecks{grid-template-columns:1fr}}
+
+
+/* V15.1 Profile polish + personalized home */
+.homeWelcome{display:flex;align-items:center;gap:18px}
+.homeWelcomePhoto{width:88px;height:88px;border-radius:50%;overflow:hidden;flex:none;background:rgba(255,255,255,.18);border:2px solid rgba(255,255,255,.72);display:flex;align-items:center;justify-content:center;font-size:31px;font-weight:900;color:#fff;cursor:pointer}
+.homeWelcomePhoto img{width:100%;height:100%;object-fit:cover}
+.homeWelcomeText{min-width:0;flex:1}
+.homeWelcomeText h1{margin:0 0 7px}
+.homeWelcomeProfileBtn{margin-top:10px;border:1px solid rgba(255,255,255,.5);background:rgba(255,255,255,.12);color:#fff;border-radius:10px;padding:7px 10px;font-size:12px;font-weight:800}
+.positionDetails{border:1px solid var(--line);border-radius:12px;background:#fafcfb;overflow:hidden}
+.positionDetails summary{cursor:pointer;list-style:none;padding:12px 13px;font-weight:800;color:var(--brand);display:flex;align-items:center;justify-content:space-between}
+.positionDetails summary::-webkit-details-marker{display:none}
+.positionDetails summary:after{content:'펼치기';font-size:11px;color:var(--muted);font-weight:700}
+.positionDetails[open] summary:after{content:'접기'}
+.positionDetails .multiChecks{padding:0 12px 12px;margin-top:0}
+.profileVisibilityRow{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 0}
+.profileVisibilityRow label{margin:0!important;font-weight:700!important}
+@media(max-width:640px){
+  .homeWelcome{align-items:flex-start}
+  .homeWelcomePhoto{width:74px;height:74px;font-size:27px}
+  .homeWelcomeText h1{font-size:22px}
+}
+
+
+/* V15.2 Member directory: searchable list */
+.memberDirectoryHead{display:flex;gap:10px;align-items:center;margin:0 0 12px}
+.memberSearchWrap{position:relative;flex:1}
+.memberSearch{width:100%;box-sizing:border-box;border:1px solid var(--line);border-radius:12px;padding:12px 38px 12px 14px;background:#fff;font-size:15px;outline:none}
+.memberSearch:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(46,111,91,.10)}
+.memberSearchIcon{position:absolute;right:13px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:17px;pointer-events:none}
+.memberCount{flex:none;white-space:nowrap;font-size:13px;color:var(--muted);font-weight:700}
+.memberList{display:flex;flex-direction:column;gap:8px}
+.memberListItem{display:grid;grid-template-columns:58px minmax(0,1fr) auto;align-items:center;gap:12px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:10px 12px}
+.memberListPhoto{width:54px;height:54px;border-radius:50%;overflow:hidden;background:#eef3f1;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:20px;color:var(--brand);border:1px solid #e3e9e6}
+.memberListPhoto img{width:100%;height:100%;object-fit:cover}
+.memberListMain{min-width:0}
+.memberListName{font-size:17px;font-weight:900;line-height:1.25}
+.memberListMeta{margin-top:5px;color:var(--muted);font-size:13px;display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.memberPartBadge{display:inline-flex;align-items:center;justify-content:center;min-width:54px;border-radius:999px;padding:5px 9px;background:#f2f7f5;color:var(--brand);font-size:12px;font-weight:800}
+.memberListEmpty{text-align:center;padding:34px 12px;color:var(--muted);background:#fff;border:1px dashed var(--line);border-radius:14px}
+@media(max-width:520px){
+  .memberDirectoryHead{align-items:stretch;flex-direction:column}
+  .memberCount{padding-left:2px}
+  .memberListItem{grid-template-columns:52px minmax(0,1fr)}
+  .memberListPhoto{width:48px;height:48px}
+  .memberPartBadge{grid-column:2;justify-self:start;margin-top:-2px}
+}
+
+
+/* V15.3 Member directory privacy-aware compact layout */
+.memberListItem{
+  display:grid;
+  grid-template-columns:58px minmax(0,1fr);
+  align-items:start;
+  gap:12px;
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:11px 12px;
+}
+.memberListInfo{min-width:0}
+.memberListTop{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.memberListName{font-size:16px;font-weight:900;line-height:1.25}
+.memberPartBadge{
+  display:inline-flex;align-items:center;justify-content:center;
+  min-width:auto;border-radius:999px;padding:3px 8px;
+  background:#f2f7f5;color:var(--brand);font-size:11px;font-weight:800;
+}
+.memberTitle{font-size:13px;color:var(--muted);font-weight:700}
+.memberDetail{margin-top:5px;font-size:13px;line-height:1.45;color:#374151;word-break:break-word}
+.memberDetailLine{margin-top:2px}
+.memberBio{margin-top:5px;font-size:13px;color:#1f2937}
+.memberPrivate{margin-top:6px;padding-top:6px;border-top:1px dashed #e5e7eb;font-size:12px;line-height:1.45;color:#59616d}
+.memberPrivateBadge{display:inline-block;margin-right:5px;border-radius:999px;padding:2px 6px;background:#f8f3e8;color:#8a641d;font-size:10px;font-weight:800}
+.memberSelfBadge{display:inline-block;border-radius:999px;padding:2px 6px;background:#edf4ff;color:#315e9b;font-size:10px;font-weight:800}
+@media(max-width:520px){
+  .memberList{gap:6px}
+  .memberListItem{grid-template-columns:52px minmax(0,1fr);gap:10px;padding:9px 10px;border-radius:12px}
+  .memberListPhoto{width:48px;height:48px}
+  .memberListName{font-size:15px}
+  .memberDetail,.memberBio{font-size:12px}
+  .memberPrivate{font-size:11.5px}
+}
+
+
+/* =========================================================
+   V16.0 PROFESSIONAL GUI
+   기능/데이터 구조는 유지하고 시각 체계만 통일
+   ========================================================= */
+:root{
+  --bg:#f3f6f5;
+  --card:#ffffff;
+  --ink:#182421;
+  --muted:#687772;
+  --line:#dfe7e4;
+  --brand:#245f54;
+  --brand-dark:#17483f;
+  --brand-soft:#edf5f2;
+  --accent:#b08b45;
+  --danger:#b42318;
+  --ok:#16794a;
+  --shadow-sm:0 2px 10px rgba(25,58,50,.055);
+  --shadow:0 10px 28px rgba(25,58,50,.08);
+  --shadow-lg:0 20px 48px rgba(20,48,42,.12);
+  --radius:18px;
+}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{
+  background:
+    radial-gradient(circle at 15% 0%,rgba(36,95,84,.055),transparent 30%),
+    linear-gradient(180deg,#f7f9f8 0,#f3f6f5 220px,#f3f6f5 100%);
+  color:var(--ink);
+  letter-spacing:-.01em;
+}
+.app{background:transparent}
+header{
+  background:rgba(255,255,255,.88);
+  border-bottom:1px solid rgba(223,231,228,.9);
+  box-shadow:0 1px 0 rgba(255,255,255,.85);
+  backdrop-filter:blur(18px) saturate(150%);
+  -webkit-backdrop-filter:blur(18px) saturate(150%);
+}
+.head{padding:12px 18px;min-height:76px}
+.brandPro{gap:11px}
+.brandPro img{
+  filter:drop-shadow(0 2px 3px rgba(0,0,0,.08));
+}
+.brandPro .churchName{
+  color:#5e6f69;
+  letter-spacing:.02em;
+  font-weight:750;
+}
+.brandPro b{
+  color:var(--brand-dark);
+  letter-spacing:-.035em;
+  font-weight:900;
+}
+.brandPro small{
+  color:#66766f;
+  letter-spacing:.075em;
+  font-weight:750;
+  margin-top:3px;
+}
+.topbtn{
+  min-height:42px;
+  padding:9px 15px;
+  border:1px solid #dce9e5;
+  background:linear-gradient(180deg,#f5faf8,#edf5f2);
+  color:var(--brand-dark);
+  border-radius:13px;
+  box-shadow:0 2px 7px rgba(36,95,84,.05);
+}
+main{padding-top:20px}
+.hero{
+  position:relative;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 92% 12%,rgba(255,255,255,.13),transparent 28%),
+    linear-gradient(135deg,#17483f 0%,#28685c 58%,#4d7b71 100%);
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:24px;
+  box-shadow:0 16px 38px rgba(25,70,60,.18);
+}
+.hero:after{
+  content:"";
+  position:absolute;
+  width:180px;height:180px;
+  right:-75px;bottom:-105px;
+  border:1px solid rgba(255,255,255,.13);
+  border-radius:50%;
+  box-shadow:0 0 0 28px rgba(255,255,255,.035),0 0 0 56px rgba(255,255,255,.02);
+  pointer-events:none;
+}
+.homeWelcome{position:relative;z-index:1}
+.homeWelcomePhoto{
+  width:96px;height:96px;
+  border:3px solid rgba(255,255,255,.83);
+  box-shadow:0 8px 22px rgba(0,0,0,.18);
+  background:rgba(255,255,255,.16);
+}
+.homeWelcomeText h1{
+  font-size:26px;
+  letter-spacing:-.035em;
+  font-weight:900;
+}
+.homeWelcomeText p{font-size:14px;opacity:.9}
+.homeWelcomeProfileBtn{
+  padding:8px 12px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.38);
+  background:rgba(255,255,255,.11);
+  backdrop-filter:blur(6px);
+}
+.grid{gap:14px;margin-top:16px}
+.card,.v14bCard,.choirIntroCompact,.profileHero,.loginbox,.statusbox,.bulkBox{
+  border:1px solid rgba(218,228,224,.95);
+  border-radius:var(--radius);
+  background:rgba(255,255,255,.96);
+  box-shadow:var(--shadow-sm);
+}
+.card{
+  padding:18px;
+  transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease;
+}
+.card h3{
+  color:#1d332e;
+  font-size:17px;
+  font-weight:850;
+  letter-spacing:-.025em;
+}
+.cardLeadIcon,.pageTitleIcon,.tileIcon{
+  color:var(--brand);
+  background:linear-gradient(145deg,#edf6f3,#e2efeb);
+  box-shadow:inset 0 0 0 1px rgba(36,95,84,.06);
+}
+.sectiontitle{
+  padding-bottom:10px;
+  margin-bottom:15px;
+  border-bottom:1px solid #e4ebe8;
+}
+.sectiontitle h2{
+  color:#172a25;
+  font-size:22px;
+  font-weight:900;
+  letter-spacing:-.035em;
+}
+.row{
+  border:1px solid #e1e8e5;
+  border-radius:15px;
+  padding:15px;
+  box-shadow:0 2px 8px rgba(20,55,47,.035);
+}
+.tag{
+  background:#edf5f2;
+  color:var(--brand-dark);
+  border:1px solid #dfebe7;
+  font-weight:800;
+}
+.btn,.ytIconBtn,.backBtn{
+  min-height:40px;
+  border-radius:12px;
+  border:1px solid transparent;
+  padding:9px 13px;
+  font-weight:800;
+  box-shadow:none;
+}
+.btn{
+  background:#f1f4f3;
+  color:#31413c;
+  border-color:#e2e8e6;
+}
+.btn.primary{
+  background:linear-gradient(180deg,#2b6c60,#21594f);
+  border-color:#21594f;
+  color:#fff;
+  box-shadow:0 6px 14px rgba(36,95,84,.14);
+}
+.btn.ok{
+  background:#edf8f2;
+  border-color:#dcefe4;
+  color:#12643e;
+}
+.btn.danger{
+  background:#fff3f2;
+  border-color:#f5ddda;
+  color:#a92a20;
+}
+.field{margin:14px 0}
+.field label{
+  color:#55645f;
+  font-weight:750;
+  font-size:12.5px;
+}
+.field input,.field select,.field textarea{
+  min-height:46px;
+  border:1px solid #d8e1de;
+  border-radius:13px;
+  background:#fbfcfc;
+  padding:11px 13px;
+  color:#17241f;
+  outline:none;
+  transition:border-color .16s ease,box-shadow .16s ease,background .16s ease;
+}
+.field input:focus,.field select:focus,.field textarea:focus{
+  border-color:#76a397;
+  background:#fff;
+  box-shadow:0 0 0 4px rgba(36,95,84,.085);
+}
+.loginwrap{margin-top:42px}
+.loginbox{
+  padding:28px;
+  box-shadow:var(--shadow);
+}
+.loginbox h1{color:var(--brand-dark);letter-spacing:-.035em}
+.tabs{
+  padding:4px;
+  gap:4px;
+  background:#f1f5f3;
+  border-radius:14px;
+}
+.tabs .btn{border:0;background:transparent}
+.tabs .btn.primary{background:#fff;color:var(--brand-dark);box-shadow:0 2px 8px rgba(20,55,47,.08)}
+.adminGrid{gap:12px}
+.adminTile{
+  border:1px solid #dde7e3;
+  border-radius:16px;
+  padding:17px;
+  box-shadow:var(--shadow-sm);
+  transition:transform .16s ease,box-shadow .16s ease,border-color .16s ease;
+}
+.adminTile b{color:#1d332e;font-size:15px}
+.profileHero{
+  padding:20px;
+  box-shadow:var(--shadow-sm);
+}
+.profilePhoto{
+  box-shadow:0 5px 16px rgba(30,65,57,.12);
+  border:3px solid #fff;
+}
+.profileItem{
+  border:1px solid #e2e9e6;
+  background:#fbfcfc;
+  border-radius:14px;
+}
+.positionDetails{
+  border-color:#dfe8e5;
+  background:#fbfcfc;
+  border-radius:13px;
+}
+.memberDirectoryHead{
+  position:sticky;
+  top:78px;
+  z-index:7;
+  padding:8px 0 10px;
+  background:linear-gradient(180deg,var(--bg) 72%,rgba(243,246,245,0));
+}
+.memberSearch{
+  min-height:46px;
+  border-color:#d6e1dd;
+  box-shadow:0 2px 8px rgba(20,55,47,.035);
+}
+.memberListItem{
+  border:1px solid #dee7e4;
+  box-shadow:0 2px 8px rgba(20,55,47,.035);
+  transition:transform .15s ease,box-shadow .15s ease,border-color .15s ease;
+}
+.memberListPhoto{
+  border:2px solid #fff;
+  box-shadow:0 2px 8px rgba(24,65,56,.13);
+  background:#eaf3f0;
+}
+.memberListName{color:#172a25}
+.memberPartBadge{
+  background:#edf5f2;
+  border:1px solid #e1ece8;
+}
+.scheduleTable,.bulkPreview{
+  border-collapse:separate;
+  border-spacing:0;
+  width:100%;
+  background:#fff;
+  border:1px solid #e0e8e5;
+  border-radius:14px;
+  overflow:hidden;
+}
+.scheduleTable th,.bulkPreview th{
+  background:#f3f7f5;
+  color:#465851;
+  font-weight:850;
+}
+.ytModal{
+  background:rgba(11,24,20,.72);
+  backdrop-filter:blur(5px);
+}
+.ytBox{
+  border-radius:20px;
+  box-shadow:var(--shadow-lg);
+}
+.ytHead{background:#fbfcfc}
+.toast{
+  bottom:94px;
+  border-radius:999px;
+  background:rgba(25,34,31,.94);
+  box-shadow:0 10px 28px rgba(0,0,0,.18);
+  backdrop-filter:blur(8px);
+  padding:11px 17px;
+}
+nav{
+  padding-bottom:env(safe-area-inset-bottom);
+  background:rgba(255,255,255,.92);
+  border-top:1px solid rgba(216,226,222,.96);
+  box-shadow:0 -8px 28px rgba(27,57,50,.055);
+  backdrop-filter:blur(18px) saturate(150%);
+  -webkit-backdrop-filter:blur(18px) saturate(150%);
+}
+.navin{min-height:68px}
+nav button{
+  position:relative;
+  min-height:68px;
+  padding:10px 4px 9px;
+  color:#74807c;
+  transition:color .15s ease,background .15s ease;
+}
+nav button b{
+  font-size:20px;
+  line-height:1;
+  margin-bottom:5px;
+  font-weight:500;
+}
+nav button.active{
+  color:var(--brand-dark);
+  font-weight:850;
+}
+nav button.active:before{
+  content:"";
+  position:absolute;
+  top:5px;
+  left:50%;
+  transform:translateX(-50%);
+  width:28px;
+  height:3px;
+  border-radius:999px;
+  background:var(--brand);
+}
+.empty{
+  padding:42px 15px;
+  color:#7b8984;
+}
+.codehint{
+  background:#f4f7f6;
+  border:1px solid #e2e8e6;
+  color:#66736f;
+}
+a.link{color:#1f6759}
+@media(hover:hover){
+  .card:hover,.adminTile:hover,.memberListItem:hover{
+    transform:translateY(-2px);
+    border-color:#ceded8;
+    box-shadow:0 9px 24px rgba(25,58,50,.08);
+  }
+  .btn:hover,.topbtn:hover{filter:brightness(.985)}
+}
+@media(max-width:720px){
+  main{padding:14px 14px calc(104px + env(safe-area-inset-bottom))}
+  .head{padding:9px 13px;min-height:68px}
+  .hero{border-radius:21px;padding:20px 18px}
+  .homeWelcome{gap:14px}
+  .homeWelcomePhoto{width:82px;height:82px}
+  .homeWelcomeText h1{font-size:22px;margin-bottom:5px}
+  .homeWelcomeText p{font-size:12.5px;line-height:1.45}
+  .homeWelcomeProfileBtn{font-size:11.5px;margin-top:8px}
+  .grid{gap:10px}
+  .card{padding:15px;border-radius:16px}
+  .card h3{font-size:16px}
+  .sectiontitle h2{font-size:20px}
+  .memberDirectoryHead{top:68px}
+  .memberListItem{border-radius:13px}
+  .loginwrap{margin-top:24px}
+  .loginbox{padding:21px;border-radius:20px}
+}
+@media(max-width:390px){
+  .homeWelcomePhoto{width:76px;height:76px}
+  .homeWelcomeText h1{font-size:20px}
+  .brandPro small{letter-spacing:.055em}
+}
+
+
+/* =========================================================
+   V16.1 ADMIN CENTER CONSISTENCY
+   ========================================================= */
+.adminActionBar,
+.sectiontitle{
+  display:flex;
+  align-items:center;
+}
+.sectiontitle{
+  min-height:50px;
+  gap:12px;
+}
+.sectiontitle > .btn:last-child,
+.sectiontitle > button:last-child{
+  margin-left:auto;
+}
+.sectiontitle .btn,
+.sectiontitle button,
+.adminActionBar .btn,
+.adminActionBar button{
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  text-align:center!important;
+  line-height:1.1!important;
+  vertical-align:middle;
+  white-space:nowrap;
+}
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  line-height:1.15;
+}
+.btn.primary{
+  min-width:112px;
+}
+.row .btn{
+  min-width:62px;
+  min-height:38px;
+  padding:8px 13px;
+}
+.row .btn + .btn{margin-left:5px}
+.adminListActions{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  margin-top:10px;
+}
+.adminListActions .btn{margin:0!important}
+.empty{
+  max-width:520px;
+  margin:42px auto;
+  min-height:150px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  border:1px dashed #d7e2de;
+  border-radius:18px;
+  background:rgba(255,255,255,.58);
+}
+@media(min-width:900px){
+  .row{
+    padding:14px 16px;
+  }
+  .row b{font-size:15px}
+  .row .muted{font-size:13px}
+}
+@media(max-width:720px){
+  .sectiontitle{
+    min-height:46px;
+    gap:8px;
+  }
+  .sectiontitle .btn.primary,
+  .sectiontitle button.primary{
+    min-width:100px;
+    padding-left:11px;
+    padding-right:11px;
+  }
+  .row .btn{
+    min-height:40px;
+  }
+}
+
+
+/* =========================================================
+   V16.2 ADMIN TOP BUTTON — TRUE TEXT CENTER
+   ========================================================= */
+.sectiontitle > div:last-child{
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+}
+.adminCreateBtn,
+.sectiontitle > div:last-child > .btn.primary{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  text-align:center!important;
+  min-width:138px!important;
+  min-height:48px!important;
+  padding:10px 18px!important;
+  line-height:1!important;
+  gap:0!important;
+  white-space:nowrap;
+}
+.adminCreateBtn .uiIcon,
+.sectiontitle > div:last-child > .btn.primary .uiIcon{
+  display:none!important;
+}
+@media(max-width:720px){
+  .adminCreateBtn,
+  .sectiontitle > div:last-child > .btn.primary{
+    min-width:116px!important;
+    min-height:44px!important;
+    padding:9px 14px!important;
+    font-size:14px;
+  }
+}
+
+
+/* =========================================================
+   V16.3 FINAL POLISH
+   Footer / Empty State / Title / Button consistency
+   ========================================================= */
+.appFooter{
+  margin:34px auto 14px;
+  padding:18px 12px 8px;
+  text-align:center;
+  color:#9aa3a0;
+  font-size:11px;
+  line-height:1.55;
+  letter-spacing:.015em;
+}
+.appFooter .footerKr{
+  font-weight:650;
+  color:#929c98;
+}
+.appFooter .footerEn{
+  margin-top:2px;
+  font-size:10px;
+  letter-spacing:.08em;
+  font-weight:650;
+  color:#a5aeab;
+}
+.appFooter .footerDot{
+  display:inline-block;
+  padding:0 4px;
+}
+.pageTitleWrap{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  min-width:0;
+}
+.pageTitleWrap .pageTitleIcon{
+  flex:none;
+}
+.pageTitleWrap h2{
+  margin:0;
+  line-height:1.2;
+}
+.sectiontitle{
+  padding-bottom:12px;
+  margin-bottom:16px;
+}
+.emptyState{
+  max-width:520px;
+  margin:42px auto;
+  padding:34px 22px;
+  text-align:center;
+  border:1px dashed #d7e2de;
+  border-radius:18px;
+  background:rgba(255,255,255,.62);
+}
+.emptyStateIcon{
+  width:46px;
+  height:46px;
+  margin:0 auto 12px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:50%;
+  background:#edf4f1;
+  color:#6f8b83;
+  font-size:21px;
+}
+.emptyStateTitle{
+  color:#4f5f5a;
+  font-size:15px;
+  font-weight:800;
+}
+.emptyStateText{
+  margin-top:6px;
+  color:#8a9692;
+  font-size:12.5px;
+  line-height:1.55;
+}
+.emptyState .btn{
+  margin-top:14px;
+}
+.btn,
+.topbtn,
+.backBtn{
+  font-weight:800;
+}
+.btn.primary,
+.adminCreateBtn{
+  background:linear-gradient(180deg,#2c6e61,#225c51);
+  border-color:#225c51;
+  color:#fff;
+}
+.btn:not(.primary):not(.danger):not(.ok){
+  background:#f4f6f5;
+  border-color:#dfe6e3;
+  color:#34453f;
+}
+.btn.danger{
+  background:#fff5f4;
+  border-color:#f0d7d4;
+  color:#a62a20;
+}
+.btn.ok{
+  background:#edf8f2;
+  border-color:#d9ebdf;
+  color:#17643f;
+}
+@media(max-width:720px){
+  .appFooter{
+    margin-top:26px;
+    padding-top:14px;
+    font-size:10px;
+  }
+  .appFooter .footerEn{
+    font-size:9.5px;
+  }
+  .emptyState{
+    margin:30px auto;
+    padding:28px 18px;
+  }
+}
+
+
 /* V14-D3.15 visual system */
-.headerActions{display:flex;align-items:center;gap:8px}.notifyBell{position:relative;border:0;background:#f1f6f4;width:40px;height:40px;border-radius:50%;font-size:18px;align-items:center;justify-content:center;cursor:pointer}.notifyBadge{position:absolute;right:-4px;top:-4px;min-width:19px;height:19px;padding:0 5px;border-radius:10px;background:#b42318;color:#fff;font-size:11px;font-weight:800;align-items:center;justify-content:center;border:2px solid #fff}.appFooter{text-align:center;color:#98a19e;font-size:10px;line-height:1.55;padding:18px 12px 104px;letter-spacing:.015em}.appFooter span{font-family:Arial,sans-serif;font-size:9px;letter-spacing:.08em}.weekHero{padding:7px 2px 14px}.weekHero h1{font-size:25px;margin:5px 0 4px;letter-spacing:-.04em}.weekHero p{margin:0;color:#69736f}.weekEyebrow{display:inline-flex;background:#e8f3ef;color:#0f6656;font-weight:800;font-size:12px;padding:6px 10px;border-radius:999px}.weeklyPanel{display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:10px;margin-bottom:18px}.weeklyMain,.weeklyMini{border:1px solid #dfe8e5;border-radius:18px;background:#fff;padding:18px;box-shadow:0 6px 20px rgba(31,52,47,.05)}.weeklyMain{grid-row:span 2}.weeklyMain h2{font-size:21px;margin:6px 0}.weeklyLabel,.weeklyMini span{font-size:12px;font-weight:800;color:#0f6656}.weeklyMini{display:flex;flex-direction:column;gap:5px}.weeklyMini b{font-size:14px}.weeklyMini small{color:#727b78}.partQuick{display:flex;gap:7px;flex-wrap:wrap;margin-top:13px}.partQuick .btn{min-width:42px;padding:9px 12px}.homeSectionTitle{display:flex;align-items:center;justify-content:space-between;margin:19px 2px 9px}.homeSectionTitle strong{display:inline-flex;min-width:22px;height:22px;padding:0 7px;border-radius:12px;background:#b42318;color:#fff;align-items:center;justify-content:center;font-size:11px}.compactCard{padding:8px 14px!important}.noticePreview,.noticeListItem,.notificationRow{width:100%;border:0;background:transparent;display:grid;grid-template-columns:10px 1fr auto;gap:10px;align-items:start;text-align:left;padding:12px 2px;border-bottom:1px solid #edf1ef;cursor:pointer}.noticePreview:last-of-type{border-bottom:0}.noticePreview span:nth-child(2),.noticeListItem span:nth-child(2),.notificationRow span:nth-child(2){display:flex;flex-direction:column;gap:3px}.noticePreview small,.noticeListItem small,.notificationRow small{color:#737c79}.noticePreview em,.noticeListItem em{font-style:normal;font-size:10px;font-weight:900;color:#b42318}.newDot,.notificationDot{width:7px;height:7px;border-radius:50%;background:#c2271d;margin-top:7px}.newDot.read,.notificationRow:not(.unread) .notificationDot{background:#cfd7d4}.textLink{border:0;background:transparent;color:#0f6656;font-weight:800;padding:10px 0;cursor:pointer}.homeTwo{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}.mutedBlock{display:flex;flex-direction:column;gap:4px;margin:8px 0}.notificationRow{background:#fff;padding:14px;border-radius:14px;margin-bottom:8px;border:1px solid #e4ebe8}.notificationRow.unread{background:#f5fbf8;border-color:#cfe5dc}.notificationRow em{font-size:10px;color:#8a9490;font-style:normal;margin-top:2px}.noticeListItem{background:#fff;padding:15px;border:1px solid #e5ebe9;border-radius:14px;margin-bottom:8px}.noticeListItem.unread{background:#f6fbf9;border-color:#cfe5dc}.noticeDetail h2{font-size:22px;margin:12px 0 4px}.noticeBody{margin-top:20px;line-height:1.75}.profileHero{display:flex;align-items:center;gap:14px;background:#fff;border:1px solid #e2e9e6;border-radius:18px;padding:18px;margin-bottom:12px}.profileAvatar{width:58px;height:58px;border-radius:50%;background:#e8f3ef;color:#0f6656;font-weight:900;font-size:24px;display:flex;align-items:center;justify-content:center}.profileHero h2{margin:0 0 4px}.profileHero p{margin:0;color:#71807a}.myDashboard{display:grid;grid-template-columns:1fr 1fr;gap:10px}.myDashCard{background:#fff;border:1px solid #e2e9e6;border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:8px}.myDashCard>span{font-size:12px;font-weight:800;color:#0f6656}.miniNotice{border:0;background:#f5f8f7;text-align:left;padding:9px 10px;border-radius:9px;cursor:pointer}.settingsLinks{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.adminGroup{margin:0 0 22px}.adminGroup>h3{margin:0 0 9px;font-size:16px}.installCard{text-align:center;background:#fff;border:1px solid #e1e9e6;border-radius:20px;padding:22px}.qrWrap{display:flex;justify-content:center;margin:18px auto}.qrWrap img{width:230px;height:230px;border-radius:12px}.appUrl{display:block;background:#f4f6f5;border-radius:10px;padding:10px;word-break:break-all;font-size:11px}.installCard .actions{justify-content:center}.installSteps{text-align:left;margin-top:22px;padding-top:16px;border-top:1px solid #e7ecea}.installSteps h3{margin-bottom:4px}.installSteps p{margin-top:0;line-height:1.6}.installedBadge{margin-top:16px;background:#e9f5ef;color:#0f6656;border-radius:10px;padding:10px;font-weight:800}
+.headerActions{display:flex;align-items:center;gap:8px}.notifyBell{position:relative;border:0;background:#f1f6f4;width:40px;height:40px;border-radius:50%;font-size:18px;align-items:center;justify-content:center;cursor:pointer}.notifyBadge{position:absolute;right:-4px;top:-4px;min-width:19px;height:19px;padding:0 5px;border-radius:10px;background:#b42318;color:#fff;font-size:11px;font-weight:800;align-items:center;justify-content:center;border:2px solid #fff}.weekHero{padding:7px 2px 14px}.weekHero h1{font-size:25px;margin:5px 0 4px;letter-spacing:-.04em}.weekHero p{margin:0;color:#69736f}.weekEyebrow{display:inline-flex;background:#e8f3ef;color:#0f6656;font-weight:800;font-size:12px;padding:6px 10px;border-radius:999px}.weeklyPanel{display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:10px;margin-bottom:18px}.weeklyMain,.weeklyMini{border:1px solid #dfe8e5;border-radius:18px;background:#fff;padding:18px;box-shadow:0 6px 20px rgba(31,52,47,.05)}.weeklyMain{grid-row:span 2}.weeklyMain h2{font-size:21px;margin:6px 0}.weeklyLabel,.weeklyMini span{font-size:12px;font-weight:800;color:#0f6656}.weeklyMini{display:flex;flex-direction:column;gap:5px}.weeklyMini b{font-size:14px}.weeklyMini small{color:#727b78}.partQuick{display:flex;gap:7px;flex-wrap:wrap;margin-top:13px}.partQuick .btn{min-width:42px;padding:9px 12px}.homeSectionTitle{display:flex;align-items:center;justify-content:space-between;margin:19px 2px 9px}.homeSectionTitle strong{display:inline-flex;min-width:22px;height:22px;padding:0 7px;border-radius:12px;background:#b42318;color:#fff;align-items:center;justify-content:center;font-size:11px}.compactCard{padding:8px 14px!important}.noticePreview,.noticeListItem,.notificationRow{width:100%;border:0;background:transparent;display:grid;grid-template-columns:10px 1fr auto;gap:10px;align-items:start;text-align:left;padding:12px 2px;border-bottom:1px solid #edf1ef;cursor:pointer}.noticePreview:last-of-type{border-bottom:0}.noticePreview span:nth-child(2),.noticeListItem span:nth-child(2),.notificationRow span:nth-child(2){display:flex;flex-direction:column;gap:3px}.noticePreview small,.noticeListItem small,.notificationRow small{color:#737c79}.noticePreview em,.noticeListItem em{font-style:normal;font-size:10px;font-weight:900;color:#b42318}.newDot,.notificationDot{width:7px;height:7px;border-radius:50%;background:#c2271d;margin-top:7px}.newDot.read,.notificationRow:not(.unread) .notificationDot{background:#cfd7d4}.textLink{border:0;background:transparent;color:#0f6656;font-weight:800;padding:10px 0;cursor:pointer}.homeTwo{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}.mutedBlock{display:flex;flex-direction:column;gap:4px;margin:8px 0}.notificationRow{background:#fff;padding:14px;border-radius:14px;margin-bottom:8px;border:1px solid #e4ebe8}.notificationRow.unread{background:#f5fbf8;border-color:#cfe5dc}.notificationRow em{font-size:10px;color:#8a9490;font-style:normal;margin-top:2px}.noticeListItem{background:#fff;padding:15px;border:1px solid #e5ebe9;border-radius:14px;margin-bottom:8px}.noticeListItem.unread{background:#f6fbf9;border-color:#cfe5dc}.noticeDetail h2{font-size:22px;margin:12px 0 4px}.noticeBody{margin-top:20px;line-height:1.75}.mySummaryHero{display:flex;align-items:center;gap:14px;background:#fff;border:1px solid #e2e9e6;border-radius:18px;padding:18px;margin-bottom:12px}.mySummaryAvatar{width:58px;height:58px;border-radius:50%;background:#e8f3ef;color:#0f6656;font-weight:900;font-size:24px;display:flex;align-items:center;justify-content:center}.mySummaryHero h2{margin:0 0 4px}.mySummaryHero p{margin:0;color:#71807a}.myDashboard{display:grid;grid-template-columns:1fr 1fr;gap:10px}.myDashCard{background:#fff;border:1px solid #e2e9e6;border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:8px}.myDashCard>span{font-size:12px;font-weight:800;color:#0f6656}.miniNotice{border:0;background:#f5f8f7;text-align:left;padding:9px 10px;border-radius:9px;cursor:pointer}.settingsLinks{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.adminGroup{margin:0 0 22px}.adminGroup>h3{margin:0 0 9px;font-size:16px}.installCard{text-align:center;background:#fff;border:1px solid #e1e9e6;border-radius:20px;padding:22px}.qrWrap{display:flex;justify-content:center;margin:18px auto}.qrWrap img{width:230px;height:230px;border-radius:12px}.appUrl{display:block;background:#f4f6f5;border-radius:10px;padding:10px;word-break:break-all;font-size:11px}.installCard .actions{justify-content:center}.installSteps{text-align:left;margin-top:22px;padding-top:16px;border-top:1px solid #e7ecea}.installSteps h3{margin-bottom:4px}.installSteps p{margin-top:0;line-height:1.6}.installedBadge{margin-top:16px;background:#e9f5ef;color:#0f6656;border-radius:10px;padding:10px;font-weight:800}
 @media(max-width:760px){.weeklyPanel{grid-template-columns:1fr 1fr}.weeklyMain{grid-column:1/-1;grid-row:auto}.homeTwo,.myDashboard{grid-template-columns:1fr}.weekHero h1{font-size:21px}.weeklyMain,.weeklyMini{padding:15px}.navin button{font-size:10px}.navin button b{font-size:19px}.appFooter{padding-bottom:96px}}
 @media(max-width:390px){.weeklyPanel{grid-template-columns:1fr}.weeklyMain{grid-column:auto}.headerActions{gap:4px}.notifyBell{width:36px;height:36px}.partQuick{gap:5px}}
 
-/* V14-D3.15.1 profile restoration */
-.profileAvatar{overflow:hidden;flex:0 0 auto}.profileAvatar img{width:100%;height:100%;object-fit:cover;display:block}.memberAvatar{width:56px;height:56px;border-radius:50%;overflow:hidden;background:#e8f3ef;color:#0f6656;font-weight:900;display:flex;align-items:center;justify-content:center;margin:0 auto 10px;font-size:20px}.memberAvatar img{width:100%;height:100%;object-fit:cover}.profileEditCard{max-width:620px;margin:0 auto}.profilePhotoEdit{display:flex;align-items:center;gap:16px;margin-bottom:18px}.profilePhotoLarge{width:92px;height:92px;border-radius:50%;overflow:hidden;background:#e8f3ef;color:#0f6656;display:flex;align-items:center;justify-content:center;font-size:34px;font-weight:900;border:1px solid #dce6e2}.profilePhotoLarge img{width:100%;height:100%;object-fit:cover}.profilePhotoActions{display:flex;gap:8px;flex-wrap:wrap}.readonlyField{background:#f4f6f5;color:#6f7975}.profileNote{font-size:12px;color:#75807c;margin-top:6px}.membergrid .member{text-align:center}.member .memberMeta{text-align:left;margin-top:8px}
+.mySummaryAvatar img{width:100%;height:100%;object-fit:cover}
 </style>
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="apple-touch-icon" href="./assets/apple-touch-icon.png">
@@ -361,7 +1091,7 @@ main{padding-bottom:92px}
 <meta property="og:url" content="https://harrysohny.github.io/somang-choir/">
 <meta property="og:image" content="https://harrysohny.github.io/somang-choir/assets/og-somang-choir.jpg">
 </head>
-<body><div class="app"><header><div class="head"><div class="brand brandPro"><img src="./assets/changdong-symbol.png" alt=""><div><span class="churchName">대한예수교장로회 창동교회</span><b>소망찬양대</b><small>Hope Church Choir</small></div></div><div class="headerActions"><button id="notifyBell" class="notifyBell" style="display:none" onclick="go('notificationCenter')" aria-label="알림센터">🔔<span id="notifyBadge" class="notifyBadge" style="display:none">0</span></button><button id="headerBtn" class="topbtn" onclick="headerAction()">로그인</button></div></div></header><main id="main"></main><footer id="appFooter" class="appFooter">대한예수교장로회 창동교회 · 소망찬양대<br><span>SOMANG CHURCH CHOIR</span></footer></div><nav id="nav" style="display:none"><div class="navin"><button onclick="go('home')" data-page="home"><b>⌂</b>홈</button><button onclick="go('songs')" data-page="songs"><b>♫</b>찬양</button><button onclick="go('events')" data-page="events"><b>▣</b>일정</button><button onclick="go('my')" data-page="my"><b>♙</b>나의 소망</button><button onclick="go('more')" data-page="more"><b>☰</b>더보기</button></div></nav><div id="toast" class="toast"></div>
+<body><div class="app"><header><div class="head"><div class="brand brandPro"><img src="./assets/changdong-symbol.png" alt=""><div><span class="churchName">대한예수교장로회 창동교회</span><b>소망찬양대</b><small>SOMANG CHURCH CHOIR</small></div></div><div class="headerActions"><button id="notifyBell" class="notifyBell" style="display:none" onclick="go('notificationCenter')" aria-label="알림센터">🔔<span id="notifyBadge" class="notifyBadge" style="display:none">0</span></button><button id="headerBtn" class="topbtn" onclick="headerAction()">로그인</button></div></div></header><main id="main"></main><footer id="appFooter" class="appFooter"><div class="footerKr">대한예수교장로회 창동교회 소망찬양대</div><div class="footerEn">SOMANG CHURCH CHOIR <span class="footerDot">·</span> © 2026</div></footer></div><nav id="nav" style="display:none"><div class="navin"><button onclick="go('home')" data-page="home"><b>⌂</b>홈</button><button onclick="go('songs')" data-page="songs"><b>♫</b>찬양</button><button onclick="go('events')" data-page="events"><b>▣</b>일정</button><button onclick="go('my')" data-page="my"><b>♙</b>나의 소망</button><button onclick="go('more')" data-page="more"><b>☰</b>더보기</button></div></nav><div id="toast" class="toast"></div>
 <script>
 const SUPABASE_URL='https://chsfhwewskydnreodvvq.supabase.co';
 const SUPABASE_PUBLISHABLE_KEY='sb_publishable_MoLRdCftzWbvdGkWyeGoEg_My1j8-XB';
@@ -393,6 +1123,7 @@ function smartBack(){
   if(page==='admin'){go('more');return}
   if(['notices','events','intro','leaders','gallery','documents','polls','tasks'].includes(page)){go('more');return}
   if(['songs','prayers','members'].includes(page)){go('home');return}
+  if(page==='profile'){go('more');return}
   if(page==='more'){go('home');return}
   go('home');
 }
@@ -400,110 +1131,20 @@ function smartBack(){
 function headerAction(){if(!session) return renderAuth(); if(confirm('로그아웃하시겠습니까?')) logout()}
 async function logout(){await sb.auth.signOut();session=null;me=null;perms=[];renderAuth()}
 async function init(){const {data}=await sb.auth.getSession();session=data.session; if(session) await loadMe(); else renderAuth(); sb.auth.onAuthStateChange(async(e,s)=>{session=s;if(e==='TOKEN_REFRESHED')return;if(e==='SIGNED_OUT'||!s){me=null;perms=[];renderAuth();return}if(e==='SIGNED_IN'||e==='USER_UPDATED')await loadMe()})}
-async function loadMe(){const uid=session.user.id;const {data,error}=await sb.from('profiles').select('*').eq('id',uid).single();if(error){main.innerHTML=`<div class="statusbox">프로필을 불러오지 못했습니다.<br>${esc(error.message)}</div>`;return}me=data;const pr=await sb.from('user_permissions').select('permission').eq('user_id',uid);perms=(pr.data||[]).map(x=>x.permission);document.getElementById('headerBtn').textContent='로그아웃';if(session?.user?.user_metadata?.must_change_password===true){document.getElementById('nav').style.display='none';renderForcePasswordChange();return}if(me.status==='approved'){document.getElementById('nav').style.display='block';setTimeout(()=>refreshNotificationBadge().catch(()=>{}),200);const ed=getSongEditorState();if(ed){if(ed.mode==='practice-new')await addPracticeSong(true);else if(ed.mode==='replay-new')await addReplaySong(true);else if(ed.mode==='practice-edit'&&ed.id){const r=await sb.from('songs').select('*').eq('id',ed.id).single();if(r.data)await editPracticeSong(r.data);else go('home')}else if(ed.mode==='replay-edit'&&ed.id){const r=await sb.from('songs').select('*').eq('id',ed.id).single();if(r.data)await editReplaySong(r.data);else go('home')}else go(page||'home')}else go(page||'home')}else{document.getElementById('nav').style.display='none';renderPending()}}
+async function loadMe(){const uid=session.user.id;const {data,error}=await sb.from('profiles').select('*').eq('id',uid).single();if(error){main.innerHTML=`<div class="statusbox">프로필을 불러오지 못했습니다.<br>${esc(error.message)}</div>`;return}me=data;const pr=await sb.from('user_permissions').select('permission').eq('user_id',uid);perms=(pr.data||[]).map(x=>x.permission);document.getElementById('headerBtn').textContent='로그아웃';if(session?.user?.user_metadata?.must_change_password===true){document.getElementById('nav').style.display='none';renderForcePasswordChange();return}if(me.status==='approved'){document.getElementById('nav').style.display='block';const ed=getSongEditorState();if(ed){if(ed.mode==='practice-new')await addPracticeSong(true);else if(ed.mode==='replay-new')await addReplaySong(true);else if(ed.mode==='practice-edit'&&ed.id){const r=await sb.from('songs').select('*').eq('id',ed.id).single();if(r.data)await editPracticeSong(r.data);else go('home')}else if(ed.mode==='replay-edit'&&ed.id){const r=await sb.from('songs').select('*').eq('id',ed.id).single();if(r.data)await editReplaySong(r.data);else go('home')}else go(page||'home')}else go(page||'home')}else{document.getElementById('nav').style.display='none';renderPending()}}
 function renderPending(){const st={pending:'승인 대기 중',rejected:'가입 신청이 반려되었습니다',inactive:'현재 이용이 중지된 계정입니다'}[me.status]||me.status;main.innerHTML=`<div class="loginwrap"><div class="loginbox"><h1>${st}</h1><p><b>${esc(me.name)}</b> 님의 가입 정보가 등록되었습니다.</p><p class="muted">소망 찬양대 관리자가 확인 후 승인하면 전체 메뉴를 사용할 수 있습니다.</p><div class="codehint">휴대전화번호: ${esc(phoneDisplay(me.phone))} · 파트: ${esc(me.part||'-')}</div><button class="btn wide" style="margin-top:16px" onclick="logout()">로그아웃</button></div></div>`}
 function renderForcePasswordChange(){document.getElementById('nav').style.display='none';main.innerHTML=`<div class="loginwrap"><div class="loginbox"><h1>새 비밀번호 설정</h1><p><b>${esc(me?.name||'대원')}</b> 님, 처음 로그인하셨습니다.</p><p class="muted">초기비밀번호는 임시 비밀번호입니다. 계속 사용하시려면 새 비밀번호로 변경해 주세요.</p><div class="field"><label>새 비밀번호 (6자 이상)</label><input id="newpw1" type="password" autocomplete="new-password" placeholder="새 비밀번호"></div><div class="field"><label>새 비밀번호 확인</label><input id="newpw2" type="password" autocomplete="new-password" placeholder="한 번 더 입력"></div><button class="btn primary wide" onclick="completeFirstPasswordChange()">비밀번호 변경하고 시작</button><button class="btn wide" style="margin-top:10px" onclick="logout()">로그아웃</button></div></div>`}
 async function completeFirstPasswordChange(){const p1=document.getElementById('newpw1')?.value||'',p2=document.getElementById('newpw2')?.value||'';if(p1.length<6)return toast('새 비밀번호는 6자 이상으로 입력해 주세요.');if(p1!==p2)return toast('새 비밀번호가 서로 다릅니다.');const currentData={...(session?.user?.user_metadata||{}),must_change_password:false};const {data,error}=await sb.auth.updateUser({password:p1,data:currentData});if(error)return toast('비밀번호 변경 실패: '+error.message);session=data?.user?{...session,user:data.user}:session;toast('비밀번호가 변경되었습니다.');await loadMe()}
-function renderAuth(){const mainEl=document.getElementById('main');document.getElementById('headerBtn').textContent='로그인';document.getElementById('nav').style.display='none';mainEl.innerHTML=`<div class="loginwrap"><div class="loginbox"><h1>소망 찬양대</h1><p class="muted">대원 전용 소통·관리 앱</p><div class="tabs"><button class="btn primary" onclick="showLogin()">로그인</button><button class="btn" onclick="showSignup()">가입 신청</button></div><div id="authBody"></div></div></div>`;showLogin()}
+function renderAuth(){const mainEl=document.getElementById('main');document.getElementById('headerBtn').textContent='로그인';document.getElementById('nav').style.display='none';mainEl.innerHTML=`<div class="loginwrap"><div class="loginbox"><h1>소망 찬양대</h1><p class="muted" style="font-weight:800;letter-spacing:.06em;font-size:11px;margin-top:-5px">SOMANG CHURCH CHOIR</p><p class="muted">대원 전용 소통·관리 앱</p><div class="tabs"><button class="btn primary" onclick="showLogin()">로그인</button><button class="btn" onclick="showSignup()">가입 신청</button></div><div id="authBody"></div></div></div>`;showLogin()}
 function showLogin(){const authBody=document.getElementById('authBody');if(!authBody)return;authBody.innerHTML=`<div class="field"><label>휴대전화번호</label><input id="lphone" inputmode="tel" placeholder="010-1234-5678"></div><div class="field"><label>비밀번호</label><input id="lpw" type="password" placeholder="비밀번호"></div><button class="btn primary wide" onclick="doLogin()">로그인</button><p class="muted" style="margin-top:14px">비밀번호를 잊은 경우 총무/관리자에게 본인 확인 후 재설정을 요청해 주세요.</p>`}
 function showSignup(){const authBody=document.getElementById('authBody');if(!authBody)return;authBody.innerHTML=`<div class="field"><label>이름</label><input id="sname" placeholder="홍길동"></div><div class="field"><label>직분/호칭</label><input id="stitle" placeholder="집사, 권사, 장로 등"></div><div class="field"><label>파트</label><select id="spart"><option>Soprano</option><option>Alto</option><option>Tenor</option><option>Bass</option></select></div><div class="field"><label>휴대전화번호</label><input id="sphone" inputmode="tel" placeholder="010-1234-5678"></div><div class="field"><label>비밀번호 (6자 이상)</label><input id="spw" type="password"></div><div class="field"><label>비밀번호 확인</label><input id="spw2" type="password"></div><button class="btn primary wide" onclick="doSignup()">가입 신청</button><p class="muted">가입 후 관리자 승인을 받아야 대원 전용 메뉴가 열립니다.</p>`}
 async function doLogin(){const p=normalizePhone(lphone.value),pw=lpw.value;if(p.length<10)return toast('휴대전화번호를 확인해 주세요.');const {error}=await sb.auth.signInWithPassword({email:aliasEmail(p),password:pw});if(error)toast('로그인 실패: '+error.message)}
 async function doSignup(){const p=normalizePhone(sphone.value),pw=spw.value;if(!sname.value.trim())return toast('이름을 입력해 주세요.');if(p.length<10)return toast('휴대전화번호를 확인해 주세요.');if(pw.length<6)return toast('비밀번호는 6자 이상입니다.');if(pw!==spw2.value)return toast('비밀번호가 서로 다릅니다.');const {error}=await sb.auth.signUp({email:aliasEmail(p),password:pw,options:{data:{name:sname.value.trim(),title:stitle.value.trim(),part:spart.value,phone:p}}});if(error)return toast('가입 실패: '+error.message);toast('가입 신청이 등록되었습니다.');setTimeout(()=>showLogin(),900)}
 function navActive(){document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===page))}
-async function go(p){page=p;navActive();main.innerHTML='<div class="empty">불러오는 중…</div>';const f={home:homePage,songs:songsPage,prayers:prayerPage,members:membersPage,more:morePage,notices:noticesPage,events:eventsPage,intro:introPage,leaders:leadersPage,gallery:galleryPage,documents:documentsPage,polls:pollsPage,tasks:tasksPage,notifications:notificationSettingsPage,admin:adminPage}[p];if(f)await f()}
-async function homePageBase(){const today=new Date().toISOString().slice(0,10),plus14=addDaysISO(today,14);const safe=async(q)=>{try{const r=await q;return r.error?[]:(r.data||[])}catch(e){return []}};const n=await safe(sb.from('notices').select('*').order('important',{ascending:false}).order('notice_date',{ascending:false}).limit(4));const u=await safe(sb.from('songs').select('*').gte('practice_date',today).order('practice_date').limit(3));const past=await safe(sb.from('songs').select('*').not('live_url','is',null).not('replay_date','is',null).lte('replay_date',today).order('replay_date',{ascending:false}).limit(1));const e=await safe(sb.from('events').select('*').gte('event_date',today).order('event_date').limit(3));const p=await safe(sb.from('prayer_assignments').select('*').gte('sunday_date',today).lte('sunday_date',plus14).order('sunday_date').limit(4));main.innerHTML=`<div class="hero"><h1>${esc(me.name)} 님, 반갑습니다</h1><p>${esc(me.part||'')} · ${esc(me.title||'대원')} · 함께 드리는 찬양</p></div><div class="grid"><div class="card"><h3>최근 공지</h3>${n.map(x=>`<div style="margin:9px 0"><span class="tag ${x.important?'important':''}">${esc(x.scope)}</span> <b>${esc(x.title)}</b><div class="muted">${fmt(x.notice_date)}</div></div>`).join('')||'<div class="muted">등록된 공지가 없습니다.</div>'}</div><div class="card"><h3>다가오는 연습 찬양곡</h3>${u.map(x=>`<div style="margin:9px 0"><b>${fmt(x.practice_date)} · ${esc(x.title)}</b><div class="muted">${esc(categoryDisplay(x.category))}</div><div class="actions">${linkBtn(x.full_url,'전체 합창')}${me.part==='Soprano'?linkBtn(x.soprano_url,'내 파트'):me.part==='Alto'?linkBtn(x.alto_url,'내 파트'):me.part==='Tenor'?linkBtn(x.tenor_url,'내 파트'):me.part==='Bass'?linkBtn(x.bass_url,'내 파트'):''}</div></div>`).join('')||'<div class="muted">다가오는 연습곡이 없습니다.</div>'}</div><div class="card"><h3>찬양곡 다시보기</h3>${past.map(x=>`<div style="margin:9px 0"><b>${x.replay_date?fmt(x.replay_date)+' · ':''}${esc(x.title)}</b><div class="actions">${linkBtn(x.live_url,'다시보기')}</div></div>`).join('')||'<div class="muted">등록된 다시보기 영상이 없습니다.</div>'}</div><div class="card"><h3>다가오는 2주 기도 순서</h3>${p.map(x=>`<div style="margin:10px 0"><b>목요일 ${fmt(x.thursday_date)}</b><div class="muted">시작 ${esc(x.thursday_start||'-')} · 마침 ${esc(x.thursday_end||'-')}</div><b>일요일 ${fmt(x.sunday_date)}</b><div class="muted">시작 ${esc(x.sunday_start||'-')} · 마침 ${esc(x.sunday_end||'-')}</div></div>`).join('')||'<div class="muted">2주 이내 등록된 기도 순서이 없습니다.</div>'}</div><div class="card"><h3>다가오는 일정</h3>${e.map(x=>`<div style="margin:8px 0"><b>${fmt(x.event_date)} ${esc(x.title)}</b></div>`).join('')||'<div class="muted">등록된 일정이 없습니다.</div>'}</div></div>`}
-async function noticesPage(){const {data}=await sb.from('notices').select('*').order('notice_date',{ascending:false});main.innerHTML=title('공지사항')+list((data||[]).map(x=>`<div class="row"><div class="rowhead"><div><span class="tag ${x.important?'important':''}">${esc(x.scope)}</span> <b>${esc(x.title)}</b></div><span class="muted">${fmt(x.notice_date)}</span></div><div style="margin-top:8px">${esc(x.body||'').replace(/\n/g,'<br>')}</div></div>`))}
+
+async function homePageBase(){const today=new Date().toISOString().slice(0,10),plus14=addDaysISO(today,14);const safe=async(q)=>{try{const r=await q;return r.error?[]:(r.data||[])}catch(e){return []}};const n=await safe(sb.from('notices').select('*').order('important',{ascending:false}).order('notice_date',{ascending:false}).limit(4));const u=await safe(sb.from('songs').select('*').gte('practice_date',today).order('practice_date').limit(3));const past=await safe(sb.from('songs').select('*').not('live_url','is',null).not('replay_date','is',null).lte('replay_date',today).order('replay_date',{ascending:false}).limit(1));const e=await safe(sb.from('events').select('*').gte('event_date',today).order('event_date').limit(3));const p=await safe(sb.from('prayer_assignments').select('*').gte('sunday_date',today).lte('sunday_date',plus14).order('sunday_date').limit(4));const myPhoto=await signedProfilePhoto(me?.photo_path);main.innerHTML=`<div class="hero"><div class="homeWelcome"><div class="homeWelcomePhoto" onclick="go('profile')" title="나의 프로필">${myPhoto?`<img src="${esc(myPhoto)}" alt="${esc(me.name)}">`:esc((me.name||'?').slice(0,1))}</div><div class="homeWelcomeText"><h1>${esc(me.name)} 님, 반갑습니다</h1><p>${esc(partKo(me.part)||me.part||'')} · ${esc(me.title||'대원')} · 함께 드리는 찬양</p><button class="homeWelcomeProfileBtn" onclick="go('profile')">나의 프로필 보기</button></div></div></div><div class="grid"><div class="card"><h3>최근 공지</h3>${n.map(x=>`<div style="margin:9px 0"><span class="tag ${x.important?'important':''}">${esc(x.scope)}</span> <b>${esc(x.title)}</b><div class="muted">${fmt(x.notice_date)}</div></div>`).join('')||'<div class="muted">등록된 공지가 없습니다.</div>'}</div><div class="card"><h3>다가오는 연습 찬양곡</h3>${u.map(x=>`<div style="margin:9px 0"><b>${fmt(x.practice_date)} · ${esc(x.title)}</b><div class="muted">${esc(categoryDisplay(x.category))}</div><div class="actions">${linkBtn(x.full_url,'전체 합창')}${me.part==='Soprano'?linkBtn(x.soprano_url,'내 파트'):me.part==='Alto'?linkBtn(x.alto_url,'내 파트'):me.part==='Tenor'?linkBtn(x.tenor_url,'내 파트'):me.part==='Bass'?linkBtn(x.bass_url,'내 파트'):''}</div></div>`).join('')||'<div class="muted">다가오는 연습곡이 없습니다.</div>'}</div><div class="card"><h3>찬양곡 다시보기</h3>${past.map(x=>`<div style="margin:9px 0"><b>${x.replay_date?fmt(x.replay_date)+' · ':''}${esc(x.title)}</b><div class="actions">${linkBtn(x.live_url,'다시보기')}</div></div>`).join('')||'<div class="muted">등록된 다시보기 영상이 없습니다.</div>'}</div><div class="card"><h3>다가오는 2주 기도 순서</h3>${p.map(x=>`<div style="margin:10px 0"><b>목요일 ${fmt(x.thursday_date)}</b><div class="muted">시작 ${esc(x.thursday_start||'-')} · 마침 ${esc(x.thursday_end||'-')}</div><b>일요일 ${fmt(x.sunday_date)}</b><div class="muted">시작 ${esc(x.sunday_start||'-')} · 마침 ${esc(x.sunday_end||'-')}</div></div>`).join('')||'<div class="muted">2주 이내 등록된 기도 순서이 없습니다.</div>'}</div><div class="card"><h3>다가오는 일정</h3>${e.map(x=>`<div style="margin:8px 0"><b>${fmt(x.event_date)} ${esc(x.title)}</b></div>`).join('')||'<div class="muted">등록된 일정이 없습니다.</div>'}</div></div>`}
 
 
-async function homePage(){
-  await homePageBase();
-
-  // V14-D3.1 icon layer for existing home cards.
-  try{
-    const homeIconMap={
-      '최근 공지':'bell',
-      '다가오는 연습 찬양곡':'music',
-      '찬양곡 다시보기':'play',
-      '다가오는 2주 기도 순서':'pray',
-      '다가오는 일정':'calendar'
-    };
-    [...main.querySelectorAll('.grid > .card h3')].forEach(h=>{
-      const n=homeIconMap[h.textContent.trim()];
-      if(n && !h.parentElement.querySelector('.cardLeadIcon')){
-        h.insertAdjacentHTML('beforebegin',`<span class="cardLeadIcon">${uiIcon(n)}</span>`);
-      }
-    });
-  }catch(e){console.warn('V14-D3.1 home icons skipped',e)}
-
-  // V14-D3.1 confirmed layout: fill the empty grid slot beside '다가오는 일정'.
-  try{
-    const cards=[...main.querySelectorAll('.grid > .card')];
-    const eventCard=cards.find(c=>c.querySelector('h3')?.textContent.trim()==='다가오는 일정');
-    if(eventCard){
-      const introCard=document.createElement('div');
-      introCard.className='card choirIntroCompact';
-      introCard.innerHTML=`<span class="cardLeadIcon">${uiIcon('people')}</span><h3>소망찬양대 소개</h3>
-        <p class="muted">찬양대 소개와 섬기는 분들을 확인해 보세요.</p>
-        <div class="introActions">
-          <button class="btn iconBtn" onclick="go('intro')">${uiIcon('file')}<span>찬양대 소개 보기</span></button>
-          <button class="btn iconBtn" onclick="go('leaders')">${uiIcon('people')}<span>섬기는 분들 보기</span></button>
-        </div>`;
-      eventCard.insertAdjacentElement('afterend',introCard);
-    }
-  }catch(e){console.warn('V14-D3.1 intro card skipped',e)}
-
-  // V14-B2: append only two non-duplicated personal cards.
-  try{
-    const today=new Date().toISOString().slice(0,10);
-    const plus30=addDaysISO(today,30);
-
-    const [sr,pr]=await Promise.all([
-      sb.from('song_schedule').select('*').gte('service_date',today).order('service_date',{ascending:true}).limit(1),
-      sb.from('prayer_assignments').select('*').limit(60)
-    ]);
-
-    const nextSong=sr.error?null:(sr.data||[])[0];
-
-    // Flexible personal matching:
-    // old data may contain "손형락", while newer data may contain "테너 손형락 집사".
-    const myName=(me?.name||'').trim();
-    const containsMe=v=>!!(myName && String(v||'').includes(myName));
-    let mine=[];
-    if(!pr.error){
-      (pr.data||[]).forEach(x=>{
-        if(x.thursday_date>=today && x.thursday_date<=plus30){
-          if(containsMe(x.thursday_start)) mine.push({date:x.thursday_date,when:'목요일 연습',role:'시작기도'});
-          if(containsMe(x.thursday_end)) mine.push({date:x.thursday_date,when:'목요일 연습',role:'마침기도'});
-        }
-        if(x.sunday_date>=today && x.sunday_date<=plus30){
-          if(containsMe(x.sunday_start)) mine.push({date:x.sunday_date,when:'일요일 연습',role:'시작기도'});
-          if(containsMe(x.sunday_end)) mine.push({date:x.sunday_date,when:'일요일 연습',role:'마침기도'});
-        }
-      });
-      mine.sort((a,b)=>a.date.localeCompare(b.date));
-    }
-
-    const box=document.createElement('section');
-    box.className='v14bHome';
-    box.innerHTML=`<div class="v14bHead"><b>나의 소망찬양대</b><span>앞으로의 주요 일정</span></div>
-      <div class="v14bGrid v14bGrid2">
-        <div class="v14bCard">
-          <div class="personalHead"><span class="cardLeadIcon small">${uiIcon('music')}</span><div class="v14bLabel">다가오는 찬양</div></div>
-          ${nextSong?`<b>${esc(nextSong.title||'')}</b><div class="muted">${fmt(nextSong.service_date)}${nextSong.song_book?' · '+esc(nextSong.song_book):''}${nextSong.song_page?' · '+nextSong.song_page+'쪽':''}</div>`:'<div class="muted">등록된 향후 찬양 일정이 없습니다.</div>'}
-          <button class="btn iconBtn" onclick="songSchedulePage()">${uiIcon('calendar')}<span>찬양 일정표</span></button>
-        </div>
-        <div class="v14bCard ${mine[0]?'v14bPrayer':''}">
-          <div class="personalHead"><span class="cardLeadIcon small">${uiIcon('pray')}</span><div class="v14bLabel">나의 기도 순서</div></div>
-          ${mine[0]?`<b>${fmt(mine[0].date)} · ${esc(mine[0].when)}</b><div class="muted">${esc(mine[0].role)} · ${esc(myName)}</div>`:'<div class="muted">한 달 이내 나의 기도 순서가 없습니다.</div>'}
-          <button class="btn iconBtn" onclick="go('prayers')">${uiIcon('list')}<span>기도 순서 보기</span></button>
-        </div>
-      </div>`;
-    main.appendChild(box);
-
-  }catch(e){
-    console.warn('V14-B2 home cards skipped',e);
-  }
-}
 async function songsPage(){const [{data:practice},{data:replay}]=await Promise.all([sb.from('songs').select('*').not('practice_date','is',null).order('practice_date',{ascending:false}).limit(100),sb.from('songs').select('*').not('replay_date','is',null).order('replay_date',{ascending:false}).limit(100)]);const a=(practice||[]).map(x=>`<div class="row"><b>${fmt(x.practice_date)} · ${esc(x.title)}</b><div class="muted">${esc(categoryDisplay(x.category))}</div><div class="actions">${linkBtn(x.full_url,'전체 합창')}${linkBtn(x.soprano_url,'Soprano')}${linkBtn(x.alto_url,'Alto')}${linkBtn(x.tenor_url,'Tenor')}${linkBtn(x.bass_url,'Bass')}</div></div>`);const b=(replay||[]).map(x=>`<div class="row"><b>${fmt(x.replay_date)} · ${esc(x.title)}</b><div class="actions">${linkBtn(x.live_url,'다시보기')}</div></div>`);main.innerHTML=title('찬양')+`<h3>연습 찬양곡</h3>${list(a)}<h3 style="margin-top:24px">찬양곡 다시보기</h3>${list(b)}`}
 function youtubeId(url){
   try{
@@ -554,8 +1195,107 @@ function openYouTubeSearch(part=''){saveSongDraft();const title=document.getElem
 async function pasteClipboardTo(id){try{const text=await navigator.clipboard.readText();const e=document.getElementById(id);if(e){e.value=text.trim();e.dispatchEvent(new Event('input',{bubbles:true}))}}catch(err){toast('자동 붙여넣기가 제한되었습니다. ⌘V로 붙여넣어 주세요.')}}
 function linkBtn(u,t){return u?`<button class="btn ytPlayBtn iconBtn" type="button" data-yt-url="${esc(u)}" data-yt-title="${esc(t)}">${uiIcon('play')}<span>${esc(t)}</span></button>`:''}
 async function prayerPage(){const {data,error}=await sb.from('prayer_assignments').select('*').order('sunday_date',{ascending:false}).limit(24);if(error)throw error;main.innerHTML=title('기도 순서')+list((data||[]).map(x=>`<div class="row"><b>목요일 ${fmt(x.thursday_date)} · 연습</b><div style="margin:8px 0">시작기도 · <b>${esc(x.thursday_start||'-')}</b></div><div style="margin:8px 0">마침기도 · <b>${esc(x.thursday_end||'-')}</b></div><hr style="border:0;border-top:1px solid #e5e7eb;margin:14px 0"><b>일요일 ${fmt(x.sunday_date)} · 연습</b><div style="margin:8px 0">시작기도 · <b>${esc(x.sunday_start||'-')}</b></div><div style="margin:8px 0">마침기도 · <b>${esc(x.sunday_end||'-')}</b></div></div>`))}
-async function signedProfilePhoto(path,expires=3600){if(!path)return '';try{const {data,error}=await sb.storage.from('profile-photos').createSignedUrl(path,expires);if(error)return '';return data?.signedUrl||''}catch(e){return ''}}
-async function membersPage(){const {data}=await sb.from('profiles').select('id,name,title,part,phone,role,status,photo_path').eq('status','approved').order('part').order('name');const rows=data||[];const urls={};await Promise.all(rows.filter(x=>x.photo_path).map(async x=>{urls[x.id]=await signedProfilePhoto(x.photo_path)}));main.innerHTML=title('대원명단')+`<div class="membergrid">${rows.map(x=>`<div class="member"><div class="memberAvatar">${urls[x.id]?`<img src="${esc(urls[x.id])}" alt="${esc(x.name)}">`:esc((x.name||'?').slice(0,1))}</div><div class="name">${esc(x.name)}</div><span class="tag">${esc(x.part||'-')}</span><div class="memberMeta"><div class="muted">${esc(x.title||'대원')}</div><div style="margin-top:6px">${esc(phoneDisplay(x.phone))}</div></div></div>`).join('')||'<div class="empty">대원이 없습니다.</div>'}</div>`}
+async function signedProfilePhoto(path,expires=3600){
+  if(!path)return '';
+  if(/^https?:\/\//i.test(path))return path;
+  try{
+    const {data,error}=await sb.storage.from('profile-photos').createSignedUrl(path,expires);
+    return error?'':(data?.signedUrl||'');
+  }catch(e){return ''}
+}
+async function membersPage(){
+  const isMemberAdmin=(me?.role==='superadmin'||can('members'));
+
+  const {data,error}=await sb.from('profiles')
+    .select('id,name,title,part,phone,contact_email,phone_public,email_public,photo_path,choir_positions,bio,role,status')
+    .eq('status','approved').order('part').order('name');
+  if(error)return toast(error.message);
+
+  // profile_private RLS:
+  // 일반 대원 -> 본인 행만, 대원관리자 -> 전체 행 조회
+  let privateMap={};
+  try{
+    const {data:priv,error:privErr}=await sb.from('profile_private')
+      .select('user_id,birth_date,address');
+    if(!privErr) privateMap=Object.fromEntries((priv||[]).map(x=>[x.user_id,x]));
+  }catch(e){}
+
+  const rows=[];
+  for(const x of (data||[])){
+    rows.push({
+      ...x,
+      ...(privateMap[x.id]||{}),
+      photo_url:await signedProfilePhoto(x.photo_path),
+      is_self:x.id===me?.id,
+      can_view_all:isMemberAdmin||x.id===me?.id
+    });
+  }
+
+  window._memberDirectoryRows=rows;
+  main.innerHTML=title('전체 대원 현황')+`
+    <div class="memberDirectoryHead">
+      <div class="memberSearchWrap">
+        <input id="memberSearch" class="memberSearch" type="search" inputmode="search"
+          placeholder="이름으로 대원 찾기" autocomplete="off"
+          oninput="filterMemberDirectory(this.value)">
+        <span class="memberSearchIcon">⌕</span>
+      </div>
+      <div id="memberCount" class="memberCount">전체 ${rows.length}명</div>
+    </div>
+    <div id="memberList" class="memberList"></div>`;
+  renderMemberDirectory(rows,'');
+}
+
+function memberContactHTML(x){
+  const full=x.can_view_all;
+  const lines=[];
+  if(x.phone && (full||x.phone_public)) lines.push(`<div class="memberDetailLine">☎ ${esc(phoneDisplay(x.phone))}</div>`);
+  if(x.contact_email && (full||x.email_public)) lines.push(`<div class="memberDetailLine">✉ ${esc(x.contact_email)}</div>`);
+  return lines.join('');
+}
+
+function memberPrivateHTML(x){
+  if(!x.can_view_all)return '';
+  const pos=Array.isArray(x.choir_positions)?x.choir_positions:[];
+  const rows=[];
+  if(pos.length)rows.push(`<div><b>찬양대 직위</b> · ${esc(pos.join(', '))}</div>`);
+  if(x.birth_date)rows.push(`<div><b>생년월일</b> · ${esc(x.birth_date)}</div>`);
+  if(x.address)rows.push(`<div><b>주소</b> · ${esc(x.address)}</div>`);
+  if(x.role)rows.push(`<div><b>시스템 역할</b> · ${esc(x.role)}</div>`);
+  if(!rows.length)return '';
+  return `<div class="memberPrivate"><span class="memberPrivateBadge">${x.is_self?'내 정보':'관리자 열람'}</span>${rows.join('')}</div>`;
+}
+
+function renderMemberDirectory(rows,query=''){
+  const listEl=document.getElementById('memberList');
+  const countEl=document.getElementById('memberCount');
+  if(!listEl)return;
+  const q=String(query||'').trim().toLowerCase();
+  const filtered=(rows||[]).filter(x=>!q||String(x.name||'').toLowerCase().includes(q));
+  if(countEl)countEl.textContent=q?`검색 ${filtered.length}명 / 전체 ${(rows||[]).length}명`:`전체 ${(rows||[]).length}명`;
+
+  listEl.innerHTML=filtered.length?filtered.map(x=>`
+    <div class="memberListItem">
+      <div class="memberListPhoto">
+        ${x.photo_url?`<img src="${esc(x.photo_url)}" alt="${esc(x.name)}">`:esc((x.name||'?').slice(0,1))}
+      </div>
+      <div class="memberListInfo">
+        <div class="memberListTop">
+          <span class="memberListName">${esc(x.name||'')}</span>
+          <span class="memberPartBadge">${esc(partKo(x.part)||'-')}</span>
+          <span class="memberTitle">${esc(x.title||'성도')}</span>
+          ${x.is_self?'<span class="memberSelfBadge">나</span>':''}
+        </div>
+        ${x.bio?`<div class="memberBio">${esc(x.bio)}</div>`:''}
+        <div class="memberDetail">${memberContactHTML(x)}</div>
+        ${memberPrivateHTML(x)}
+      </div>
+    </div>`).join(''):`<div class="memberListEmpty">${q?'검색 결과가 없습니다.':'등록된 대원이 없습니다.'}</div>`;
+}
+
+function filterMemberDirectory(value){
+  renderMemberDirectory(window._memberDirectoryRows||[],value);
+}
 async function eventsPage(){const today=new Date().toISOString().slice(0,10),plus30=addDaysISO(today,30);const [{data:ev,error},{data:prs}]=await Promise.all([sb.from('events').select('*').order('event_date',{ascending:true}),sb.from('prayer_assignments').select('*').gte('sunday_date',today).lte('sunday_date',plus30).order('sunday_date')]);if(error)throw error;const mine=(prs||[]).flatMap(prayerRolesForMe).filter(x=>x.date&&x.date>=today&&x.date<=plus30).sort((a,b)=>a.date.localeCompare(b.date));main.innerHTML=title('일정 · 행사')+`<div class="card"><h3>내 기도 일정 · 한 달 전부터</h3>${mine.map(x=>`<div style="margin:8px 0"><b>${fmt(x.date)} · ${esc(x.when)} ${esc(x.role)}</b><div class="muted">${esc(myPrayerLabel())}</div></div>`).join('')||'<div class="muted">앞으로 한 달 이내 배정된 기도 일정이 없습니다.</div>'}</div>`+list((ev||[]).map(x=>`<div class="row"><b>${fmt(x.event_date)} · ${esc(x.title)}</b><div class="muted">${esc(x.place||'')}</div><div>${esc(x.description||'')}</div></div>`))}
 async function introPage(){const {data}=await sb.from('choir_intro').select('*').eq('id',1).single();main.innerHTML=title('찬양대 소개')+`<div class="introPhoto"><img src="./assets/choir-group.jpg" alt="소망찬양대 단체사진"></div><div class="card"><h3>${esc(data?.name||'소망 찬양대')} <span class="muted">${esc(data?.english_name||'')}</span></h3><p>${esc(data?.description||'')}</p><p><b>예배</b><br>${esc(data?.service||'')}</p><p><b>연습</b><br>${esc(data?.rehearsal||'')}</p><p><b>역사</b><br>${esc(data?.history||'')}</p><p><b>비전</b><br>${esc(data?.vision||'')}</p></div>`}
 const LEADER_ROLES=['대장','총무','서기','회계','지휘자','부지휘자','오르간반주','피아노반주'];
@@ -651,7 +1391,7 @@ async function manageSongSchedule(){
     .order('service_date',{ascending:true})
     .limit(250);
   if(error)return toast(error.message);
-  main.innerHTML=title('관리 · 찬양 일정표',`<button class="btn primary" onclick="addSongSchedule()">+ 일정 등록</button>`)
+  main.innerHTML=title('관리 · 찬양 일정표',`<button class="btn primary" onclick="addSongSchedule()">+ 새로 등록</button>`)
   +list((data||[]).map(x=>`<div class="row">
       <b>${fmt(x.service_date)} · ${esc(x.title||'')}</b>
       <div class="muted">${esc(x.song_book||'찬양집 미입력')}${x.song_page?' · '+x.song_page+'쪽':''}${x.note?' · '+esc(x.note):''}</div>
@@ -724,7 +1464,6 @@ async function deleteSongSchedule(id){
   manageSongSchedule();
 }
 
-function morePage(){const admin=me.role==='superadmin'||Object.keys(PERM_LABELS).some(can)||canAnySong();main.innerHTML=title('더보기')+`<div class="grid"><button class="adminTile iconTile" onclick="songSchedulePage()"><span class="tileIcon">${uiIcon('calendar')}</span><b>찬양 일정표</b><span class="muted">날짜 · 곡명 · 찬양집 · 페이지 · 비고</span></button><button class="adminTile iconTile" onclick="go('notices')"><span class="tileIcon">${uiIcon('bell')}</span><b>공지사항</b><span class="muted">전체/파트 공지</span></button><button class="adminTile iconTile" onclick="go('events')"><span class="tileIcon">${uiIcon('calendar')}</span><b>일정 · 행사</b><span class="muted">연습·행사 일정</span></button><button class="adminTile iconTile" onclick="go('intro')"><span class="tileIcon">${uiIcon('people')}</span><b>찬양대 소개</b><span class="muted">소개·역사·비전</span></button><button class="adminTile iconTile" onclick="go('leaders')"><span class="tileIcon">${uiIcon('people')}</span><b>섬기는 분들</b><span class="muted">대장·지휘자·반주·총무 등</span></button><button class="adminTile iconTile" onclick="go('gallery')"><span class="tileIcon">${uiIcon('image')}</span><b>갤러리</b><span class="muted">행사·절기·연습 사진</span></button><button class="adminTile iconTile" onclick="go('documents')"><span class="tileIcon">${uiIcon('folder')}</span><b>자료실</b><span class="muted">문서·링크</span></button><button class="adminTile iconTile" onclick="go('polls')"><span class="tileIcon">${uiIcon('check')}</span><b>투표 · 설문</b><span class="muted">대원 의견 수렴</span></button><button class="adminTile iconTile" onclick="go('tasks')"><span class="tileIcon">${uiIcon('task')}</span><b>봉사 · 할일</b><span class="muted">업무·봉사 배정</span></button>${admin?`<button class="adminTile iconTile" onclick="go('admin')"><span class="tileIcon">${uiIcon('gear')}</span><b>관리센터</b><span class="muted">가입 승인 및 콘텐츠 관리</span></button>`:''}</div>`}
 function adminTileIcon(p){
  const m={
   members:'people',notices:'bell',practiceSongs:'music',replaySongs:'play',
@@ -734,15 +1473,15 @@ function adminTileIcon(p){
  };
  return m[p]||'gear';
 }
-async function adminPage(){setBackAction(()=>go('more'));let tiles=[['members','가입 승인/대원'],['notices','공지'],['prayers','기도 순서'],['events','일정·행사'],['intro','찬양대 소개'],['leaders','섬기는 분들'],['gallery','갤러리'],['documents','자료실'],['polls','투표·설문'],['tasks','봉사·할일'],['permissions','권한 부여']].filter(([p])=>can(p));if(canSongBase()||['song_soprano','song_alto','song_tenor','song_bass'].some(can))tiles.splice(2,0,['practiceSongs','연습 찬양곡 등록']);if(canSongReplay())tiles.splice(3,0,['replaySongs','찬양곡 다시보기 등록']);if(can('songs'))tiles.splice(4,0,['songSchedule','찬양 일정표 관리']);main.innerHTML=title('통합 관리센터')+`<div class="adminGrid">${tiles.map(([p,l])=>`<button class="adminTile iconTile" onclick="${p==='practiceSongs'?'managePracticeSongs()':p==='replaySongs'?'manageReplaySongs()':p==='songSchedule'?'manageSongSchedule()':`manage('${p}')`}"><span class="tileIcon">${uiIcon(adminTileIcon(p))}</span><b>${l}</b><span class="muted">${p==='practiceSongs'?'다가오는 찬양 연습영상':p==='replaySongs'?'지난 찬양 실제영상':p==='songSchedule'?'날짜 · 곡명 · 찬양집 · 페이지 · 비고':'등록 · 수정 · 삭제'}</span></button>`).join('')}</div><p class="muted" style="margin-top:18px">모든 운영 데이터 입력은 이 관리센터에서 처리합니다. 출석/회계 기능은 포함하지 않습니다.</p>`}
-async function manage(type){setBackAction(()=>adminPage());if(type==='members')return manageMembers();if(type==='permissions')return managePermissions();if(type==='intro')return editIntro();if(type==='leaders')return manageLeaders();if(type==='songs')return manageSongs();if(type==='gallery')return manageGallery();const map={notices:'notices',prayers:'prayer_assignments',events:'events',leaders:'leaders',gallery:'gallery',documents:'documents',polls:'polls',tasks:'tasks'};const table=map[type];if(!table)return;const {data}=await sb.from(table).select('*').order('created_at',{ascending:false}).limit(100);main.innerHTML=title('관리 · '+(PERM_LABELS[type]||type),`<button class="btn primary iconBtn" onclick="addRecord('${type}')">${uiIcon('file')}<span>새로 등록</span></button>`)+list((data||[]).map(x=>`<div class="row"><b>${esc(recordTitle(type,x))}</b><div class="muted">${esc(recordSub(type,x))}</div><div class="actions"><button class="btn" onclick='editRecord(${JSON.stringify(type)},${JSON.stringify(x)})'>수정</button><button class="btn danger" onclick="deleteRecord('${type}','${x.id}')">삭제</button></div></div>`))}
 
-async function manageLeaders(){setBackAction(()=>adminPage());const {data,error}=await sb.from('leaders').select('*').order('sort_order');if(error)return toast(error.message);main.innerHTML=title('관리 · 섬기는 분들',`<button class="btn primary iconBtn" onclick="addRecord('leaders')">${uiIcon('people')}<span>역할 지정</span></button>`)+`<p class="muted">역할은 고정되어 있으며 대원명단에서 사람을 선택해 지정합니다.</p>`+list((data||[]).map(x=>`<div class="row"><b>${esc(x.role_name||'-')} · ${esc(x.name||'미지정')}</b><div class="actions"><button class="btn" onclick='editRecord("leaders",${JSON.stringify(x)})'>수정</button><button class="btn danger" onclick="deleteRecord('leaders','${x.id}')">삭제</button></div></div>`))}
+async function manage(type){setBackAction(()=>adminPage());if(type==='members')return manageMembers();if(type==='permissions')return managePermissions();if(type==='intro')return editIntro();if(type==='leaders')return manageLeaders();if(type==='songs')return manageSongs();if(type==='gallery')return manageGallery();const map={notices:'notices',prayers:'prayer_assignments',events:'events',leaders:'leaders',gallery:'gallery',documents:'documents',polls:'polls',tasks:'tasks'};const table=map[type];if(!table)return;const {data}=await sb.from(table).select('*').order('created_at',{ascending:false}).limit(100);main.innerHTML=title('관리 · '+(PERM_LABELS[type]||type),`<button class="btn primary adminCreateBtn" onclick="addRecord('${type}')">+ 새로 등록</button>`)+list((data||[]).map(x=>`<div class="row"><b>${esc(recordTitle(type,x))}</b><div class="muted">${esc(recordSub(type,x))}</div><div class="actions"><button class="btn" onclick='editRecord(${JSON.stringify(type)},${JSON.stringify(x)})'>수정</button><button class="btn danger" onclick="deleteRecord('${type}','${x.id}')">삭제</button></div></div>`))}
+
+async function manageLeaders(){setBackAction(()=>adminPage());const {data,error}=await sb.from('leaders').select('*').order('sort_order');if(error)return toast(error.message);main.innerHTML=title('관리 · 섬기는 분들',`<button class="btn primary adminCreateBtn" onclick="addRecord('leaders')">역할 지정</button>`)+`<p class="muted">역할은 고정되어 있으며 대원명단에서 사람을 선택해 지정합니다.</p>`+list((data||[]).map(x=>`<div class="row"><b>${esc(x.role_name||'-')} · ${esc(x.name||'미지정')}</b><div class="actions"><button class="btn" onclick='editRecord("leaders",${JSON.stringify(x)})'>수정</button><button class="btn danger" onclick="deleteRecord('leaders','${x.id}')">삭제</button></div></div>`))}
 async function manageGallery(){
   setBackAction(()=>adminPage());
   const {data,error}=await sb.from('gallery').select('*').order('event_date',{ascending:false});
   if(error)return toast(error.message);
-  main.innerHTML=title('관리 · 갤러리',`<button class="btn primary" onclick="addGalleryAlbum()">+ 새 앨범 등록</button>`)+
+  main.innerHTML=title('관리 · 갤러리',`<button class="btn primary" onclick="addGalleryAlbum()">+ 새로 등록</button>`)+
   list((data||[]).map(x=>`<div class="row"><b>${esc(x.title)}</b><div class="muted">${fmt(x.event_date)}</div><div class="actions"><button class="btn" onclick="openGalleryAlbum('${x.id}')">보기</button><button class="btn danger" onclick="deleteGalleryAlbum('${x.id}')">삭제</button></div></div>`));
 }
 function galleryUploadForm(){
@@ -798,8 +1537,8 @@ async function deleteGalleryAlbum(id){
 }
 
 async function manageSongs(){return managePracticeSongs()}
-async function managePracticeSongs(){setBackAction(()=>adminPage());const {data,error}=await sb.from('songs').select('*').not('practice_date','is',null).order('practice_date',{ascending:false}).limit(200);if(error)return toast(error.message);const add=canSongBase()?`<button class="btn primary" onclick="addPracticeSong()">+ 연습 찬양곡 등록</button>`:'';main.innerHTML=title('관리 · 연습 찬양곡',add)+`<p class="muted">총무가 곡명·연습 찬양일·전체합창을 등록하고, 파트장은 자기 파트 링크를 추가합니다.</p>`+list((data||[]).map(x=>`<div class="row"><b>${esc(x.title||'제목 없음')}</b><div class="muted">${fmt(x.practice_date)} · ${esc(categoryDisplay(x.category))}</div><div class="actions"><button class="btn" onclick='editPracticeSong(${JSON.stringify(x)})'>${canSongBase()?'수정':'내 파트 영상 입력'}</button>${canSongBase()?`<button class="btn danger" onclick="deleteRecord('songs','${x.id}')">삭제</button>`:''}</div></div>`))}
-async function manageReplaySongs(){setBackAction(()=>adminPage());const {data,error}=await sb.from('songs').select('*').not('replay_date','is',null).order('replay_date',{ascending:false}).limit(200);if(error)return toast(error.message);const add=canSongReplay()?`<button class="btn primary" onclick="addReplaySong()">+ 다시보기 등록</button>`:'';main.innerHTML=title('관리 · 찬양곡 다시보기',add)+`<p class="muted">실제 찬양한 날짜와 다시보기 YouTube 링크를 별도로 등록합니다.</p>`+list((data||[]).map(x=>`<div class="row"><b>${esc(x.title||'제목 없음')}</b><div class="muted">${fmt(x.replay_date)}</div><div class="actions"><button class="btn" onclick='editReplaySong(${JSON.stringify(x)})'>수정</button>${canSongBase()?`<button class="btn danger" onclick="deleteRecord('songs','${x.id}')">삭제</button>`:''}</div></div>`))}
+async function managePracticeSongs(){setBackAction(()=>adminPage());const {data,error}=await sb.from('songs').select('*').not('practice_date','is',null).order('practice_date',{ascending:false}).limit(200);if(error)return toast(error.message);const add=canSongBase()?`<button class="btn primary" onclick="addPracticeSong()">+ 새로 등록</button>`:'';main.innerHTML=title('관리 · 연습 찬양곡',add)+`<p class="muted">총무가 곡명·연습 찬양일·전체합창을 등록하고, 파트장은 자기 파트 링크를 추가합니다.</p>`+list((data||[]).map(x=>`<div class="row"><b>${esc(x.title||'제목 없음')}</b><div class="muted">${fmt(x.practice_date)} · ${esc(categoryDisplay(x.category))}</div><div class="actions"><button class="btn" onclick='editPracticeSong(${JSON.stringify(x)})'>${canSongBase()?'수정':'내 파트 영상 입력'}</button>${canSongBase()?`<button class="btn danger" onclick="deleteRecord('songs','${x.id}')">삭제</button>`:''}</div></div>`))}
+async function manageReplaySongs(){setBackAction(()=>adminPage());const {data,error}=await sb.from('songs').select('*').not('replay_date','is',null).order('replay_date',{ascending:false}).limit(200);if(error)return toast(error.message);const add=canSongReplay()?`<button class="btn primary" onclick="addReplaySong()">+ 새로 등록</button>`:'';main.innerHTML=title('관리 · 찬양곡 다시보기',add)+`<p class="muted">실제 찬양한 날짜와 다시보기 YouTube 링크를 별도로 등록합니다.</p>`+list((data||[]).map(x=>`<div class="row"><b>${esc(x.title||'제목 없음')}</b><div class="muted">${fmt(x.replay_date)}</div><div class="actions"><button class="btn" onclick='editReplaySong(${JSON.stringify(x)})'>수정</button>${canSongBase()?`<button class="btn danger" onclick="deleteRecord('songs','${x.id}')">삭제</button>`:''}</div></div>`))}
 function recordTitle(t,x){return x.title||x.name||x.role_name||((t==='prayers')?`${x.thursday_date} / ${x.sunday_date}`:'항목')}
 function recordSub(t,x){return x.notice_date||x.service_date||x.event_date||x.document_date||x.due_date||x.category||x.scope||''}
 const FIELDS={
@@ -923,6 +1662,151 @@ async function saveIntro(){const o={};['name','english_name','description','foun
 
 
 
+
+/* ===== V15 My Profile ===== */
+const CHURCH_TITLES=['성도','집사','안수집사','권사','장로'];
+const CHOIR_POSITIONS=['대장','총무','회계','서기','지휘자','부지휘자','오르간 반주자','피아노 반주자','파트장'];
+const PROFILE_PARTS=['Soprano','Alto','Tenor','Bass','해당없음'];
+
+function profilePositions(v){
+  if(Array.isArray(v))return v;
+  if(!v)return [];
+  return String(v).split(',').map(x=>x.trim()).filter(Boolean);
+}
+function profileInitial(){return (me?.name||'?').trim().slice(0,1)||'?'}
+async function loadPrivateProfile(){
+  try{
+    const {data,error}=await sb.from('profile_private').select('birth_date,address').eq('user_id',me.id).maybeSingle();
+    if(error)throw error;
+    return data||{birth_date:null,address:null};
+  }catch(e){
+    console.warn('private profile load failed',e);
+    return {birth_date:null,address:null};
+  }
+}
+async function profilePage(){
+  setBackAction(()=>go('more'));
+  const priv=await loadPrivateProfile();
+  const photoUrl=await signedProfilePhoto(me?.photo_path);
+  const pos=profilePositions(me?.choir_positions);
+  main.innerHTML=title('나의 프로필',`<button class="btn primary" onclick="editMyProfile()">수정</button>`)
+    +`<div class="profileHero">
+      <div class="profileAvatar">${photoUrl?`<img src="${esc(photoUrl)}" alt="${esc(me.name)}">`:esc(profileInitial())}</div>
+      <div class="profileMeta"><h3>${esc(me.name||'')}</h3>
+        <div class="muted">${esc(me.title||'')}${me.part?' · '+esc(partKo(me.part)):''}${pos.length?' · '+esc(pos.join(' · ')):''}</div>
+        ${me.bio?`<div style="margin-top:8px">${esc(me.bio)}</div>`:''}
+      </div>
+    </div>
+    <div class="profileGrid">
+      <div class="profileItem"><small>이름</small><b>${esc(me.name||'-')}</b></div>
+      <div class="profileItem"><small>교회 직분</small><b>${esc(me.title||'-')}</b></div>
+      <div class="profileItem"><small>전화번호</small><b>${esc(phoneDisplay(me.phone)||'-')}</b><div class="muted">${me.phone_public?'대원에게 공개':'대원에게 비공개'}</div></div>
+      <div class="profileItem"><small>전자메일</small><b>${esc(me.contact_email||'-')}</b><div class="muted">${me.email_public?'대원에게 공개':'대원에게 비공개'}</div></div>
+      <div class="profileItem"><small>파트</small><b>${esc(partKo(me.part)||me.part||'-')}</b></div>
+      <div class="profileItem"><small>찬양대 직위</small><b>${esc(pos.join(' · ')||'없음')}</b></div>
+      <div class="profileItem"><small>생년월일 <span class="privateBadge">🔒 비공개</span></small><b>${esc(priv.birth_date||'-')}</b></div>
+      <div class="profileItem"><small>주소 <span class="privateBadge">🔒 비공개</span></small><b>${esc(priv.address||'-')}</b></div>
+    </div>
+    <div class="card"><small class="muted">자기소개 · 30자 이내</small><div style="margin-top:7px">${esc(me.bio||'등록된 자기소개가 없습니다.')}</div></div>
+    <div class="privacyNote"><b>개인정보 안내</b><br>생년월일과 주소는 본인과 대원관리 권한자만 확인할 수 있습니다. 전화번호와 전자메일은 본인이 공개 여부를 선택합니다.</div>`;
+}
+
+function updateBioCount(){
+  const e=document.getElementById('pf_bio'),c=document.getElementById('pf_bio_count');
+  if(e&&c)c.textContent=`${e.value.length} / 30`;
+}
+async function editMyProfile(){
+  setBackAction(()=>profilePage());
+  const priv=await loadPrivateProfile();
+  const photoUrl=await signedProfilePhoto(me?.photo_path);
+  const pos=profilePositions(me?.choir_positions);
+  main.innerHTML=title('나의 프로필 수정')+`<div class="card">
+    <div class="field"><label>사진</label><div class="profilePhotoEdit">
+      <div id="pf_photo_preview" class="profilePhotoPreview">${photoUrl?`<img src="${esc(photoUrl)}" alt="${esc(me.name)}">`:esc(profileInitial())}</div>
+      <div><input id="pf_photo" type="file" accept="image/*" onchange="previewProfilePhoto(this)"><div class="muted" style="margin-top:6px">휴대전화 사진앨범 또는 카메라 사진을 선택할 수 있습니다.</div></div>
+    </div></div>
+    <div class="field"><label>이름</label><input id="pf_name" maxlength="30" value="${esc(me.name||'')}"></div>
+    <div class="field"><label>교회 직분</label><select id="pf_title">${CHURCH_TITLES.map(v=>`<option value="${v}" ${me.title===v?'selected':''}>${v}</option>`).join('')}</select></div>
+    <div class="field"><label>전화번호</label><input id="pf_phone" inputmode="tel" value="${esc(phoneDisplay(me.phone)||'')}"></div>
+    <div class="field profileVisibilityRow"><label>전화번호 공개</label><label><input id="pf_phone_public" type="checkbox" ${me.phone_public?'checked':''}> 대원에게 공개</label></div>
+    <div class="field"><label>전자메일</label><input id="pf_email" type="email" value="${esc(me.contact_email||'')}" placeholder="name@example.com"></div>
+    <div class="field profileVisibilityRow"><label>전자메일 공개</label><label><input id="pf_email_public" type="checkbox" ${me.email_public?'checked':''}> 대원에게 공개</label></div>
+    <div class="field"><label>파트</label><select id="pf_part">${PROFILE_PARTS.map(v=>`<option value="${v}" ${me.part===v?'selected':''}>${partKo(v)||v}</option>`).join('')}</select></div>
+    <div class="field"><label>생년월일 <span class="privateBadge">🔒 비공개</span></label><input id="pf_birth" type="date" value="${esc(priv.birth_date||'')}"></div>
+    <div class="field"><label>주소 <span class="privateBadge">🔒 비공개</span></label><input id="pf_address" maxlength="200" value="${esc(priv.address||'')}" placeholder="주소"></div>
+    <div class="field"><label>찬양대 직위 <span class="muted">(복수 선택 가능)</span></label><details class="positionDetails"><summary>${pos.length?`현재 선택 · ${esc(pos.join(' · '))}`:'찬양대 직위 선택'}</summary><div class="multiChecks">${CHOIR_POSITIONS.map(v=>`<label><input class="pf_position" type="checkbox" value="${v}" ${pos.includes(v)?'checked':''}> ${v}</label>`).join('')}</div></details></div>
+    <div class="field"><label>자기소개 <span class="muted">(30자 이내)</span></label><input id="pf_bio" maxlength="30" value="${esc(me.bio||'')}" oninput="updateBioCount()"><div id="pf_bio_count" class="charCount">${String(me.bio||'').length} / 30</div></div>
+    <div class="privacyNote">생년월일과 주소는 비공개 개인정보로 별도 저장됩니다. 다른 일반 대원은 조회할 수 없습니다.</div>
+    <div class="actions"><button class="btn primary" onclick="saveMyProfile()">저장</button><button class="btn" onclick="profilePage()">취소</button></div>
+  </div>`;
+}
+function previewProfilePhoto(input){
+  const file=input.files?.[0];if(!file)return;
+  if(!file.type.startsWith('image/')){input.value='';return toast('사진 파일을 선택해 주세요.')}
+  const url=URL.createObjectURL(file);
+  const box=document.getElementById('pf_photo_preview');
+  if(box)box.innerHTML=`<img src="${url}" alt="사진 미리보기">`;
+}
+async function compressProfileImage(file,maxSize=700,quality=.82){
+  const bitmap=await createImageBitmap(file);
+  let w=bitmap.width,h=bitmap.height;
+  const scale=Math.min(1,maxSize/Math.max(w,h));w=Math.round(w*scale);h=Math.round(h*scale);
+  const canvas=document.createElement('canvas');canvas.width=w;canvas.height=h;
+  const ctx=canvas.getContext('2d');ctx.drawImage(bitmap,0,0,w,h);
+  if(bitmap.close)bitmap.close();
+  return await new Promise((resolve,reject)=>canvas.toBlob(b=>b?resolve(b):reject(new Error('사진 변환 실패')),'image/jpeg',quality));
+}
+async function uploadMyProfilePhoto(file){
+  const blob=await compressProfileImage(file);
+  const path=`${me.id}/avatar.jpg`;
+  const {error}=await sb.storage.from('profile-photos').upload(path,blob,{upsert:true,contentType:'image/jpeg',cacheControl:'3600'});
+  if(error)throw error;
+  return path;
+}
+async function saveMyProfile(){
+  const nameV=document.getElementById('pf_name')?.value.trim();
+  const phoneV=normalizePhone(document.getElementById('pf_phone')?.value||'');
+  const emailV=document.getElementById('pf_email')?.value.trim()||null;
+  const bioV=document.getElementById('pf_bio')?.value.trim()||null;
+  if(!nameV)return toast('이름을 입력해 주세요.');
+  if(phoneV && !/^010\d{8}$/.test(phoneV))return toast('휴대전화번호를 확인해 주세요.');
+  if(emailV && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailV))return toast('전자메일 형식을 확인해 주세요.');
+  if((bioV||'').length>30)return toast('자기소개는 30자 이내로 입력해 주세요.');
+  const positions=[...document.querySelectorAll('.pf_position:checked')].map(x=>x.value);
+  const photoFile=document.getElementById('pf_photo')?.files?.[0]||null;
+  let photoPath=me.photo_path||null;
+  try{
+    if(photoFile){toast('프로필 사진을 저장하고 있습니다.');photoPath=await uploadMyProfilePhoto(photoFile)}
+    const pub={
+      name:nameV,
+      title:document.getElementById('pf_title')?.value||null,
+      phone:phoneV||null,
+      contact_email:emailV,
+      phone_public:!!document.getElementById('pf_phone_public')?.checked,
+      email_public:!!document.getElementById('pf_email_public')?.checked,
+      part:document.getElementById('pf_part')?.value||null,
+      choir_positions:positions,
+      bio:bioV,
+      photo_path:photoPath,
+      updated_at:new Date().toISOString()
+    };
+    const {error:e1}=await sb.from('profiles').update(pub).eq('id',me.id);
+    if(e1)throw e1;
+    const priv={
+      user_id:me.id,
+      birth_date:document.getElementById('pf_birth')?.value||null,
+      address:document.getElementById('pf_address')?.value.trim()||null,
+      updated_at:new Date().toISOString()
+    };
+    const {error:e2}=await sb.from('profile_private').upsert(priv,{onConflict:'user_id'});
+    if(e2)throw e2;
+    me={...me,...pub};
+    toast('나의 프로필이 저장되었습니다.');
+    await profilePage();
+  }catch(e){toast('프로필 저장 실패: '+(e?.message||e))}
+}
+
+
 /* ===== V14-D3.14 iPhone / Android Web Push ===== */
 const VAPID_PUBLIC_KEY='BEgqVsK2gbb8qwMjTf4g2btEHzNT13T0C9_1ldpgsQ_oa7Vp85v-eZpwd63GBVek0AQFjH90VB6rk_2sJbDwd78';
 function urlBase64ToUint8Array(base64String){const padding='='.repeat((4-base64String.length%4)%4);const base64=(base64String+padding).replace(/-/g,'+').replace(/_/g,'/');const raw=atob(base64);return Uint8Array.from([...raw].map(c=>c.charCodeAt(0)))}
@@ -956,7 +1840,6 @@ const _saveReplayNewV314=saveReplayNew;
 saveReplayNew=async function(){const titleV=document.getElementById('f_title')?.value.trim(),date=document.getElementById('f_replay_date')?.value;const r=await _saveReplayNewV314();if(titleV)sendPushSafe('replay','all','소망찬양대 · 찬양 다시보기',`${date?date+' · ':''}${titleV} 영상이 등록되었습니다.`,'./');return r};
 
 if('serviceWorker' in navigator)window.addEventListener('load',()=>ensurePushSW().catch(()=>{}));
-
 
 /* V14-D3.15 — weekly-first UX, notification center, My Somang, read notices, grouped admin, install guide + QR */
 let deferredInstallPrompt=null;
@@ -1025,20 +1908,12 @@ async function openNotice(id){const {data:x}=await sb.from('notices').select('*'
 async function myChoirPage(){
  setBackAction(()=>go('home'));const today=new Date().toISOString().slice(0,10),plus30=addDaysISO(today,30);
  const [songs,notices,events,prayers]=await Promise.all([safeRows(sb.from('songs').select('*').gte('practice_date',today).order('practice_date').limit(1)),safeRows(sb.from('notices').select('*').order('notice_date',{ascending:false}).limit(10)),safeRows(sb.from('events').select('*').gte('event_date',today).order('event_date').limit(2)),safeRows(sb.from('prayer_assignments').select('*').limit(80))]);
- const song=songs[0],myName=(me.name||'').trim(),contains=v=>myName&&String(v||'').includes(myName);let mine=[];prayers.forEach(x=>{if(x.thursday_date>=today&&x.thursday_date<=plus30){if(contains(x.thursday_start))mine.push({date:x.thursday_date,label:'목요일 시작기도'});if(contains(x.thursday_end))mine.push({date:x.thursday_date,label:'목요일 마침기도'})}if(x.sunday_date>=today&&x.sunday_date<=plus30){if(contains(x.sunday_start))mine.push({date:x.sunday_date,label:'일요일 시작기도'});if(contains(x.sunday_end))mine.push({date:x.sunday_date,label:'일요일 마침기도'})}});mine.sort((a,b)=>a.date.localeCompare(b.date));const myNotices=notices.filter(x=>x.scope==='전체'||x.scope===me.part).slice(0,3);
- const myPhoto=await signedProfilePhoto(me.photo_path);
- main.innerHTML=title('나의 소망찬양대')+`<section class="profileHero"><div class="profileAvatar">${myPhoto?`<img src="${esc(myPhoto)}" alt="${esc(me.name)}">`:esc((me.name||'?').slice(0,1))}</div><div style="flex:1"><h2>${esc(me.name)} ${esc(me.title||'')}</h2><p>${esc(me.part||'')} · ${esc(phoneDisplay(me.phone||''))}</p></div><button class="btn" onclick="editMyProfile()">내 프로필 수정</button></section><div class="myDashboard"><div class="myDashCard"><span>🙏 나의 기도</span>${mine[0]?`<b>${friendlyDate(mine[0].date)} · ${esc(mine[0].label)}</b>`:'<b>한 달 이내 없음</b>'}</div><div class="myDashCard"><span>🎵 이번 주 찬양</span><b>${esc(song?.title||'등록된 연습곡 없음')}</b>${song?`<div class="actions">${linkBtn(song.full_url,'전체 합창')}${linkBtn(myPartUrl(song),`${me.part||'내 파트'} 연습`)}</div>`:''}</div><div class="myDashCard"><span>📢 나에게 해당하는 공지</span>${myNotices.map(x=>`<button class="miniNotice" onclick="openNotice('${x.id}')">${esc(x.title)}</button>`).join('')||'<b>새 공지 없음</b>'}</div><div class="myDashCard"><span>📅 다음 일정</span>${events[0]?`<b>${friendlyDate(events[0].event_date)} · ${esc(events[0].title)}</b>`:'<b>등록된 일정 없음</b>'}</div></div><div class="card settingsLinks"><button class="btn" onclick="editMyProfile()">내 프로필 수정</button><button class="btn" onclick="go('notifications')">알림 설정</button><button class="btn" onclick="changeMyPassword()">비밀번호 변경</button><button class="btn" onclick="go('members')">대원명단</button></div>`;
+ const song=songs[0],myName=(me.name||'').trim(),contains=v=>myName&&String(v||'').includes(myName);const myPhoto=await signedProfilePhoto(me?.photo_path);let mine=[];prayers.forEach(x=>{if(x.thursday_date>=today&&x.thursday_date<=plus30){if(contains(x.thursday_start))mine.push({date:x.thursday_date,label:'목요일 시작기도'});if(contains(x.thursday_end))mine.push({date:x.thursday_date,label:'목요일 마침기도'})}if(x.sunday_date>=today&&x.sunday_date<=plus30){if(contains(x.sunday_start))mine.push({date:x.sunday_date,label:'일요일 시작기도'});if(contains(x.sunday_end))mine.push({date:x.sunday_date,label:'일요일 마침기도'})}});mine.sort((a,b)=>a.date.localeCompare(b.date));const myNotices=notices.filter(x=>x.scope==='전체'||x.scope===me.part).slice(0,3);
+ main.innerHTML=title('나의 소망찬양대')+`<section class="mySummaryHero"><div class="mySummaryAvatar">${myPhoto?`<img src="${esc(myPhoto)}" alt="${esc(me.name)}">`:esc((me.name||'?').slice(0,1))}</div><div><h2>${esc(me.name)} ${esc(me.title||'')}</h2><p>${esc(partKo(me.part)||me.part||'')}</p><button class="textLink" onclick="go('profile')">내 프로필 보기 · 수정</button></div></section><div class="myDashboard"><div class="myDashCard"><span>🙏 나의 기도</span>${mine[0]?`<b>${friendlyDate(mine[0].date)} · ${esc(mine[0].label)}</b>`:'<b>한 달 이내 없음</b>'}</div><div class="myDashCard"><span>🎵 이번 주 찬양</span><b>${esc(song?.title||'등록된 연습곡 없음')}</b>${song?`<div class="actions">${linkBtn(song.full_url,'전체 합창')}${linkBtn(myPartUrl(song),`${me.part||'내 파트'} 연습`)}</div>`:''}</div><div class="myDashCard"><span>📢 나에게 해당하는 공지</span>${myNotices.map(x=>`<button class="miniNotice" onclick="openNotice('${x.id}')">${esc(x.title)}</button>`).join('')||'<b>새 공지 없음</b>'}</div><div class="myDashCard"><span>📅 다음 일정</span>${events[0]?`<b>${friendlyDate(events[0].event_date)} · ${esc(events[0].title)}</b>`:'<b>등록된 일정 없음</b>'}</div></div><div class="card settingsLinks"><button class="btn primary" onclick="go('profile')">내 프로필 수정</button><button class="btn" onclick="go('notifications')">알림 설정</button><button class="btn" onclick="changeMyPassword()">비밀번호 변경</button><button class="btn" onclick="go('members')">대원명단</button></div>`;
 }
-async function editMyProfile(){
- setBackAction(()=>myChoirPage());const currentPhoto=await signedProfilePhoto(me.photo_path);
- main.innerHTML=title('내 프로필 수정')+`<div class="card profileEditCard"><div class="profilePhotoEdit"><div id="myProfilePhotoPreview" class="profilePhotoLarge">${currentPhoto?`<img src="${esc(currentPhoto)}" alt="${esc(me.name)}">`:esc((me.name||'?').slice(0,1))}</div><div><div class="profilePhotoActions"><label class="btn primary" style="cursor:pointer">사진 선택<input id="myProfilePhotoFile" type="file" accept="image/*" hidden onchange="previewMyProfilePhoto(this)"></label>${me.photo_path?'<button class="btn danger" onclick="removeMyProfilePhoto()">사진 삭제</button>':''}</div><div class="profileNote">정면 얼굴이 잘 보이는 사진을 권장합니다. 최대 8MB.</div></div></div><div class="field"><label>이름</label><input id="myProfileName" value="${esc(me.name||'')}"></div><div class="field"><label>직분</label><input id="myProfileTitle" value="${esc(me.title||'')}"></div><div class="field"><label>파트</label><select id="myProfilePart">${['Soprano','Alto','Tenor','Bass'].map(p=>`<option value="${p}" ${me.part===p?'selected':''}>${p}</option>`).join('')}</select></div><div class="field"><label>휴대전화번호</label><input class="readonlyField" value="${esc(phoneDisplay(me.phone||''))}" readonly><div class="profileNote">로그인 계정과 연결되어 있어 휴대전화번호 변경은 관리자에게 요청해 주세요.</div></div><div class="actions"><button class="btn primary" onclick="saveMyProfile()">저장</button><button class="btn" onclick="myChoirPage()">취소</button></div></div>`;
-}
-function previewMyProfilePhoto(input){const f=input.files?.[0];if(!f)return;if(f.size>8*1024*1024){input.value='';return toast('프로필 사진은 8MB 이하로 선택해 주세요.')}const url=URL.createObjectURL(f);document.getElementById('myProfilePhotoPreview').innerHTML=`<img src="${url}" alt="미리보기">`}
-async function saveMyProfile(){const name=document.getElementById('myProfileName').value.trim(),titleV=document.getElementById('myProfileTitle').value.trim(),part=document.getElementById('myProfilePart').value;if(!name)return toast('이름을 입력해 주세요.');let photoPath=me.photo_path||null;const f=document.getElementById('myProfilePhotoFile')?.files?.[0];let uploaded='';if(f){const ext=(f.name.split('.').pop()||'jpg').toLowerCase().replace(/[^a-z0-9]/g,'')||'jpg';uploaded=`${me.id}/profile-${Date.now()}.${ext}`;const {error:upErr}=await sb.storage.from('profile-photos').upload(uploaded,f,{upsert:false,contentType:f.type||'image/jpeg'});if(upErr)return toast('사진 업로드 실패: '+upErr.message);photoPath=uploaded}const {data,error}=await sb.rpc('update_my_profile',{p_name:name,p_title:titleV||null,p_part:part,p_photo_path:photoPath});if(error){if(uploaded)await sb.storage.from('profile-photos').remove([uploaded]);return toast(error.message)}const old=me.photo_path;if(uploaded&&old&&old!==uploaded)await sb.storage.from('profile-photos').remove([old]);me={...me,name,title:titleV||null,part,photo_path:photoPath};toast('프로필을 저장했습니다.');await myChoirPage()}
-async function removeMyProfilePhoto(){if(!me.photo_path)return;if(!confirm('프로필 사진을 삭제하시겠습니까?'))return;const old=me.photo_path;const {error}=await sb.rpc('update_my_profile',{p_name:me.name,p_title:me.title||null,p_part:me.part,p_photo_path:null});if(error)return toast(error.message);await sb.storage.from('profile-photos').remove([old]);me.photo_path=null;toast('프로필 사진을 삭제했습니다.');await editMyProfile()}
 async function changeMyPassword(){const a=prompt('새 비밀번호를 입력하세요. (6자 이상)');if(!a)return;if(a.length<6)return toast('비밀번호는 6자 이상이어야 합니다.');const b=prompt('새 비밀번호를 한 번 더 입력하세요.');if(a!==b)return toast('비밀번호가 서로 다릅니다.');const {error}=await sb.auth.updateUser({password:a});if(error)return toast(error.message);toast('비밀번호가 변경되었습니다.')}
 
-function morePage(){const admin=me.role==='superadmin'||Object.keys(PERM_LABELS).some(can)||canAnySong();main.innerHTML=title('더보기')+`<div class="grid"><button class="adminTile iconTile" onclick="songSchedulePage()"><span class="tileIcon">${uiIcon('calendar')}</span><b>찬양 일정표</b><span class="muted">연간 주일 찬양 일정</span></button><button class="adminTile iconTile" onclick="go('prayers')"><span class="tileIcon">${uiIcon('pray')}</span><b>기도 순서</b><span class="muted">전체 기도 순서 확인</span></button><button class="adminTile iconTile" onclick="go('members')"><span class="tileIcon">${uiIcon('people')}</span><b>대원명단</b><span class="muted">파트별 대원 연락처</span></button><button class="adminTile iconTile" onclick="go('notices')"><span class="tileIcon">${uiIcon('bell')}</span><b>공지사항</b><span class="muted">전체 · 파트 공지</span></button><button class="adminTile iconTile" onclick="go('intro')"><span class="tileIcon">${uiIcon('people')}</span><b>찬양대 소개</b><span class="muted">소개 · 역사 · 비전</span></button><button class="adminTile iconTile" onclick="go('leaders')"><span class="tileIcon">${uiIcon('people')}</span><b>섬기는 분들</b><span class="muted">운영 · 음악 조직</span></button><button class="adminTile iconTile" onclick="go('gallery')"><span class="tileIcon">${uiIcon('image')}</span><b>갤러리</b><span class="muted">행사 · 절기 · 연습 사진</span></button><button class="adminTile iconTile" onclick="go('documents')"><span class="tileIcon">${uiIcon('folder')}</span><b>자료실</b><span class="muted">문서 · 링크</span></button><button class="adminTile iconTile" onclick="go('notifications')"><span class="tileIcon">${uiIcon('bell')}</span><b>알림 설정</b><span class="muted">iPhone · Android Push</span></button><button class="adminTile iconTile" onclick="go('install')"><span class="tileIcon">${uiIcon('phone')}</span><b>앱 설치 · QR</b><span class="muted">설치 안내 · 주소 공유</span></button>${admin?`<button class="adminTile iconTile" onclick="go('admin')"><span class="tileIcon">${uiIcon('gear')}</span><b>관리센터</b><span class="muted">대원 · 찬양 · 소통 · 운영</span></button>`:''}</div>`}
+function morePage(){const admin=me.role==='superadmin'||Object.keys(PERM_LABELS).some(can)||canAnySong();main.innerHTML=title('더보기')+`<div class="grid"><button class="adminTile iconTile" onclick="go('profile')"><span class="tileIcon">${uiIcon('people')}</span><b>나의 프로필</b><span class="muted">사진 · 연락처 · 직분 · 자기소개</span></button><button class="adminTile iconTile" onclick="songSchedulePage()"><span class="tileIcon">${uiIcon('calendar')}</span><b>찬양 일정표</b><span class="muted">연간 주일 찬양 일정</span></button><button class="adminTile iconTile" onclick="go('prayers')"><span class="tileIcon">${uiIcon('pray')}</span><b>기도 순서</b><span class="muted">전체 기도 순서 확인</span></button><button class="adminTile iconTile" onclick="go('members')"><span class="tileIcon">${uiIcon('people')}</span><b>대원명단</b><span class="muted">파트별 대원 연락처</span></button><button class="adminTile iconTile" onclick="go('notices')"><span class="tileIcon">${uiIcon('bell')}</span><b>공지사항</b><span class="muted">전체 · 파트 공지</span></button><button class="adminTile iconTile" onclick="go('intro')"><span class="tileIcon">${uiIcon('people')}</span><b>찬양대 소개</b><span class="muted">소개 · 역사 · 비전</span></button><button class="adminTile iconTile" onclick="go('leaders')"><span class="tileIcon">${uiIcon('people')}</span><b>섬기는 분들</b><span class="muted">운영 · 음악 조직</span></button><button class="adminTile iconTile" onclick="go('gallery')"><span class="tileIcon">${uiIcon('image')}</span><b>갤러리</b><span class="muted">행사 · 절기 · 연습 사진</span></button><button class="adminTile iconTile" onclick="go('documents')"><span class="tileIcon">${uiIcon('folder')}</span><b>자료실</b><span class="muted">문서 · 링크</span></button><button class="adminTile iconTile" onclick="go('polls')"><span class="tileIcon">${uiIcon('check')}</span><b>투표 · 설문</b><span class="muted">대원 의견 수렴</span></button><button class="adminTile iconTile" onclick="go('tasks')"><span class="tileIcon">${uiIcon('task')}</span><b>봉사 · 할일</b><span class="muted">업무 · 봉사 배정</span></button><button class="adminTile iconTile" onclick="go('notifications')"><span class="tileIcon">${uiIcon('bell')}</span><b>알림 설정</b><span class="muted">iPhone · Android Push</span></button><button class="adminTile iconTile" onclick="go('install')"><span class="tileIcon">${uiIcon('phone')}</span><b>앱 설치 · QR</b><span class="muted">설치 안내 · 주소 공유</span></button>${admin?`<button class="adminTile iconTile" onclick="go('admin')"><span class="tileIcon">${uiIcon('gear')}</span><b>관리센터</b><span class="muted">대원 · 찬양 · 소통 · 운영</span></button>`:''}</div>`}
 
 async function installGuidePage(){setBackAction(()=>go('more'));const url=appBaseUrl(),qr='https://api.qrserver.com/v1/create-qr-code/?size=260x260&margin=12&data='+encodeURIComponent(url);const standalone=isStandalonePWA();main.innerHTML=title('앱 설치 · QR')+`<div class="installCard"><h2>소망찬양대 앱</h2><p class="muted">카메라로 QR을 촬영하거나 주소를 공유하세요.</p><div class="qrWrap"><img src="${qr}" alt="소망찬양대 앱 QR 코드"></div><code class="appUrl">${esc(url)}</code><div class="actions"><button class="btn" onclick="copyAppUrl()">주소 복사</button><button class="btn" onclick="shareAppUrl()">공유하기</button>${!standalone?'<button class="btn primary" onclick="promptInstallApp()">앱 설치</button>':''}</div><div class="installSteps"><h3>iPhone / iPad</h3><p>Safari에서 열기 → 공유 버튼 → <b>홈 화면에 추가</b> → 홈 화면의 소망찬양대 앱 실행 → 알림 허용</p><h3>Android</h3><p>Chrome에서 열기 → 메뉴의 <b>앱 설치</b> 또는 <b>홈 화면에 추가</b> → 앱 실행 → 알림 허용</p></div>${standalone?'<div class="installedBadge">✓ 현재 홈 화면 앱으로 실행 중입니다.</div>':''}</div>`}
 async function copyAppUrl(){try{await navigator.clipboard.writeText(appBaseUrl());toast('앱 주소를 복사했습니다.')}catch(e){prompt('아래 주소를 복사하세요.',appBaseUrl())}}
@@ -1054,7 +1929,8 @@ async function adminPage(){
  main.innerHTML=title('통합 관리센터')+`<div class="adminGroup"><h3>👥 대원 관리</h3><div class="adminGrid">${a||'<div class="muted">권한 없음</div>'}</div></div><div class="adminGroup"><h3>🎵 찬양 관리</h3><div class="adminGrid">${b||'<div class="muted">권한 없음</div>'}</div></div><div class="adminGroup"><h3>📢 소통 관리</h3><div class="adminGrid">${c||'<div class="muted">권한 없음</div>'}</div></div><div class="adminGroup"><h3>⛪ 찬양대 관리</h3><div class="adminGrid">${d||'<div class="muted">권한 없음</div>'}</div></div>`;
 }
 
-async function go(p){page=p;navActive();main.innerHTML='<div class="empty">불러오는 중…</div>';const f={home:homePage,songs:songsPage,events:eventsPage,my:myChoirPage,prayers:prayerPage,members:membersPage,more:morePage,notices:noticesPage,intro:introPage,leaders:leadersPage,gallery:galleryPage,documents:documentsPage,polls:pollsPage,tasks:tasksPage,notifications:notificationSettingsPage,notificationCenter:notificationCenterPage,install:installGuidePage,admin:adminPage}[p];if(f)await f();await refreshNotificationBadge()}
+async function go(p){page=p;navActive();main.innerHTML='<div class="empty">불러오는 중…</div>';const f={home:homePage,songs:songsPage,events:eventsPage,my:myChoirPage,prayers:prayerPage,members:membersPage,more:morePage,notices:noticesPage,intro:introPage,leaders:leadersPage,gallery:galleryPage,documents:documentsPage,polls:pollsPage,tasks:tasksPage,profile:profilePage,notifications:notificationSettingsPage,notificationCenter:notificationCenterPage,install:installGuidePage,admin:adminPage}[p];if(f)await f();await refreshNotificationBadge()}
+
 
 function uiIcon(name,cls='uiIcon'){
  const paths={
@@ -1077,12 +1953,20 @@ function uiIcon(name,cls='uiIcon'){
  return `<svg class="${cls}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${paths[name]||paths.info}</svg>`;
 }
 function iconForTitle(t){
- const m={'찬양':'music','기도 순서':'pray','대원명단':'people','일정 · 행사':'calendar','찬양대 소개':'people','섬기는 분들':'people','공지사항':'bell','갤러리':'image','자료실':'folder','투표 · 설문':'check','봉사 · 할일':'task','더보기':'list','통합 관리센터':'gear','찬양 일정표':'calendar'};
+ const m={'찬양':'music','기도 순서':'pray','대원명단':'people','일정 · 행사':'calendar','찬양대 소개':'people','섬기는 분들':'people','공지사항':'bell','갤러리':'image','자료실':'folder','투표 · 설문':'check','봉사 · 할일':'task','더보기':'list','통합 관리센터':'gear','찬양 일정표':'calendar','나의 프로필':'people','나의 프로필 수정':'people','나의 소망찬양대':'people','알림센터':'bell','앱 설치 · QR':'phone'};
  return m[t]||'info';
 }
 
+
+function appFooter(){
+  return `<footer class="appFooter">
+    <div class="footerKr">대한예수교장로회 창동교회 소망찬양대</div>
+    <div class="footerEn">SOMANG CHURCH CHOIR <span class="footerDot">·</span> © 2026</div>
+  </footer>`;
+}
+
 function title(t,right='',showBack=true){return `<div class="sectiontitle"><div class="sectiontitleLeft">${showBack?`<button class="backBtn" type="button" onclick="smartBack()">← 이전</button>`:''}<span class="pageTitleIcon">${uiIcon(iconForTitle(t))}</span><h2>${esc(t)}</h2></div><div>${right}</div></div>`}
-function list(a){return `<div class="list">${a.join('')||'<div class="empty">등록된 내용이 없습니다.</div>'}</div>`}
+function list(a){return `<div class="list">${a.join('')||'<div class="emptyState"><div class="emptyStateIcon">○</div><div class="emptyStateTitle">등록된 내용이 없습니다.</div><div class="emptyStateText">새로운 내용을 등록하면 이곳에 표시됩니다.</div></div>'}</div>`}
 init();
 </script><div id="ytModal" class="ytModal" aria-hidden="true">
   <div class="ytBox" role="dialog" aria-modal="true" aria-labelledby="ytModalTitle">
