@@ -915,6 +915,42 @@ a.link{color:#1f6759}
   }
 }
 
+
+/* =========================================================
+   V16.2 ADMIN TOP BUTTON — TRUE TEXT CENTER
+   ========================================================= */
+.sectiontitle > div:last-child{
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+}
+.adminCreateBtn,
+.sectiontitle > div:last-child > .btn.primary{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  text-align:center!important;
+  min-width:138px!important;
+  min-height:48px!important;
+  padding:10px 18px!important;
+  line-height:1!important;
+  gap:0!important;
+  white-space:nowrap;
+}
+.adminCreateBtn .uiIcon,
+.sectiontitle > div:last-child > .btn.primary .uiIcon{
+  display:none!important;
+}
+@media(max-width:720px){
+  .adminCreateBtn,
+  .sectiontitle > div:last-child > .btn.primary{
+    min-width:116px!important;
+    min-height:44px!important;
+    padding:9px 14px!important;
+    font-size:14px;
+  }
+}
+
 </style>
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="apple-touch-icon" href="./assets/apple-touch-icon.png">
@@ -1315,7 +1351,7 @@ async function manageSongSchedule(){
     .order('service_date',{ascending:true})
     .limit(250);
   if(error)return toast(error.message);
-  main.innerHTML=title('관리 · 찬양 일정표',`<button class="btn primary" onclick="addSongSchedule()">+ 일정 등록</button>`)
+  main.innerHTML=title('관리 · 찬양 일정표',`<button class="btn primary" onclick="addSongSchedule()">+ 새로 등록</button>`)
   +list((data||[]).map(x=>`<div class="row">
       <b>${fmt(x.service_date)} · ${esc(x.title||'')}</b>
       <div class="muted">${esc(x.song_book||'찬양집 미입력')}${x.song_page?' · '+x.song_page+'쪽':''}${x.note?' · '+esc(x.note):''}</div>
@@ -1399,14 +1435,14 @@ function adminTileIcon(p){
  return m[p]||'gear';
 }
 async function adminPage(){setBackAction(()=>go('more'));let tiles=[['members','가입 승인/대원'],['notices','공지'],['prayers','기도 순서'],['events','일정·행사'],['intro','찬양대 소개'],['leaders','섬기는 분들'],['gallery','갤러리'],['documents','자료실'],['polls','투표·설문'],['tasks','봉사·할일'],['permissions','권한 부여']].filter(([p])=>can(p));if(canSongBase()||['song_soprano','song_alto','song_tenor','song_bass'].some(can))tiles.splice(2,0,['practiceSongs','연습 찬양곡 등록']);if(canSongReplay())tiles.splice(3,0,['replaySongs','찬양곡 다시보기 등록']);if(can('songs'))tiles.splice(4,0,['songSchedule','찬양 일정표 관리']);main.innerHTML=title('통합 관리센터')+`<div class="adminGrid">${tiles.map(([p,l])=>`<button class="adminTile iconTile" onclick="${p==='practiceSongs'?'managePracticeSongs()':p==='replaySongs'?'manageReplaySongs()':p==='songSchedule'?'manageSongSchedule()':`manage('${p}')`}"><span class="tileIcon">${uiIcon(adminTileIcon(p))}</span><b>${l}</b><span class="muted">${p==='practiceSongs'?'다가오는 찬양 연습영상':p==='replaySongs'?'지난 찬양 실제영상':p==='songSchedule'?'날짜 · 곡명 · 찬양집 · 페이지 · 비고':'등록 · 수정 · 삭제'}</span></button>`).join('')}</div><p class="muted" style="margin-top:18px">모든 운영 데이터 입력은 이 관리센터에서 처리합니다. 출석/회계 기능은 포함하지 않습니다.</p>`}
-async function manage(type){setBackAction(()=>adminPage());if(type==='members')return manageMembers();if(type==='permissions')return managePermissions();if(type==='intro')return editIntro();if(type==='leaders')return manageLeaders();if(type==='songs')return manageSongs();if(type==='gallery')return manageGallery();const map={notices:'notices',prayers:'prayer_assignments',events:'events',leaders:'leaders',gallery:'gallery',documents:'documents',polls:'polls',tasks:'tasks'};const table=map[type];if(!table)return;const {data}=await sb.from(table).select('*').order('created_at',{ascending:false}).limit(100);main.innerHTML=title('관리 · '+(PERM_LABELS[type]||type),`<button class="btn primary iconBtn" onclick="addRecord('${type}')">${uiIcon('file')}<span>+ 새로 등록</span></button>`)+list((data||[]).map(x=>`<div class="row"><b>${esc(recordTitle(type,x))}</b><div class="muted">${esc(recordSub(type,x))}</div><div class="actions"><button class="btn" onclick='editRecord(${JSON.stringify(type)},${JSON.stringify(x)})'>수정</button><button class="btn danger" onclick="deleteRecord('${type}','${x.id}')">삭제</button></div></div>`))}
+async function manage(type){setBackAction(()=>adminPage());if(type==='members')return manageMembers();if(type==='permissions')return managePermissions();if(type==='intro')return editIntro();if(type==='leaders')return manageLeaders();if(type==='songs')return manageSongs();if(type==='gallery')return manageGallery();const map={notices:'notices',prayers:'prayer_assignments',events:'events',leaders:'leaders',gallery:'gallery',documents:'documents',polls:'polls',tasks:'tasks'};const table=map[type];if(!table)return;const {data}=await sb.from(table).select('*').order('created_at',{ascending:false}).limit(100);main.innerHTML=title('관리 · '+(PERM_LABELS[type]||type),`<button class="btn primary adminCreateBtn" onclick="addRecord('${type}')">+ 새로 등록</button>`)+list((data||[]).map(x=>`<div class="row"><b>${esc(recordTitle(type,x))}</b><div class="muted">${esc(recordSub(type,x))}</div><div class="actions"><button class="btn" onclick='editRecord(${JSON.stringify(type)},${JSON.stringify(x)})'>수정</button><button class="btn danger" onclick="deleteRecord('${type}','${x.id}')">삭제</button></div></div>`))}
 
-async function manageLeaders(){setBackAction(()=>adminPage());const {data,error}=await sb.from('leaders').select('*').order('sort_order');if(error)return toast(error.message);main.innerHTML=title('관리 · 섬기는 분들',`<button class="btn primary iconBtn" onclick="addRecord('leaders')">${uiIcon('people')}<span>역할 지정</span></button>`)+`<p class="muted">역할은 고정되어 있으며 대원명단에서 사람을 선택해 지정합니다.</p>`+list((data||[]).map(x=>`<div class="row"><b>${esc(x.role_name||'-')} · ${esc(x.name||'미지정')}</b><div class="actions"><button class="btn" onclick='editRecord("leaders",${JSON.stringify(x)})'>수정</button><button class="btn danger" onclick="deleteRecord('leaders','${x.id}')">삭제</button></div></div>`))}
+async function manageLeaders(){setBackAction(()=>adminPage());const {data,error}=await sb.from('leaders').select('*').order('sort_order');if(error)return toast(error.message);main.innerHTML=title('관리 · 섬기는 분들',`<button class="btn primary adminCreateBtn" onclick="addRecord('leaders')">역할 지정</button>`)+`<p class="muted">역할은 고정되어 있으며 대원명단에서 사람을 선택해 지정합니다.</p>`+list((data||[]).map(x=>`<div class="row"><b>${esc(x.role_name||'-')} · ${esc(x.name||'미지정')}</b><div class="actions"><button class="btn" onclick='editRecord("leaders",${JSON.stringify(x)})'>수정</button><button class="btn danger" onclick="deleteRecord('leaders','${x.id}')">삭제</button></div></div>`))}
 async function manageGallery(){
   setBackAction(()=>adminPage());
   const {data,error}=await sb.from('gallery').select('*').order('event_date',{ascending:false});
   if(error)return toast(error.message);
-  main.innerHTML=title('관리 · 갤러리',`<button class="btn primary" onclick="addGalleryAlbum()">+ 새 앨범 등록</button>`)+
+  main.innerHTML=title('관리 · 갤러리',`<button class="btn primary" onclick="addGalleryAlbum()">+ 새로 등록</button>`)+
   list((data||[]).map(x=>`<div class="row"><b>${esc(x.title)}</b><div class="muted">${fmt(x.event_date)}</div><div class="actions"><button class="btn" onclick="openGalleryAlbum('${x.id}')">보기</button><button class="btn danger" onclick="deleteGalleryAlbum('${x.id}')">삭제</button></div></div>`));
 }
 function galleryUploadForm(){
@@ -1463,7 +1499,7 @@ async function deleteGalleryAlbum(id){
 
 async function manageSongs(){return managePracticeSongs()}
 async function managePracticeSongs(){setBackAction(()=>adminPage());const {data,error}=await sb.from('songs').select('*').not('practice_date','is',null).order('practice_date',{ascending:false}).limit(200);if(error)return toast(error.message);const add=canSongBase()?`<button class="btn primary" onclick="addPracticeSong()">+ 새로 등록</button>`:'';main.innerHTML=title('관리 · 연습 찬양곡',add)+`<p class="muted">총무가 곡명·연습 찬양일·전체합창을 등록하고, 파트장은 자기 파트 링크를 추가합니다.</p>`+list((data||[]).map(x=>`<div class="row"><b>${esc(x.title||'제목 없음')}</b><div class="muted">${fmt(x.practice_date)} · ${esc(categoryDisplay(x.category))}</div><div class="actions"><button class="btn" onclick='editPracticeSong(${JSON.stringify(x)})'>${canSongBase()?'수정':'내 파트 영상 입력'}</button>${canSongBase()?`<button class="btn danger" onclick="deleteRecord('songs','${x.id}')">삭제</button>`:''}</div></div>`))}
-async function manageReplaySongs(){setBackAction(()=>adminPage());const {data,error}=await sb.from('songs').select('*').not('replay_date','is',null).order('replay_date',{ascending:false}).limit(200);if(error)return toast(error.message);const add=canSongReplay()?`<button class="btn primary" onclick="addReplaySong()">+ 다시보기 등록</button>`:'';main.innerHTML=title('관리 · 찬양곡 다시보기',add)+`<p class="muted">실제 찬양한 날짜와 다시보기 YouTube 링크를 별도로 등록합니다.</p>`+list((data||[]).map(x=>`<div class="row"><b>${esc(x.title||'제목 없음')}</b><div class="muted">${fmt(x.replay_date)}</div><div class="actions"><button class="btn" onclick='editReplaySong(${JSON.stringify(x)})'>수정</button>${canSongBase()?`<button class="btn danger" onclick="deleteRecord('songs','${x.id}')">삭제</button>`:''}</div></div>`))}
+async function manageReplaySongs(){setBackAction(()=>adminPage());const {data,error}=await sb.from('songs').select('*').not('replay_date','is',null).order('replay_date',{ascending:false}).limit(200);if(error)return toast(error.message);const add=canSongReplay()?`<button class="btn primary" onclick="addReplaySong()">+ 새로 등록</button>`:'';main.innerHTML=title('관리 · 찬양곡 다시보기',add)+`<p class="muted">실제 찬양한 날짜와 다시보기 YouTube 링크를 별도로 등록합니다.</p>`+list((data||[]).map(x=>`<div class="row"><b>${esc(x.title||'제목 없음')}</b><div class="muted">${fmt(x.replay_date)}</div><div class="actions"><button class="btn" onclick='editReplaySong(${JSON.stringify(x)})'>수정</button>${canSongBase()?`<button class="btn danger" onclick="deleteRecord('songs','${x.id}')">삭제</button>`:''}</div></div>`))}
 function recordTitle(t,x){return x.title||x.name||x.role_name||((t==='prayers')?`${x.thursday_date} / ${x.sunday_date}`:'항목')}
 function recordSub(t,x){return x.notice_date||x.service_date||x.event_date||x.document_date||x.due_date||x.category||x.scope||''}
 const FIELDS={
