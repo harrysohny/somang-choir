@@ -1,8 +1,8 @@
 {
-  "name": "소망 찬양대",
+  "name": "소망찬양대 · SOMANG CHURCH CHOIR",
   "short_name": "소망찬양대",
   "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#163b63"
+  "background_color": "#f3f6f5",
+  "theme_color": "#245f54"
 }
