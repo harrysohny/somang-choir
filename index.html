@@ -343,6 +343,26 @@ main{padding-bottom:92px}
 .pushDot{width:11px;height:11px;border-radius:50%;background:#9ca3af;flex:none}.pushDot.on{background:#168354}.pushDot.off{background:#b42318}
 .pushHelp{background:#f7faf9;border:1px solid #dce8e4;border-radius:12px;padding:12px 14px;margin:12px 0;font-size:14px;line-height:1.55}
 .pushAdminBox{margin-top:18px;border-top:1px solid var(--line);padding-top:16px}
+
+/* V15 My Profile */
+.profileHero{display:flex;align-items:center;gap:16px;background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px;margin-bottom:14px}
+.profileAvatar{width:86px;height:86px;border-radius:50%;overflow:hidden;background:var(--brand2);display:flex;align-items:center;justify-content:center;color:var(--brand);font-size:30px;font-weight:900;flex:none;border:1px solid #d8e5e1}
+.profileAvatar img{width:100%;height:100%;object-fit:cover}
+.profileMeta{min-width:0}.profileMeta h3{margin:0 0 6px;font-size:21px}.profileMeta .muted{line-height:1.55}
+.profileGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.profileItem{background:#fff;border:1px solid var(--line);border-radius:14px;padding:13px}
+.profileItem small{display:block;color:var(--muted);margin-bottom:5px}.profileItem b{display:block;word-break:break-word}
+.privateBadge{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:800;color:#7b5b00;background:#fff7db;border-radius:999px;padding:4px 7px;margin-left:6px}
+.profilePhotoEdit{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.profilePhotoPreview{width:92px;height:92px;border-radius:50%;overflow:hidden;background:var(--brand2);display:flex;align-items:center;justify-content:center;color:var(--brand);font-size:30px;font-weight:900;border:1px solid #d8e5e1}
+.profilePhotoPreview img{width:100%;height:100%;object-fit:cover}
+.multiChecks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:7px}
+.multiChecks label{display:flex!important;align-items:center;gap:8px;margin:0!important;padding:9px 10px;border:1px solid var(--line);border-radius:10px;background:#fff;font-weight:600!important}
+.multiChecks input{width:auto!important;margin:0!important}
+.charCount{text-align:right;font-size:12px;color:var(--muted);margin-top:5px}
+.privacyNote{background:#f7faf9;border:1px solid #dce8e4;border-radius:12px;padding:12px 14px;font-size:13px;line-height:1.55}
+@media(max-width:640px){.profileGrid{grid-template-columns:1fr}.profileHero{align-items:flex-start}.profileAvatar{width:74px;height:74px}.multiChecks{grid-template-columns:1fr}}
+
 </style>
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="apple-touch-icon" href="./assets/apple-touch-icon.png">
@@ -385,6 +405,7 @@ function smartBack(){
   if(page==='admin'){go('more');return}
   if(['notices','events','intro','leaders','gallery','documents','polls','tasks'].includes(page)){go('more');return}
   if(['songs','prayers','members'].includes(page)){go('home');return}
+  if(page==='profile'){go('more');return}
   if(page==='more'){go('home');return}
   go('home');
 }
@@ -402,7 +423,7 @@ function showSignup(){const authBody=document.getElementById('authBody');if(!aut
 async function doLogin(){const p=normalizePhone(lphone.value),pw=lpw.value;if(p.length<10)return toast('휴대전화번호를 확인해 주세요.');const {error}=await sb.auth.signInWithPassword({email:aliasEmail(p),password:pw});if(error)toast('로그인 실패: '+error.message)}
 async function doSignup(){const p=normalizePhone(sphone.value),pw=spw.value;if(!sname.value.trim())return toast('이름을 입력해 주세요.');if(p.length<10)return toast('휴대전화번호를 확인해 주세요.');if(pw.length<6)return toast('비밀번호는 6자 이상입니다.');if(pw!==spw2.value)return toast('비밀번호가 서로 다릅니다.');const {error}=await sb.auth.signUp({email:aliasEmail(p),password:pw,options:{data:{name:sname.value.trim(),title:stitle.value.trim(),part:spart.value,phone:p}}});if(error)return toast('가입 실패: '+error.message);toast('가입 신청이 등록되었습니다.');setTimeout(()=>showLogin(),900)}
 function navActive(){document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===page))}
-async function go(p){page=p;navActive();main.innerHTML='<div class="empty">불러오는 중…</div>';const f={home:homePage,songs:songsPage,prayers:prayerPage,members:membersPage,more:morePage,notices:noticesPage,events:eventsPage,intro:introPage,leaders:leadersPage,gallery:galleryPage,documents:documentsPage,polls:pollsPage,tasks:tasksPage,notifications:notificationSettingsPage,admin:adminPage}[p];if(f)await f()}
+async function go(p){page=p;navActive();main.innerHTML='<div class="empty">불러오는 중…</div>';const f={home:homePage,songs:songsPage,prayers:prayerPage,members:membersPage,more:morePage,notices:noticesPage,events:eventsPage,intro:introPage,leaders:leadersPage,gallery:galleryPage,documents:documentsPage,polls:pollsPage,tasks:tasksPage,profile:profilePage,notifications:notificationSettingsPage,admin:adminPage}[p];if(f)await f()}
 async function homePageBase(){const today=new Date().toISOString().slice(0,10),plus14=addDaysISO(today,14);const safe=async(q)=>{try{const r=await q;return r.error?[]:(r.data||[])}catch(e){return []}};const n=await safe(sb.from('notices').select('*').order('important',{ascending:false}).order('notice_date',{ascending:false}).limit(4));const u=await safe(sb.from('songs').select('*').gte('practice_date',today).order('practice_date').limit(3));const past=await safe(sb.from('songs').select('*').not('live_url','is',null).not('replay_date','is',null).lte('replay_date',today).order('replay_date',{ascending:false}).limit(1));const e=await safe(sb.from('events').select('*').gte('event_date',today).order('event_date').limit(3));const p=await safe(sb.from('prayer_assignments').select('*').gte('sunday_date',today).lte('sunday_date',plus14).order('sunday_date').limit(4));main.innerHTML=`<div class="hero"><h1>${esc(me.name)} 님, 반갑습니다</h1><p>${esc(me.part||'')} · ${esc(me.title||'대원')} · 함께 드리는 찬양</p></div><div class="grid"><div class="card"><h3>최근 공지</h3>${n.map(x=>`<div style="margin:9px 0"><span class="tag ${x.important?'important':''}">${esc(x.scope)}</span> <b>${esc(x.title)}</b><div class="muted">${fmt(x.notice_date)}</div></div>`).join('')||'<div class="muted">등록된 공지가 없습니다.</div>'}</div><div class="card"><h3>다가오는 연습 찬양곡</h3>${u.map(x=>`<div style="margin:9px 0"><b>${fmt(x.practice_date)} · ${esc(x.title)}</b><div class="muted">${esc(categoryDisplay(x.category))}</div><div class="actions">${linkBtn(x.full_url,'전체 합창')}${me.part==='Soprano'?linkBtn(x.soprano_url,'내 파트'):me.part==='Alto'?linkBtn(x.alto_url,'내 파트'):me.part==='Tenor'?linkBtn(x.tenor_url,'내 파트'):me.part==='Bass'?linkBtn(x.bass_url,'내 파트'):''}</div></div>`).join('')||'<div class="muted">다가오는 연습곡이 없습니다.</div>'}</div><div class="card"><h3>찬양곡 다시보기</h3>${past.map(x=>`<div style="margin:9px 0"><b>${x.replay_date?fmt(x.replay_date)+' · ':''}${esc(x.title)}</b><div class="actions">${linkBtn(x.live_url,'다시보기')}</div></div>`).join('')||'<div class="muted">등록된 다시보기 영상이 없습니다.</div>'}</div><div class="card"><h3>다가오는 2주 기도 순서</h3>${p.map(x=>`<div style="margin:10px 0"><b>목요일 ${fmt(x.thursday_date)}</b><div class="muted">시작 ${esc(x.thursday_start||'-')} · 마침 ${esc(x.thursday_end||'-')}</div><b>일요일 ${fmt(x.sunday_date)}</b><div class="muted">시작 ${esc(x.sunday_start||'-')} · 마침 ${esc(x.sunday_end||'-')}</div></div>`).join('')||'<div class="muted">2주 이내 등록된 기도 순서이 없습니다.</div>'}</div><div class="card"><h3>다가오는 일정</h3>${e.map(x=>`<div style="margin:8px 0"><b>${fmt(x.event_date)} ${esc(x.title)}</b></div>`).join('')||'<div class="muted">등록된 일정이 없습니다.</div>'}</div></div>`}
 async function noticesPage(){const {data}=await sb.from('notices').select('*').order('notice_date',{ascending:false});main.innerHTML=title('공지사항')+list((data||[]).map(x=>`<div class="row"><div class="rowhead"><div><span class="tag ${x.important?'important':''}">${esc(x.scope)}</span> <b>${esc(x.title)}</b></div><span class="muted">${fmt(x.notice_date)}</span></div><div style="margin-top:8px">${esc(x.body||'').replace(/\n/g,'<br>')}</div></div>`))}
 
@@ -546,7 +567,33 @@ function openYouTubeSearch(part=''){saveSongDraft();const title=document.getElem
 async function pasteClipboardTo(id){try{const text=await navigator.clipboard.readText();const e=document.getElementById(id);if(e){e.value=text.trim();e.dispatchEvent(new Event('input',{bubbles:true}))}}catch(err){toast('자동 붙여넣기가 제한되었습니다. ⌘V로 붙여넣어 주세요.')}}
 function linkBtn(u,t){return u?`<button class="btn ytPlayBtn iconBtn" type="button" data-yt-url="${esc(u)}" data-yt-title="${esc(t)}">${uiIcon('play')}<span>${esc(t)}</span></button>`:''}
 async function prayerPage(){const {data,error}=await sb.from('prayer_assignments').select('*').order('sunday_date',{ascending:false}).limit(24);if(error)throw error;main.innerHTML=title('기도 순서')+list((data||[]).map(x=>`<div class="row"><b>목요일 ${fmt(x.thursday_date)} · 연습</b><div style="margin:8px 0">시작기도 · <b>${esc(x.thursday_start||'-')}</b></div><div style="margin:8px 0">마침기도 · <b>${esc(x.thursday_end||'-')}</b></div><hr style="border:0;border-top:1px solid #e5e7eb;margin:14px 0"><b>일요일 ${fmt(x.sunday_date)} · 연습</b><div style="margin:8px 0">시작기도 · <b>${esc(x.sunday_start||'-')}</b></div><div style="margin:8px 0">마침기도 · <b>${esc(x.sunday_end||'-')}</b></div></div>`))}
-async function membersPage(){const {data}=await sb.from('profiles').select('id,name,title,part,phone,role,status').eq('status','approved').order('part').order('name');main.innerHTML=title('대원명단')+`<div class="membergrid">${(data||[]).map(x=>`<div class="member"><div class="name">${esc(x.name)}</div><span class="tag">${esc(x.part||'-')}</span><div class="muted" style="margin-top:7px">${esc(x.title||'대원')}</div><div style="margin-top:8px">${esc(phoneDisplay(x.phone))}</div></div>`).join('')||'<div class="empty">대원이 없습니다.</div>'}</div>`}
+async function signedProfilePhoto(path,expires=3600){
+  if(!path)return '';
+  if(/^https?:\/\//i.test(path))return path;
+  try{
+    const {data,error}=await sb.storage.from('profile-photos').createSignedUrl(path,expires);
+    return error?'':(data?.signedUrl||'');
+  }catch(e){return ''}
+}
+async function membersPage(){
+  const {data,error}=await sb.from('profiles')
+    .select('id,name,title,part,phone,role,status,contact_email,phone_public,email_public,photo_path,choir_positions,bio')
+    .eq('status','approved').order('part').order('name');
+  if(error)return toast(error.message);
+  const rows=[];
+  for(const x of (data||[])){
+    rows.push({...x,photo_url:await signedProfilePhoto(x.photo_path)});
+  }
+  main.innerHTML=title('대원명단')+`<div class="membergrid">${rows.map(x=>`<div class="member">
+    <div class="profilePhotoPreview" style="width:62px;height:62px;margin-bottom:10px">${x.photo_url?`<img src="${esc(x.photo_url)}" alt="${esc(x.name)}">`:esc((x.name||'?').slice(0,1))}</div>
+    <div class="name">${esc(x.name)}</div>
+    <span class="tag">${esc(partKo(x.part)||'-')}</span>
+    <div class="muted" style="margin-top:7px">${esc(x.title||'대원')}${Array.isArray(x.choir_positions)&&x.choir_positions.length?' · '+esc(x.choir_positions.join(' · ')):''}</div>
+    ${x.bio?`<div style="margin-top:8px">${esc(x.bio)}</div>`:''}
+    ${x.phone_public&&x.phone?`<div style="margin-top:8px">${esc(phoneDisplay(x.phone))}</div>`:''}
+    ${x.email_public&&x.contact_email?`<div class="muted" style="margin-top:4px">${esc(x.contact_email)}</div>`:''}
+  </div>`).join('')||'<div class="empty">대원이 없습니다.</div>'}</div>`;
+}
 async function eventsPage(){const today=new Date().toISOString().slice(0,10),plus30=addDaysISO(today,30);const [{data:ev,error},{data:prs}]=await Promise.all([sb.from('events').select('*').order('event_date',{ascending:true}),sb.from('prayer_assignments').select('*').gte('sunday_date',today).lte('sunday_date',plus30).order('sunday_date')]);if(error)throw error;const mine=(prs||[]).flatMap(prayerRolesForMe).filter(x=>x.date&&x.date>=today&&x.date<=plus30).sort((a,b)=>a.date.localeCompare(b.date));main.innerHTML=title('일정 · 행사')+`<div class="card"><h3>내 기도 일정 · 한 달 전부터</h3>${mine.map(x=>`<div style="margin:8px 0"><b>${fmt(x.date)} · ${esc(x.when)} ${esc(x.role)}</b><div class="muted">${esc(myPrayerLabel())}</div></div>`).join('')||'<div class="muted">앞으로 한 달 이내 배정된 기도 일정이 없습니다.</div>'}</div>`+list((ev||[]).map(x=>`<div class="row"><b>${fmt(x.event_date)} · ${esc(x.title)}</b><div class="muted">${esc(x.place||'')}</div><div>${esc(x.description||'')}</div></div>`))}
 async function introPage(){const {data}=await sb.from('choir_intro').select('*').eq('id',1).single();main.innerHTML=title('찬양대 소개')+`<div class="introPhoto"><img src="./assets/choir-group.jpg" alt="소망찬양대 단체사진"></div><div class="card"><h3>${esc(data?.name||'소망 찬양대')} <span class="muted">${esc(data?.english_name||'')}</span></h3><p>${esc(data?.description||'')}</p><p><b>예배</b><br>${esc(data?.service||'')}</p><p><b>연습</b><br>${esc(data?.rehearsal||'')}</p><p><b>역사</b><br>${esc(data?.history||'')}</p><p><b>비전</b><br>${esc(data?.vision||'')}</p></div>`}
 const LEADER_ROLES=['대장','총무','서기','회계','지휘자','부지휘자','오르간반주','피아노반주'];
@@ -715,7 +762,7 @@ async function deleteSongSchedule(id){
   manageSongSchedule();
 }
 
-function morePage(){const admin=me.role==='superadmin'||Object.keys(PERM_LABELS).some(can)||canAnySong();main.innerHTML=title('더보기')+`<div class="grid"><button class="adminTile iconTile" onclick="songSchedulePage()"><span class="tileIcon">${uiIcon('calendar')}</span><b>찬양 일정표</b><span class="muted">날짜 · 곡명 · 찬양집 · 페이지 · 비고</span></button><button class="adminTile iconTile" onclick="go('notices')"><span class="tileIcon">${uiIcon('bell')}</span><b>공지사항</b><span class="muted">전체/파트 공지</span></button><button class="adminTile iconTile" onclick="go('events')"><span class="tileIcon">${uiIcon('calendar')}</span><b>일정 · 행사</b><span class="muted">연습·행사 일정</span></button><button class="adminTile iconTile" onclick="go('intro')"><span class="tileIcon">${uiIcon('people')}</span><b>찬양대 소개</b><span class="muted">소개·역사·비전</span></button><button class="adminTile iconTile" onclick="go('leaders')"><span class="tileIcon">${uiIcon('people')}</span><b>섬기는 분들</b><span class="muted">대장·지휘자·반주·총무 등</span></button><button class="adminTile iconTile" onclick="go('gallery')"><span class="tileIcon">${uiIcon('image')}</span><b>갤러리</b><span class="muted">행사·절기·연습 사진</span></button><button class="adminTile iconTile" onclick="go('documents')"><span class="tileIcon">${uiIcon('folder')}</span><b>자료실</b><span class="muted">문서·링크</span></button><button class="adminTile iconTile" onclick="go('polls')"><span class="tileIcon">${uiIcon('check')}</span><b>투표 · 설문</b><span class="muted">대원 의견 수렴</span></button><button class="adminTile iconTile" onclick="go('tasks')"><span class="tileIcon">${uiIcon('task')}</span><b>봉사 · 할일</b><span class="muted">업무·봉사 배정</span></button>${admin?`<button class="adminTile iconTile" onclick="go('admin')"><span class="tileIcon">${uiIcon('gear')}</span><b>관리센터</b><span class="muted">가입 승인 및 콘텐츠 관리</span></button>`:''}</div>`}
+function morePage(){const admin=me.role==='superadmin'||Object.keys(PERM_LABELS).some(can)||canAnySong();main.innerHTML=title('더보기')+`<div class="grid"><button class="adminTile iconTile" onclick="go('profile')"><span class="tileIcon">${uiIcon('people')}</span><b>나의 프로필</b><span class="muted">사진 · 연락처 · 직분 · 자기소개</span></button><button class="adminTile iconTile" onclick="songSchedulePage()"><span class="tileIcon">${uiIcon('calendar')}</span><b>찬양 일정표</b><span class="muted">날짜 · 곡명 · 찬양집 · 페이지 · 비고</span></button><button class="adminTile iconTile" onclick="go('notices')"><span class="tileIcon">${uiIcon('bell')}</span><b>공지사항</b><span class="muted">전체/파트 공지</span></button><button class="adminTile iconTile" onclick="go('events')"><span class="tileIcon">${uiIcon('calendar')}</span><b>일정 · 행사</b><span class="muted">연습·행사 일정</span></button><button class="adminTile iconTile" onclick="go('intro')"><span class="tileIcon">${uiIcon('people')}</span><b>찬양대 소개</b><span class="muted">소개·역사·비전</span></button><button class="adminTile iconTile" onclick="go('leaders')"><span class="tileIcon">${uiIcon('people')}</span><b>섬기는 분들</b><span class="muted">대장·지휘자·반주·총무 등</span></button><button class="adminTile iconTile" onclick="go('gallery')"><span class="tileIcon">${uiIcon('image')}</span><b>갤러리</b><span class="muted">행사·절기·연습 사진</span></button><button class="adminTile iconTile" onclick="go('documents')"><span class="tileIcon">${uiIcon('folder')}</span><b>자료실</b><span class="muted">문서·링크</span></button><button class="adminTile iconTile" onclick="go('polls')"><span class="tileIcon">${uiIcon('check')}</span><b>투표 · 설문</b><span class="muted">대원 의견 수렴</span></button><button class="adminTile iconTile" onclick="go('tasks')"><span class="tileIcon">${uiIcon('task')}</span><b>봉사 · 할일</b><span class="muted">업무·봉사 배정</span></button>${admin?`<button class="adminTile iconTile" onclick="go('admin')"><span class="tileIcon">${uiIcon('gear')}</span><b>관리센터</b><span class="muted">가입 승인 및 콘텐츠 관리</span></button>`:''}</div>`}
 function adminTileIcon(p){
  const m={
   members:'people',notices:'bell',practiceSongs:'music',replaySongs:'play',
@@ -914,6 +961,151 @@ async function saveIntro(){const o={};['name','english_name','description','foun
 
 
 
+
+/* ===== V15 My Profile ===== */
+const CHURCH_TITLES=['성도','집사','안수집사','권사','장로'];
+const CHOIR_POSITIONS=['대장','총무','회계','서기','지휘자','부지휘자','오르간 반주자','피아노 반주자','파트장'];
+const PROFILE_PARTS=['Soprano','Alto','Tenor','Bass','해당없음'];
+
+function profilePositions(v){
+  if(Array.isArray(v))return v;
+  if(!v)return [];
+  return String(v).split(',').map(x=>x.trim()).filter(Boolean);
+}
+function profileInitial(){return (me?.name||'?').trim().slice(0,1)||'?'}
+async function loadPrivateProfile(){
+  try{
+    const {data,error}=await sb.from('profile_private').select('birth_date,address').eq('user_id',me.id).maybeSingle();
+    if(error)throw error;
+    return data||{birth_date:null,address:null};
+  }catch(e){
+    console.warn('private profile load failed',e);
+    return {birth_date:null,address:null};
+  }
+}
+async function profilePage(){
+  setBackAction(()=>go('more'));
+  const priv=await loadPrivateProfile();
+  const photoUrl=await signedProfilePhoto(me?.photo_path);
+  const pos=profilePositions(me?.choir_positions);
+  main.innerHTML=title('나의 프로필',`<button class="btn primary" onclick="editMyProfile()">수정</button>`)
+    +`<div class="profileHero">
+      <div class="profileAvatar">${photoUrl?`<img src="${esc(photoUrl)}" alt="${esc(me.name)}">`:esc(profileInitial())}</div>
+      <div class="profileMeta"><h3>${esc(me.name||'')}</h3>
+        <div class="muted">${esc(me.title||'')}${me.part?' · '+esc(partKo(me.part)):''}${pos.length?' · '+esc(pos.join(' · ')):''}</div>
+        ${me.bio?`<div style="margin-top:8px">${esc(me.bio)}</div>`:''}
+      </div>
+    </div>
+    <div class="profileGrid">
+      <div class="profileItem"><small>이름</small><b>${esc(me.name||'-')}</b></div>
+      <div class="profileItem"><small>교회 직분</small><b>${esc(me.title||'-')}</b></div>
+      <div class="profileItem"><small>전화번호</small><b>${esc(phoneDisplay(me.phone)||'-')}</b><div class="muted">${me.phone_public?'대원에게 공개':'대원에게 비공개'}</div></div>
+      <div class="profileItem"><small>전자메일</small><b>${esc(me.contact_email||'-')}</b><div class="muted">${me.email_public?'대원에게 공개':'대원에게 비공개'}</div></div>
+      <div class="profileItem"><small>파트</small><b>${esc(partKo(me.part)||me.part||'-')}</b></div>
+      <div class="profileItem"><small>찬양대 직위</small><b>${esc(pos.join(' · ')||'없음')}</b></div>
+      <div class="profileItem"><small>생년월일 <span class="privateBadge">🔒 비공개</span></small><b>${esc(priv.birth_date||'-')}</b></div>
+      <div class="profileItem"><small>주소 <span class="privateBadge">🔒 비공개</span></small><b>${esc(priv.address||'-')}</b></div>
+    </div>
+    <div class="card"><small class="muted">자기소개 · 30자 이내</small><div style="margin-top:7px">${esc(me.bio||'등록된 자기소개가 없습니다.')}</div></div>
+    <div class="privacyNote"><b>개인정보 안내</b><br>생년월일과 주소는 본인과 대원관리 권한자만 확인할 수 있습니다. 전화번호와 전자메일은 본인이 공개 여부를 선택합니다.</div>`;
+}
+
+function updateBioCount(){
+  const e=document.getElementById('pf_bio'),c=document.getElementById('pf_bio_count');
+  if(e&&c)c.textContent=`${e.value.length} / 30`;
+}
+async function editMyProfile(){
+  setBackAction(()=>profilePage());
+  const priv=await loadPrivateProfile();
+  const photoUrl=await signedProfilePhoto(me?.photo_path);
+  const pos=profilePositions(me?.choir_positions);
+  main.innerHTML=title('나의 프로필 수정')+`<div class="card">
+    <div class="field"><label>사진</label><div class="profilePhotoEdit">
+      <div id="pf_photo_preview" class="profilePhotoPreview">${photoUrl?`<img src="${esc(photoUrl)}" alt="${esc(me.name)}">`:esc(profileInitial())}</div>
+      <div><input id="pf_photo" type="file" accept="image/*" onchange="previewProfilePhoto(this)"><div class="muted" style="margin-top:6px">휴대전화 사진앨범 또는 카메라 사진을 선택할 수 있습니다.</div></div>
+    </div></div>
+    <div class="field"><label>이름</label><input id="pf_name" maxlength="30" value="${esc(me.name||'')}"></div>
+    <div class="field"><label>교회 직분</label><select id="pf_title">${CHURCH_TITLES.map(v=>`<option value="${v}" ${me.title===v?'selected':''}>${v}</option>`).join('')}</select></div>
+    <div class="field"><label>전화번호</label><input id="pf_phone" inputmode="tel" value="${esc(phoneDisplay(me.phone)||'')}"></div>
+    <div class="field"><label><input id="pf_phone_public" type="checkbox" ${me.phone_public?'checked':''}> 다른 대원에게 전화번호 공개</label></div>
+    <div class="field"><label>전자메일</label><input id="pf_email" type="email" value="${esc(me.contact_email||'')}" placeholder="name@example.com"></div>
+    <div class="field"><label><input id="pf_email_public" type="checkbox" ${me.email_public?'checked':''}> 다른 대원에게 전자메일 공개</label></div>
+    <div class="field"><label>파트</label><select id="pf_part">${PROFILE_PARTS.map(v=>`<option value="${v}" ${me.part===v?'selected':''}>${partKo(v)||v}</option>`).join('')}</select></div>
+    <div class="field"><label>생년월일 <span class="privateBadge">🔒 비공개</span></label><input id="pf_birth" type="date" value="${esc(priv.birth_date||'')}"></div>
+    <div class="field"><label>주소 <span class="privateBadge">🔒 비공개</span></label><input id="pf_address" maxlength="200" value="${esc(priv.address||'')}" placeholder="주소"></div>
+    <div class="field"><label>찬양대 직위 <span class="muted">(복수 선택 가능)</span></label><div class="multiChecks">${CHOIR_POSITIONS.map(v=>`<label><input class="pf_position" type="checkbox" value="${v}" ${pos.includes(v)?'checked':''}> ${v}</label>`).join('')}</div></div>
+    <div class="field"><label>자기소개 <span class="muted">(30자 이내)</span></label><input id="pf_bio" maxlength="30" value="${esc(me.bio||'')}" oninput="updateBioCount()"><div id="pf_bio_count" class="charCount">${String(me.bio||'').length} / 30</div></div>
+    <div class="privacyNote">생년월일과 주소는 비공개 개인정보로 별도 저장됩니다. 다른 일반 대원은 조회할 수 없습니다.</div>
+    <div class="actions"><button class="btn primary" onclick="saveMyProfile()">저장</button><button class="btn" onclick="profilePage()">취소</button></div>
+  </div>`;
+}
+function previewProfilePhoto(input){
+  const file=input.files?.[0];if(!file)return;
+  if(!file.type.startsWith('image/')){input.value='';return toast('사진 파일을 선택해 주세요.')}
+  const url=URL.createObjectURL(file);
+  const box=document.getElementById('pf_photo_preview');
+  if(box)box.innerHTML=`<img src="${url}" alt="사진 미리보기">`;
+}
+async function compressProfileImage(file,maxSize=700,quality=.82){
+  const bitmap=await createImageBitmap(file);
+  let w=bitmap.width,h=bitmap.height;
+  const scale=Math.min(1,maxSize/Math.max(w,h));w=Math.round(w*scale);h=Math.round(h*scale);
+  const canvas=document.createElement('canvas');canvas.width=w;canvas.height=h;
+  const ctx=canvas.getContext('2d');ctx.drawImage(bitmap,0,0,w,h);
+  if(bitmap.close)bitmap.close();
+  return await new Promise((resolve,reject)=>canvas.toBlob(b=>b?resolve(b):reject(new Error('사진 변환 실패')),'image/jpeg',quality));
+}
+async function uploadMyProfilePhoto(file){
+  const blob=await compressProfileImage(file);
+  const path=`${me.id}/avatar.jpg`;
+  const {error}=await sb.storage.from('profile-photos').upload(path,blob,{upsert:true,contentType:'image/jpeg',cacheControl:'3600'});
+  if(error)throw error;
+  return path;
+}
+async function saveMyProfile(){
+  const nameV=document.getElementById('pf_name')?.value.trim();
+  const phoneV=normalizePhone(document.getElementById('pf_phone')?.value||'');
+  const emailV=document.getElementById('pf_email')?.value.trim()||null;
+  const bioV=document.getElementById('pf_bio')?.value.trim()||null;
+  if(!nameV)return toast('이름을 입력해 주세요.');
+  if(phoneV && !/^010\d{8}$/.test(phoneV))return toast('휴대전화번호를 확인해 주세요.');
+  if(emailV && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailV))return toast('전자메일 형식을 확인해 주세요.');
+  if((bioV||'').length>30)return toast('자기소개는 30자 이내로 입력해 주세요.');
+  const positions=[...document.querySelectorAll('.pf_position:checked')].map(x=>x.value);
+  const photoFile=document.getElementById('pf_photo')?.files?.[0]||null;
+  let photoPath=me.photo_path||null;
+  try{
+    if(photoFile){toast('프로필 사진을 저장하고 있습니다.');photoPath=await uploadMyProfilePhoto(photoFile)}
+    const pub={
+      name:nameV,
+      title:document.getElementById('pf_title')?.value||null,
+      phone:phoneV||null,
+      contact_email:emailV,
+      phone_public:!!document.getElementById('pf_phone_public')?.checked,
+      email_public:!!document.getElementById('pf_email_public')?.checked,
+      part:document.getElementById('pf_part')?.value||null,
+      choir_positions:positions,
+      bio:bioV,
+      photo_path:photoPath,
+      updated_at:new Date().toISOString()
+    };
+    const {error:e1}=await sb.from('profiles').update(pub).eq('id',me.id);
+    if(e1)throw e1;
+    const priv={
+      user_id:me.id,
+      birth_date:document.getElementById('pf_birth')?.value||null,
+      address:document.getElementById('pf_address')?.value.trim()||null,
+      updated_at:new Date().toISOString()
+    };
+    const {error:e2}=await sb.from('profile_private').upsert(priv,{onConflict:'user_id'});
+    if(e2)throw e2;
+    me={...me,...pub};
+    toast('나의 프로필이 저장되었습니다.');
+    await profilePage();
+  }catch(e){toast('프로필 저장 실패: '+(e?.message||e))}
+}
+
+
 /* ===== V14-D3.14 iPhone / Android Web Push ===== */
 const VAPID_PUBLIC_KEY='BEgqVsK2gbb8qwMjTf4g2btEHzNT13T0C9_1ldpgsQ_oa7Vp85v-eZpwd63GBVek0AQFjH90VB6rk_2sJbDwd78';
 function urlBase64ToUint8Array(base64String){const padding='='.repeat((4-base64String.length%4)%4);const base64=(base64String+padding).replace(/-/g,'+').replace(/_/g,'/');const raw=atob(base64);return Uint8Array.from([...raw].map(c=>c.charCodeAt(0)))}
@@ -969,7 +1161,7 @@ function uiIcon(name,cls='uiIcon'){
  return `<svg class="${cls}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${paths[name]||paths.info}</svg>`;
 }
 function iconForTitle(t){
- const m={'찬양':'music','기도 순서':'pray','대원명단':'people','일정 · 행사':'calendar','찬양대 소개':'people','섬기는 분들':'people','공지사항':'bell','갤러리':'image','자료실':'folder','투표 · 설문':'check','봉사 · 할일':'task','더보기':'list','통합 관리센터':'gear','찬양 일정표':'calendar'};
+ const m={'찬양':'music','기도 순서':'pray','대원명단':'people','일정 · 행사':'calendar','찬양대 소개':'people','섬기는 분들':'people','공지사항':'bell','갤러리':'image','자료실':'folder','투표 · 설문':'check','봉사 · 할일':'task','더보기':'list','통합 관리센터':'gear','찬양 일정표':'calendar','나의 프로필':'people','나의 프로필 수정':'people'};
  return m[t]||'info';
 }
 
