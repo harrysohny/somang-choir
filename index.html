@@ -1091,7 +1091,7 @@ a.link{color:#1f6759}
 <meta property="og:url" content="https://harrysohny.github.io/somang-choir/">
 <meta property="og:image" content="https://harrysohny.github.io/somang-choir/assets/og-somang-choir.jpg">
 </head>
-<body><div class="app"><header><div class="head"><div class="brand brandPro"><img src="./assets/changdong-symbol.png" alt=""><div><span class="churchName">대한예수교장로회 창동교회</span><b>소망찬양대</b><small>SOMANG CHURCH CHOIR</small></div></div><div class="headerActions"><button id="notifyBell" class="notifyBell" style="display:none" onclick="go('notificationCenter')" aria-label="알림센터">🔔<span id="notifyBadge" class="notifyBadge" style="display:none">0</span></button><button id="headerBtn" class="topbtn" onclick="headerAction()">로그인</button></div></div></header><main id="main"></main><footer id="appFooter" class="appFooter"><div class="footerKr">대한예수교장로회 창동교회 소망찬양대</div><div class="footerEn">SOMANG CHURCH CHOIR <span class="footerDot">·</span> © 2026</div></footer></div><nav id="nav" style="display:none"><div class="navin"><button onclick="go('home')" data-page="home"><b>⌂</b>홈</button><button onclick="go('songs')" data-page="songs"><b>♫</b>찬양</button><button onclick="go('events')" data-page="events"><b>▣</b>일정</button><button onclick="go('my')" data-page="my"><b>♙</b>나의 소망</button><button onclick="go('more')" data-page="more"><b>☰</b>더보기</button></div></nav><div id="toast" class="toast"></div>
+<body><div class="app"><header><div class="head"><div class="brand brandPro"><img src="./assets/changdong-symbol.png" alt=""><div><span class="churchName">대한예수교장로회 창동교회</span><b>소망찬양대</b><small>SOMANG CHURCH CHOIR</small></div></div><div class="headerActions"><button id="notifyBell" class="notifyBell" style="display:none" onclick="go('notificationCenter')" aria-label="알림센터">🔔<span id="notifyBadge" class="notifyBadge" style="display:none">0</span></button><button id="headerBtn" class="topbtn" onclick="headerAction()">로그인</button></div></div></header><main id="main"></main><footer id="appFooter" class="appFooter"><div class="footerKr">대한예수교장로회 창동교회 소망찬양대</div><div class="footerEn">SOMANG CHURCH CHOIR <span class="footerDot">·</span> © 2026</div></footer></div><nav id="nav" style="display:none"><div class="navin"><button onclick="go('home')" data-page="home"><b>⌂</b>홈</button><button onclick="go('songs')" data-page="songs"><b>♫</b>찬양</button><button onclick="go('members')" data-page="members"><b>♙</b>대원</button><button onclick="go('my')" data-page="my"><b>♙</b>나의 소망</button><button onclick="go('more')" data-page="more"><b>☰</b>더보기</button></div></nav><div id="toast" class="toast"></div>
 <script>
 const SUPABASE_URL='https://chsfhwewskydnreodvvq.supabase.co';
 const SUPABASE_PUBLISHABLE_KEY='sb_publishable_MoLRdCftzWbvdGkWyeGoEg_My1j8-XB';
@@ -1141,10 +1141,106 @@ function showSignup(){const authBody=document.getElementById('authBody');if(!aut
 async function doLogin(){const p=normalizePhone(lphone.value),pw=lpw.value;if(p.length<10)return toast('휴대전화번호를 확인해 주세요.');const {error}=await sb.auth.signInWithPassword({email:aliasEmail(p),password:pw});if(error)toast('로그인 실패: '+error.message)}
 async function doSignup(){const p=normalizePhone(sphone.value),pw=spw.value;if(!sname.value.trim())return toast('이름을 입력해 주세요.');if(p.length<10)return toast('휴대전화번호를 확인해 주세요.');if(pw.length<6)return toast('비밀번호는 6자 이상입니다.');if(pw!==spw2.value)return toast('비밀번호가 서로 다릅니다.');const {error}=await sb.auth.signUp({email:aliasEmail(p),password:pw,options:{data:{name:sname.value.trim(),title:stitle.value.trim(),part:spart.value,phone:p}}});if(error)return toast('가입 실패: '+error.message);toast('가입 신청이 등록되었습니다.');setTimeout(()=>showLogin(),900)}
 function navActive(){document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===page))}
-
+async function go(p){page=p;navActive();main.innerHTML='<div class="empty">불러오는 중…</div>';const f={home:homePage,songs:songsPage,prayers:prayerPage,members:membersPage,more:morePage,notices:noticesPage,events:eventsPage,intro:introPage,leaders:leadersPage,gallery:galleryPage,documents:documentsPage,polls:pollsPage,tasks:tasksPage,profile:profilePage,notifications:notificationSettingsPage,admin:adminPage}[p];if(f)await f()}
 async function homePageBase(){const today=new Date().toISOString().slice(0,10),plus14=addDaysISO(today,14);const safe=async(q)=>{try{const r=await q;return r.error?[]:(r.data||[])}catch(e){return []}};const n=await safe(sb.from('notices').select('*').order('important',{ascending:false}).order('notice_date',{ascending:false}).limit(4));const u=await safe(sb.from('songs').select('*').gte('practice_date',today).order('practice_date').limit(3));const past=await safe(sb.from('songs').select('*').not('live_url','is',null).not('replay_date','is',null).lte('replay_date',today).order('replay_date',{ascending:false}).limit(1));const e=await safe(sb.from('events').select('*').gte('event_date',today).order('event_date').limit(3));const p=await safe(sb.from('prayer_assignments').select('*').gte('sunday_date',today).lte('sunday_date',plus14).order('sunday_date').limit(4));const myPhoto=await signedProfilePhoto(me?.photo_path);main.innerHTML=`<div class="hero"><div class="homeWelcome"><div class="homeWelcomePhoto" onclick="go('profile')" title="나의 프로필">${myPhoto?`<img src="${esc(myPhoto)}" alt="${esc(me.name)}">`:esc((me.name||'?').slice(0,1))}</div><div class="homeWelcomeText"><h1>${esc(me.name)} 님, 반갑습니다</h1><p>${esc(partKo(me.part)||me.part||'')} · ${esc(me.title||'대원')} · 함께 드리는 찬양</p><button class="homeWelcomeProfileBtn" onclick="go('profile')">나의 프로필 보기</button></div></div></div><div class="grid"><div class="card"><h3>최근 공지</h3>${n.map(x=>`<div style="margin:9px 0"><span class="tag ${x.important?'important':''}">${esc(x.scope)}</span> <b>${esc(x.title)}</b><div class="muted">${fmt(x.notice_date)}</div></div>`).join('')||'<div class="muted">등록된 공지가 없습니다.</div>'}</div><div class="card"><h3>다가오는 연습 찬양곡</h3>${u.map(x=>`<div style="margin:9px 0"><b>${fmt(x.practice_date)} · ${esc(x.title)}</b><div class="muted">${esc(categoryDisplay(x.category))}</div><div class="actions">${linkBtn(x.full_url,'전체 합창')}${me.part==='Soprano'?linkBtn(x.soprano_url,'내 파트'):me.part==='Alto'?linkBtn(x.alto_url,'내 파트'):me.part==='Tenor'?linkBtn(x.tenor_url,'내 파트'):me.part==='Bass'?linkBtn(x.bass_url,'내 파트'):''}</div></div>`).join('')||'<div class="muted">다가오는 연습곡이 없습니다.</div>'}</div><div class="card"><h3>찬양곡 다시보기</h3>${past.map(x=>`<div style="margin:9px 0"><b>${x.replay_date?fmt(x.replay_date)+' · ':''}${esc(x.title)}</b><div class="actions">${linkBtn(x.live_url,'다시보기')}</div></div>`).join('')||'<div class="muted">등록된 다시보기 영상이 없습니다.</div>'}</div><div class="card"><h3>다가오는 2주 기도 순서</h3>${p.map(x=>`<div style="margin:10px 0"><b>목요일 ${fmt(x.thursday_date)}</b><div class="muted">시작 ${esc(x.thursday_start||'-')} · 마침 ${esc(x.thursday_end||'-')}</div><b>일요일 ${fmt(x.sunday_date)}</b><div class="muted">시작 ${esc(x.sunday_start||'-')} · 마침 ${esc(x.sunday_end||'-')}</div></div>`).join('')||'<div class="muted">2주 이내 등록된 기도 순서이 없습니다.</div>'}</div><div class="card"><h3>다가오는 일정</h3>${e.map(x=>`<div style="margin:8px 0"><b>${fmt(x.event_date)} ${esc(x.title)}</b></div>`).join('')||'<div class="muted">등록된 일정이 없습니다.</div>'}</div></div>`}
+async function noticesPage(){const {data}=await sb.from('notices').select('*').order('notice_date',{ascending:false});main.innerHTML=title('공지사항')+list((data||[]).map(x=>`<div class="row"><div class="rowhead"><div><span class="tag ${x.important?'important':''}">${esc(x.scope)}</span> <b>${esc(x.title)}</b></div><span class="muted">${fmt(x.notice_date)}</span></div><div style="margin-top:8px">${esc(x.body||'').replace(/\n/g,'<br>')}</div></div>`))}
 
 
+async function homePage(){
+  await homePageBase();
+
+  // V14-D3.1 icon layer for existing home cards.
+  try{
+    const homeIconMap={
+      '최근 공지':'bell',
+      '다가오는 연습 찬양곡':'music',
+      '찬양곡 다시보기':'play',
+      '다가오는 2주 기도 순서':'pray',
+      '다가오는 일정':'calendar'
+    };
+    [...main.querySelectorAll('.grid > .card h3')].forEach(h=>{
+      const n=homeIconMap[h.textContent.trim()];
+      if(n && !h.parentElement.querySelector('.cardLeadIcon')){
+        h.insertAdjacentHTML('beforebegin',`<span class="cardLeadIcon">${uiIcon(n)}</span>`);
+      }
+    });
+  }catch(e){console.warn('V14-D3.1 home icons skipped',e)}
+
+  // V14-D3.1 confirmed layout: fill the empty grid slot beside '다가오는 일정'.
+  try{
+    const cards=[...main.querySelectorAll('.grid > .card')];
+    const eventCard=cards.find(c=>c.querySelector('h3')?.textContent.trim()==='다가오는 일정');
+    if(eventCard){
+      const introCard=document.createElement('div');
+      introCard.className='card choirIntroCompact';
+      introCard.innerHTML=`<span class="cardLeadIcon">${uiIcon('people')}</span><h3>소망찬양대 소개</h3>
+        <p class="muted">찬양대 소개와 섬기는 분들을 확인해 보세요.</p>
+        <div class="introActions">
+          <button class="btn iconBtn" onclick="go('intro')">${uiIcon('file')}<span>찬양대 소개 보기</span></button>
+          <button class="btn iconBtn" onclick="go('leaders')">${uiIcon('people')}<span>섬기는 분들 보기</span></button>
+        </div>`;
+      eventCard.insertAdjacentElement('afterend',introCard);
+    }
+  }catch(e){console.warn('V14-D3.1 intro card skipped',e)}
+
+  // V14-B2: append only two non-duplicated personal cards.
+  try{
+    const today=new Date().toISOString().slice(0,10);
+    const plus30=addDaysISO(today,30);
+
+    const [sr,pr]=await Promise.all([
+      sb.from('song_schedule').select('*').gte('service_date',today).order('service_date',{ascending:true}).limit(1),
+      sb.from('prayer_assignments').select('*').limit(60)
+    ]);
+
+    const nextSong=sr.error?null:(sr.data||[])[0];
+
+    // Flexible personal matching:
+    // old data may contain "손형락", while newer data may contain "테너 손형락 집사".
+    const myName=(me?.name||'').trim();
+    const containsMe=v=>!!(myName && String(v||'').includes(myName));
+    let mine=[];
+    if(!pr.error){
+      (pr.data||[]).forEach(x=>{
+        if(x.thursday_date>=today && x.thursday_date<=plus30){
+          if(containsMe(x.thursday_start)) mine.push({date:x.thursday_date,when:'목요일 연습',role:'시작기도'});
+          if(containsMe(x.thursday_end)) mine.push({date:x.thursday_date,when:'목요일 연습',role:'마침기도'});
+        }
+        if(x.sunday_date>=today && x.sunday_date<=plus30){
+          if(containsMe(x.sunday_start)) mine.push({date:x.sunday_date,when:'일요일 연습',role:'시작기도'});
+          if(containsMe(x.sunday_end)) mine.push({date:x.sunday_date,when:'일요일 연습',role:'마침기도'});
+        }
+      });
+      mine.sort((a,b)=>a.date.localeCompare(b.date));
+    }
+
+    const box=document.createElement('section');
+    box.className='v14bHome';
+    box.innerHTML=`<div class="v14bHead"><b>나의 소망찬양대</b><span>앞으로의 주요 일정</span></div>
+      <div class="v14bGrid v14bGrid2">
+        <div class="v14bCard">
+          <div class="personalHead"><span class="cardLeadIcon small">${uiIcon('music')}</span><div class="v14bLabel">다가오는 찬양</div></div>
+          ${nextSong?`<b>${esc(nextSong.title||'')}</b><div class="muted">${fmt(nextSong.service_date)}${nextSong.song_book?' · '+esc(nextSong.song_book):''}${nextSong.song_page?' · '+nextSong.song_page+'쪽':''}</div>`:'<div class="muted">등록된 향후 찬양 일정이 없습니다.</div>'}
+          <button class="btn iconBtn" onclick="songSchedulePage()">${uiIcon('calendar')}<span>찬양 일정표</span></button>
+        </div>
+        <div class="v14bCard ${mine[0]?'v14bPrayer':''}">
+          <div class="personalHead"><span class="cardLeadIcon small">${uiIcon('pray')}</span><div class="v14bLabel">나의 기도 순서</div></div>
+          ${mine[0]?`<b>${fmt(mine[0].date)} · ${esc(mine[0].when)}</b><div class="muted">${esc(mine[0].role)} · ${esc(myName)}</div>`:'<div class="muted">한 달 이내 나의 기도 순서가 없습니다.</div>'}
+          <button class="btn iconBtn" onclick="go('prayers')">${uiIcon('list')}<span>기도 순서 보기</span></button>
+        </div>
+      </div>`;
+    main.appendChild(box);
+
+  }catch(e){
+    console.warn('V14-B2 home cards skipped',e);
+  }
+  try{
+    if(main && !main.querySelector('.appFooter')){
+      main.insertAdjacentHTML('beforeend',appFooter());
+    }
+  }catch(e){}
+
+}
 async function songsPage(){const [{data:practice},{data:replay}]=await Promise.all([sb.from('songs').select('*').not('practice_date','is',null).order('practice_date',{ascending:false}).limit(100),sb.from('songs').select('*').not('replay_date','is',null).order('replay_date',{ascending:false}).limit(100)]);const a=(practice||[]).map(x=>`<div class="row"><b>${fmt(x.practice_date)} · ${esc(x.title)}</b><div class="muted">${esc(categoryDisplay(x.category))}</div><div class="actions">${linkBtn(x.full_url,'전체 합창')}${linkBtn(x.soprano_url,'Soprano')}${linkBtn(x.alto_url,'Alto')}${linkBtn(x.tenor_url,'Tenor')}${linkBtn(x.bass_url,'Bass')}</div></div>`);const b=(replay||[]).map(x=>`<div class="row"><b>${fmt(x.replay_date)} · ${esc(x.title)}</b><div class="actions">${linkBtn(x.live_url,'다시보기')}</div></div>`);main.innerHTML=title('찬양')+`<h3>연습 찬양곡</h3>${list(a)}<h3 style="margin-top:24px">찬양곡 다시보기</h3>${list(b)}`}
 function youtubeId(url){
   try{
@@ -1464,6 +1560,7 @@ async function deleteSongSchedule(id){
   manageSongSchedule();
 }
 
+function morePage(){const admin=me.role==='superadmin'||Object.keys(PERM_LABELS).some(can)||canAnySong();main.innerHTML=title('더보기')+`<div class="grid"><button class="adminTile iconTile" onclick="go('profile')"><span class="tileIcon">${uiIcon('people')}</span><b>나의 프로필</b><span class="muted">사진 · 연락처 · 직분 · 자기소개</span></button><button class="adminTile iconTile" onclick="songSchedulePage()"><span class="tileIcon">${uiIcon('calendar')}</span><b>찬양 일정표</b><span class="muted">날짜 · 곡명 · 찬양집 · 페이지 · 비고</span></button><button class="adminTile iconTile" onclick="go('notices')"><span class="tileIcon">${uiIcon('bell')}</span><b>공지사항</b><span class="muted">전체/파트 공지</span></button><button class="adminTile iconTile" onclick="go('events')"><span class="tileIcon">${uiIcon('calendar')}</span><b>일정 · 행사</b><span class="muted">연습·행사 일정</span></button><button class="adminTile iconTile" onclick="go('intro')"><span class="tileIcon">${uiIcon('people')}</span><b>찬양대 소개</b><span class="muted">소개·역사·비전</span></button><button class="adminTile iconTile" onclick="go('leaders')"><span class="tileIcon">${uiIcon('people')}</span><b>섬기는 분들</b><span class="muted">대장·지휘자·반주·총무 등</span></button><button class="adminTile iconTile" onclick="go('gallery')"><span class="tileIcon">${uiIcon('image')}</span><b>갤러리</b><span class="muted">행사·절기·연습 사진</span></button><button class="adminTile iconTile" onclick="go('documents')"><span class="tileIcon">${uiIcon('folder')}</span><b>자료실</b><span class="muted">문서·링크</span></button><button class="adminTile iconTile" onclick="go('polls')"><span class="tileIcon">${uiIcon('check')}</span><b>투표 · 설문</b><span class="muted">대원 의견 수렴</span></button><button class="adminTile iconTile" onclick="go('tasks')"><span class="tileIcon">${uiIcon('task')}</span><b>봉사 · 할일</b><span class="muted">업무·봉사 배정</span></button>${admin?`<button class="adminTile iconTile" onclick="go('admin')"><span class="tileIcon">${uiIcon('gear')}</span><b>관리센터</b><span class="muted">가입 승인 및 콘텐츠 관리</span></button>`:''}</div>`}
 function adminTileIcon(p){
  const m={
   members:'people',notices:'bell',practiceSongs:'music',replaySongs:'play',
@@ -1473,7 +1570,7 @@ function adminTileIcon(p){
  };
  return m[p]||'gear';
 }
-
+async function adminPage(){setBackAction(()=>go('more'));let tiles=[['members','가입 승인/대원'],['notices','공지'],['prayers','기도 순서'],['events','일정·행사'],['intro','찬양대 소개'],['leaders','섬기는 분들'],['gallery','갤러리'],['documents','자료실'],['polls','투표·설문'],['tasks','봉사·할일'],['permissions','권한 부여']].filter(([p])=>can(p));if(canSongBase()||['song_soprano','song_alto','song_tenor','song_bass'].some(can))tiles.splice(2,0,['practiceSongs','연습 찬양곡 등록']);if(canSongReplay())tiles.splice(3,0,['replaySongs','찬양곡 다시보기 등록']);if(can('songs'))tiles.splice(4,0,['songSchedule','찬양 일정표 관리']);main.innerHTML=title('통합 관리센터')+`<div class="adminGrid">${tiles.map(([p,l])=>`<button class="adminTile iconTile" onclick="${p==='practiceSongs'?'managePracticeSongs()':p==='replaySongs'?'manageReplaySongs()':p==='songSchedule'?'manageSongSchedule()':`manage('${p}')`}"><span class="tileIcon">${uiIcon(adminTileIcon(p))}</span><b>${l}</b><span class="muted">${p==='practiceSongs'?'다가오는 찬양 연습영상':p==='replaySongs'?'지난 찬양 실제영상':p==='songSchedule'?'날짜 · 곡명 · 찬양집 · 페이지 · 비고':'등록 · 수정 · 삭제'}</span></button>`).join('')}</div><p class="muted" style="margin-top:18px">모든 운영 데이터 입력은 이 관리센터에서 처리합니다. 출석/회계 기능은 포함하지 않습니다.</p>`}
 async function manage(type){setBackAction(()=>adminPage());if(type==='members')return manageMembers();if(type==='permissions')return managePermissions();if(type==='intro')return editIntro();if(type==='leaders')return manageLeaders();if(type==='songs')return manageSongs();if(type==='gallery')return manageGallery();const map={notices:'notices',prayers:'prayer_assignments',events:'events',leaders:'leaders',gallery:'gallery',documents:'documents',polls:'polls',tasks:'tasks'};const table=map[type];if(!table)return;const {data}=await sb.from(table).select('*').order('created_at',{ascending:false}).limit(100);main.innerHTML=title('관리 · '+(PERM_LABELS[type]||type),`<button class="btn primary adminCreateBtn" onclick="addRecord('${type}')">+ 새로 등록</button>`)+list((data||[]).map(x=>`<div class="row"><b>${esc(recordTitle(type,x))}</b><div class="muted">${esc(recordSub(type,x))}</div><div class="actions"><button class="btn" onclick='editRecord(${JSON.stringify(type)},${JSON.stringify(x)})'>수정</button><button class="btn danger" onclick="deleteRecord('${type}','${x.id}')">삭제</button></div></div>`))}
 
 async function manageLeaders(){setBackAction(()=>adminPage());const {data,error}=await sb.from('leaders').select('*').order('sort_order');if(error)return toast(error.message);main.innerHTML=title('관리 · 섬기는 분들',`<button class="btn primary adminCreateBtn" onclick="addRecord('leaders')">역할 지정</button>`)+`<p class="muted">역할은 고정되어 있으며 대원명단에서 사람을 선택해 지정합니다.</p>`+list((data||[]).map(x=>`<div class="row"><b>${esc(x.role_name||'-')} · ${esc(x.name||'미지정')}</b><div class="actions"><button class="btn" onclick='editRecord("leaders",${JSON.stringify(x)})'>수정</button><button class="btn danger" onclick="deleteRecord('leaders','${x.id}')">삭제</button></div></div>`))}
@@ -1895,7 +1992,7 @@ async function homePage(){
   <div class="weeklyMini"><span>📅 다음 일정</span>${nextEvent?`<b>${friendlyDate(nextEvent.event_date)} · ${esc(nextEvent.title)}</b><small>${weekdayKR(nextEvent.event_date)}</small>`:'<b>등록된 일정 없음</b>'}</div>
  </section>
  <div class="homeSectionTitle"><b>📢 새로운 공지</b><span>${newCount?`<strong>${newCount}</strong>건 안 읽음`:''}</span></div><div class="card compactCard">${visibleNotices.map(x=>`<button class="noticePreview" onclick="openNotice('${x.id}')"><span class="newDot ${readSet.has(x.id)?'read':''}"></span><span><b>${esc(x.title)}</b><small>${fmt(x.notice_date)} · ${esc(x.scope)}</small></span>${readSet.has(x.id)?'':'<em>NEW</em>'}</button>`).join('')||'<div class="muted">등록된 공지가 없습니다.</div>'}<button class="textLink" onclick="go('notices')">전체 공지 보기 ›</button></div>
- <div class="homeTwo"><div class="card"><h3>▶ 지난 주 찬양 다시보기</h3>${replays[0]?`<b>${esc(replays[0].title)}</b><div class="muted">${fmt(replays[0].replay_date)}</div><div class="actions">${linkBtn(replays[0].live_url,'영상 보기')}</div>`:'<div class="muted">등록된 영상이 없습니다.</div>'}</div><div class="card"><h3>🙏 다가오는 기도 순서</h3>${prayers.filter(x=>x.sunday_date>=today&&x.sunday_date<=plus14).slice(0,2).map(x=>`<div class="mutedBlock"><b>${fmt(x.sunday_date)} 일요일</b><span>시작 ${esc(x.sunday_start||'-')} · 마침 ${esc(x.sunday_end||'-')}</span></div>`).join('')||'<div class="muted">2주 이내 일정이 없습니다.</div>'}</div></div>`;
+ <div class="homeTwo"><div class="card"><h3>▶ 지난 주 찬양 다시보기</h3>${replays[0]?`<b>${esc(replays[0].title)}</b><div class="muted">${fmt(replays[0].replay_date)}</div><div class="actions">${linkBtn(replays[0].live_url,'영상 보기')}</div>`:'<div class="muted">등록된 영상이 없습니다.</div>'}</div><div class="card"><h3>🎼 찬양일정표</h3>${schedules.slice(0,2).map(x=>`<div class="mutedBlock"><b>${fmt(x.service_date)} · ${esc(x.title||'')}</b><span>${esc(x.song_book||'')}${x.song_page?' · '+x.song_page+'쪽':''}</span></div>`).join('')||'<div class="muted">등록된 향후 찬양 일정이 없습니다.</div>'}<div class="actions"><button class="btn" onclick="songSchedulePage()">찬양일정표 보기</button></div></div></div>`;
  await refreshNotificationBadge();
 }
 
