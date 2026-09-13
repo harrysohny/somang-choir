@@ -951,6 +951,128 @@ a.link{color:#1f6759}
   }
 }
 
+
+/* =========================================================
+   V16.3 FINAL POLISH
+   Footer / Empty State / Title / Button consistency
+   ========================================================= */
+.appFooter{
+  margin:34px auto 14px;
+  padding:18px 12px 8px;
+  text-align:center;
+  color:#9aa3a0;
+  font-size:11px;
+  line-height:1.55;
+  letter-spacing:.015em;
+}
+.appFooter .footerKr{
+  font-weight:650;
+  color:#929c98;
+}
+.appFooter .footerEn{
+  margin-top:2px;
+  font-size:10px;
+  letter-spacing:.08em;
+  font-weight:650;
+  color:#a5aeab;
+}
+.appFooter .footerDot{
+  display:inline-block;
+  padding:0 4px;
+}
+.pageTitleWrap{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  min-width:0;
+}
+.pageTitleWrap .pageTitleIcon{
+  flex:none;
+}
+.pageTitleWrap h2{
+  margin:0;
+  line-height:1.2;
+}
+.sectiontitle{
+  padding-bottom:12px;
+  margin-bottom:16px;
+}
+.emptyState{
+  max-width:520px;
+  margin:42px auto;
+  padding:34px 22px;
+  text-align:center;
+  border:1px dashed #d7e2de;
+  border-radius:18px;
+  background:rgba(255,255,255,.62);
+}
+.emptyStateIcon{
+  width:46px;
+  height:46px;
+  margin:0 auto 12px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:50%;
+  background:#edf4f1;
+  color:#6f8b83;
+  font-size:21px;
+}
+.emptyStateTitle{
+  color:#4f5f5a;
+  font-size:15px;
+  font-weight:800;
+}
+.emptyStateText{
+  margin-top:6px;
+  color:#8a9692;
+  font-size:12.5px;
+  line-height:1.55;
+}
+.emptyState .btn{
+  margin-top:14px;
+}
+.btn,
+.topbtn,
+.backBtn{
+  font-weight:800;
+}
+.btn.primary,
+.adminCreateBtn{
+  background:linear-gradient(180deg,#2c6e61,#225c51);
+  border-color:#225c51;
+  color:#fff;
+}
+.btn:not(.primary):not(.danger):not(.ok){
+  background:#f4f6f5;
+  border-color:#dfe6e3;
+  color:#34453f;
+}
+.btn.danger{
+  background:#fff5f4;
+  border-color:#f0d7d4;
+  color:#a62a20;
+}
+.btn.ok{
+  background:#edf8f2;
+  border-color:#d9ebdf;
+  color:#17643f;
+}
+@media(max-width:720px){
+  .appFooter{
+    margin-top:26px;
+    padding-top:14px;
+    font-size:10px;
+  }
+  .appFooter .footerEn{
+    font-size:9.5px;
+  }
+  .emptyState{
+    margin:30px auto;
+    padding:28px 18px;
+  }
+}
+
 </style>
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="apple-touch-icon" href="./assets/apple-touch-icon.png">
@@ -1104,6 +1226,12 @@ async function homePage(){
   }catch(e){
     console.warn('V14-B2 home cards skipped',e);
   }
+  try{
+    if(main && !main.querySelector('.appFooter')){
+      main.insertAdjacentHTML('beforeend',appFooter());
+    }
+  }catch(e){}
+
 }
 async function songsPage(){const [{data:practice},{data:replay}]=await Promise.all([sb.from('songs').select('*').not('practice_date','is',null).order('practice_date',{ascending:false}).limit(100),sb.from('songs').select('*').not('replay_date','is',null).order('replay_date',{ascending:false}).limit(100)]);const a=(practice||[]).map(x=>`<div class="row"><b>${fmt(x.practice_date)} · ${esc(x.title)}</b><div class="muted">${esc(categoryDisplay(x.category))}</div><div class="actions">${linkBtn(x.full_url,'전체 합창')}${linkBtn(x.soprano_url,'Soprano')}${linkBtn(x.alto_url,'Alto')}${linkBtn(x.tenor_url,'Tenor')}${linkBtn(x.bass_url,'Bass')}</div></div>`);const b=(replay||[]).map(x=>`<div class="row"><b>${fmt(x.replay_date)} · ${esc(x.title)}</b><div class="actions">${linkBtn(x.live_url,'다시보기')}</div></div>`);main.innerHTML=title('찬양')+`<h3>연습 찬양곡</h3>${list(a)}<h3 style="margin-top:24px">찬양곡 다시보기</h3>${list(b)}`}
 function youtubeId(url){
@@ -1827,8 +1955,16 @@ function iconForTitle(t){
  return m[t]||'info';
 }
 
+
+function appFooter(){
+  return `<footer class="appFooter">
+    <div class="footerKr">대한예수교장로회 창동교회 소망찬양대</div>
+    <div class="footerEn">SOMANG CHURCH CHOIR <span class="footerDot">·</span> © 2026</div>
+  </footer>`;
+}
+
 function title(t,right='',showBack=true){return `<div class="sectiontitle"><div class="sectiontitleLeft">${showBack?`<button class="backBtn" type="button" onclick="smartBack()">← 이전</button>`:''}<span class="pageTitleIcon">${uiIcon(iconForTitle(t))}</span><h2>${esc(t)}</h2></div><div>${right}</div></div>`}
-function list(a){return `<div class="list">${a.join('')||'<div class="empty">등록된 내용이 없습니다.</div>'}</div>`}
+function list(a){return `<div class="list">${a.join('')||'<div class="emptyState"><div class="emptyStateIcon">○</div><div class="emptyStateTitle">등록된 내용이 없습니다.</div><div class="emptyStateText">새로운 내용을 등록하면 이곳에 표시됩니다.</div></div>'}</div>`}
 init();
 </script><div id="ytModal" class="ytModal" aria-hidden="true">
   <div class="ytBox" role="dialog" aria-modal="true" aria-labelledby="ytModalTitle">
