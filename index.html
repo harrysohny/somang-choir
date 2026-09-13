@@ -385,6 +385,31 @@ main{padding-bottom:92px}
   .homeWelcomeText h1{font-size:22px}
 }
 
+
+/* V15.2 Member directory: searchable list */
+.memberDirectoryHead{display:flex;gap:10px;align-items:center;margin:0 0 12px}
+.memberSearchWrap{position:relative;flex:1}
+.memberSearch{width:100%;box-sizing:border-box;border:1px solid var(--line);border-radius:12px;padding:12px 38px 12px 14px;background:#fff;font-size:15px;outline:none}
+.memberSearch:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(46,111,91,.10)}
+.memberSearchIcon{position:absolute;right:13px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:17px;pointer-events:none}
+.memberCount{flex:none;white-space:nowrap;font-size:13px;color:var(--muted);font-weight:700}
+.memberList{display:flex;flex-direction:column;gap:8px}
+.memberListItem{display:grid;grid-template-columns:58px minmax(0,1fr) auto;align-items:center;gap:12px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:10px 12px}
+.memberListPhoto{width:54px;height:54px;border-radius:50%;overflow:hidden;background:#eef3f1;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:20px;color:var(--brand);border:1px solid #e3e9e6}
+.memberListPhoto img{width:100%;height:100%;object-fit:cover}
+.memberListMain{min-width:0}
+.memberListName{font-size:17px;font-weight:900;line-height:1.25}
+.memberListMeta{margin-top:5px;color:var(--muted);font-size:13px;display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.memberPartBadge{display:inline-flex;align-items:center;justify-content:center;min-width:54px;border-radius:999px;padding:5px 9px;background:#f2f7f5;color:var(--brand);font-size:12px;font-weight:800}
+.memberListEmpty{text-align:center;padding:34px 12px;color:var(--muted);background:#fff;border:1px dashed var(--line);border-radius:14px}
+@media(max-width:520px){
+  .memberDirectoryHead{align-items:stretch;flex-direction:column}
+  .memberCount{padding-left:2px}
+  .memberListItem{grid-template-columns:52px minmax(0,1fr)}
+  .memberListPhoto{width:48px;height:48px}
+  .memberPartBadge{grid-column:2;justify-self:start;margin-top:-2px}
+}
+
 </style>
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="apple-touch-icon" href="./assets/apple-touch-icon.png">
@@ -599,22 +624,55 @@ async function signedProfilePhoto(path,expires=3600){
 }
 async function membersPage(){
   const {data,error}=await sb.from('profiles')
-    .select('id,name,title,part,phone,role,status,contact_email,phone_public,email_public,photo_path,choir_positions,bio')
+    .select('id,name,title,part,photo_path')
     .eq('status','approved').order('part').order('name');
   if(error)return toast(error.message);
+
   const rows=[];
   for(const x of (data||[])){
     rows.push({...x,photo_url:await signedProfilePhoto(x.photo_path)});
   }
-  main.innerHTML=title('대원명단')+`<div class="membergrid">${rows.map(x=>`<div class="member">
-    <div class="profilePhotoPreview" style="width:62px;height:62px;margin-bottom:10px">${x.photo_url?`<img src="${esc(x.photo_url)}" alt="${esc(x.name)}">`:esc((x.name||'?').slice(0,1))}</div>
-    <div class="name">${esc(x.name)}</div>
-    <span class="tag">${esc(partKo(x.part)||'-')}</span>
-    <div class="muted" style="margin-top:7px">${esc(x.title||'대원')}${Array.isArray(x.choir_positions)&&x.choir_positions.length?' · '+esc(x.choir_positions.join(' · ')):''}</div>
-    ${x.bio?`<div style="margin-top:8px">${esc(x.bio)}</div>`:''}
-    ${x.phone_public&&x.phone?`<div style="margin-top:8px">${esc(phoneDisplay(x.phone))}</div>`:''}
-    ${x.email_public&&x.contact_email?`<div class="muted" style="margin-top:4px">${esc(x.contact_email)}</div>`:''}
-  </div>`).join('')||'<div class="empty">대원이 없습니다.</div>'}</div>`;
+
+  window._memberDirectoryRows=rows;
+  main.innerHTML=title('전체 대원 현황')+`
+    <div class="memberDirectoryHead">
+      <div class="memberSearchWrap">
+        <input id="memberSearch" class="memberSearch" type="search" inputmode="search"
+          placeholder="이름으로 대원 찾기" autocomplete="off"
+          oninput="filterMemberDirectory(this.value)">
+        <span class="memberSearchIcon">⌕</span>
+      </div>
+      <div id="memberCount" class="memberCount">전체 ${rows.length}명</div>
+    </div>
+    <div id="memberList" class="memberList"></div>`;
+  renderMemberDirectory(rows,'');
+}
+
+function renderMemberDirectory(rows,query=''){
+  const listEl=document.getElementById('memberList');
+  const countEl=document.getElementById('memberCount');
+  if(!listEl)return;
+  const q=String(query||'').trim().toLowerCase();
+  const filtered=(rows||[]).filter(x=>!q||String(x.name||'').toLowerCase().includes(q));
+  if(countEl)countEl.textContent=q?`검색 ${filtered.length}명 / 전체 ${(rows||[]).length}명`:`전체 ${(rows||[]).length}명`;
+
+  listEl.innerHTML=filtered.length?filtered.map(x=>`
+    <div class="memberListItem">
+      <div class="memberListPhoto">
+        ${x.photo_url?`<img src="${esc(x.photo_url)}" alt="${esc(x.name)}">`:esc((x.name||'?').slice(0,1))}
+      </div>
+      <div class="memberListMain">
+        <div class="memberListName">${esc(x.name||'')}</div>
+        <div class="memberListMeta">
+          <span>${esc(x.title||'성도')}</span>
+        </div>
+      </div>
+      <div class="memberPartBadge">${esc(partKo(x.part)||'-')}</div>
+    </div>`).join(''):`<div class="memberListEmpty">${q?'검색 결과가 없습니다.':'등록된 대원이 없습니다.'}</div>`;
+}
+
+function filterMemberDirectory(value){
+  renderMemberDirectory(window._memberDirectoryRows||[],value);
 }
 async function eventsPage(){const today=new Date().toISOString().slice(0,10),plus30=addDaysISO(today,30);const [{data:ev,error},{data:prs}]=await Promise.all([sb.from('events').select('*').order('event_date',{ascending:true}),sb.from('prayer_assignments').select('*').gte('sunday_date',today).lte('sunday_date',plus30).order('sunday_date')]);if(error)throw error;const mine=(prs||[]).flatMap(prayerRolesForMe).filter(x=>x.date&&x.date>=today&&x.date<=plus30).sort((a,b)=>a.date.localeCompare(b.date));main.innerHTML=title('일정 · 행사')+`<div class="card"><h3>내 기도 일정 · 한 달 전부터</h3>${mine.map(x=>`<div style="margin:8px 0"><b>${fmt(x.date)} · ${esc(x.when)} ${esc(x.role)}</b><div class="muted">${esc(myPrayerLabel())}</div></div>`).join('')||'<div class="muted">앞으로 한 달 이내 배정된 기도 일정이 없습니다.</div>'}</div>`+list((ev||[]).map(x=>`<div class="row"><b>${fmt(x.event_date)} · ${esc(x.title)}</b><div class="muted">${esc(x.place||'')}</div><div>${esc(x.description||'')}</div></div>`))}
 async function introPage(){const {data}=await sb.from('choir_intro').select('*').eq('id',1).single();main.innerHTML=title('찬양대 소개')+`<div class="introPhoto"><img src="./assets/choir-group.jpg" alt="소망찬양대 단체사진"></div><div class="card"><h3>${esc(data?.name||'소망 찬양대')} <span class="muted">${esc(data?.english_name||'')}</span></h3><p>${esc(data?.description||'')}</p><p><b>예배</b><br>${esc(data?.service||'')}</p><p><b>연습</b><br>${esc(data?.rehearsal||'')}</p><p><b>역사</b><br>${esc(data?.history||'')}</p><p><b>비전</b><br>${esc(data?.vision||'')}</p></div>`}
