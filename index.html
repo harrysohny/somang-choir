@@ -1175,6 +1175,23 @@ a.link{color:#1f6759}
  .weeklyMain,.weeklyMiniGreen{min-height:auto!important}
 }
 
+
+/* 2026-09-14 Prayer page two-column refinement — GUI only */
+.prayerWeekGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.prayerDayCard{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:0 4px 16px rgba(31,52,47,.04)}
+.prayerDayHead{display:flex;align-items:center;justify-content:space-between;gap:10px;padding-bottom:11px;margin-bottom:10px;border-bottom:1px solid #e7ece9}
+.prayerDayHead b{font-size:16px;color:var(--brand)}
+.prayerDayDate{font-size:13px;color:var(--muted);white-space:nowrap}
+.prayerRoleLine{display:grid;grid-template-columns:76px minmax(0,1fr);gap:10px;align-items:center;padding:9px 0}
+.prayerRoleLine+.prayerRoleLine{border-top:1px dashed #e7ece9}
+.prayerRoleLabel{font-size:13px;color:var(--muted);font-weight:700}
+.prayerRoleName{font-size:15px;font-weight:850;min-width:0;word-break:keep-all}
+.prayerWeekBlock{margin-bottom:12px}
+@media(max-width:640px){
+ .prayerWeekGrid{grid-template-columns:1fr}
+ .prayerDayCard{padding:15px}
+}
+
 </style>
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="apple-touch-icon" href="./assets/apple-touch-icon.png">
@@ -1288,7 +1305,24 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeYouTube
 function openYouTubeSearch(part=''){saveSongDraft();localStorage.setItem(SONG_YT_RETURN_KEY,String(Date.now()));const title=document.getElementById('f_title')?.value?.trim()||window._editObj?.title||'합창 연습';const q=[title,part,'찬양'].filter(Boolean).join(' ');window.open('https://www.youtube.com/results?search_query='+encodeURIComponent(q),'somangYoutubeSearch','popup=yes,width=920,height=760,resizable=yes,scrollbars=yes')}
 async function pasteClipboardTo(id){try{const text=await navigator.clipboard.readText();const e=document.getElementById(id);if(e){e.value=text.trim();e.dispatchEvent(new Event('input',{bubbles:true}))}}catch(err){toast('자동 붙여넣기가 제한되었습니다. ⌘V로 붙여넣어 주세요.')}}
 function linkBtn(u,t){return u?`<button class="btn ytPlayBtn iconBtn" type="button" data-yt-url="${esc(u)}" data-yt-title="${esc(t)}">${uiIcon('play')}<span>${esc(t)}</span></button>`:''}
-async function prayerPage(){const {data,error}=await sb.from('prayer_assignments').select('*').order('sunday_date',{ascending:false}).limit(24);if(error)throw error;main.innerHTML=title('기도 순서')+list((data||[]).map(x=>`<div class="row"><b>목요일 ${fmt(x.thursday_date)} · 연습</b><div style="margin:8px 0">시작기도 · <b>${esc(x.thursday_start||'-')}</b></div><div style="margin:8px 0">마침기도 · <b>${esc(x.thursday_end||'-')}</b></div><hr style="border:0;border-top:1px solid #e5e7eb;margin:14px 0"><b>일요일 ${fmt(x.sunday_date)} · 연습</b><div style="margin:8px 0">시작기도 · <b>${esc(x.sunday_start||'-')}</b></div><div style="margin:8px 0">마침기도 · <b>${esc(x.sunday_end||'-')}</b></div></div>`))}
+async function prayerPage(){
+ const {data,error}=await sb.from('prayer_assignments').select('*').order('sunday_date',{ascending:false}).limit(24);
+ if(error)throw error;
+ main.innerHTML=title('기도 순서')+((data||[]).length
+  ?`<div class="prayerWeekList">${(data||[]).map(x=>`<section class="prayerWeekBlock"><div class="prayerWeekGrid">
+    <div class="prayerDayCard">
+      <div class="prayerDayHead"><b>목요일 연습 기도</b><span class="prayerDayDate">${fmt(x.thursday_date)}</span></div>
+      <div class="prayerRoleLine"><span class="prayerRoleLabel">시작기도</span><span class="prayerRoleName">${esc(x.thursday_start||'-')}</span></div>
+      <div class="prayerRoleLine"><span class="prayerRoleLabel">마침기도</span><span class="prayerRoleName">${esc(x.thursday_end||'-')}</span></div>
+    </div>
+    <div class="prayerDayCard">
+      <div class="prayerDayHead"><b>일요일 연습 기도</b><span class="prayerDayDate">${fmt(x.sunday_date)}</span></div>
+      <div class="prayerRoleLine"><span class="prayerRoleLabel">시작기도</span><span class="prayerRoleName">${esc(x.sunday_start||'-')}</span></div>
+      <div class="prayerRoleLine"><span class="prayerRoleLabel">마침기도</span><span class="prayerRoleName">${esc(x.sunday_end||'-')}</span></div>
+    </div>
+   </div></section>`).join('')}</div>`
+  :'<div class="empty">등록된 기도 순서가 없습니다.</div>');
+}
 async function signedProfilePhoto(path,expires=3600){
   if(!path)return '';
   if(/^https?:\/\//i.test(path))return path;
