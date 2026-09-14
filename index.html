@@ -1152,6 +1152,29 @@ a.link{color:#1f6759}
 }
 @media(max-width:390px){.weeklyMain,.weeklyMini{min-height:auto!important}}
 
+/* 2026-09-14 Home first-sketch exact visual correction — GUI only */
+.weekEyebrow{font-size:15px!important;padding:7px 12px!important;gap:6px!important}
+.weekEyebrow .uiIcon{width:16px!important;height:16px!important}
+.weeklyPanel{grid-template-columns:1.6fr 1fr 1fr!important;gap:10px!important;align-items:stretch!important}
+.weeklyMain,.weeklyMiniGreen{min-height:190px!important;border-radius:18px!important;padding:18px!important;background:linear-gradient(135deg,#245f54 0%,#2f7567 100%)!important;border-color:#245f54!important;color:#fff!important;box-shadow:0 10px 24px rgba(36,95,84,.16)!important}
+.weeklyMain{grid-row:auto!important}
+.weeklyMiniGreen{display:flex!important;flex-direction:column!important;justify-content:flex-start!important;gap:7px!important}
+.weeklyMiniGreen span{display:flex!important;align-items:center!important;gap:8px!important;color:rgba(255,255,255,.92)!important;font-size:12px!important;font-weight:800!important}
+.weeklyMiniGreen b{color:#fff!important;font-size:16px!important;line-height:1.35!important;margin-top:5px!important}
+.weeklyMiniGreen small{color:rgba(255,255,255,.78)!important;font-size:12px!important}
+.weeklyLabel{color:rgba(255,255,255,.92)!important}
+@media(max-width:760px){
+ .weekEyebrow{font-size:14px!important;padding:7px 11px!important}
+ .weeklyPanel{grid-template-columns:1fr 1fr!important}
+ .weeklyMain{grid-column:1/-1!important}
+ .weeklyMain,.weeklyMiniGreen{min-height:150px!important}
+}
+@media(max-width:390px){
+ .weeklyPanel{grid-template-columns:1fr!important}
+ .weeklyMain{grid-column:auto!important}
+ .weeklyMain,.weeklyMiniGreen{min-height:auto!important}
+}
+
 </style>
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="apple-touch-icon" href="./assets/apple-touch-icon.png">
