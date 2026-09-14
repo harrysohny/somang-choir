@@ -1114,6 +1114,25 @@ a.link{color:#1f6759}
   outline-offset:2px!important;
 }
 
+/* 2026-09-14 Home / My Somang visual refinement — GUI only */
+.weekHero{display:flex;align-items:center;gap:14px}
+.weekHeroAvatar{width:62px;height:62px;flex:0 0 62px;border-radius:50%;overflow:hidden;background:#e8f3ef;color:#0f6656;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:900;border:2px solid #fff;box-shadow:0 4px 14px rgba(30,65,57,.13)}
+.weekHeroAvatar img{width:100%;height:100%;object-fit:cover;display:block}
+.weekHeroText{min-width:0;flex:1}
+.weekEyebrow{font-size:15px!important;padding:7px 12px!important;line-height:1.15}
+.weeklyMain{background:linear-gradient(135deg,#245f54 0%,#2f7567 100%)!important;border-color:#245f54!important;color:#fff;box-shadow:0 10px 24px rgba(36,95,84,.16)}
+.weeklyMain .weeklyLabel,.weeklyMain .muted{color:rgba(255,255,255,.86)!important}
+.weeklyMain h2{color:#fff!important}
+.weeklyMain .btn{background:rgba(255,255,255,.96)!important;border-color:rgba(255,255,255,.75)!important;color:#245f54!important}
+.mySummaryAvatar{width:68px;height:68px;flex:0 0 68px;overflow:hidden;border:2px solid #fff;box-shadow:0 4px 14px rgba(30,65,57,.13)}
+.mySummaryAvatar img{width:100%;height:100%;object-fit:cover;display:block}
+@media(max-width:760px){
+  .weekHero{gap:11px;align-items:flex-start}
+  .weekHeroAvatar{width:54px;height:54px;flex-basis:54px;font-size:21px}
+  .weekEyebrow{font-size:14px!important;padding:6px 10px!important}
+  .mySummaryAvatar{width:60px;height:60px;flex-basis:60px}
+}
+
 </style>
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="apple-touch-icon" href="./assets/apple-touch-icon.png">
@@ -1920,8 +1939,8 @@ async function homePage(){
  const readSet=new Set(reads.map(x=>x.notice_id));const visibleNotices=notices.filter(x=>x.scope==='전체'||x.scope===me.part).slice(0,3);const nextSong=songs[0]||null;const nextSchedule=schedules[0]||null;
  const myName=(me.name||'').trim(),containsMe=v=>myName&&String(v||'').includes(myName);let mine=[];
  prayers.forEach(x=>{if(x.thursday_date>=today&&x.thursday_date<=plus30){if(containsMe(x.thursday_start))mine.push({date:x.thursday_date,when:'목요일 연습',role:'시작기도'});if(containsMe(x.thursday_end))mine.push({date:x.thursday_date,when:'목요일 연습',role:'마침기도'})}if(x.sunday_date>=today&&x.sunday_date<=plus30){if(containsMe(x.sunday_start))mine.push({date:x.sunday_date,when:'일요일 연습',role:'시작기도'});if(containsMe(x.sunday_end))mine.push({date:x.sunday_date,when:'일요일 연습',role:'마침기도'})}});mine.sort((a,b)=>a.date.localeCompare(b.date));
- const nextEvent=events[0];const newCount=visibleNotices.filter(x=>!readSet.has(x.id)).length;
- main.innerHTML=`<section class="weekHero"><div class="weekEyebrow">이번 주 · ${friendlyDate(today)}</div><h1>${esc(me.name)} ${esc(me.title||'')}님의 소망찬양대</h1><p>${esc(me.part||'')} · 이번 주 필요한 내용을 한눈에 확인하세요.</p></section>
+ const nextEvent=events[0];const newCount=visibleNotices.filter(x=>!readSet.has(x.id)).length;const myPhoto=await signedProfilePhoto(me?.photo_path);
+ main.innerHTML=`<section class="weekHero"><div class="weekHeroAvatar" onclick="go('profile')" title="나의 프로필">${myPhoto?`<img src="${esc(myPhoto)}" alt="${esc(me.name)}">`:esc((me.name||'?').slice(0,1))}</div><div class="weekHeroText"><div class="weekEyebrow">이번 주 · ${friendlyDate(today)}</div><h1>${esc(me.name)} ${esc(me.title||'')}님의 소망찬양대</h1><p>${esc(me.part||'')} · 이번 주 필요한 내용을 한눈에 확인하세요.</p></div></section>
  <section class="weeklyPanel">
   <div class="weeklyMain"><div class="weeklyLabel">🎵 연습찬양곡</div><h2>${esc(nextSong?.title||nextSchedule?.title||'등록된 연습찬양곡이 없습니다.')}</h2><div class="muted">${nextSong?`${friendlyDate(nextSong.practice_date)} ${weekdayKR(nextSong.practice_date)} · 파트별 연습영상`:nextSchedule?`${friendlyDate(nextSchedule.service_date)} ${weekdayKR(nextSchedule.service_date)}${nextSchedule.song_book?' · '+esc(nextSchedule.song_book):''}${nextSchedule.song_page?' · '+nextSchedule.song_page+'쪽':''}`:''}</div>${nextSong?`<div class="partQuick">${linkBtn(nextSong.full_url,'전체')}${linkBtn(nextSong.soprano_url,'S')}${linkBtn(nextSong.alto_url,'A')}${linkBtn(nextSong.tenor_url,'T')}${linkBtn(nextSong.bass_url,'B')}</div>`:''}</div>
   <div class="weeklyMini"><span>🙏 나의 기도 순서</span>${mine[0]?`<b>${friendlyDate(mine[0].date)} · ${esc(mine[0].role)}</b><small>${esc(mine[0].when)}</small>`:'<b>한 달 이내 없음</b>'}</div>
