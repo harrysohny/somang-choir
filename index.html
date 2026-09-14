@@ -1084,6 +1084,36 @@ a.link{color:#1f6759}
 @media(max-width:390px){.weeklyPanel{grid-template-columns:1fr}.weeklyMain{grid-column:auto}.headerActions{gap:4px}.notifyBell{width:36px;height:36px}.partQuick{gap:5px}}
 
 .mySummaryAvatar img{width:100%;height:100%;object-fit:cover}
+
+/* Compact song category checkboxes */
+.songcat{
+  -webkit-appearance:none!important;
+  appearance:none!important;
+  width:15px!important;
+  height:15px!important;
+  min-height:0!important;
+  flex:0 0 15px!important;
+  margin:0 6px 0 0!important;
+  padding:0!important;
+  border:1px solid #aeb8b4!important;
+  border-radius:3px!important;
+  background:#fff!important;
+  box-shadow:none!important;
+  vertical-align:-2px!important;
+}
+.songcat:checked{
+  background-color:#fff!important;
+  border-color:#7d8984!important;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3.2 8.3 6.4 11.2 12.8 4.8' fill='none' stroke='%23515b57' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")!important;
+  background-repeat:no-repeat!important;
+  background-position:center!important;
+  background-size:13px 13px!important;
+}
+.songcat:focus{
+  outline:1px solid #c7cfcc!important;
+  outline-offset:2px!important;
+}
+
 </style>
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="apple-touch-icon" href="./assets/apple-touch-icon.png">
