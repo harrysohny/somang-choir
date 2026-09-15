@@ -129,6 +129,8 @@
 .scheduleTable th{background:#f5f8f7;color:#355e55;font-size:12px;white-space:nowrap}
 .scheduleTable td:nth-child(1){white-space:nowrap}
 .scheduleSong{font-weight:800}
+.scheduleTable tbody tr.nextServiceRow td{background:rgba(45,91,82,.10)}
+.scheduleTable tbody tr.nextServiceRow .scheduleSong{color:var(--brand)}
 @media(max-width:640px){.scheduleTable th,.scheduleTable td{font-size:12px;padding:8px 6px}}
 
 .v14bHome{margin-top:16px}.v14bHead{display:flex;align-items:baseline;gap:8px;margin:0 2px 9px}.v14bHead b{font-size:18px}.v14bHead span{font-size:12px;color:var(--muted)}
@@ -1619,11 +1621,21 @@ async function songSchedulePage(){
     .order('service_date',{ascending:true})
     .limit(250);
   if(error)return toast(error.message);
+
+  const rows=data||[];
+  const today=new Date();
+  const todayKey=[
+    today.getFullYear(),
+    String(today.getMonth()+1).padStart(2,'0'),
+    String(today.getDate()).padStart(2,'0')
+  ].join('-');
+  const nextServiceDate=(rows.find(x=>x.service_date && x.service_date>=todayKey)||{}).service_date||'';
+
   main.innerHTML=title('찬양 일정표')+`<div class="card" style="padding:0;overflow-x:auto">
     <table class="scheduleTable">
       <thead><tr><th>날짜</th><th>찬양곡명</th><th>찬양집</th><th>페이지</th><th>비고</th></tr></thead>
       <tbody>
-      ${(data||[]).map(x=>`<tr>
+      ${rows.map(x=>`<tr class="${nextServiceDate && x.service_date===nextServiceDate?'nextServiceRow':''}">
         <td>${fmt(x.service_date)}</td>
         <td class="scheduleSong">${esc(x.title||'')}</td>
         <td>${esc(x.song_book||'-')}</td>
