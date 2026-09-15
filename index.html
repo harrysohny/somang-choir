@@ -1279,6 +1279,47 @@ a.link{color:#1f6759}
   .brandPro img{margin-right:-10px!important}
 }
 
+
+/* 2026-09-15 Header logo only — align the visual width of all 3 text lines */
+.brandPro>div{
+  width:156px!important;
+  align-items:stretch!important;
+}
+.brandPro .churchName,
+.brandPro b,
+.brandPro small{
+  display:block!important;
+  width:100%!important;
+  white-space:nowrap!important;
+  text-align:justify!important;
+  text-align-last:justify!important;
+}
+.brandPro .churchName{
+  font-size:8.5px!important;
+  letter-spacing:0!important;
+}
+.brandPro b{
+  font-size:20px!important;
+  letter-spacing:0!important;
+}
+.brandPro small{
+  font-family:Arial,Helvetica,sans-serif!important;
+  font-size:8px!important;
+  letter-spacing:0!important;
+}
+@media(max-width:720px){
+  .brandPro>div{width:138px!important}
+  .brandPro .churchName{font-size:7.5px!important}
+  .brandPro b{font-size:18px!important}
+  .brandPro small{font-size:7.1px!important}
+}
+@media(max-width:390px){
+  .brandPro>div{width:126px!important}
+  .brandPro .churchName{font-size:6.8px!important}
+  .brandPro b{font-size:16.5px!important}
+  .brandPro small{font-size:6.5px!important}
+}
+
 </style>
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="apple-touch-icon" href="./assets/apple-touch-icon.png">
