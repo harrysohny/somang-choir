@@ -1618,7 +1618,7 @@ async function pollsPage(){
  if(error)return toast(error.message);if(ve)return toast(ve.message);
  const voted=new Set((votes||[]).map(v=>v.poll_id));
  const rows=(data||[]).filter(pollTargetAllowed);
- main.innerHTML=title('설문')+list(rows.map(x=>{const state=pollDateState(x),stateText=state==='closed'?'마감':state==='waiting'?'예정':'진행중';return `<div class="row" style="cursor:pointer" onclick="openPoll('${x.id}')"><b>${esc(x.title)}</b> <span class="tag">${stateText}</span>${voted.has(x.id)?' <span class="tag">응답완료</span>':''}<div class="muted">${esc(pollPeriodText(x))}${x.response_type==='multiple'?' · 복수 선택':' · 단일 선택'}</div><div style="margin-top:6px">${esc(x.description||'')}</div><div class="actions"><button class="btn primary" onclick="event.stopPropagation();openPoll('${x.id}')">${voted.has(x.id)?'응답 확인 · 변경':'설문 참여'}</button></div></div>`}).join('')||'<div class="empty">현재 참여할 설문이 없습니다.</div>')
+ main.innerHTML=title('설문')+list(rows.map(x=>{const state=pollDateState(x),stateText=state==='closed'?'마감':state==='waiting'?'예정':'진행중';return `<div class="row" style="cursor:pointer" onclick="openPoll('${x.id}')"><b>${esc(x.title)}</b> <span class="tag">${stateText}</span>${voted.has(x.id)?' <span class="tag">응답완료</span>':''}<div class="muted">${esc(pollPeriodText(x))}${x.response_type==='multiple'?' · 복수 선택':' · 단일 선택'}</div><div style="margin-top:6px">${esc(x.description||'')}</div><div class="actions"><button class="btn primary" onclick="event.stopPropagation();openPoll('${x.id}')">${voted.has(x.id)?'응답 확인 · 변경':'설문 참여'}</button></div></div>`}))
 }
 async function openPoll(id){
  setBackAction(()=>pollsPage());
