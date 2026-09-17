@@ -1336,12 +1336,12 @@ a.link{color:#1f6759}
 .songsInfoCard .muted{color:rgba(255,255,255,.88)!important}
 
 
-/* Piano STEP 5 — 3-octave playable keyboard (Web Audio), staff-note linkage remains for STEP 6 */
+/* Piano STEP 4 — 3-octave visual keyboard (C3–B5), no sound/staff-note linkage yet */
 .pianoKeyboardHint{text-align:center;margin:16px 0 8px}
 .pianoKeyboardViewport{overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;border:1px solid var(--line);border-radius:16px;background:#f5f7f6;padding:12px 10px 14px;scrollbar-width:thin}
 .pianoKeyboard{position:relative;width:882px;height:210px;user-select:none;-webkit-user-select:none}
 .pianoWhiteKeys{display:flex;height:210px}
-.pianoKey{font:inherit;touch-action:pan-x}
+.pianoKey{font:inherit;touch-action:manipulation}
 .pianoWhiteKey{position:relative;flex:0 0 42px;height:210px;border:1px solid #aeb8b4;border-right:0;background:linear-gradient(#fff,#f7f7f5);color:#394540;border-radius:0 0 6px 6px;padding:0;z-index:1}
 .pianoWhiteKey:last-child{border-right:1px solid #aeb8b4}
 .pianoWhiteKey:active,.pianoWhiteKey.pressed{background:#dfece7}
@@ -1351,11 +1351,16 @@ a.link{color:#1f6759}
 .pianoBlackKey{position:absolute;top:0;width:27px;height:128px;transform:translateX(-50%);border:1px solid #17201d;background:linear-gradient(#303936,#111715);border-radius:0 0 5px 5px;box-shadow:0 4px 5px rgba(0,0,0,.22);z-index:3;padding:0;color:#fff}
 .pianoBlackKey:active,.pianoBlackKey.pressed{background:#355e52}
 .pianoOctaveNav{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:10px}
-.pianoVolumeRow{display:flex;align-items:center;gap:10px;margin-top:14px;padding:10px 4px 2px}
-.pianoVolumeRow span{font-size:18px}
-.pianoVolumeRow input{width:100%;accent-color:var(--brand)}
 .pianoOctaveNav .btn{min-width:0;padding-left:6px;padding-right:6px}
 @media(max-width:480px){.pianoKeyboardViewport{margin-left:-4px;margin-right:-4px;padding-left:8px;padding-right:8px}.pianoKeyboard{width:882px}.pianoWhiteKey{flex-basis:42px}.pianoOctaveNav .btn{font-size:12px}}
+
+/* Piano step 5: touch playing, pressed feedback and volume */
+.pianoKey{user-select:none;-webkit-user-select:none;-webkit-tap-highlight-color:transparent}
+.pianoKey.isPlaying.pianoWhiteKey{background:#d7ebe4;box-shadow:inset 0 -5px 0 rgba(15,102,86,.20)}
+.pianoKey.isPlaying.pianoBlackKey{background:#2d6f60;box-shadow:0 2px 3px rgba(0,0,0,.22)}
+.pianoVolumeRow{display:flex;align-items:center;gap:12px;margin-top:12px;padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:#fafcfb}
+.pianoVolumeRow label{font-weight:700;white-space:nowrap}.pianoVolumeRow input[type=range]{width:100%;accent-color:var(--brand)}
+.pianoVolumeValue{min-width:38px;text-align:right;font-size:12px;color:var(--muted)}
 </style>
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="apple-touch-icon" href="./assets/apple-touch-icon.png">
@@ -2320,17 +2325,11 @@ async function changeMyPassword(){const a=prompt('새 비밀번호를 입력하�
 
 function morePage(){const admin=me.role==='superadmin'||Object.keys(PERM_LABELS).some(can)||canAnySong();main.innerHTML=title('더보기')+`<div class="grid"><button class="adminTile iconTile" onclick="go('profile')"><span class="tileIcon">${uiIcon('people')}</span><b>나의 프로필</b><span class="muted">사진 · 연락처 · 직분 · 자기소개</span></button><button class="adminTile iconTile" onclick="songSchedulePage()"><span class="tileIcon">${uiIcon('calendar')}</span><b>찬양 일정표</b><span class="muted">연간 주일 찬양 일정</span></button><button class="adminTile iconTile" onclick="go('piano')"><span class="tileIcon">${uiIcon('piano')}</span><b>간이 피아노</b><span class="muted">찬양대 음정 연습</span></button><button class="adminTile iconTile" onclick="go('prayers')"><span class="tileIcon">${uiIcon('pray')}</span><b>기도 순서</b><span class="muted">전체 기도 순서 확인</span></button><button class="adminTile iconTile" onclick="go('members')"><span class="tileIcon">${uiIcon('people')}</span><b>대원명단</b><span class="muted">파트별 대원 연락처</span></button><button class="adminTile iconTile" onclick="go('notices')"><span class="tileIcon">${uiIcon('bell')}</span><b>공지사항</b><span class="muted">전체 · 파트 공지</span></button><button class="adminTile iconTile" onclick="go('intro')"><span class="tileIcon">${uiIcon('people')}</span><b>찬양대 소개</b><span class="muted">소개 · 역사 · 비전</span></button><button class="adminTile iconTile" onclick="go('leaders')"><span class="tileIcon">${uiIcon('people')}</span><b>섬기는 분들</b><span class="muted">운영 · 음악 조직</span></button><button class="adminTile iconTile" onclick="go('gallery')"><span class="tileIcon">${uiIcon('image')}</span><b>갤러리</b><span class="muted">행사 · 절기 · 연습 사진</span></button><button class="adminTile iconTile" onclick="go('documents')"><span class="tileIcon">${uiIcon('folder')}</span><b>자료실</b><span class="muted">문서 · 링크</span></button><button class="adminTile iconTile" onclick="go('polls')"><span class="tileIcon">${uiIcon('check')}</span><b>설문</b><span class="muted">대원 의견 수렴</span></button><button class="adminTile iconTile" onclick="go('tasks')"><span class="tileIcon">${uiIcon('task')}</span><b>봉사 · 할일</b><span class="muted">업무 · 봉사 배정</span></button><button class="adminTile iconTile" onclick="go('notifications')"><span class="tileIcon">${uiIcon('bell')}</span><b>알림 설정</b><span class="muted">iPhone · Android Push</span></button><button class="adminTile iconTile" onclick="go('install')"><span class="tileIcon">${uiIcon('phone')}</span><b>앱 설치 · QR</b><span class="muted">설치 안내 · 주소 공유</span></button>${admin?`<button class="adminTile iconTile" onclick="go('admin')"><span class="tileIcon">${uiIcon('gear')}</span><b>관리센터</b><span class="muted">대원 · 찬양 · 소통 · 운영</span></button>`:''}</div>`}
 
-let pianoAudioCtx=null;
-let pianoMasterGain=null;
-const pianoVoices=new Map();
-const pianoPointers=new Map();
-let pianoVolume=.55;
-
 function pianoPage(){
   setBackAction(()=>go('more'));
   const parts=['Soprano','Alto','Tenor','Bass'];
   const initial=parts.includes(me?.part)?me.part:'Soprano';
-  main.innerHTML=title('간이 피아노')+`<div class="card"><h3>찬양대 음정 연습</h3><p class="muted">연습할 파트를 선택해 주세요.</p><div id="pianoPartButtons" style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:18px 0 14px">${parts.map(p=>`<button type="button" class="btn" data-piano-part="${p}" onclick="selectPianoPart('${p}')" style="min-width:0;padding:11px 6px">${p}</button>`).join('')}</div><div id="pianoClefStatus" class="statusbox" style="margin:0;text-align:center"></div><div id="pianoStaffPanel" style="margin-top:14px;border:1px solid var(--line);border-radius:16px;background:#fff;padding:12px 14px 10px"><div id="pianoStaff" aria-label="오선 악보"></div><div style="text-align:center;margin-top:2px;font-weight:700">현재 음 : <span id="pianoCurrentNote">—</span></div></div><p class="muted pianoKeyboardHint">← 좌우로 움직여 연주하세요 →</p><div id="pianoKeyboardViewport" class="pianoKeyboardViewport"><div id="pianoKeyboard" class="pianoKeyboard" aria-label="C3부터 B5까지 3옥타브 피아노 건반"></div></div><div class="pianoOctaveNav"><button type="button" class="btn" onclick="scrollPianoTo('C3')">낮은음 C3</button><button type="button" class="btn" onclick="scrollPianoTo('C4')">가운데 C4</button><button type="button" class="btn" onclick="scrollPianoTo('C5')">높은음 C5</button></div><label class="pianoVolumeRow"><span aria-hidden="true">🔊</span><input id="pianoVolume" type="range" min="0" max="100" value="55" aria-label="피아노 음량" oninput="setPianoVolume(this.value)"></label><p class="muted" style="margin-top:10px">건반을 누르는 동안 소리가 나며, 여러 건반을 함께 누르면 화음으로 들립니다. 오선의 음표 표시는 다음 단계에서 연결합니다.</p></div>`;
+  main.innerHTML=title('간이 피아노')+`<div class="card"><h3>찬양대 음정 연습</h3><p class="muted">연습할 파트를 선택해 주세요.</p><div id="pianoPartButtons" style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:18px 0 14px">${parts.map(p=>`<button type="button" class="btn" data-piano-part="${p}" onclick="selectPianoPart('${p}')" style="min-width:0;padding:11px 6px">${p}</button>`).join('')}</div><div id="pianoClefStatus" class="statusbox" style="margin:0;text-align:center"></div><div id="pianoStaffPanel" style="margin-top:14px;border:1px solid var(--line);border-radius:16px;background:#fff;padding:12px 14px 10px"><div id="pianoStaff" aria-label="오선 악보"></div><div style="text-align:center;margin-top:2px;font-weight:700">현재 음 : <span id="pianoCurrentNote">—</span></div></div><p class="muted pianoKeyboardHint">← 좌우로 움직여 연주할 건반을 확인하세요 →</p><div id="pianoKeyboardViewport" class="pianoKeyboardViewport"><div id="pianoKeyboard" class="pianoKeyboard" aria-label="C3부터 B5까지 3옥타브 피아노 건반"></div></div><div class="pianoOctaveNav"><button type="button" class="btn" onclick="scrollPianoTo('C3')">낮은음 C3</button><button type="button" class="btn" onclick="scrollPianoTo('C4')">가운데 C4</button><button type="button" class="btn" onclick="scrollPianoTo('C5')">높은음 C5</button></div><div class="pianoVolumeRow"><label for="pianoVolume">🔊 음량</label><input id="pianoVolume" type="range" min="0" max="100" value="70" oninput="setPianoVolume(this.value)" aria-label="피아노 음량"><span id="pianoVolumeValue" class="pianoVolumeValue">70%</span></div><p class="muted" style="margin-top:14px">건반을 누르면 소리와 함께 오선에서 음의 위치를 확인할 수 있습니다. 화음을 누를 때는 마지막으로 누른 음을 표시합니다.</p></div>`;
   selectPianoPart(initial);
   renderPianoKeyboard();
   requestAnimationFrame(()=>scrollPianoTo('C4'));
@@ -2345,112 +2344,95 @@ function renderPianoKeyboard(){
   for(let octave=3;octave<=5;octave++){
     for(const name of whiteNames){
       const note=name+octave;
-      whites+=`<button type="button" class="pianoKey pianoWhiteKey ${name==='C'?'isC':''}" data-note="${note}" aria-label="${note} ${solfege[name]}"><span class="pianoKeyLabel">${note} · ${solfege[name]}</span></button>`;
+      whites+=`<button type=\"button\" class=\"pianoKey pianoWhiteKey ${name==='C'?'isC':''}\" data-note=\"${note}\" aria-label=\"${note} ${solfege[name]}\"><span class=\"pianoKeyLabel\">${note} · ${solfege[name]}</span></button>`;
       if(blackAfter[name]){
         const blackNote=blackAfter[name]+octave;
         const left=(whiteIndex+1)*42;
-        blacks+=`<button type="button" class="pianoKey pianoBlackKey" data-note="${blackNote}" aria-label="${blackNote}" style="left:${left}px"></button>`;
+        blacks+=`<button type=\"button\" class=\"pianoKey pianoBlackKey\" data-note=\"${blackNote}\" aria-label=\"${blackNote}\" style=\"left:${left}px\"></button>`;
       }
       whiteIndex++;
     }
   }
-  host.innerHTML=`<div class="pianoWhiteKeys">${whites}</div>${blacks}`;
-  host.querySelectorAll('.pianoKey').forEach(key=>{
-    key.addEventListener('pointerdown',pianoPointerDown);
-    key.addEventListener('pointerup',pianoPointerUp);
-    key.addEventListener('pointercancel',pianoPointerUp);
-    key.addEventListener('lostpointercapture',pianoPointerUp);
-    key.addEventListener('contextmenu',e=>e.preventDefault());
+  host.innerHTML=`<div class=\"pianoWhiteKeys\">${whites}</div>${blacks}`;
+  bindPianoKeys();
+}
+let pianoAudioContext=null;
+let pianoMasterGain=null;
+let pianoSelectedPart=null;
+let pianoLastNote=null;
+let pianoVolume=.70;
+const pianoVoices=new Map();
+const pianoPointers=new Map();
+function ensurePianoAudio(){
+  const AC=window.AudioContext||window.webkitAudioContext;
+  if(!AC){toast('이 브라우저에서는 피아노 소리를 지원하지 않습니다.');return null}
+  if(!pianoAudioContext){pianoAudioContext=new AC();pianoMasterGain=pianoAudioContext.createGain();pianoMasterGain.gain.value=pianoVolume;pianoMasterGain.connect(pianoAudioContext.destination)}
+  if(pianoAudioContext.state==='suspended')pianoAudioContext.resume().catch(()=>{});
+  return pianoAudioContext;
+}
+function pianoNoteToMidi(note){const m=String(note).match(/^([A-G])([♯#]?)(\d)$/);if(!m)return null;const semis={C:0,D:2,E:4,F:5,G:7,A:9,B:11};return (Number(m[3])+1)*12+semis[m[1]]+(m[2]?1:0)}
+function pianoFrequency(note){const midi=pianoNoteToMidi(note);return midi==null?440:440*Math.pow(2,(midi-69)/12)}
+function startPianoNote(note,key){
+  const ctx=ensurePianoAudio();if(!ctx||!pianoMasterGain)return;
+  pianoLastNote=note;renderPianoStaffNote();
+  let voice=pianoVoices.get(note);if(voice){voice.count++;key?.classList.add('isPlaying');return}
+  const now=ctx.currentTime,f=pianoFrequency(note),gain=ctx.createGain();gain.gain.setValueAtTime(.0001,now);gain.gain.exponentialRampToValueAtTime(.42,now+.012);gain.gain.exponentialRampToValueAtTime(.18,now+.32);
+  const partials=[[1,1],[2,.22],[3,.09]];const oscillators=partials.map(([mul,level])=>{const o=ctx.createOscillator(),g=ctx.createGain();o.type='sine';o.frequency.value=f*mul;g.gain.value=level;o.connect(g);g.connect(gain);o.start(now);return o});
+  gain.connect(pianoMasterGain);pianoVoices.set(note,{gain,oscillators,count:1,key});key?.classList.add('isPlaying');
+}
+function stopPianoNote(note,key){
+  const voice=pianoVoices.get(note);if(!voice)return;voice.count=Math.max(0,voice.count-1);if(voice.count>0)return;
+  const now=pianoAudioContext?.currentTime||0;try{voice.gain.gain.cancelScheduledValues(now);voice.gain.gain.setValueAtTime(Math.max(.0001,voice.gain.gain.value),now);voice.gain.gain.exponentialRampToValueAtTime(.0001,now+.38);voice.oscillators.forEach(o=>o.stop(now+.42))}catch(e){}
+  (key||voice.key)?.classList.remove('isPlaying');pianoVoices.delete(note);
+}
+function releasePianoPointer(pointerId){const item=pianoPointers.get(pointerId);if(!item)return;stopPianoNote(item.note,item.key);pianoPointers.delete(pointerId)}
+function bindPianoKeys(){
+  document.querySelectorAll('#pianoKeyboard .pianoKey').forEach(key=>{
+    key.addEventListener('pointerdown',e=>{if(e.pointerType==='mouse'&&e.button!==0)return;const note=key.dataset.note;if(!note)return;e.preventDefault();pianoPointers.set(e.pointerId,{note,key});startPianoNote(note,key)});
+    key.addEventListener('pointerup',e=>releasePianoPointer(e.pointerId));key.addEventListener('pointercancel',e=>releasePianoPointer(e.pointerId));key.addEventListener('contextmenu',e=>e.preventDefault());
   });
 }
+window.addEventListener('pointerup',e=>releasePianoPointer(e.pointerId));window.addEventListener('pointercancel',e=>releasePianoPointer(e.pointerId));
+function setPianoVolume(value){pianoVolume=Math.max(0,Math.min(1,Number(value)/100));const el=document.getElementById('pianoVolumeValue');if(el)el.textContent=Math.round(pianoVolume*100)+'%';if(pianoMasterGain&&pianoAudioContext)pianoMasterGain.gain.setTargetAtTime(pianoVolume,pianoAudioContext.currentTime,.02)}
 function scrollPianoTo(note){
   const viewport=document.getElementById('pianoKeyboardViewport');
-  const key=document.querySelector(`#pianoKeyboard [data-note="${note}"]`);
+  const key=document.querySelector(`#pianoKeyboard [data-note=\"${note}\"]`);
   if(!viewport||!key)return;
   const target=Math.max(0,key.offsetLeft-viewport.clientWidth*.28);
   viewport.scrollTo({left:target,behavior:'smooth'});
 }
-function ensurePianoAudio(){
-  const AC=window.AudioContext||window.webkitAudioContext;
-  if(!AC)return null;
-  if(!pianoAudioCtx){
-    pianoAudioCtx=new AC();
-    pianoMasterGain=pianoAudioCtx.createGain();
-    pianoMasterGain.gain.value=pianoVolume;
-    pianoMasterGain.connect(pianoAudioCtx.destination);
+function pianoNoteInfo(note){
+  const m=String(note||'').match(/^([A-G])([♯#]?)(\d)$/);if(!m)return null;
+  const sol={C:'도',D:'레',E:'미',F:'파',G:'솔',A:'라',B:'시'};
+  const letterIndex={C:0,D:1,E:2,F:3,G:4,A:5,B:6};
+  return {letter:m[1],sharp:!!m[2],octave:Number(m[3]),label:`${m[1]}${m[2]?'♯':''}${m[3]} · ${sol[m[1]]}${m[2]?'♯':''}`,diatonic:Number(m[3])*7+letterIndex[m[1]]};
+}
+function pianoStaffHTML(treble,note=pianoLastNote){
+  const clef=treble?'𝄞':'𝄢',clefY=treble?72:68,info=pianoNoteInfo(note);
+  let notation='';
+  if(info){
+    const base=treble?(4*7+2):(2*7+4); // treble bottom line E4, bass bottom line G2
+    const y=78-(info.diatonic-base)*6;
+    let ledgers='';
+    if(y<30){for(let ly=18;ly>=y-1;ly-=12)ledgers+=`<line x1="278" y1="${ly}" x2="316" y2="${ly}"/>`;}
+    if(y>78){for(let ly=90;ly<=y+1;ly+=12)ledgers+=`<line x1="278" y1="${ly}" x2="316" y2="${ly}"/>`;}
+    notation=`<g stroke="currentColor" stroke-width="1.7">${ledgers}</g>${info.sharp?`<text x="265" y="${y+7}" font-size="25" font-family="serif" fill="currentColor">♯</text>`:''}<ellipse cx="297" cy="${y}" rx="9" ry="6.2" transform="rotate(-18 297 ${y})" fill="currentColor"/>`;
   }
-  if(pianoAudioCtx.state==='suspended')pianoAudioCtx.resume();
-  return pianoAudioCtx;
+  return `<svg viewBox="0 -72 420 216" role="img" aria-label="${treble?'높은음자리표':'낮은음자리표'} 오선${info?' '+info.label:''}" style="display:block;width:100%;height:auto;max-height:150px"><rect x="0" y="-72" width="420" height="216" rx="10" fill="transparent"/><g stroke="currentColor" stroke-width="1.5" opacity=".72"><line x1="72" y1="30" x2="398" y2="30"/><line x1="72" y1="42" x2="398" y2="42"/><line x1="72" y1="54" x2="398" y2="54"/><line x1="72" y1="66" x2="398" y2="66"/><line x1="72" y1="78" x2="398" y2="78"/></g><text x="18" y="${clefY}" font-size="58" font-family="serif" fill="currentColor">${clef}</text>${notation}</svg>`;
 }
-function pianoFrequency(note){
-  const m=String(note).match(/^([A-G])(♯)?(\d)$/);
-  if(!m)return 440;
-  const semis={C:0,D:2,E:4,F:5,G:7,A:9,B:11};
-  const midi=(Number(m[3])+1)*12+semis[m[1]]+(m[2]?1:0);
-  return 440*Math.pow(2,(midi-69)/12);
-}
-function startPianoNote(note,key){
-  const ctx=ensurePianoAudio();
-  if(!ctx||pianoVoices.has(note))return;
-  const now=ctx.currentTime,f=pianoFrequency(note);
-  const gain=ctx.createGain();
-  gain.gain.setValueAtTime(.0001,now);
-  gain.gain.exponentialRampToValueAtTime(.42,now+.012);
-  gain.gain.exponentialRampToValueAtTime(.16,now+.34);
-  gain.connect(pianoMasterGain);
-  const o1=ctx.createOscillator(),o2=ctx.createOscillator();
-  o1.type='triangle';o1.frequency.value=f;
-  o2.type='sine';o2.frequency.value=f*2;
-  const g2=ctx.createGain();g2.gain.value=.14;o2.connect(g2);g2.connect(gain);o1.connect(gain);
-  o1.start(now);o2.start(now);
-  pianoVoices.set(note,{gain,o1,o2,g2,key});
-  key?.classList.add('pressed');
-}
-function stopPianoNote(note){
-  const v=pianoVoices.get(note);if(!v||!pianoAudioCtx)return;
-  const now=pianoAudioCtx.currentTime;
-  v.gain.gain.cancelScheduledValues(now);
-  v.gain.gain.setValueAtTime(Math.max(v.gain.gain.value,.0001),now);
-  v.gain.gain.exponentialRampToValueAtTime(.0001,now+.32);
-  v.o1.stop(now+.36);v.o2.stop(now+.36);
-  v.key?.classList.remove('pressed');
-  pianoVoices.delete(note);
-}
-function pianoPointerDown(e){
-  if(e.pointerType==='mouse'&&e.button!==0)return;
-  const key=e.currentTarget,note=key.dataset.note;if(!note)return;
-  try{key.setPointerCapture(e.pointerId)}catch(_){ }
-  pianoPointers.set(e.pointerId,note);
-  startPianoNote(note,key);
-}
-function pianoPointerUp(e){
-  const note=pianoPointers.get(e.pointerId);if(!note)return;
-  pianoPointers.delete(e.pointerId);
-  stopPianoNote(note);
-}
-function setPianoVolume(value){
-  pianoVolume=Math.max(0,Math.min(1,Number(value)/100));
-  if(pianoMasterGain&&pianoAudioCtx){
-    pianoMasterGain.gain.setTargetAtTime(pianoVolume,pianoAudioCtx.currentTime,.02);
-  }
-}
-function pianoStaffHTML(treble){
-  const clef=treble?'𝄞':'𝄢';
-  const clefY=treble?72:68;
-  return `<svg viewBox="0 0 420 112" role="img" aria-label="${treble?'높은음자리표':'낮은음자리표'} 오선" style="display:block;width:100%;height:auto;max-height:118px"><rect x="0" y="0" width="420" height="112" rx="10" fill="transparent"/><g stroke="currentColor" stroke-width="1.5" opacity=".72"><line x1="72" y1="30" x2="398" y2="30"/><line x1="72" y1="42" x2="398" y2="42"/><line x1="72" y1="54" x2="398" y2="54"/><line x1="72" y1="66" x2="398" y2="66"/><line x1="72" y1="78" x2="398" y2="78"/></g><text x="18" y="${clefY}" font-size="58" font-family="serif" fill="currentColor">${clef}</text></svg>`;
+function renderPianoStaffNote(){
+  const part=pianoSelectedPart||((['Soprano','Alto','Tenor','Bass'].includes(me?.part))?me.part:'Soprano');
+  const treble=part==='Soprano'||part==='Alto';
+  const staff=document.getElementById('pianoStaff');if(staff)staff.innerHTML=pianoStaffHTML(treble,pianoLastNote);
+  const current=document.getElementById('pianoCurrentNote');const info=pianoNoteInfo(pianoLastNote);if(current)current.textContent=info?info.label:'—';
 }
 function selectPianoPart(part){
+  pianoSelectedPart=part;
   const treble=part==='Soprano'||part==='Alto';
-  document.querySelectorAll('[data-piano-part]').forEach(btn=>{
-    const active=btn.dataset.pianoPart===part;
-    btn.classList.toggle('primary',active);
-  });
+  document.querySelectorAll('[data-piano-part]').forEach(btn=>{const active=btn.dataset.pianoPart===part;btn.classList.toggle('primary',active);});
   const box=document.getElementById('pianoClefStatus');
   if(box)box.innerHTML=`<b>${esc(part)}</b> · <span style="font-size:1.45em;vertical-align:-.08em">${treble?'𝄞':'𝄢'}</span> ${treble?'높은음자리표':'낮은음자리표'}`;
-  const staff=document.getElementById('pianoStaff');
-  if(staff)staff.innerHTML=pianoStaffHTML(treble);
-  const note=document.getElementById('pianoCurrentNote');
-  if(note)note.textContent='—';
+  renderPianoStaffNote();
 }
 
 async function installGuidePage(){setBackAction(()=>go('more'));const url=appBaseUrl(),qr='https://api.qrserver.com/v1/create-qr-code/?size=260x260&margin=12&data='+encodeURIComponent(url);const standalone=isStandalonePWA();main.innerHTML=title('앱 설치 · QR')+`<div class="installCard"><h2>소망찬양대 앱</h2><p class="muted">카메라로 QR을 촬영하거나 주소를 공유하세요.</p><div class="qrWrap"><img src="${qr}" alt="소망찬양대 앱 QR 코드"></div><code class="appUrl">${esc(url)}</code><div class="actions"><button class="btn" onclick="copyAppUrl()">주소 복사</button><button class="btn" onclick="shareAppUrl()">공유하기</button>${!standalone?'<button class="btn primary" onclick="promptInstallApp()">앱 설치</button>':''}</div><div class="installSteps"><h3>iPhone / iPad</h3><p>Safari에서 열기 → 공유 버튼 → <b>홈 화면에 추가</b> → 홈 화면의 소망찬양대 앱 실행 → 알림 허용</p><h3>Android</h3><p>Chrome에서 열기 → 메뉴의 <b>앱 설치</b> 또는 <b>홈 화면에 추가</b> → 앱 실행 → 알림 허용</p></div>${standalone?'<div class="installedBadge">✓ 현재 홈 화면 앱으로 실행 중입니다.</div>':''}</div>`}
