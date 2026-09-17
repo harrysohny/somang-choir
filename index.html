@@ -1335,6 +1335,24 @@ a.link{color:#1f6759}
 .songsInfoCard h3{color:#fff!important}
 .songsInfoCard .muted{color:rgba(255,255,255,.88)!important}
 
+
+/* Piano STEP 4 — 3-octave visual keyboard (C3–B5), no sound/staff-note linkage yet */
+.pianoKeyboardHint{text-align:center;margin:16px 0 8px}
+.pianoKeyboardViewport{overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;border:1px solid var(--line);border-radius:16px;background:#f5f7f6;padding:12px 10px 14px;scrollbar-width:thin}
+.pianoKeyboard{position:relative;width:882px;height:210px;user-select:none;-webkit-user-select:none}
+.pianoWhiteKeys{display:flex;height:210px}
+.pianoKey{font:inherit;touch-action:manipulation}
+.pianoWhiteKey{position:relative;flex:0 0 42px;height:210px;border:1px solid #aeb8b4;border-right:0;background:linear-gradient(#fff,#f7f7f5);color:#394540;border-radius:0 0 6px 6px;padding:0;z-index:1}
+.pianoWhiteKey:last-child{border-right:1px solid #aeb8b4}
+.pianoWhiteKey:active,.pianoWhiteKey.pressed{background:#dfece7}
+.pianoWhiteKey.isC{box-shadow:inset 3px 0 0 rgba(45,91,82,.22)}
+.pianoKeyLabel{position:absolute;left:50%;bottom:10px;transform:translateX(-50%);font-size:11px;font-weight:700;white-space:nowrap;color:#58635f}
+.pianoWhiteKey.isC .pianoKeyLabel{color:var(--brand);font-weight:800}
+.pianoBlackKey{position:absolute;top:0;width:27px;height:128px;transform:translateX(-50%);border:1px solid #17201d;background:linear-gradient(#303936,#111715);border-radius:0 0 5px 5px;box-shadow:0 4px 5px rgba(0,0,0,.22);z-index:3;padding:0;color:#fff}
+.pianoBlackKey:active,.pianoBlackKey.pressed{background:#355e52}
+.pianoOctaveNav{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:10px}
+.pianoOctaveNav .btn{min-width:0;padding-left:6px;padding-right:6px}
+@media(max-width:480px){.pianoKeyboardViewport{margin-left:-4px;margin-right:-4px;padding-left:8px;padding-right:8px}.pianoKeyboard{width:882px}.pianoWhiteKey{flex-basis:42px}.pianoOctaveNav .btn{font-size:12px}}
 </style>
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="apple-touch-icon" href="./assets/apple-touch-icon.png">
@@ -2303,8 +2321,38 @@ function pianoPage(){
   setBackAction(()=>go('more'));
   const parts=['Soprano','Alto','Tenor','Bass'];
   const initial=parts.includes(me?.part)?me.part:'Soprano';
-  main.innerHTML=title('간이 피아노')+`<div class="card"><h3>찬양대 음정 연습</h3><p class="muted">연습할 파트를 선택해 주세요.</p><div id="pianoPartButtons" style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:18px 0 14px">${parts.map(p=>`<button type="button" class="btn" data-piano-part="${p}" onclick="selectPianoPart('${p}')" style="min-width:0;padding:11px 6px">${p}</button>`).join('')}</div><div id="pianoClefStatus" class="statusbox" style="margin:0;text-align:center"></div><div id="pianoStaffPanel" style="margin-top:14px;border:1px solid var(--line);border-radius:16px;background:#fff;padding:12px 14px 10px"><div id="pianoStaff" aria-label="오선 악보"></div><div style="text-align:center;margin-top:2px;font-weight:700">현재 음 : <span id="pianoCurrentNote">—</span></div></div><p class="muted" style="margin-top:16px">건반을 누르면 이 오선 위에 현재 음의 위치가 표시되도록 다음 단계에서 연결합니다.</p></div>`;
+  main.innerHTML=title('간이 피아노')+`<div class="card"><h3>찬양대 음정 연습</h3><p class="muted">연습할 파트를 선택해 주세요.</p><div id="pianoPartButtons" style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:18px 0 14px">${parts.map(p=>`<button type="button" class="btn" data-piano-part="${p}" onclick="selectPianoPart('${p}')" style="min-width:0;padding:11px 6px">${p}</button>`).join('')}</div><div id="pianoClefStatus" class="statusbox" style="margin:0;text-align:center"></div><div id="pianoStaffPanel" style="margin-top:14px;border:1px solid var(--line);border-radius:16px;background:#fff;padding:12px 14px 10px"><div id="pianoStaff" aria-label="오선 악보"></div><div style="text-align:center;margin-top:2px;font-weight:700">현재 음 : <span id="pianoCurrentNote">—</span></div></div><p class="muted pianoKeyboardHint">← 좌우로 움직여 연주할 건반을 확인하세요 →</p><div id="pianoKeyboardViewport" class="pianoKeyboardViewport"><div id="pianoKeyboard" class="pianoKeyboard" aria-label="C3부터 B5까지 3옥타브 피아노 건반"></div></div><div class="pianoOctaveNav"><button type="button" class="btn" onclick="scrollPianoTo('C3')">낮은음 C3</button><button type="button" class="btn" onclick="scrollPianoTo('C4')">가운데 C4</button><button type="button" class="btn" onclick="scrollPianoTo('C5')">높은음 C5</button></div><p class="muted" style="margin-top:14px">이번 단계에서는 건반 모양과 이동 기능만 확인합니다. 소리와 오선의 음표 표시는 다음 단계에서 연결합니다.</p></div>`;
   selectPianoPart(initial);
+  renderPianoKeyboard();
+  requestAnimationFrame(()=>scrollPianoTo('C4'));
+}
+function renderPianoKeyboard(){
+  const host=document.getElementById('pianoKeyboard');
+  if(!host)return;
+  const whiteNames=['C','D','E','F','G','A','B'];
+  const solfege={C:'도',D:'레',E:'미',F:'파',G:'솔',A:'라',B:'시'};
+  const blackAfter={C:'C♯',D:'D♯',F:'F♯',G:'G♯',A:'A♯'};
+  let whites='',blacks='',whiteIndex=0;
+  for(let octave=3;octave<=5;octave++){
+    for(const name of whiteNames){
+      const note=name+octave;
+      whites+=`<button type=\"button\" class=\"pianoKey pianoWhiteKey ${name==='C'?'isC':''}\" data-note=\"${note}\" aria-label=\"${note} ${solfege[name]}\"><span class=\"pianoKeyLabel\">${note} · ${solfege[name]}</span></button>`;
+      if(blackAfter[name]){
+        const blackNote=blackAfter[name]+octave;
+        const left=(whiteIndex+1)*42;
+        blacks+=`<button type=\"button\" class=\"pianoKey pianoBlackKey\" data-note=\"${blackNote}\" aria-label=\"${blackNote}\" style=\"left:${left}px\"></button>`;
+      }
+      whiteIndex++;
+    }
+  }
+  host.innerHTML=`<div class=\"pianoWhiteKeys\">${whites}</div>${blacks}`;
+}
+function scrollPianoTo(note){
+  const viewport=document.getElementById('pianoKeyboardViewport');
+  const key=document.querySelector(`#pianoKeyboard [data-note=\"${note}\"]`);
+  if(!viewport||!key)return;
+  const target=Math.max(0,key.offsetLeft-viewport.clientWidth*.28);
+  viewport.scrollTo({left:target,behavior:'smooth'});
 }
 function pianoStaffHTML(treble){
   const clef=treble?'𝄞':'𝄢';
