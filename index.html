@@ -1353,6 +1353,14 @@ a.link{color:#1f6759}
 .pianoOctaveNav{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:10px}
 .pianoOctaveNav .btn{min-width:0;padding-left:6px;padding-right:6px}
 @media(max-width:480px){.pianoKeyboardViewport{margin-left:-4px;margin-right:-4px;padding-left:8px;padding-right:8px}.pianoKeyboard{width:882px}.pianoWhiteKey{flex-basis:42px}.pianoOctaveNav .btn{font-size:12px}}
+
+/* Piano step 5: touch playing, pressed feedback and volume */
+.pianoKey{user-select:none;-webkit-user-select:none;-webkit-tap-highlight-color:transparent}
+.pianoKey.isPlaying.pianoWhiteKey{background:#d7ebe4;box-shadow:inset 0 -5px 0 rgba(15,102,86,.20)}
+.pianoKey.isPlaying.pianoBlackKey{background:#2d6f60;box-shadow:0 2px 3px rgba(0,0,0,.22)}
+.pianoVolumeRow{display:flex;align-items:center;gap:12px;margin-top:12px;padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:#fafcfb}
+.pianoVolumeRow label{font-weight:700;white-space:nowrap}.pianoVolumeRow input[type=range]{width:100%;accent-color:var(--brand)}
+.pianoVolumeValue{min-width:38px;text-align:right;font-size:12px;color:var(--muted)}
 </style>
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="apple-touch-icon" href="./assets/apple-touch-icon.png">
@@ -2321,7 +2329,7 @@ function pianoPage(){
   setBackAction(()=>go('more'));
   const parts=['Soprano','Alto','Tenor','Bass'];
   const initial=parts.includes(me?.part)?me.part:'Soprano';
-  main.innerHTML=title('간이 피아노')+`<div class="card"><h3>찬양대 음정 연습</h3><p class="muted">연습할 파트를 선택해 주세요.</p><div id="pianoPartButtons" style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:18px 0 14px">${parts.map(p=>`<button type="button" class="btn" data-piano-part="${p}" onclick="selectPianoPart('${p}')" style="min-width:0;padding:11px 6px">${p}</button>`).join('')}</div><div id="pianoClefStatus" class="statusbox" style="margin:0;text-align:center"></div><div id="pianoStaffPanel" style="margin-top:14px;border:1px solid var(--line);border-radius:16px;background:#fff;padding:12px 14px 10px"><div id="pianoStaff" aria-label="오선 악보"></div><div style="text-align:center;margin-top:2px;font-weight:700">현재 음 : <span id="pianoCurrentNote">—</span></div></div><p class="muted pianoKeyboardHint">← 좌우로 움직여 연주할 건반을 확인하세요 →</p><div id="pianoKeyboardViewport" class="pianoKeyboardViewport"><div id="pianoKeyboard" class="pianoKeyboard" aria-label="C3부터 B5까지 3옥타브 피아노 건반"></div></div><div class="pianoOctaveNav"><button type="button" class="btn" onclick="scrollPianoTo('C3')">낮은음 C3</button><button type="button" class="btn" onclick="scrollPianoTo('C4')">가운데 C4</button><button type="button" class="btn" onclick="scrollPianoTo('C5')">높은음 C5</button></div><p class="muted" style="margin-top:14px">이번 단계에서는 건반 모양과 이동 기능만 확인합니다. 소리와 오선의 음표 표시는 다음 단계에서 연결합니다.</p></div>`;
+  main.innerHTML=title('간이 피아노')+`<div class="card"><h3>찬양대 음정 연습</h3><p class="muted">연습할 파트를 선택해 주세요.</p><div id="pianoPartButtons" style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:18px 0 14px">${parts.map(p=>`<button type="button" class="btn" data-piano-part="${p}" onclick="selectPianoPart('${p}')" style="min-width:0;padding:11px 6px">${p}</button>`).join('')}</div><div id="pianoClefStatus" class="statusbox" style="margin:0;text-align:center"></div><div id="pianoStaffPanel" style="margin-top:14px;border:1px solid var(--line);border-radius:16px;background:#fff;padding:12px 14px 10px"><div id="pianoStaff" aria-label="오선 악보"></div><div style="text-align:center;margin-top:2px;font-weight:700">현재 음 : <span id="pianoCurrentNote">—</span></div></div><p class="muted pianoKeyboardHint">← 좌우로 움직여 연주할 건반을 확인하세요 →</p><div id="pianoKeyboardViewport" class="pianoKeyboardViewport"><div id="pianoKeyboard" class="pianoKeyboard" aria-label="C3부터 B5까지 3옥타브 피아노 건반"></div></div><div class="pianoOctaveNav"><button type="button" class="btn" onclick="scrollPianoTo('C3')">낮은음 C3</button><button type="button" class="btn" onclick="scrollPianoTo('C4')">가운데 C4</button><button type="button" class="btn" onclick="scrollPianoTo('C5')">높은음 C5</button></div><div class="pianoVolumeRow"><label for="pianoVolume">🔊 음량</label><input id="pianoVolume" type="range" min="0" max="100" value="70" oninput="setPianoVolume(this.value)" aria-label="피아노 음량"><span id="pianoVolumeValue" class="pianoVolumeValue">70%</span></div><p class="muted" style="margin-top:14px">건반을 누르면 소리가 납니다. 여러 건반을 함께 눌러 화음을 연습할 수 있습니다. 오선의 음표 표시는 다음 단계에서 연결합니다.</p></div>`;
   selectPianoPart(initial);
   renderPianoKeyboard();
   requestAnimationFrame(()=>scrollPianoTo('C4'));
@@ -2346,7 +2354,43 @@ function renderPianoKeyboard(){
     }
   }
   host.innerHTML=`<div class=\"pianoWhiteKeys\">${whites}</div>${blacks}`;
+  bindPianoKeys();
 }
+let pianoAudioContext=null;
+let pianoMasterGain=null;
+let pianoVolume=.70;
+const pianoVoices=new Map();
+const pianoPointers=new Map();
+function ensurePianoAudio(){
+  const AC=window.AudioContext||window.webkitAudioContext;
+  if(!AC){toast('이 브라우저에서는 피아노 소리를 지원하지 않습니다.');return null}
+  if(!pianoAudioContext){pianoAudioContext=new AC();pianoMasterGain=pianoAudioContext.createGain();pianoMasterGain.gain.value=pianoVolume;pianoMasterGain.connect(pianoAudioContext.destination)}
+  if(pianoAudioContext.state==='suspended')pianoAudioContext.resume().catch(()=>{});
+  return pianoAudioContext;
+}
+function pianoNoteToMidi(note){const m=String(note).match(/^([A-G])([♯#]?)(\d)$/);if(!m)return null;const semis={C:0,D:2,E:4,F:5,G:7,A:9,B:11};return (Number(m[3])+1)*12+semis[m[1]]+(m[2]?1:0)}
+function pianoFrequency(note){const midi=pianoNoteToMidi(note);return midi==null?440:440*Math.pow(2,(midi-69)/12)}
+function startPianoNote(note,key){
+  const ctx=ensurePianoAudio();if(!ctx||!pianoMasterGain)return;
+  let voice=pianoVoices.get(note);if(voice){voice.count++;key?.classList.add('isPlaying');return}
+  const now=ctx.currentTime,f=pianoFrequency(note),gain=ctx.createGain();gain.gain.setValueAtTime(.0001,now);gain.gain.exponentialRampToValueAtTime(.42,now+.012);gain.gain.exponentialRampToValueAtTime(.18,now+.32);
+  const partials=[[1,1],[2,.22],[3,.09]];const oscillators=partials.map(([mul,level])=>{const o=ctx.createOscillator(),g=ctx.createGain();o.type='sine';o.frequency.value=f*mul;g.gain.value=level;o.connect(g);g.connect(gain);o.start(now);return o});
+  gain.connect(pianoMasterGain);pianoVoices.set(note,{gain,oscillators,count:1,key});key?.classList.add('isPlaying');
+}
+function stopPianoNote(note,key){
+  const voice=pianoVoices.get(note);if(!voice)return;voice.count=Math.max(0,voice.count-1);if(voice.count>0)return;
+  const now=pianoAudioContext?.currentTime||0;try{voice.gain.gain.cancelScheduledValues(now);voice.gain.gain.setValueAtTime(Math.max(.0001,voice.gain.gain.value),now);voice.gain.gain.exponentialRampToValueAtTime(.0001,now+.38);voice.oscillators.forEach(o=>o.stop(now+.42))}catch(e){}
+  (key||voice.key)?.classList.remove('isPlaying');pianoVoices.delete(note);
+}
+function releasePianoPointer(pointerId){const item=pianoPointers.get(pointerId);if(!item)return;stopPianoNote(item.note,item.key);pianoPointers.delete(pointerId)}
+function bindPianoKeys(){
+  document.querySelectorAll('#pianoKeyboard .pianoKey').forEach(key=>{
+    key.addEventListener('pointerdown',e=>{if(e.pointerType==='mouse'&&e.button!==0)return;const note=key.dataset.note;if(!note)return;e.preventDefault();pianoPointers.set(e.pointerId,{note,key});startPianoNote(note,key)});
+    key.addEventListener('pointerup',e=>releasePianoPointer(e.pointerId));key.addEventListener('pointercancel',e=>releasePianoPointer(e.pointerId));key.addEventListener('contextmenu',e=>e.preventDefault());
+  });
+}
+window.addEventListener('pointerup',e=>releasePianoPointer(e.pointerId));window.addEventListener('pointercancel',e=>releasePianoPointer(e.pointerId));
+function setPianoVolume(value){pianoVolume=Math.max(0,Math.min(1,Number(value)/100));const el=document.getElementById('pianoVolumeValue');if(el)el.textContent=Math.round(pianoVolume*100)+'%';if(pianoMasterGain&&pianoAudioContext)pianoMasterGain.gain.setTargetAtTime(pianoVolume,pianoAudioContext.currentTime,.02)}
 function scrollPianoTo(note){
   const viewport=document.getElementById('pianoKeyboardViewport');
   const key=document.querySelector(`#pianoKeyboard [data-note=\"${note}\"]`);
