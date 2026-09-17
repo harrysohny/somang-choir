@@ -1339,10 +1339,10 @@ a.link{color:#1f6759}
 /* Piano STEP 4 — 3-octave visual keyboard (C3–B5), no sound/staff-note linkage yet */
 .pianoKeyboardHint{text-align:center;margin:16px 0 8px}
 .pianoKeyboardViewport{overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;border:1px solid var(--line);border-radius:16px;background:#f5f7f6;padding:12px 10px 14px;scrollbar-width:thin}
-.pianoKeyboard{position:relative;width:882px;height:210px;user-select:none;-webkit-user-select:none}
+.pianoKeyboard{--piano-white-key-width:42px;position:relative;width:calc(21 * var(--piano-white-key-width));height:210px;user-select:none;-webkit-user-select:none}
 .pianoWhiteKeys{display:flex;height:210px}
 .pianoKey{font:inherit;touch-action:manipulation}
-.pianoWhiteKey{position:relative;flex:0 0 42px;height:210px;border:1px solid #aeb8b4;border-right:0;background:linear-gradient(#fff,#f7f7f5);color:#394540;border-radius:0 0 6px 6px;padding:0;z-index:1}
+.pianoWhiteKey{position:relative;flex:0 0 var(--piano-white-key-width);height:210px;border:1px solid #aeb8b4;border-right:0;background:linear-gradient(#fff,#f7f7f5);color:#394540;border-radius:0 0 6px 6px;padding:0;z-index:1}
 .pianoWhiteKey:last-child{border-right:1px solid #aeb8b4}
 .pianoWhiteKey:active,.pianoWhiteKey.pressed{background:#dfece7}
 .pianoWhiteKey.isC{box-shadow:inset 3px 0 0 rgba(45,91,82,.22)}
@@ -1352,7 +1352,8 @@ a.link{color:#1f6759}
 .pianoBlackKey:active,.pianoBlackKey.pressed{background:#355e52}
 .pianoOctaveNav{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:10px}
 .pianoOctaveNav .btn{min-width:0;padding-left:6px;padding-right:6px}
-@media(max-width:480px){.pianoKeyboardViewport{margin-left:-4px;margin-right:-4px;padding-left:8px;padding-right:8px}.pianoKeyboard{width:882px}.pianoWhiteKey{flex-basis:42px}.pianoOctaveNav .btn{font-size:12px}}
+@media(min-width:769px){.pianoKeyboard{--piano-white-key-width:64px}.pianoBlackKey{width:38px}}
+@media(max-width:480px){.pianoKeyboardViewport{margin-left:-4px;margin-right:-4px;padding-left:8px;padding-right:8px}.pianoOctaveNav .btn{font-size:12px}}
 
 /* Piano step 5: touch playing, pressed feedback and volume */
 .pianoKey{user-select:none;-webkit-user-select:none;-webkit-tap-highlight-color:transparent}
@@ -2347,8 +2348,8 @@ function renderPianoKeyboard(){
       whites+=`<button type=\"button\" class=\"pianoKey pianoWhiteKey ${name==='C'?'isC':''}\" data-note=\"${note}\" aria-label=\"${note} ${solfege[name]}\"><span class=\"pianoKeyLabel\">${note} · ${solfege[name]}</span></button>`;
       if(blackAfter[name]){
         const blackNote=blackAfter[name]+octave;
-        const left=(whiteIndex+1)*42;
-        blacks+=`<button type=\"button\" class=\"pianoKey pianoBlackKey\" data-note=\"${blackNote}\" aria-label=\"${blackNote}\" style=\"left:${left}px\"></button>`;
+        const left=whiteIndex+1;
+        blacks+=`<button type=\"button\" class=\"pianoKey pianoBlackKey\" data-note=\"${blackNote}\" aria-label=\"${blackNote}\" style=\"left:calc(${left} * var(--piano-white-key-width))\"></button>`;
       }
       whiteIndex++;
     }
