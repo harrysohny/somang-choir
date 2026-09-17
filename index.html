@@ -202,6 +202,7 @@ main{padding-bottom:92px}
 
 /* V14-D3.1 unified icon UI */
 .uiIcon{width:20px;height:20px;display:block;flex:none}
+.prayerHandsIcon{line-height:1;text-align:center;font-size:17px}
 .pageTitleIcon,.cardLeadIcon,.tileIcon{display:inline-flex;align-items:center;justify-content:center;color:#0f6656;background:#e8f3ef;border-radius:50%}
 .pageTitleIcon{width:38px;height:38px;flex:none}
 .pageTitleIcon .uiIcon{width:20px;height:20px}
@@ -1802,7 +1803,7 @@ function adminTileIcon(p){
  return m[p]||'gear';
 }
 
-async function manage(type){setBackAction(()=>adminPage());if(type==='members')return manageMembers();if(type==='permissions')return managePermissions();if(type==='intro')return editIntro();if(type==='leaders')return manageLeaders();if(type==='songs')return manageSongs();if(type==='gallery')return manageGallery();const map={notices:'notices',prayers:'prayer_assignments',events:'events',leaders:'leaders',gallery:'gallery',documents:'documents',polls:'polls',tasks:'tasks'};const table=map[type];if(!table)return;const {data}=await sb.from(table).select('*').order('created_at',{ascending:false}).limit(100);main.innerHTML=title(type==='polls'?'설문':'관리 · '+(PERM_LABELS[type]||type),`<button class="btn primary adminCreateBtn" onclick="addRecord('${type}')">+ 새로 등록</button>`)+list((data||[]).map(x=>`<div class="row"><b>${esc(recordTitle(type,x))}</b><div class="muted">${esc(recordSub(type,x))}</div><div class="actions">${type==='polls'?`<button class="btn" onclick="openPollResults('${x.id}',true)">결과 보기</button>`:''}<button class="btn" onclick='editRecord(${JSON.stringify(type)},${JSON.stringify(x)})'>수정</button><button class="btn danger" onclick="deleteRecord('${type}','${x.id}')">삭제</button></div></div>`))}
+async function manage(type){setBackAction(()=>adminPage());if(type==='members')return manageMembers();if(type==='permissions')return managePermissions();if(type==='intro')return editIntro();if(type==='leaders')return manageLeaders();if(type==='songs')return manageSongs();if(type==='gallery')return manageGallery();const map={notices:'notices',prayers:'prayer_assignments',events:'events',leaders:'leaders',gallery:'gallery',documents:'documents',polls:'polls',tasks:'tasks'};const table=map[type];if(!table)return;const {data}=await sb.from(table).select('*').order('created_at',{ascending:false}).limit(100);main.innerHTML=title(type==='polls'?'설문':type==='prayers'?'기도 순서':'관리 · '+(PERM_LABELS[type]||type),`<button class="btn primary adminCreateBtn" onclick="addRecord('${type}')">+ 새로 등록</button>`)+list((data||[]).map(x=>`<div class="row"><b>${esc(recordTitle(type,x))}</b><div class="muted">${esc(recordSub(type,x))}</div><div class="actions">${type==='polls'?`<button class="btn" onclick="openPollResults('${x.id}',true)">결과 보기</button>`:''}<button class="btn" onclick='editRecord(${JSON.stringify(type)},${JSON.stringify(x)})'>수정</button><button class="btn danger" onclick="deleteRecord('${type}','${x.id}')">삭제</button></div></div>`))}
 
 async function manageLeaders(){setBackAction(()=>adminPage());const {data,error}=await sb.from('leaders').select('*').order('sort_order');if(error)return toast(error.message);main.innerHTML=title('관리 · 섬기는 분들',`<button class="btn primary adminCreateBtn" onclick="addRecord('leaders')">역할 지정</button>`)+`<p class="muted">역할은 고정되어 있으며 대원명단에서 사람을 선택해 지정합니다.</p>`+list((data||[]).map(x=>`<div class="row"><b>${esc(x.role_name||'-')} · ${esc(x.name||'미지정')}</b><div class="actions"><button class="btn" onclick='editRecord("leaders",${JSON.stringify(x)})'>수정</button><button class="btn danger" onclick="deleteRecord('leaders','${x.id}')">삭제</button></div></div>`))}
 async function manageGallery(){
@@ -2316,6 +2317,7 @@ async function go(p){page=p;navActive();main.innerHTML='<div class="empty">불�
 
 
 function uiIcon(name,cls='uiIcon'){
+ if(name==='pray')return `<span class="${cls} prayerHandsIcon" aria-hidden="true">🙏</span>`;
  const paths={
   calendar:'<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/><path d="M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01"/>',
   people:'<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>',
