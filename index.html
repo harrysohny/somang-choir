@@ -1362,6 +1362,20 @@ a.link{color:#1f6759}
 .pianoVolumeRow{display:flex;align-items:center;gap:12px;margin-top:12px;padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:#fafcfb}
 .pianoVolumeRow label{font-weight:700;white-space:nowrap}.pianoVolumeRow input[type=range]{width:100%;accent-color:var(--brand)}
 .pianoVolumeValue{min-width:38px;text-align:right;font-size:12px;color:var(--muted)}
+
+/* App information — More page */
+.appInfoMini{margin:28px auto 4px;text-align:center;color:#9aa0a6;font-size:11px;line-height:1.65;letter-spacing:.01em}
+.appInfoMini button{border:0;background:transparent;color:inherit;font:inherit;padding:5px 8px;cursor:pointer}
+.appInfoMini button:hover{color:#6b7280}
+.appInfoModal{position:fixed;inset:0;background:rgba(0,0,0,.42);display:none;align-items:center;justify-content:center;z-index:100001;padding:18px}
+.appInfoModal.show{display:flex}
+.appInfoBox{width:min(420px,92vw);background:#fff;border-radius:20px;padding:24px 22px 20px;text-align:center;box-shadow:0 18px 50px rgba(0,0,0,.18)}
+.appInfoBox h3{margin:0 0 5px;font-size:19px;color:var(--ink)}
+.appInfoChurch{font-size:13px;color:var(--muted);margin-bottom:18px}
+.appInfoCredit{font-size:13px;color:#4b5563;line-height:1.7}
+.appInfoCredit b{display:block;color:var(--ink);font-size:15px;margin-top:2px}
+.appInfoVersion{margin-top:16px;padding-top:14px;border-top:1px solid var(--line);font-size:12px;color:#8b929a;line-height:1.7}
+.appInfoClose{margin-top:17px;border:0;border-radius:10px;background:var(--brand2);color:var(--brand);padding:9px 22px;font-weight:700;cursor:pointer}
 </style>
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="apple-touch-icon" href="./assets/apple-touch-icon.png">
@@ -2324,7 +2338,7 @@ async function myChoirPage(){
 }
 async function changeMyPassword(){const a=prompt('새 비밀번호를 입력하세요. (6자 이상)');if(!a)return;if(a.length<6)return toast('비밀번호는 6자 이상이어야 합니다.');const b=prompt('새 비밀번호를 한 번 더 입력하세요.');if(a!==b)return toast('비밀번호가 서로 다릅니다.');const {error}=await sb.auth.updateUser({password:a});if(error)return toast(error.message);toast('비밀번호가 변경되었습니다.')}
 
-function morePage(){const admin=me.role==='superadmin'||Object.keys(PERM_LABELS).some(can)||canAnySong();main.innerHTML=title('더보기')+`<div class="grid"><button class="adminTile iconTile" onclick="go('profile')"><span class="tileIcon">${uiIcon('people')}</span><b>나의 프로필</b><span class="muted">사진 · 연락처 · 직분 · 자기소개</span></button><button class="adminTile iconTile" onclick="songSchedulePage()"><span class="tileIcon">${uiIcon('calendar')}</span><b>찬양 일정표</b><span class="muted">연간 주일 찬양 일정</span></button><button class="adminTile iconTile" onclick="go('piano')"><span class="tileIcon">${uiIcon('piano')}</span><b>간이 피아노</b><span class="muted">찬양대 음정 연습</span></button><button class="adminTile iconTile" onclick="go('prayers')"><span class="tileIcon">${uiIcon('pray')}</span><b>기도 순서</b><span class="muted">전체 기도 순서 확인</span></button><button class="adminTile iconTile" onclick="go('members')"><span class="tileIcon">${uiIcon('people')}</span><b>대원명단</b><span class="muted">파트별 대원 연락처</span></button><button class="adminTile iconTile" onclick="go('notices')"><span class="tileIcon">${uiIcon('bell')}</span><b>공지사항</b><span class="muted">전체 · 파트 공지</span></button><button class="adminTile iconTile" onclick="go('intro')"><span class="tileIcon">${uiIcon('people')}</span><b>찬양대 소개</b><span class="muted">소개 · 역사 · 비전</span></button><button class="adminTile iconTile" onclick="go('leaders')"><span class="tileIcon">${uiIcon('people')}</span><b>섬기는 분들</b><span class="muted">운영 · 음악 조직</span></button><button class="adminTile iconTile" onclick="go('gallery')"><span class="tileIcon">${uiIcon('image')}</span><b>갤러리</b><span class="muted">행사 · 절기 · 연습 사진</span></button><button class="adminTile iconTile" onclick="go('documents')"><span class="tileIcon">${uiIcon('folder')}</span><b>자료실</b><span class="muted">문서 · 링크</span></button><button class="adminTile iconTile" onclick="go('polls')"><span class="tileIcon">${uiIcon('check')}</span><b>설문</b><span class="muted">대원 의견 수렴</span></button><button class="adminTile iconTile" onclick="go('tasks')"><span class="tileIcon">${uiIcon('task')}</span><b>봉사 · 할일</b><span class="muted">업무 · 봉사 배정</span></button><button class="adminTile iconTile" onclick="go('notifications')"><span class="tileIcon">${uiIcon('bell')}</span><b>알림 설정</b><span class="muted">iPhone · Android Push</span></button><button class="adminTile iconTile" onclick="go('install')"><span class="tileIcon">${uiIcon('phone')}</span><b>앱 설치 · QR</b><span class="muted">설치 안내 · 주소 공유</span></button>${admin?`<button class="adminTile iconTile" onclick="go('admin')"><span class="tileIcon">${uiIcon('gear')}</span><b>관리센터</b><span class="muted">대원 · 찬양 · 소통 · 운영</span></button>`:''}</div>`}
+function morePage(){const admin=me.role==='superadmin'||Object.keys(PERM_LABELS).some(can)||canAnySong();main.innerHTML=title('더보기')+`<div class="grid"><button class="adminTile iconTile" onclick="go('profile')"><span class="tileIcon">${uiIcon('people')}</span><b>나의 프로필</b><span class="muted">사진 · 연락처 · 직분 · 자기소개</span></button><button class="adminTile iconTile" onclick="songSchedulePage()"><span class="tileIcon">${uiIcon('calendar')}</span><b>찬양 일정표</b><span class="muted">연간 주일 찬양 일정</span></button><button class="adminTile iconTile" onclick="go('piano')"><span class="tileIcon">${uiIcon('piano')}</span><b>간이 피아노</b><span class="muted">찬양대 음정 연습</span></button><button class="adminTile iconTile" onclick="go('prayers')"><span class="tileIcon">${uiIcon('pray')}</span><b>기도 순서</b><span class="muted">전체 기도 순서 확인</span></button><button class="adminTile iconTile" onclick="go('members')"><span class="tileIcon">${uiIcon('people')}</span><b>대원명단</b><span class="muted">파트별 대원 연락처</span></button><button class="adminTile iconTile" onclick="go('notices')"><span class="tileIcon">${uiIcon('bell')}</span><b>공지사항</b><span class="muted">전체 · 파트 공지</span></button><button class="adminTile iconTile" onclick="go('intro')"><span class="tileIcon">${uiIcon('people')}</span><b>찬양대 소개</b><span class="muted">소개 · 역사 · 비전</span></button><button class="adminTile iconTile" onclick="go('leaders')"><span class="tileIcon">${uiIcon('people')}</span><b>섬기는 분들</b><span class="muted">운영 · 음악 조직</span></button><button class="adminTile iconTile" onclick="go('gallery')"><span class="tileIcon">${uiIcon('image')}</span><b>갤러리</b><span class="muted">행사 · 절기 · 연습 사진</span></button><button class="adminTile iconTile" onclick="go('documents')"><span class="tileIcon">${uiIcon('folder')}</span><b>자료실</b><span class="muted">문서 · 링크</span></button><button class="adminTile iconTile" onclick="go('polls')"><span class="tileIcon">${uiIcon('check')}</span><b>설문</b><span class="muted">대원 의견 수렴</span></button><button class="adminTile iconTile" onclick="go('tasks')"><span class="tileIcon">${uiIcon('task')}</span><b>봉사 · 할일</b><span class="muted">업무 · 봉사 배정</span></button><button class="adminTile iconTile" onclick="go('notifications')"><span class="tileIcon">${uiIcon('bell')}</span><b>알림 설정</b><span class="muted">iPhone · Android Push</span></button><button class="adminTile iconTile" onclick="go('install')"><span class="tileIcon">${uiIcon('phone')}</span><b>앱 설치 · QR</b><span class="muted">설치 안내 · 주소 공유</span></button>${admin?`<button class="adminTile iconTile" onclick="go('admin')"><span class="tileIcon">${uiIcon('gear')}</span><b>관리센터</b><span class="muted">대원 · 찬양 · 소통 · 운영</span></button>`:''}</div><div class="appInfoMini"><button type="button" onclick="openAppInfo()" aria-label="앱 정보 보기"><b>SOMANG CHURCH CHOIR · v1.0.0</b><br>App Design &amp; Development · Harry Sohn</button></div>`}
 
 function pianoPage(){
   setBackAction(()=>go('more'));
@@ -2481,6 +2495,9 @@ function iconForTitle(t){
 }
 
 
+function openAppInfo(){const m=document.getElementById('appInfoModal');if(m){m.classList.add('show');m.setAttribute('aria-hidden','false')}}
+function closeAppInfo(){const m=document.getElementById('appInfoModal');if(m){m.classList.remove('show');m.setAttribute('aria-hidden','true')}}
+
 function appFooter(){
   return `<footer class="appFooter">
     <div class="footerKr">대한예수교장로회 창동교회 소망찬양대</div>
@@ -2500,6 +2517,16 @@ init();
     <div class="ytFrameWrap">
       <iframe id="ytFrame" src="about:blank" title="YouTube 영상" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
     </div>
+  </div>
+</div>
+
+<div id="appInfoModal" class="appInfoModal" aria-hidden="true" onclick="if(event.target===this)closeAppInfo()">
+  <div class="appInfoBox" role="dialog" aria-modal="true" aria-labelledby="appInfoTitle">
+    <h3 id="appInfoTitle">SOMANG CHURCH CHOIR</h3>
+    <div class="appInfoChurch">대한예수교장로회 창동교회 소망찬양대</div>
+    <div class="appInfoCredit">App Web Planning · Design · Development<b>Harry Sohn</b></div>
+    <div class="appInfoVersion">Version 1.0.0<br>© 2026 SOMANG CHURCH CHOIR</div>
+    <button type="button" class="appInfoClose" onclick="closeAppInfo()">닫기</button>
   </div>
 </div>
 
