@@ -1614,7 +1614,7 @@ function pollDateState(x){const d=new Date(),today=[d.getFullYear(),String(d.get
 function pollPeriodText(x){if(x.start_date&&x.end_date)return `${fmt(x.start_date)} ~ ${fmt(x.end_date)}`;return x.end_date?`~ ${fmt(x.end_date)}`:''}
 async function pollsPage(){
  setBackAction(()=>go('more'));
- const [{data,error},{data:votes,error:ve}]=await Promise.all([sb.from('polls').select('*,poll_options(*)').order('created_at',{ascending:false}),sb.from('poll_votes').select('poll_id,option_id').eq('user_id',me.id)]);
+ const [{data,error},{data:votes,error:ve}]=await Promise.all([sb.from('polls').select('*,poll_options!poll_options_poll_id_fkey(*)').order('created_at',{ascending:false}),sb.from('poll_votes').select('poll_id,option_id').eq('user_id',me.id)]);
  if(error)return toast(error.message);if(ve)return toast(ve.message);
  const voted=new Set((votes||[]).map(v=>v.poll_id));
  const rows=(data||[]).filter(pollTargetAllowed);
@@ -1622,7 +1622,7 @@ async function pollsPage(){
 }
 async function openPoll(id){
  setBackAction(()=>pollsPage());
- const [{data:p,error},{data:votes,error:ve}]=await Promise.all([sb.from('polls').select('*,poll_options(*)').eq('id',id).single(),sb.from('poll_votes').select('option_id').eq('poll_id',id).eq('user_id',me.id)]);
+ const [{data:p,error},{data:votes,error:ve}]=await Promise.all([sb.from('polls').select('*,poll_options!poll_options_poll_id_fkey(*)').eq('id',id).single(),sb.from('poll_votes').select('option_id').eq('poll_id',id).eq('user_id',me.id)]);
  if(error)return toast(error.message);if(ve)return toast(ve.message);if(!pollTargetAllowed(p))return toast('이 설문의 대상이 아닙니다.');
  const selected=new Set((votes||[]).map(v=>v.option_id)),state=pollDateState(p),multiple=p.response_type==='multiple',type=multiple?'checkbox':'radio',opts=(p.poll_options||[]).sort((a,b)=>a.sort_order-b.sort_order);
  const stateMsg=state==='waiting'?'아직 설문 기간이 시작되지 않았습니다.':state==='closed'?'마감된 설문입니다.':'마감 전에는 응답을 변경할 수 있습니다.';
