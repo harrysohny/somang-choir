@@ -1333,7 +1333,7 @@ const SUPABASE_URL='https://chsfhwewskydnreodvvq.supabase.co';
 const SUPABASE_PUBLISHABLE_KEY='sb_publishable_MoLRdCftzWbvdGkWyeGoEg_My1j8-XB';
 const sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY);
 let session=null, me=null, perms=[], page='home';
-const PERM_LABELS={members:'대원명단/가입승인',notices:'공지 관리',songs:'연습 찬양곡 기본정보·전체합창 (총무)',song_replay:'찬양곡 다시보기 등록',song_soprano:'Soprano 영상 입력',song_alto:'Alto 영상 입력',song_tenor:'Tenor 영상 입력',song_bass:'Bass 영상 입력',prayers:'기도 순서',events:'일정·행사',intro:'찬양대 소개',leaders:'섬기는 분들',gallery:'갤러리',documents:'자료실',polls:'투표·설문',tasks:'봉사·할일',permissions:'관리자 권한'};
+const PERM_LABELS={members:'대원명단/가입승인',notices:'공지 관리',songs:'연습 찬양곡 기본정보·전체합창 (총무)',song_replay:'찬양곡 다시보기 등록',song_soprano:'Soprano 영상 입력',song_alto:'Alto 영상 입력',song_tenor:'Tenor 영상 입력',song_bass:'Bass 영상 입력',prayers:'기도 순서',events:'일정·행사',intro:'찬양대 소개',leaders:'섬기는 분들',gallery:'갤러리',documents:'자료실',polls:'설문',tasks:'봉사·할일',permissions:'관리자 권한'};
 const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 function partKo(part){return ({Soprano:'소프라노',Alto:'알토',Tenor:'테너',Bass:'베이스'})[part]||part||''}
 function memberPrayerLabel(m){return [partKo(m?.part),m?.name,m?.title].filter(Boolean).join(' ')}
@@ -1609,8 +1609,30 @@ async function openGalleryAlbum(id){
   <div class="photoGrid">${items.map((x,i)=>`<div class="photoItem"><img class="photoThumb" src="${esc(x.url)}" alt="${esc(x.caption||('사진 '+(i+1)))}" onclick='openImageModal(${JSON.stringify(x.url)},${JSON.stringify(x.caption||"")})'>${x.caption?`<div class="photoCaption">${esc(x.caption)}</div>`:''}</div>`).join('')||'<div class="empty">사진이 없습니다.</div>'}</div>`;
 }
 async function documentsPage(){const {data}=await sb.from('documents').select('*').order('document_date',{ascending:false});main.innerHTML=title('자료실')+list((data||[]).map(x=>`<div class="row"><span class="tag">${esc(x.category||'자료')}</span> <b>${esc(x.title)}</b><div class="muted">${fmt(x.document_date)}</div><p>${esc(x.description||'')}</p><div class="actions">${linkBtn(x.file_path||x.external_url,'자료 열기')}</div></div>`))}
-async function pollsPage(){const {data}=await sb.from('polls').select('*,poll_options(*)').order('created_at',{ascending:false});main.innerHTML=title('투표 · 설문')+list((data||[]).map(x=>`<div class="row"><b>${esc(x.title)}</b><div class="muted">${esc(x.status)} ${x.end_date?'· '+fmt(x.end_date):''}</div><div class="actions">${(x.poll_options||[]).sort((a,b)=>a.sort_order-b.sort_order).map(o=>`<button class="btn" onclick="vote('${x.id}','${o.id}')">${esc(o.option_text)}</button>`).join('')}</div></div>`))}
-async function vote(pid,oid){await sb.from('poll_votes').delete().eq('poll_id',pid).eq('user_id',me.id);const {error}=await sb.from('poll_votes').insert({poll_id:pid,option_id:oid,user_id:me.id});toast(error?error.message:'투표했습니다.')}
+function pollTargetAllowed(x){return (x.target_type||'all')==='all'||(Array.isArray(x.target_parts)&&x.target_parts.includes(me.part))}
+function pollDateState(x){const d=new Date(),today=[d.getFullYear(),String(d.getMonth()+1).padStart(2,'0'),String(d.getDate()).padStart(2,'0')].join('-');if(x.status==='마감'||(x.end_date&&today>x.end_date))return 'closed';if(x.start_date&&today<x.start_date)return 'waiting';return 'open'}
+function pollPeriodText(x){if(x.start_date&&x.end_date)return `${fmt(x.start_date)} ~ ${fmt(x.end_date)}`;return x.end_date?`~ ${fmt(x.end_date)}`:''}
+async function pollsPage(){
+ setBackAction(()=>go('more'));
+ const [{data,error},{data:votes,error:ve}]=await Promise.all([sb.from('polls').select('*,poll_options(*)').order('created_at',{ascending:false}),sb.from('poll_votes').select('poll_id,option_id').eq('user_id',me.id)]);
+ if(error)return toast(error.message);if(ve)return toast(ve.message);
+ const voted=new Set((votes||[]).map(v=>v.poll_id));
+ const rows=(data||[]).filter(pollTargetAllowed);
+ main.innerHTML=title('설문')+list(rows.map(x=>{const state=pollDateState(x),stateText=state==='closed'?'마감':state==='waiting'?'예정':'진행중';return `<div class="row" style="cursor:pointer" onclick="openPoll('${x.id}')"><b>${esc(x.title)}</b> <span class="tag">${stateText}</span>${voted.has(x.id)?' <span class="tag">응답완료</span>':''}<div class="muted">${esc(pollPeriodText(x))}${x.response_type==='multiple'?' · 복수 선택':' · 단일 선택'}</div><div style="margin-top:6px">${esc(x.description||'')}</div><div class="actions"><button class="btn primary" onclick="event.stopPropagation();openPoll('${x.id}')">${voted.has(x.id)?'응답 확인 · 변경':'설문 참여'}</button></div></div>`}).join('')||'<div class="empty">현재 참여할 설문이 없습니다.</div>')
+}
+async function openPoll(id){
+ setBackAction(()=>pollsPage());
+ const [{data:p,error},{data:votes,error:ve}]=await Promise.all([sb.from('polls').select('*,poll_options(*)').eq('id',id).single(),sb.from('poll_votes').select('option_id').eq('poll_id',id).eq('user_id',me.id)]);
+ if(error)return toast(error.message);if(ve)return toast(ve.message);if(!pollTargetAllowed(p))return toast('이 설문의 대상이 아닙니다.');
+ const selected=new Set((votes||[]).map(v=>v.option_id)),state=pollDateState(p),multiple=p.response_type==='multiple',type=multiple?'checkbox':'radio',opts=(p.poll_options||[]).sort((a,b)=>a.sort_order-b.sort_order);
+ const stateMsg=state==='waiting'?'아직 설문 기간이 시작되지 않았습니다.':state==='closed'?'마감된 설문입니다.':'마감 전에는 응답을 변경할 수 있습니다.';
+ main.innerHTML=title('설문 응답')+`<div class="card"><h2 style="margin-top:0">${esc(p.title)}</h2><div class="muted">${esc(pollPeriodText(p))} · ${multiple?'복수 선택':'단일 선택'}</div>${p.description?`<div style="margin:16px 0;white-space:pre-wrap">${esc(p.description)}</div>`:''}<div style="margin-top:16px">${opts.map(o=>`<label style="display:flex;align-items:center;gap:12px;padding:13px 10px;border-bottom:1px solid #edf0ee;cursor:${state==='open'?'pointer':'default'}"><input class="pollAnswer" type="${type}" name="poll_answer" value="${o.id}" ${selected.has(o.id)?'checked':''} ${state==='open'?'':'disabled'}><span>${esc(o.option_text)}</span></label>`).join('')}</div><div class="muted" style="margin-top:14px">${esc(stateMsg)}</div><div class="actions">${state==='open'?`<button class="btn primary" onclick="submitPollResponse('${p.id}','${p.response_type||'single'}')">${selected.size?'응답 변경':'응답 제출'}</button>`:''}<button class="btn" onclick="pollsPage()">목록</button></div></div>`
+}
+async function submitPollResponse(pid,responseType){
+ const ids=[...document.querySelectorAll('.pollAnswer:checked')].map(x=>x.value);if(!ids.length)return toast('응답 항목을 선택해 주세요.');if(responseType!=='multiple'&&ids.length!==1)return toast('한 항목만 선택해 주세요.');
+ const {error:de}=await sb.from('poll_votes').delete().eq('poll_id',pid).eq('user_id',me.id);if(de)return toast(de.message);
+ const {error}=await sb.from('poll_votes').insert(ids.map(option_id=>({poll_id:pid,option_id,user_id:me.id})));if(error)return toast(error.message);toast('응답이 저장되었습니다.');openPoll(pid)
+}
 async function tasksPage(){const [{data},{data:members}]=await Promise.all([sb.from('tasks').select('*').order('due_date',{ascending:true}),sb.from('profiles').select('id,name,title').eq('status','approved')]);const mm=Object.fromEntries((members||[]).map(m=>[m.id,m]));main.innerHTML=title('봉사 · 할일')+list((data||[]).map(x=>{const m=x.assignee_id?mm[x.assignee_id]:null;const who=m?`${m.name} ${m.title||''}`:(x.assignee||'-');return `<div class="row"><b>${esc(x.title)}</b> <span class="tag">${esc(x.status)}</span><div class="muted">${fmt(x.due_date)} · 담당 ${esc(who)}</div><div>${esc(x.note||'')}</div></div>`}))}
 
 
@@ -2243,7 +2265,7 @@ async function adminPage(){
  let a='',b='',c='',d='';if(can('members'))a+=tile('members','가입 승인 · 대원','가입승인 · 일괄등록 · 상태','manageMembers()');if(me.role==='superadmin')a+=tile('permissions','권한 관리','관리자 세부 권한','managePermissions()');
  if(canSongBase()||['song_soprano','song_alto','song_tenor','song_bass'].some(can))b+=tile('practiceSongs','연습찬양곡','전체합창 · S · A · T · B 연습영상','managePracticeSongs()');if(canSongReplay())b+=tile('replaySongs','찬양곡 다시보기','주일예배 실제 찬양 영상','manageReplaySongs()');if(can('songs'))b+=tile('songSchedule','연간 찬양곡','날짜 · 곡명 · 찬양집 · 페이지','manageSongSchedule()');
  if(can('notices'))c+=tile('notices','공지','전체 · 파트 공지',"manage('notices')");if(can('prayers'))c+=tile('prayers','기도 순서','목요일 · 일요일 시작/마침',"manage('prayers')");if(can('events'))c+=tile('events','일정 · 행사','연습 · 행사 일정',"manage('events')");if(me.role==='superadmin'||can('notices'))c+=tile('notices','Push 알림','전체 · 파트 수동 발송',"go('notifications')");
- if(can('leaders'))d+=tile('leaders','임원 · 조직','운영 조직 · 음악 조직','manageLeaders()');if(can('intro'))d+=tile('intro','찬양대 소개','소개 · 역사 · 비전','editIntro()');if(can('gallery'))d+=tile('gallery','갤러리','앨범 · 사진','manageGallery()');if(can('documents'))d+=tile('documents','자료실','문서 · 링크',"manage('documents')");if(can('polls'))d+=tile('polls','투표 · 설문','대원 의견 수렴',"manage('polls')");if(can('tasks'))d+=tile('tasks','봉사 · 할일','업무 · 봉사 배정',"manage('tasks')");
+ if(can('leaders'))d+=tile('leaders','임원 · 조직','운영 조직 · 음악 조직','manageLeaders()');if(can('intro'))d+=tile('intro','찬양대 소개','소개 · 역사 · 비전','editIntro()');if(can('gallery'))d+=tile('gallery','갤러리','앨범 · 사진','manageGallery()');if(can('documents'))d+=tile('documents','자료실','문서 · 링크',"manage('documents')");if(can('polls'))d+=tile('polls','설문','대원 의견 수렴',"manage('polls')");if(can('tasks'))d+=tile('tasks','봉사 · 할일','업무 · 봉사 배정',"manage('tasks')");
  main.innerHTML=title('통합 관리센터')+`<div class="adminGroup"><h3>👥 대원 관리</h3><div class="adminGrid">${a||'<div class="muted">권한 없음</div>'}</div></div><div class="adminGroup"><h3>🎵 찬양 관리</h3><div class="adminGrid">${b||'<div class="muted">권한 없음</div>'}</div></div><div class="adminGroup"><h3>📢 소통 관리</h3><div class="adminGrid">${c||'<div class="muted">권한 없음</div>'}</div></div><div class="adminGroup"><h3>⛪ 찬양대 관리</h3><div class="adminGrid">${d||'<div class="muted">권한 없음</div>'}</div></div>`;
 }
 
