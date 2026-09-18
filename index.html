@@ -1376,6 +1376,17 @@ a.link{color:#1f6759}
 .appInfoCredit b{display:block;color:var(--ink);font-size:15px;margin-top:2px}
 .appInfoVersion{margin-top:16px;padding-top:14px;border-top:1px solid var(--line);font-size:12px;color:#8b929a;line-height:1.7}
 .appInfoClose{margin-top:17px;border:0;border-radius:10px;background:var(--brand2);color:var(--brand);padding:9px 22px;font-weight:700;cursor:pointer}
+/* Password change modal */
+.passwordModal{position:fixed;inset:0;background:rgba(0,0,0,.42);display:none;align-items:center;justify-content:center;z-index:100002;padding:18px}
+.passwordModal.show{display:flex}
+.passwordBox{width:min(420px,92vw);background:#fff;border-radius:20px;padding:24px 22px 20px;box-shadow:0 18px 50px rgba(0,0,0,.18)}
+.passwordBox h3{margin:0 0 6px;font-size:19px;text-align:center;color:var(--ink)}
+.passwordBox .passwordHelp{text-align:center;margin:0 0 18px}
+.passwordBox .field{margin-top:12px}
+.passwordBox .field label{display:block;margin-bottom:6px;font-weight:700}
+.passwordBox .field input{width:100%}
+.passwordActions{display:flex;justify-content:center;gap:8px;margin-top:18px}
+
 </style>
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="apple-touch-icon" href="./assets/apple-touch-icon.png">
@@ -2337,9 +2348,19 @@ async function myChoirPage(){
  main.innerHTML=title('나의 소망찬양대')+`<section class="mySummaryHero"><div class="mySummaryAvatar">${myPhoto?`<img src="${esc(myPhoto)}" alt="${esc(me.name)}">`:esc((me.name||'?').slice(0,1))}</div><div><h2>${esc(me.name)} ${esc(me.title||'')}</h2><p>${esc(partKo(me.part)||me.part||'')}</p><button class="textLink" onclick="go('profile')">내 프로필 보기 · 수정</button></div></section><div class="myDashboard"><div class="myDashCard"><span><span class="inlinePrayerIcon">${uiIcon('pray')}</span>나의 기도</span>${mine[0]?`<b>${friendlyDate(mine[0].date)} · ${esc(mine[0].label)}</b>`:'<b>한 달 이내 없음</b>'}</div><div class="myDashCard"><span>🎵 연습찬양곡</span><b>${esc(song?.title||'등록된 연습찬양곡 없음')}</b>${song?`<div class="actions">${linkBtn(song.full_url,'전체 합창')}${linkBtn(myPartUrl(song),`${me.part||'내 파트'} 연습`)}</div>`:''}</div><div class="myDashCard"><span>📢 나에게 해당하는 공지</span>${myNotices.map(x=>`<button class="miniNotice" onclick="openNotice('${x.id}')">${esc(x.title)}</button>`).join('')||'<b>새 공지 없음</b>'}</div><div class="myDashCard"><span>📅 다음 일정</span>${events[0]?`<b>${friendlyDate(events[0].event_date)} · ${esc(events[0].title)}</b>`:'<b>등록된 일정 없음</b>'}</div></div><div class="card settingsLinks"><button class="btn" onclick="go('profile')">내 프로필 수정</button><button class="btn" onclick="go('notifications')">알림 설정</button><button class="btn" onclick="changeMyPassword()">비밀번호 변경</button></div>`;
 }
 function changeMyPassword(){
- modal.innerHTML=`<div class="modal"><div class="modalbox"><h2>비밀번호 변경</h2><p class="muted">새 비밀번호를 6자 이상 입력해 주세요.</p><div class="field"><label>새 비밀번호</label><input id="myNewPw1" type="password" autocomplete="new-password" placeholder="6자 이상 입력"></div><div class="field"><label>새 비밀번호 확인</label><input id="myNewPw2" type="password" autocomplete="new-password" placeholder="한 번 더 입력"></div><div class="actions" style="justify-content:center;margin-top:18px"><button class="btn" onclick="closeModal()">취소</button><button class="btn primary" onclick="submitMyPasswordChange()">변경하기</button></div></div></div>`;
+ const modal=document.getElementById('passwordModal');
+ if(!modal){toast('비밀번호 변경 창을 열 수 없습니다.');return}
+ const a=document.getElementById('myNewPw1'),b=document.getElementById('myNewPw2');
+ if(a)a.value='';if(b)b.value='';
  modal.classList.add('show');
- requestAnimationFrame(()=>document.getElementById('myNewPw1')?.focus());
+ modal.setAttribute('aria-hidden','false');
+ document.body.style.overflow='hidden';
+ requestAnimationFrame(()=>a?.focus());
+}
+function closePasswordModal(){
+ const modal=document.getElementById('passwordModal');
+ if(modal){modal.classList.remove('show');modal.setAttribute('aria-hidden','true')}
+ document.body.style.overflow='';
 }
 async function submitMyPasswordChange(){
  const a=document.getElementById('myNewPw1')?.value||'',b=document.getElementById('myNewPw2')?.value||'';
@@ -2347,7 +2368,7 @@ async function submitMyPasswordChange(){
  if(a!==b)return toast('비밀번호가 서로 다릅니다.');
  const {error}=await sb.auth.updateUser({password:a});
  if(error)return toast(error.message);
- closeModal();toast('비밀번호가 변경되었습니다.');
+ closePasswordModal();toast('비밀번호가 변경되었습니다.');
 }
 
 function morePage(){const admin=me.role==='superadmin'||Object.keys(PERM_LABELS).some(can)||canAnySong();main.innerHTML=title('더보기')+`<div class="grid"><button class="adminTile iconTile" onclick="go('profile')"><span class="tileIcon">${uiIcon('people')}</span><b>나의 프로필</b><span class="muted">사진 · 연락처 · 직분 · 자기소개</span></button><button class="adminTile iconTile" onclick="songSchedulePage()"><span class="tileIcon">${uiIcon('calendar')}</span><b>찬양 일정표</b><span class="muted">연간 주일 찬양 일정</span></button><button class="adminTile iconTile" onclick="go('piano')"><span class="tileIcon">${uiIcon('piano')}</span><b>간이 피아노</b><span class="muted">찬양대 음정 연습</span></button><button class="adminTile iconTile" onclick="go('prayers')"><span class="tileIcon">${uiIcon('pray')}</span><b>기도 순서</b><span class="muted">전체 기도 순서 확인</span></button><button class="adminTile iconTile" onclick="go('members')"><span class="tileIcon">${uiIcon('people')}</span><b>대원명단</b><span class="muted">파트별 대원 연락처</span></button><button class="adminTile iconTile" onclick="go('notices')"><span class="tileIcon">${uiIcon('bell')}</span><b>공지사항</b><span class="muted">전체 · 파트 공지</span></button><button class="adminTile iconTile" onclick="go('intro')"><span class="tileIcon">${uiIcon('people')}</span><b>찬양대 소개</b><span class="muted">소개 · 역사 · 비전</span></button><button class="adminTile iconTile" onclick="go('leaders')"><span class="tileIcon">${uiIcon('people')}</span><b>섬기는 분들</b><span class="muted">운영 · 음악 조직</span></button><button class="adminTile iconTile" onclick="go('gallery')"><span class="tileIcon">${uiIcon('image')}</span><b>갤러리</b><span class="muted">행사 · 절기 · 연습 사진</span></button><button class="adminTile iconTile" onclick="go('documents')"><span class="tileIcon">${uiIcon('folder')}</span><b>자료실</b><span class="muted">문서 · 링크</span></button><button class="adminTile iconTile" onclick="go('polls')"><span class="tileIcon">${uiIcon('check')}</span><b>설문</b><span class="muted">대원 의견 수렴</span></button><button class="adminTile iconTile" onclick="go('tasks')"><span class="tileIcon">${uiIcon('task')}</span><b>봉사 · 할일</b><span class="muted">업무 · 봉사 배정</span></button><button class="adminTile iconTile" onclick="go('notifications')"><span class="tileIcon">${uiIcon('bell')}</span><b>알림 설정</b><span class="muted">iPhone · Android Push</span></button><button class="adminTile iconTile" onclick="go('install')"><span class="tileIcon">${uiIcon('phone')}</span><b>앱 설치 · QR</b><span class="muted">설치 안내 · 주소 공유</span></button>${admin?`<button class="adminTile iconTile" onclick="go('admin')"><span class="tileIcon">${uiIcon('gear')}</span><b>관리센터</b><span class="muted">대원 · 찬양 · 소통 · 운영</span></button>`:''}</div><div class="appInfoMini"><button type="button" onclick="openAppInfo()" aria-label="앱 정보 보기"><b>SOMANG CHURCH CHOIR · v1.0.0</b><br>App Design &amp; Development · Harry Sohn</button></div>`}
@@ -2539,6 +2560,16 @@ init();
     <div class="appInfoCredit">App Web Planning · Design · Development<b>Harry Sohn</b><a href="mailto:harrysohny@aol.com" style="display:block;margin-top:4px;font-size:13px;font-weight:500;color:var(--muted);text-decoration:none">harrysohny@aol.com</a></div>
     <div class="appInfoVersion">Version 1.0.0<br>© 2026 SOMANG CHURCH CHOIR</div>
     <button type="button" class="appInfoClose" onclick="closeAppInfo()">닫기</button>
+  </div>
+</div>
+
+<div id="passwordModal" class="passwordModal" aria-hidden="true" onclick="if(event.target===this)closePasswordModal()">
+  <div class="passwordBox" role="dialog" aria-modal="true" aria-labelledby="passwordModalTitle">
+    <h3 id="passwordModalTitle">비밀번호 변경</h3>
+    <p class="muted passwordHelp">새 비밀번호를 6자 이상 입력해 주세요.</p>
+    <div class="field"><label for="myNewPw1">새 비밀번호</label><input id="myNewPw1" type="password" autocomplete="new-password" placeholder="6자 이상 입력"></div>
+    <div class="field"><label for="myNewPw2">새 비밀번호 확인</label><input id="myNewPw2" type="password" autocomplete="new-password" placeholder="한 번 더 입력"></div>
+    <div class="passwordActions"><button type="button" class="btn" onclick="closePasswordModal()">취소</button><button type="button" class="btn primary" onclick="submitMyPasswordChange()">변경하기</button></div>
   </div>
 </div>
 
