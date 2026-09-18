@@ -6,6 +6,8 @@
 <title>소망찬양대 · SOMANG CHURCH CHOIR</title>
 <!-- V14-D3.15-R1 SAFE MERGE: 2026-09-13 21:56 baseline + D3.15 additive UX -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/exceljs@4.4.0/dist/exceljs.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/html2pdf.js@0.10.2/dist/html2pdf.bundle.min.js"></script>
 <style>
 :root{--bg:#f6f7fb;--card:#fff;--ink:#1f2937;--muted:#6b7280;--line:#e5e7eb;--brand:#2d5b52;--brand2:#eaf2ef;--danger:#b42318;--ok:#16794a;--shadow:0 10px 30px rgba(0,0,0,.07)}*{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;background:var(--bg);color:var(--ink)}button,input,select,textarea{font:inherit}.app{max-width:1050px;margin:0 auto;min-height:100vh;background:var(--bg)}header{position:sticky;top:0;z-index:10;background:rgba(255,255,255,.96);border-bottom:1px solid var(--line);backdrop-filter:blur(10px)}.head{display:flex;align-items:center;justify-content:space-between;padding:14px 18px}.brand b{font-size:19px}.brand small{display:block;color:var(--muted);margin-top:2px}.topbtn{border:0;background:var(--brand2);color:var(--brand);padding:9px 12px;border-radius:10px;font-weight:700}main{padding:18px 18px 90px}.hero{background:linear-gradient(135deg,#244d46,#4f756d);color:#fff;border-radius:22px;padding:24px;box-shadow:var(--shadow)}.hero h1{margin:0 0 7px;font-size:25px}.hero p{margin:0;opacity:.88}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:14px}.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:0 4px 16px rgba(0,0,0,.035)}.card h3{margin:0 0 8px}.muted{color:var(--muted);font-size:14px}.tag{display:inline-block;padding:4px 8px;border-radius:999px;background:var(--brand2);color:var(--brand);font-size:12px;font-weight:700}.important{background:#fff2f0;color:#b42318}.list{display:grid;gap:10px}.row{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px}.rowhead{display:flex;justify-content:space-between;gap:10px}.actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}.btn{border:0;border-radius:10px;padding:9px 12px;background:#eef1f4;color:#29313d;font-weight:700}.btn.primary{background:var(--brand);color:#fff}.btn.danger{background:#fff1f0;color:var(--danger)}.btn.ok{background:#ebf8f1;color:var(--ok)}.sectiontitle{display:flex;align-items:center;justify-content:space-between;margin:4px 0 14px}.sectiontitle h2{margin:0;font-size:21px}.loginwrap{max-width:520px;margin:36px auto}.loginbox{background:#fff;border:1px solid var(--line);border-radius:22px;padding:24px;box-shadow:var(--shadow)}.loginbox h1{margin-top:0}.field{margin:12px 0}.field label{display:block;font-size:13px;color:var(--muted);margin-bottom:6px}.field input,.field select,.field textarea{width:100%;border:1px solid #d6dae0;border-radius:11px;padding:12px;background:#fff}.field textarea{min-height:110px;resize:vertical}.wide{width:100%}.tabs{display:flex;gap:8px;margin-bottom:16px}.tabs button{flex:1}.statusbox{padding:18px;border-radius:16px;background:#fff;border:1px solid var(--line)}nav{position:fixed;left:0;right:0;bottom:0;background:rgba(255,255,255,.98);border-top:1px solid var(--line);z-index:20}.navin{max-width:1050px;margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr)}nav button{border:0;background:transparent;padding:11px 4px 12px;color:#6b7280;font-size:12px}nav button b{display:block;font-size:17px;margin-bottom:2px}nav button.active{color:var(--brand);font-weight:800}.adminGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.adminTile{background:#fff;border:1px solid var(--line);border-radius:15px;padding:15px;text-align:left}.adminTile b{display:block;margin-bottom:5px}.membergrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.member{background:#fff;border:1px solid var(--line);border-radius:14px;padding:13px}.member .name{font-weight:800;font-size:17px}.link{color:#245f9b;text-decoration:none;font-weight:700}.empty{text-align:center;padding:35px 15px;color:var(--muted)}.toast{position:fixed;left:50%;bottom:82px;transform:translateX(-50%);background:#20252b;color:#fff;padding:10px 14px;border-radius:10px;z-index:99;display:none;max-width:85%;text-align:center}.codehint{font-size:12px;color:#70757d;background:#f7f8fa;border-radius:9px;padding:8px;margin-top:10px}@media(max-width:720px){.grid,.membergrid{grid-template-columns:1fr}.adminGrid{grid-template-columns:repeat(2,minmax(0,1fr))}.hero{padding:20px}.head{padding:12px 14px}main{padding:14px 14px 90px}}
 .ytModal{position:fixed;inset:0;background:rgba(0,0,0,.62);display:none;align-items:center;justify-content:center;z-index:9999;padding:18px}.ytModal.show{display:flex}.ytBox{width:min(900px,96vw);background:#fff;border-radius:18px;overflow:hidden}.ytHead{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid #e5e7eb}.ytClose{border:0;background:#eef2f2;border-radius:10px;padding:8px 12px;font-weight:700}.ytFrameWrap{position:relative;padding-top:56.25%;background:#000}.ytFrameWrap iframe{position:absolute;inset:0;width:100%;height:100%;border:0}.ytSearchRow{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.ytIconBtn{border:0;background:#fff0f0;color:#c62828;border-radius:10px;padding:9px 12px;font-weight:700;cursor:pointer}
@@ -1390,6 +1392,23 @@ a.link{color:#1f6759}
 
 /* Member active/inactive status management */
 .memberStatusTabs,.inactiveReasonFilters{display:flex;gap:7px;flex-wrap:wrap;margin:0 0 12px}.memberStatusTabs .btn.active,.inactiveReasonFilters .btn.active{background:var(--brand);color:#fff}.memberStatusBadge{display:inline-flex;align-items:center;border-radius:999px;padding:4px 8px;background:#fff1f0;color:var(--danger);font-size:11px;font-weight:800}.memberStatusMeta{margin-top:5px;font-size:12px;color:var(--muted)}.statusHistory{display:grid;gap:7px;margin-top:12px}.statusHistoryItem{padding:9px 10px;border-radius:10px;background:#f7f8fa;font-size:13px}.deactivateBox{max-width:620px;margin:0 auto}.adminMemberFilters{margin:0 0 14px}
+
+/* Admin-only desktop member export */
+.memberAdminTools{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:0 0 14px}
+.memberExportHint{font-size:12px;color:var(--muted)}
+.memberExportDialog{position:fixed;inset:0;z-index:10050;background:rgba(0,0,0,.48);display:flex;align-items:center;justify-content:center;padding:18px}
+.memberExportPanel{width:min(520px,96vw);background:#fff;border-radius:18px;padding:20px;box-shadow:0 18px 60px rgba(0,0,0,.22)}
+.memberExportPanel h3{margin:0 0 8px}.memberExportPanel .actions{justify-content:flex-end}
+.memberExportBusy{opacity:.62;pointer-events:none}
+#memberPdfStage{position:fixed;left:-20000px;top:0;width:1120px;background:#fff;color:#111;padding:28px;font-family:"Apple SD Gothic Neo","Noto Sans KR",Arial,sans-serif}
+.pdfMemberTitle{text-align:center;font-size:22px;font-weight:800;margin-bottom:6px}
+.pdfMemberMeta{text-align:right;font-size:11px;margin-bottom:10px}
+.pdfMemberTable{width:100%;border-collapse:collapse;font-size:10px;table-layout:fixed}
+.pdfMemberTable th,.pdfMemberTable td{border:1px solid #777;padding:5px;vertical-align:middle;word-break:break-all}
+.pdfMemberTable th{background:#f1f3f3;font-weight:800}
+.pdfMemberPhoto{width:42px;height:52px;object-fit:cover;border-radius:3px;display:block;margin:auto}
+.pdfNoPhoto{width:42px;height:52px;border:1px solid #bbb;display:flex;align-items:center;justify-content:center;margin:auto;font-size:9px;color:#777}
+@media(max-width:720px),(pointer:coarse){.desktopMemberExport{display:none!important}}
 </style>
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="apple-touch-icon" href="./assets/apple-touch-icon.png">
@@ -2067,8 +2086,87 @@ async function manageMembers(view='active',reason='전체'){
  const historyMemberIds=new Set((historyRows||[]).map(h=>h.member_id));
  const pending=(data||[]).filter(x=>x.status==='pending');
  const pendingHtml=pending.length?`<div class="card"><h3>가입 승인 대기 · ${pending.length}명</h3>${pending.map(x=>`<div class="row"><b>${esc(x.name)}</b> <span class="tag">${esc(partKo(x.part)||'-')}</span><div class="muted">${esc(phoneDisplay(x.phone))} · ${esc(x.title||'')}</div><div class="actions"><button class="btn ok" onclick="setStatus('${x.id}','approved')">승인</button><button class="btn danger" onclick="setStatus('${x.id}','rejected')">반려</button></div></div>`).join('')}</div>`:'';
- main.innerHTML=title('가입 승인 · 대원 관리')+pendingHtml+bulk+tabs+list(members.map(x=>`<div class="row"><b>${esc(x.name)}</b> <span class="tag">${esc(partKo(x.part)||'-')}</span> ${x.status==='inactive'?`<span class="memberStatusBadge">${esc(x.inactive_reason||'비활성')}</span>`:''}<div class="muted">${esc(phoneDisplay(x.phone))} · ${esc(x.title||'')} · ${x.status==='approved'?'활성':'비활성'} · ${esc(roleKo(x.role))}</div>${x.status==='inactive'?`<div class="memberStatusMeta">${x.inactive_at?'비활성화 '+fmtStatusDate(x.inactive_at):''}${x.inactive_note?' · '+esc(x.inactive_note):''}</div>`:''}<div class="actions">${x.status==='approved'?`<button class="btn" onclick="openDeactivateMember('${x.id}')">비활성화</button>`:`<button class="btn ok" onclick="reactivateMember('${x.id}','${encodeURIComponent(x.name||'')}')">활성화</button>`}${historyMemberIds.has(x.id)?`<button class="btn" onclick="showMemberStatusHistory('${x.id}','${encodeURIComponent(x.name||'')}','${view}')">상태 이력</button>`:''}${me.role==='superadmin'?`<button class="btn" onclick="setRolePrompt('${x.id}','${x.role}')">역할</button>`:''}${(me.role==='superadmin'||can('members'))&&x.status==='approved'?`<button class="btn" onclick="resetMemberPassword('${x.id}','${esc(x.name)}','${esc(x.phone||'')}')">비밀번호 초기화</button>`:''}${me.role==='superadmin'&&x.id!==me.id&&x.role!=='superadmin'?`<button class="btn danger" onclick="deleteMember('${x.id}',decodeURIComponent('${encodeURIComponent(x.name||'')}'),decodeURIComponent('${encodeURIComponent(x.part||'')}'),decodeURIComponent('${encodeURIComponent(x.phone||'')}'))">완전 삭제</button>`:''}</div></div>`));
+ const exportTools=(me.role==='superadmin'||can('members'))?`<div class="memberAdminTools desktopMemberExport"><button class="btn" onclick="membersPage()">대원 현황</button><button class="btn primary" onclick="openMemberExport('excel')">Excel 다운로드</button><button class="btn" onclick="openMemberExport('pdf')">PDF 인쇄용</button><span class="memberExportHint">PC/Mac 관리자 전용</span></div>`:'';
+ main.innerHTML=title('가입 승인 · 대원 관리')+exportTools+pendingHtml+bulk+tabs+list(members.map(x=>`<div class="row"><b>${esc(x.name)}</b> <span class="tag">${esc(partKo(x.part)||'-')}</span> ${x.status==='inactive'?`<span class="memberStatusBadge">${esc(x.inactive_reason||'비활성')}</span>`:''}<div class="muted">${esc(phoneDisplay(x.phone))} · ${esc(x.title||'')} · ${x.status==='approved'?'활성':'비활성'} · ${esc(roleKo(x.role))}</div>${x.status==='inactive'?`<div class="memberStatusMeta">${x.inactive_at?'비활성화 '+fmtStatusDate(x.inactive_at):''}${x.inactive_note?' · '+esc(x.inactive_note):''}</div>`:''}<div class="actions">${x.status==='approved'?`<button class="btn" onclick="openDeactivateMember('${x.id}')">비활성화</button>`:`<button class="btn ok" onclick="reactivateMember('${x.id}','${encodeURIComponent(x.name||'')}')">활성화</button>`}${historyMemberIds.has(x.id)?`<button class="btn" onclick="showMemberStatusHistory('${x.id}','${encodeURIComponent(x.name||'')}','${view}')">상태 이력</button>`:''}${me.role==='superadmin'?`<button class="btn" onclick="setRolePrompt('${x.id}','${x.role}')">역할</button>`:''}${(me.role==='superadmin'||can('members'))&&x.status==='approved'?`<button class="btn" onclick="resetMemberPassword('${x.id}','${esc(x.name)}','${esc(x.phone||'')}')">비밀번호 초기화</button>`:''}${me.role==='superadmin'&&x.id!==me.id&&x.role!=='superadmin'?`<button class="btn danger" onclick="deleteMember('${x.id}',decodeURIComponent('${encodeURIComponent(x.name||'')}'),decodeURIComponent('${encodeURIComponent(x.part||'')}'),decodeURIComponent('${encodeURIComponent(x.phone||'')}'))">완전 삭제</button>`:''}</div></div>`));
 }
+
+function memberExportAllowed(){return !!(me&&(me.role==='superadmin'||can('members')))}
+function desktopExportAllowed(){return memberExportAllowed()&&window.matchMedia('(pointer:fine)').matches&&window.innerWidth>720}
+function openMemberExport(format){
+ if(!desktopExportAllowed())return toast('대원명부 파일 저장은 PC/Mac 관리자 화면에서만 가능합니다.');
+ const old=document.getElementById('memberExportDialog');if(old)old.remove();
+ const label=format==='excel'?'Excel (.xlsx)':'PDF';
+ const d=document.createElement('div');d.id='memberExportDialog';d.className='memberExportDialog';
+ d.innerHTML=`<div class="memberExportPanel"><h3>${label} 대원명부</h3><p class="muted">사진을 포함한 관리자용 대원정보를 저장합니다.</p><div class="field"><label>저장 대상</label><select id="memberExportScope"><option value="active">현재 대원</option><option value="all">전체 대원 (활성+비활성)</option><option value="inactive">비활성 대원</option></select></div><div class="actions"><button class="btn" onclick="closeMemberExport()">취소</button><button class="btn primary" onclick="runMemberExport('${format}')">${label} 만들기</button></div></div>`;
+ d.addEventListener('click',e=>{if(e.target===d)closeMemberExport()});document.body.appendChild(d);
+}
+function closeMemberExport(){document.getElementById('memberExportDialog')?.remove()}
+function dataUrlFromBlob(blob){return new Promise((resolve,reject)=>{const r=new FileReader();r.onload=()=>resolve(r.result);r.onerror=reject;r.readAsDataURL(blob)})}
+async function exportPhotoData(path){
+ if(!path)return null;
+ try{const url=await signedProfilePhoto(path);if(!url)return null;const res=await fetch(url);if(!res.ok)return null;return await dataUrlFromBlob(await res.blob())}catch(e){return null}
+}
+async function getMemberExportRows(scope){
+ if(!memberExportAllowed())throw new Error('관리자 권한이 필요합니다.');
+ const statuses=scope==='active'?['approved']:scope==='inactive'?['inactive']:['approved','inactive'];
+ const {data,error}=await sb.from('profiles').select('*').in('status',statuses).order('part').order('name');if(error)throw error;
+ let privateMap={};const {data:priv,error:privErr}=await sb.from('profile_private').select('user_id,birth_date,address');if(privErr)throw privErr;
+ privateMap=Object.fromEntries((priv||[]).map(x=>[x.user_id,x]));
+ const out=[];
+ for(const x of (data||[]))out.push({...x,...(privateMap[x.id]||{}),photo_data:await exportPhotoData(x.photo_path)});
+ return out;
+}
+function memberExportScopeLabel(scope){return scope==='active'?'현재 대원':scope==='inactive'?'비활성 대원':'전체 대원'}
+function memberStatusKo(x){return x.status==='approved'?'활성':'비활성'}
+function positionsText(x){return Array.isArray(x.choir_positions)?x.choir_positions.join(', '):(x.choir_positions||'')}
+async function runMemberExport(format){
+ if(!desktopExportAllowed())return toast('PC/Mac 관리자 화면에서만 가능합니다.');
+ const scope=document.getElementById('memberExportScope')?.value||'active',dlg=document.getElementById('memberExportDialog');
+ try{
+  dlg?.classList.add('memberExportBusy');toast('대원명부를 만들고 있습니다.');
+  const rows=await getMemberExportRows(scope);
+  if(!rows.length)throw new Error('저장할 대원이 없습니다.');
+  closeMemberExport();
+  if(format==='excel')await downloadMembersExcel(rows,scope);else await downloadMembersPdf(rows,scope);
+ }catch(e){dlg?.classList.remove('memberExportBusy');toast(e?.message||'파일 생성 중 오류가 발생했습니다.')}
+}
+async function downloadMembersExcel(rows,scope){
+ if(!window.ExcelJS)throw new Error('Excel 모듈을 불러오지 못했습니다. 인터넷 연결을 확인해 주세요.');
+ const wb=new ExcelJS.Workbook();wb.creator='SOMANG CHURCH CHOIR';wb.created=new Date();
+ const ws=wb.addWorksheet(memberExportScopeLabel(scope));
+ ws.columns=[
+  {header:'사진',key:'photo',width:12},{header:'이름',key:'name',width:12},{header:'직분',key:'title',width:10},{header:'파트',key:'part',width:11},
+  {header:'휴대전화',key:'phone',width:17},{header:'전자메일',key:'email',width:28},{header:'생년월일',key:'birth',width:14},{header:'주소',key:'address',width:34},
+  {header:'찬양대 직위',key:'position',width:22},{header:'자기소개',key:'bio',width:32},{header:'상태',key:'status',width:10},
+  {header:'비활성 사유',key:'reason',width:12},{header:'비활성화 일자',key:'inactiveAt',width:16},{header:'비고',key:'note',width:26},{header:'시스템 역할',key:'role',width:14}
+ ];
+ ws.getRow(1).font={bold:true};ws.getRow(1).height=24;ws.views=[{state:'frozen',ySplit:1}];ws.autoFilter={from:'A1',to:'O1'};
+ let rno=2;
+ for(const x of rows){
+  const row=ws.addRow({name:x.name||'',title:x.title||'',part:partKo(x.part)||x.part||'',phone:phoneDisplay(x.phone)||'',email:x.contact_email||'',birth:x.birth_date||'',address:x.address||'',position:positionsText(x),bio:x.bio||'',status:memberStatusKo(x),reason:x.inactive_reason||'',inactiveAt:x.inactive_at?fmtStatusDate(x.inactive_at):'',note:x.inactive_note||'',role:roleKo(x.role)});
+  row.height=48;row.alignment={vertical:'middle',wrapText:true};
+  if(x.photo_data){
+   try{const ext=String(x.photo_data).startsWith('data:image/png')?'png':'jpeg';const imageId=wb.addImage({base64:x.photo_data,extension:ext});ws.addImage(imageId,{tl:{col:0.15,row:rno-0.9},br:{col:0.85,row:rno-0.1},editAs:'oneCell'});}catch(e){}
+  }
+  rno++;
+ }
+ const buf=await wb.xlsx.writeBuffer(),blob=new Blob([buf],{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+ const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`소망찬양대_${memberExportScopeLabel(scope)}_${localDateKey()}.xlsx`;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},1000);
+ toast('Excel 대원명부를 저장했습니다.');
+}
+function pdfEsc(v){return esc(String(v??''))}
+async function downloadMembersPdf(rows,scope){
+ if(!window.html2pdf)throw new Error('PDF 모듈을 불러오지 못했습니다. 인터넷 연결을 확인해 주세요.');
+ document.getElementById('memberPdfStage')?.remove();
+ const stage=document.createElement('div');stage.id='memberPdfStage';
+ const body=rows.map(x=>`<tr style="break-inside:avoid;page-break-inside:avoid"><td>${x.photo_data?`<img class="pdfMemberPhoto" src="${x.photo_data}">`:`<div class="pdfNoPhoto">사진없음</div>`}</td><td><b>${pdfEsc(x.name)}</b><br>${pdfEsc(x.title||'')}</td><td>${pdfEsc(partKo(x.part)||x.part||'')}</td><td>${pdfEsc(phoneDisplay(x.phone)||'')}</td><td>${pdfEsc(x.birth_date||'')}</td><td>${pdfEsc(positionsText(x))}</td><td>${pdfEsc(x.contact_email||'')}</td><td>${pdfEsc(x.address||'')}</td><td>${pdfEsc(memberStatusKo(x))}${x.inactive_reason?'<br>'+pdfEsc(x.inactive_reason):''}</td></tr>`).join('');
+ stage.innerHTML=`<div class="pdfMemberTitle">대한예수교장로회 창동교회 소망찬양대 · ${memberExportScopeLabel(scope)}</div><div class="pdfMemberMeta">작성일 ${localDateKey()} · ${rows.length}명</div><table class="pdfMemberTable"><thead><tr><th style="width:6%">사진</th><th style="width:10%">이름/직분</th><th style="width:7%">파트</th><th style="width:12%">휴대전화</th><th style="width:9%">생년월일</th><th style="width:12%">찬양대 직위</th><th style="width:15%">전자메일</th><th style="width:20%">주소</th><th style="width:9%">상태</th></tr></thead><tbody>${body}</tbody></table>`;
+ document.body.appendChild(stage);
+ await new Promise(r=>setTimeout(r,250));
+ const opt={margin:[8,7,8,7],filename:`소망찬양대_${memberExportScopeLabel(scope)}_${localDateKey()}.pdf`,image:{type:'jpeg',quality:.96},html2canvas:{scale:1.7,useCORS:true,backgroundColor:'#ffffff'},jsPDF:{unit:'mm',format:'a4',orientation:'landscape'},pagebreak:{mode:['css','legacy'],avoid:'tr'}};
+ await html2pdf().set(opt).from(stage).save();stage.remove();toast('PDF 대원명부를 저장했습니다.');
+}
+
 async function openDeactivateMember(id){
  const {data,error}=await sb.from('profiles').select('id,name,title,part').eq('id',id).single();if(error)return toast(error.message);
  setBackAction(()=>manageMembers('active'));
