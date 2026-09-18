@@ -2048,7 +2048,7 @@ async function manageMembers(){
  const {data,error}=await sb.from('profiles').select('*').order('created_at',{ascending:false});
  if(error)return toast(error.message);
  const bulk=me.role==='superadmin'?`<div class="bulkBox"><h3 style="margin:0 0 8px">대원 일괄등록</h3><p class="muted">엑셀 명단을 CSV(UTF-8)로 저장해 업로드하면 로그인 계정과 대원 프로필을 한꺼번에 생성합니다. 필수 열: 이름, 직분, 파트, 휴대전화번호 · 초기비밀번호: Somang!+휴대전화 끝 4자리 · 첫 로그인 후 비밀번호 변경 필수</p><div class="bulkToolbar"><button class="btn" onclick="downloadMemberTemplate()">CSV 양식 다운로드</button><label class="btn primary" style="cursor:pointer">CSV 파일 선택<input id="bulkMemberFile" type="file" accept=".csv,text/csv" hidden onchange="previewBulkMembers(this.files[0])"></label><button id="bulkRunBtn" class="btn ok" style="display:none" onclick="runBulkMembers()">검토한 대원 일괄등록</button><button id="bulkResultBtn" class="btn" style="display:none" onclick="downloadBulkResults()">등록 결과 CSV</button></div><div id="bulkMemberPreview"></div></div>`:'';
- main.innerHTML=title('가입 승인 · 대원 관리')+bulk+list((data||[]).map(x=>`<div class="row"><b>${esc(x.name)}</b> <span class="tag">${esc(x.part||'-')}</span><div class="muted">${esc(phoneDisplay(x.phone))} · ${esc(x.title||'')} · ${esc(x.status)} · ${esc(x.role)}</div><div class="actions">${x.status!=='approved'?`<button class="btn ok" onclick="setStatus('${x.id}','approved')">승인</button>`:''}${x.status==='approved'?`<button class="btn" onclick="setStatus('${x.id}','inactive')">중지</button>`:''}<button class="btn danger" onclick="setStatus('${x.id}','rejected')">반려</button>${me.role==='superadmin'?`<button class="btn" onclick="setRolePrompt('${x.id}','${x.role}')">역할</button>`:''}${(me.role==='superadmin'||can('members'))&&x.status==='approved'?`<button class="btn" onclick="resetMemberPassword('${x.id}','${esc(x.name)}','${esc(x.phone||'')}')">비밀번호 초기화</button>`:''}</div></div>`));
+ main.innerHTML=title('가입 승인 · 대원 관리')+bulk+list((data||[]).map(x=>`<div class="row"><b>${esc(x.name)}</b> <span class="tag">${esc(x.part||'-')}</span><div class="muted">${esc(phoneDisplay(x.phone))} · ${esc(x.title||'')} · ${esc(x.status)} · ${esc(x.role)}</div><div class="actions">${x.status!=='approved'?`<button class="btn ok" onclick="setStatus('${x.id}','approved')">승인</button>`:''}${x.status==='approved'?`<button class="btn" onclick="setStatus('${x.id}','inactive')">중지</button>`:''}<button class="btn danger" onclick="setStatus('${x.id}','rejected')">반려</button>${me.role==='superadmin'?`<button class="btn" onclick="setRolePrompt('${x.id}','${x.role}')">역할</button>`:''}${(me.role==='superadmin'||can('members'))&&x.status==='approved'?`<button class="btn" onclick="resetMemberPassword('${x.id}','${esc(x.name)}','${esc(x.phone||'')}')">비밀번호 초기화</button>`:''}${me.role==='superadmin'&&x.id!==me.id&&x.role!=='superadmin'?`<button class="btn danger" onclick="deleteMember('${x.id}',decodeURIComponent('${encodeURIComponent(x.name||'')}'),decodeURIComponent('${encodeURIComponent(x.part||'')}'),decodeURIComponent('${encodeURIComponent(x.phone||'')}'))">완전 삭제</button>`:''}</div></div>`));
 }
 function csvCell(v){return '"'+String(v??'').replace(/"/g,'""')+'"'}
 function downloadTextFile(name,text,type='text/csv;charset=utf-8'){const b=new Blob(['\ufeff'+text],{type});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=name;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},100)}
@@ -2082,6 +2082,27 @@ async function resetMemberPassword(id,name,phone){
     if(data?.error)throw new Error(data.error);
     toast(`${name} 대원의 비밀번호를 초기화했습니다. (${data?.temp_password||temp})`);
   }catch(e){toast('비밀번호 초기화 실패: '+(e?.message||e))}
+}
+
+async function deleteMember(id,name,part,phone){
+  if(me.role!=='superadmin')return toast('최고관리자만 완전 삭제할 수 있습니다.');
+  if(id===me.id)return toast('현재 로그인한 최고관리자 본인은 삭제할 수 없습니다.');
+  const info=[name,part,phoneDisplay(phone)].filter(Boolean).join(' · ');
+  if(!confirm(`대원을 완전히 삭제하시겠습니까?
+
+${info}
+
+로그인 계정과 대원 정보가 완전히 삭제됩니다.
+실제 대원의 은퇴·탈퇴에는 사용하지 말고 ‘중지(비활성화)’를 사용해 주세요.
+
+이 작업은 되돌릴 수 없습니다.`))return;
+  try{
+    const {data,error}=await sb.functions.invoke('delete-member',{body:{user_id:id}});
+    if(error)throw error;
+    if(data?.error)throw new Error(data.error);
+    toast(`${name} 대원이 완전히 삭제되었습니다.`);
+    await manageMembers();
+  }catch(e){toast('대원 완전 삭제 실패: '+(e?.message||e))}
 }
 
 async function setStatus(id,st){const {error}=await sb.rpc('admin_set_member_status',{p_user_id:id,p_status:st});if(error)return toast(error.message);toast('처리되었습니다.');manageMembers()}
