@@ -2202,8 +2202,7 @@ function mmVoiceSelect(part){mmVoicePart=part;document.querySelectorAll('.voiceB
 function mmVoicePattern(kind){const v=MM_VOICE[mmVoicePart],root=v.start,now=document.getElementById('voiceNow');let seq,label;if(kind==='hum'){seq=[0,2,4,2,0];label='허밍 5음 — 음~';}else if(kind==='vowel'){seq=[0,2,4,5,7,5,4,2,0];label='모음 연결 — 우 → 오 → 아';}else if(kind==='legato'){seq=[0,2,4,7,4,2,0];label='레가토 — 끊지 않고 한 호흡으로';}else{seq=[0,4,7,12,7,4,0];label='공명·화음감 — 편안한 크기로';}if(now)now.textContent=v.name+' · '+label;seq.forEach((d,i)=>mmMidiTone(root+d,.46,i*.52,.14));}
 let mmRoutineTimers=[];function mmRoutineStop(){mmRoutineTimers.forEach(clearTimeout);mmRoutineTimers=[];const n=document.getElementById('voiceNow'),p=document.getElementById('voiceProg');if(n)n.textContent='루틴을 정지했습니다.';if(p)p.style.width='0'}
 function mmRoutineStart(){mmRoutineStop();const v=MM_VOICE[mmVoicePart],n=document.getElementById('voiceNow'),p=document.getElementById('voiceProg');const steps=[['① 자세·어깨·턱 이완',0],['② 조용히 들숨, 스— 호흡',20],['③ 편안한 허밍',50],['④ 5음 음계',80],['⑤ 모음 우-오-아 연결',115],['⑥ 레가토와 프레이즈',150],['⑦ 실제 찬양 전 준비 완료',190]];steps.forEach((x,i)=>mmRoutineTimers.push(setTimeout(()=>{if(n)n.textContent=v.name+' · '+x[0];if(p)p.style.width=((i+1)/steps.length*100)+'%';if(i===2)mmVoicePattern('hum');if(i===3)mmVoicePattern('vowel');if(i===4)mmVoicePattern('legato');if(i===5)mmVoicePattern('res');},x[1]*1000)));}
-function openVocalClass(){
- resourceSaveCurrent();setBackAction(()=>resourceBack());main.innerHTML=title('성가 발성 집중교실')+`<div class="musicLesson"><div class="musicLessonHead"><div class="eyebrow">SOMANG CHURCH CHOIR · VOCAL TRAINING</div><h3>🎤 성가 발성 집중교실</h3><p>성부별 편안한 시작음으로 호흡·발성·모음·레가토·다이내믹·블렌딩을 단계적으로 훈련합니다. · 약 25~30분</p></div>
+function openVocalClass(){setBackAction(()=>documentsPage());main.innerHTML=title('성가 발성 집중교실')+`<div class="musicLesson"><div class="musicLessonHead"><div class="eyebrow">SOMANG CHURCH CHOIR · VOCAL TRAINING</div><h3>🎤 성가 발성 집중교실</h3><p>성부별 편안한 시작음으로 호흡·발성·모음·레가토·다이내믹·블렌딩을 단계적으로 훈련합니다. · 약 25~30분</p></div>
 <div class="vocalPanel"><h4>1. 내 성부 선택과 오늘의 원칙</h4><div class="voiceSelect"><button class="voiceBtn" data-part="S" onclick="mmVoiceSelect('S')">소프라노<br><small>Soprano</small></button><button class="voiceBtn" data-part="A" onclick="mmVoiceSelect('A')">알토<br><small>Alto</small></button><button class="voiceBtn active" data-part="T" onclick="mmVoiceSelect('T')">테너<br><small>Tenor</small></button><button class="voiceBtn" data-part="B" onclick="mmVoiceSelect('B')">베이스<br><small>Bass</small></button></div><div class="vocalRange" id="voiceRange">테너 · 연습 기준 C3 ~ E4</div><div class="vocalNow" id="voiceNow">테너 음역으로 준비되었습니다.</div><p class="mmHint">표시 범위는 성부를 판정하는 절대 음역이 아니라 워밍업을 시작하기 위한 기준입니다. 오늘 목 상태에 따라 반음~몇 음 낮게 시작해도 됩니다.</p></div>
 <div class="vocalPanel"><h4>2. 몸과 호흡 — 소리 내기 전 4분</h4><p>발성은 목만의 운동이 아닙니다. 발바닥이 안정되고 무릎·어깨·턱이 자유로워야 호흡도 편해집니다. 숨을 들이쉴 때 어깨를 들어 올리기보다 옆구리와 몸통이 자연스럽게 넓어지는 느낌을 관찰하세요.</p><div class="musicPractice"><b>실습</b><br>① 어깨를 올렸다 툭 내려놓기 3회 → ② 턱을 가볍게 좌우로 풀기 → ③ 코와 입으로 조용히 들숨 4초 → ④ ‘스—’ 8~12초. 숨이 끝날 때 목을 조여 마지막 공기를 짜내지 않습니다.</div></div>
 <div class="vocalPanel"><h4>3. 부드러운 발성 시작 — 허밍에서 모음으로</h4><p>너무 숨이 새는 시작과 너무 세게 찍는 시작 사이에서 <b>말하듯 자연스럽고 명료한 시작</b>을 찾습니다. 허밍은 목을 억지로 누르지 않은 채 소리의 진동과 호흡 연결을 느끼는 준비운동으로 사용합니다.</p><div class="vocalStep"><div class="vocalNum">1</div><div><b>허밍 5음</b><p class="mmHint">‘음~’으로 1-2-3-2-1. 입술은 가볍게 닫고 턱은 자유롭게.</p><button class="btn primary" onclick="mmVoicePattern('hum')">▶ 내 음역으로 듣기</button></div></div><div class="vocalStep"><div class="vocalNum">2</div><div><b>허밍 → 모음</b><p class="mmHint">‘음~마’, ‘음~모’처럼 허밍의 편안함을 모음으로 옮깁니다. 모음이 열리는 순간 소리가 갑자기 커지지 않게 합니다.</p><button class="btn" onclick="mmVoicePattern('vowel')">▶ 모음 연결 듣기</button></div></div></div>
@@ -2214,16 +2213,14 @@ function openVocalClass(){
 <div class="vocalPanel"><h4>8. 주일 찬양 전 루틴</h4><p class="mmHint">자세 → 호흡 → 허밍 → 5음 → 모음 → 레가토 순으로 진행합니다. 자동 안내는 연습의 순서를 익히기 위한 것이며, 실제 연습에서는 각 단계를 충분히 반복하세요.</p><div class="vocalProgress"><span id="voiceProg"></span></div><div class="actions" style="margin-top:12px"><button class="btn primary" onclick="mmRoutineStart()">▶ 자동 루틴 시작</button><button class="btn" onclick="mmRoutineStop()">■ 정지</button></div><div class="vocalWarn">※ 발성은 통증을 참고 하는 운동이 아닙니다. 쉰 목소리가 지속되거나 발성 시 통증·심한 불편감이 있으면 무리한 연습을 피하고 필요한 경우 이비인후과/음성 전문가의 평가를 받는 것이 좋습니다.</div></div>
 <div class="lessonNav"><span></span><button class="btn primary" onclick="documentsPage()">음악교실 목록</button><span></span></div></div>`;window.scrollTo({top:0,behavior:'smooth'});setTimeout(()=>mmVoiceSelect(mmVoicePart),0)}
 function musicClassCards(){return `<div class="musicClassHero"><h3>🎼 소망찬양대 미니 음악교실</h3><p>기초를 넘어 실제 찬양 연습에 적용할 수 있도록, 원리·예시·청음·실습·확인문제까지 단계적으로 배우는 음악교실입니다.</p></div><div class="vocalHero"><h3>🎤 성가 발성 집중교실</h3><p>내 파트의 음역을 선택하고 호흡·발성 시작·모음 통일·레가토·공명·다이내믹·블렌딩을 실제 음으로 듣고 단계별로 훈련합니다.</p><button class="btn primary" onclick="openVocalClass()">내 음역 선택하여 발성 연습하기</button></div><div class="vocalHero"><h3>🎼 초견·음정 집중훈련</h3><p>악보를 보고 먼저 머릿속으로 음을 예상한 뒤 직접 부르고, 정답을 들어 비교합니다. 성부별 음역·음정·리듬·실제 오선악보 문제까지 단계적으로 훈련합니다.</p><button class="btn primary" onclick="openSightSingingClass()">초견·음정 훈련 시작하기</button></div><div class="musicClassGrid">${MINI_MUSIC_LESSONS.map((x,i)=>`<button type="button" class="musicClassCard" onclick="openMusicLesson(${i})"><span class="musicClassNo">MINI MUSIC ${x.no}</span><b>${x.icon} ${esc(x.title)}</b><small>${esc(x.sub)}<br>기초+심화 · 약 12~15분</small></button>`).join('')}</div>`}
-function openMusicLesson(i){
- resourceSaveCurrent();const x=MINI_MUSIC_LESSONS[i];if(!x)return;setBackAction(()=>resourceBack());const prev=i>0?`<button class="btn" onclick="openMusicLesson(${i-1})">〈 이전</button>`:'<span></span>';const next=i<MINI_MUSIC_LESSONS.length-1?`<button class="btn" onclick="openMusicLesson(${i+1})">다음 〉</button>`:'<span></span>';main.innerHTML=title('미니 음악교실')+`<div class="musicLesson"><div class="musicLessonHead"><div class="eyebrow">SOMANG CHURCH CHOIR · MINI MUSIC ${x.no}</div><h3>${x.icon} ${esc(x.title)}</h3><p>${esc(x.sub)} · 기초+심화 · 약 12~15분</p></div>${x.body}<div class="lessonNav">${prev}<button class="btn primary" onclick="documentsPage()">목록</button>${next}</div></div>`;window.scrollTo({top:0,behavior:'smooth'});setTimeout(()=>mmInitLesson(i),0)}
+function openMusicLesson(i){const x=MINI_MUSIC_LESSONS[i];if(!x)return;setBackAction(()=>documentsPage());const prev=i>0?`<button class="btn" onclick="openMusicLesson(${i-1})">〈 이전</button>`:'<span></span>';const next=i<MINI_MUSIC_LESSONS.length-1?`<button class="btn" onclick="openMusicLesson(${i+1})">다음 〉</button>`:'<span></span>';main.innerHTML=title('미니 음악교실')+`<div class="musicLesson"><div class="musicLessonHead"><div class="eyebrow">SOMANG CHURCH CHOIR · MINI MUSIC ${x.no}</div><h3>${x.icon} ${esc(x.title)}</h3><p>${esc(x.sub)} · 기초+심화 · 약 12~15분</p></div>${x.body}<div class="lessonNav">${prev}<button class="btn primary" onclick="documentsPage()">목록</button>${next}</div></div>`;window.scrollTo({top:0,behavior:'smooth'});setTimeout(()=>mmInitLesson(i),0)}
 
 
 
 
 
 function openAcademyVocalVideos(){
- resourceSaveCurrent();
- setBackAction(()=>resourceBack());
+ setBackAction(()=>openChoirAcademy());
  main.innerHTML=title('성가 발성 추천영상')+`<div class="musicLesson">
  <div class="musicLessonHead"><div class="eyebrow">SOMANG CHOIR ACADEMY · VOICE SCHOOL</div><h3>🎬 성가 발성 추천영상</h3><p>Voice School의 보충 시청자료입니다. 각 영상의 학습 포인트를 먼저 읽고 시청하세요.</p></div>
  ${choralVocalVideoSection()}
@@ -2281,9 +2278,8 @@ function openAcademyKDirect(id,titleText){
 }
 
 function openAcademyKVideos(school){
- resourceSaveCurrent();
  const meta=CHOIR_ACADEMY.find(x=>x.id===school), items=ACADEMY_K_LIBRARY[school]||[];
- setBackAction(()=>resourceBack());
+ setBackAction(()=>openChoirAcademy());
  const cards=items.map((v,i)=>`<div class="vocalVideoCard"><div class="vNum">추천영상(K) · ${esc(v.kind)} · ${String(i+1).padStart(2,'0')}</div>
  <h4>${esc(v.title)}</h4><div class="vChannel">${esc(v.org)}</div><p>${esc(v.desc)}</p>
  <div class="vFocus"><b>이렇게 보세요</b><br>${esc(v.focus)}</div>
@@ -2307,35 +2303,23 @@ function openAcademyKVideos(school){
  window.scrollTo({top:0,behavior:'smooth'});
 }
 
-
-function bindENVideoButtons(){
- document.querySelectorAll('.enPopupBtn').forEach(btn=>{
-   btn.onclick=()=>openYouTubeModal('https://www.youtube.com/watch?v='+encodeURIComponent(btn.dataset.videoId),btn.dataset.videoTitle||'추천영상(EN)');
- });
- document.querySelectorAll('.enYoutubeBtn').forEach(btn=>{
-   btn.onclick=()=>window.open('https://www.youtube.com/watch?v='+encodeURIComponent(btn.dataset.videoId),'_blank','noopener');
- });
-}
-
 function openAcademyVideos(school){
- resourceSaveCurrent();
  const meta=CHOIR_ACADEMY.find(x=>x.id===school);
  const vids=ACADEMY_VIDEO_LIBRARY[school]||[];
  if(school==='voice'){openAcademyVocalVideos();return}
- setBackAction(()=>resourceBack());
+ setBackAction(()=>openChoirAcademy());
  const cards=vids.map((v,i)=>`<div class="vocalVideoCard">
   <div class="vNum">${meta?meta.name.toUpperCase():'ACADEMY'} · VIDEO ${String(i+1).padStart(2,'0')}</div>
   <h4>${esc(v.title)}</h4><div class="vChannel">${esc(v.channel)}</div>
   <p>${esc(v.desc)}</p><div class="vFocus"><b>이렇게 보세요</b><br>${esc(v.focus)}</div>
-  <div class="actions"><button class="btn primary enPopupBtn" data-video-id="${esc(v.id)}" data-video-title="${esc(v.title)}">▶ 팝업으로 시청</button>
-  <button class="btn enYoutubeBtn" data-video-id="${esc(v.id)}">YouTube에서 열기</button></div>
+  <div class="actions"><button class="btn primary" onclick="openYouTubeModal('https://www.youtube.com/watch?v=${v.id}','${esc(v.title)}')">▶ 팝업으로 시청</button>
+  <button class="btn" onclick="window.open('https://www.youtube.com/watch?v=${v.id}','_blank','noopener')">YouTube에서 열기</button></div>
  </div>`).join('');
  main.innerHTML=title('추천영상')+`<div class="musicLesson"><div class="musicLessonHead"><div class="eyebrow">SOMANG CHOIR ACADEMY · VIDEO LIBRARY</div>
  <h3>${meta?meta.icon:''} ${meta?meta.name:''} 추천영상</h3><p>교재에서 배운 내용을 실제 시범과 연주로 확인하는 보충자료입니다. 먼저 ‘이렇게 보세요’를 읽고 시청하면 학습 효과가 더 좋습니다.</p></div>
  <div class="vocalVideoGrid">${cards}</div>
  <div class="ssTip" style="margin-top:16px">영상은 외부 YouTube 콘텐츠입니다. 게시자가 공개·임베드 설정을 변경하면 앱 안의 팝업 재생이 제한될 수 있으므로, 그 경우 <b>YouTube에서 열기</b>를 이용하세요.</div>
  <div class="lessonNav"><button class="btn" onclick="openChoirAcademy()">〈 5개 School</button><button class="btn primary" onclick="documentsPage()">자료실</button></div></div>`;
- bindENVideoButtons();
  window.scrollTo({top:0,behavior:'smooth'});
 }
 
@@ -2352,17 +2336,15 @@ function choirAcademyCards(){
  return `<div class="academyHero"><h3>🎓 SOMANG CHOIR ACADEMY</h3><p>“정확하게 부르는 것”에서 시작해 “함께 듣고, 음악을 표현하고, 가사를 전달하는 찬양”까지. 필요한 분야를 골라 공부하는 소망찬양대의 단계별 교육과정입니다.</p><button class="btn primary" onclick="openChoirAcademy()">아카데미 들어가기</button></div>`;
 }
 function openChoirAcademy(){
- resourceSaveCurrent();
- setBackAction(()=>resourceBack());
+ setBackAction(()=>documentsPage());
  main.innerHTML=title('SOMANG CHOIR ACADEMY')+`<div class="academyHero"><h3>아름다운 찬양을 만드는 5개의 School</h3><p>각 과정은 지식을 읽는 데서 끝나지 않고 <b>설명 → 실제 예 → 들어보기 → 직접 해보기 → 자기점검</b>으로 이어집니다.</p>
  <div class="academySteps"><div class="academyStep">정확하게 읽기</div><div class="academyStep">좋은 소리 만들기</div><div class="academyStep">함께 듣기</div><div class="academyStep">가사를 전달하기</div></div></div>
- <div class="academyGrid">${CHOIR_ACADEMY.map((x,i)=>`<div class="academyCard"><div class="acNo">SCHOOL ${String(i+1).padStart(2,'0')}</div><h4>${x.icon} ${x.name}</h4><p>${x.sub}</p><p>${x.topics.join(' · ')}</p><button class="btn primary academySchoolBtn" data-school="${x.id}">교재 열기</button> <button class="btn academyKBtn" data-school="${x.id}">추천영상(K)</button> <button class="btn academyENBtn" data-school="${x.id}">추천영상(EN)</button></div>`).join('')}</div>
+ <div class="academyGrid">${CHOIR_ACADEMY.map((x,i)=>`<div class="academyCard"><div class="acNo">SCHOOL ${String(i+1).padStart(2,'0')}</div><h4>${x.icon} ${x.name}</h4><p>${x.sub}</p><p>${x.topics.join(' · ')}</p><button class="btn primary" onclick="openAcademySchool('${x.id}')">교재 열기</button> <button class="btn" onclick="openAcademyKVideos('${x.id}')">추천영상(K)</button> <button class="btn" onclick="openAcademyVideos('${x.id}')">추천영상(EN)</button></div>`).join('')}</div>
  <div class="academyLesson"><h4>추천 학습 순서</h4><p>처음부터 전 과정을 순서대로 끝낼 필요는 없습니다. 음정이 불안하면 악보·초견 School, 목에 힘이 들어가면 Voice School, 자기 목소리가 튄다는 이야기를 들으면 Ensemble School처럼 <b>지금 필요한 과정부터</b> 시작하세요.</p></div>`;
  window.scrollTo({top:0,behavior:'smooth'})
 }
 function acNav(id){return `<div class="lessonNav"><button class="btn" onclick="openChoirAcademy()">〈 5개 School</button><button class="btn primary" onclick="documentsPage()">자료실</button></div>`}
 function openAcademySchool(id){
- resourceSaveCurrent();
  if(id==='score'){openSightSingingClass();return}
  if(id==='voice'){openVocalClass();return}
  if(id==='ensemble')acEnsemble();
@@ -2482,8 +2464,7 @@ function ssQuiz(ans){
  el.textContent=ans==='first'?'정답입니다. 초견훈련은 먼저 악보를 보고 머릿속으로 예상한 뒤 직접 부르고, 마지막에 정답음을 확인하는 순서가 중요합니다.':'다시 생각해 보세요. 정답음을 먼저 반복해서 듣는 것은 따라 부르기에는 좋지만, 악보를 스스로 읽는 훈련은 약해집니다.'
 }
 function openSightSingingClass(){
- resourceSaveCurrent();
- setBackAction(()=>resourceBack());
+ setBackAction(()=>documentsPage());
  main.innerHTML=title('초견·음정 집중훈련')+`<div class="musicLesson">
  <div class="musicLessonHead"><div class="eyebrow">SOMANG CHURCH CHOIR · SIGHT-SINGING LAB</div><h3>🎼 악보를 보고 정확하게 노래하기</h3><p>기준음 하나에서 출발해 계이름·음정·도약·리듬·짧은 성가형 선율까지 단계적으로 훈련하는 인터랙티브 멀티미디어 교재 · 약 30~40분</p></div>
  <div class="ssPanel"><h4>1. 초견은 ‘눈으로 본 음을 귀와 목소리로 연결하는 훈련’입니다</h4>
@@ -3579,53 +3560,6 @@ async function adminPage(){
  if(can('notices'))c+=tile('notices','공지','전체 · 파트 공지',"manage('notices')");if(can('prayers'))c+=tile('prayers','기도 순서','목요일 · 일요일 시작/마침',"manage('prayers')");if(can('events'))c+=tile('events','일정 · 행사','연습 · 행사 일정',"manage('events')");if(me.role==='superadmin'||can('notices'))c+=tile('notices','Push 알림','전체 · 파트 수동 발송',"go('adminPush')");
  if(can('leaders'))d+=tile('leaders','임원 · 조직','운영 조직 · 음악 조직','manageLeaders()');if(can('intro'))d+=tile('intro','찬양대 소개','소개 · 역사 · 비전','editIntro()');if(can('gallery'))d+=tile('gallery','갤러리','앨범 · 사진','manageGallery()');if(can('documents'))d+=tile('documents','자료실','문서 · 링크',"manage('documents')");if(can('polls'))d+=tile('polls','설문','대원 의견 수렴',"manage('polls')");if(can('tasks'))d+=tile('tasks','봉사 · 할일','업무 · 봉사 배정',"manage('tasks')");
  main.innerHTML=title('통합 관리센터')+`<div class="adminGroup"><h3>👥 대원 관리</h3><div class="adminGrid">${a||'<div class="muted">권한 없음</div>'}</div></div><div class="adminGroup"><h3>🎵 찬양 관리</h3><div class="adminGrid">${b||'<div class="muted">권한 없음</div>'}</div></div><div class="adminGroup"><h3>📢 소통 관리</h3><div class="adminGrid">${c||'<div class="muted">권한 없음</div>'}</div></div><div class="adminGroup"><h3>⛪ 찬양대 관리</h3><div class="adminGrid">${d||'<div class="muted">권한 없음</div>'}</div></div>`;
-}
-
-
-// ===== 자료실 하위화면: 실제 직전 화면으로 돌아가기 =====
-const RESOURCE_BACK_STACK=[];
-let RESOURCE_RESTORE=false;
-function resourceSaveCurrent(){
-  if(RESOURCE_RESTORE) return;
-  const el=document.getElementById('main')||window.main;
-  if(!el) return;
-  RESOURCE_BACK_STACK.push({html:el.innerHTML,scrollY:window.scrollY||0});
-  if(RESOURCE_BACK_STACK.length>40) RESOURCE_BACK_STACK.shift();
-}
-
-function bindAcademyButtons(){
- document.querySelectorAll('.academySchoolBtn').forEach(btn=>{
-   btn.onclick=()=>openAcademySchool(btn.dataset.school);
- });
- document.querySelectorAll('.academyKBtn').forEach(btn=>{
-   btn.onclick=()=>openAcademyKVideos(btn.dataset.school);
- });
- document.querySelectorAll('.academyENBtn').forEach(btn=>{
-   btn.onclick=()=>openAcademyVideos(btn.dataset.school);
- });
-}
-
-function resourceRebind(){
-  bindAcademyButtons();
-  bindENVideoButtons();
-  document.querySelectorAll('.kPopupBtn').forEach(btn=>{
-    btn.onclick=()=>openAcademyKDirect(btn.dataset.videoId,btn.dataset.videoTitle||'추천영상(K)');
-  });
-  document.querySelectorAll('.kYoutubeBtn').forEach(btn=>{
-    btn.onclick=()=>window.open('https://www.youtube.com/watch?v='+encodeURIComponent(btn.dataset.videoId),'_blank','noopener');
-  });
-}
-function resourceBack(){
-  const st=RESOURCE_BACK_STACK.pop();
-  if(!st){ go('more'); return; }
-  const el=document.getElementById('main')||window.main;
-  if(!el) return;
-  RESOURCE_RESTORE=true;
-  el.innerHTML=st.html;
-  resourceRebind();
-  setBackAction(()=>resourceBack());
-  requestAnimationFrame(()=>window.scrollTo({top:st.scrollY||0,behavior:'auto'}));
-  RESOURCE_RESTORE=false;
 }
 
 async function go(p){page=p;document.body.classList.toggle('homePageActive',p==='home');navActive();main.innerHTML='<div class="empty">불러오는 중…</div>';const f={home:homePage,songs:songsPage,events:eventsPage,my:myChoirPage,prayers:prayerPage,members:membersPage,more:morePage,notices:noticesPage,intro:introPage,leaders:leadersPage,gallery:galleryPage,documents:documentsPage,polls:pollsPage,tasks:tasksPage,profile:profilePage,notifications:notificationSettingsPage,adminPush:adminPushPage,notificationCenter:notificationCenterPage,install:installGuidePage,piano:pianoPage,admin:adminPage}[p];if(f)await f();await refreshNotificationBadge()}
