@@ -1764,6 +1764,24 @@ body.homePageActive .appFooter{
 .ssTip{padding:12px 14px;border-left:4px solid #8aa69a;background:#f6f9f7;border-radius:9px;line-height:1.7;margin:12px 0}
 @media(max-width:620px){.ssLevelGrid{grid-template-columns:1fr}.ssPanel{padding:14px}.ssHero{padding:17px}}
 
+
+/* SOMANG CHOIR ACADEMY */
+.academyHero{margin:20px 0;padding:24px;border-radius:22px;background:linear-gradient(135deg,#f7faf8,#edf5f1);border:1px solid #dbe7e1}
+.academyHero h3{font-size:25px;margin:0 0 8px}.academyHero p{margin:0 0 14px;line-height:1.75;color:#53635d}
+.academyGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px;margin:15px 0}
+.academyCard{padding:17px;border:1px solid #dfe7e3;border-radius:17px;background:#fff;box-shadow:0 5px 18px rgba(30,55,45,.05)}
+.academyCard .acNo{font-size:11px;letter-spacing:.09em;font-weight:800;color:#72837c}.academyCard h4{margin:6px 0;font-size:19px}.academyCard p{margin:0 0 12px;line-height:1.6;color:#56655f;font-size:14px}
+.academyLesson{margin:14px 0;padding:16px;border:1px solid #e0e8e4;border-radius:16px;background:#fff}
+.academyLesson h4{margin:0 0 7px;font-size:18px}.academyLesson p{line-height:1.72}.academyExample{padding:12px 14px;border-radius:12px;background:#f5f8f6;line-height:1.7;margin:10px 0}
+.academySteps{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin:12px 0}.academyStep{padding:10px 8px;text-align:center;border-radius:11px;background:#f2f6f4;font-size:13px;font-weight:700}
+.academyMeter{height:11px;border-radius:999px;background:#e8efec;overflow:hidden;margin:9px 0}.academyMeter i{display:block;height:100%;width:50%;background:currentColor;transition:width .25s}
+.academyChoice{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+.academyChoice .active{font-weight:800;box-shadow:inset 0 0 0 2px currentColor}
+.academyQuote{font-size:18px;line-height:1.8;text-align:center;padding:18px;background:#fafcfb;border-radius:15px;margin:12px 0}
+.academyChecklist label{display:block;padding:8px 4px;border-bottom:1px solid #edf1ef;line-height:1.5}
+.academyResult{min-height:28px;font-weight:800;margin-top:9px}
+@media(max-width:620px){.academyGrid{grid-template-columns:1fr}.academySteps{grid-template-columns:repeat(2,1fr)}.academyHero{padding:18px}}
+
 </style>
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="apple-touch-icon" href="./assets/apple-touch-icon.png">
@@ -2194,6 +2212,81 @@ function openMusicLesson(i){const x=MINI_MUSIC_LESSONS[i];if(!x)return;setBackAc
 
 
 
+
+const CHOIR_ACADEMY=[
+ {id:'score',icon:'🎼',name:'악보·초견 School',sub:'악보를 눈으로 보고, 머릿속에서 듣고, 정확하게 노래하기',topics:['오선·음정·조성','초견과 계이름','리듬·도약','파트 독립성']},
+ {id:'voice',icon:'🎤',name:'Voice School',sub:'힘으로 밀지 않고 편안하고 건강한 성가 발성 만들기',topics:['호흡·발성 시작','공명·모음','레가토·고음','성부별 워밍업']},
+ {id:'ensemble',icon:'🎧',name:'Ensemble School',sub:'내 목소리보다 우리 소리를 듣는 합창의 기술',topics:['Blend','Balance','화음 듣기','파트 간 Listening']},
+ {id:'expression',icon:'🌊',name:'Musical Expression School',sub:'음표를 음악적 문장으로 바꾸는 표현 훈련',topics:['Phrase','Legato','Dynamics','Tempo·Release']},
+ {id:'worship',icon:'🙏',name:'Worship & Choir School',sub:'가사의 의미를 이해하고 회중에게 전달하는 예배의 찬양',topics:['가사 읽기','말씀과 표현','예배적 태도','주일 준비']}
+];
+let acBlend=50, acPhrase=1;
+
+function choirAcademyCards(){
+ return `<div class="academyHero"><h3>🎓 SOMANG CHOIR ACADEMY</h3><p>“정확하게 부르는 것”에서 시작해 “함께 듣고, 음악을 표현하고, 가사를 전달하는 찬양”까지. 필요한 분야를 골라 공부하는 소망찬양대의 단계별 교육과정입니다.</p><button class="btn primary" onclick="openChoirAcademy()">아카데미 들어가기</button></div>`;
+}
+function openChoirAcademy(){
+ setBackAction(()=>documentsPage());
+ main.innerHTML=title('SOMANG CHOIR ACADEMY')+`<div class="academyHero"><h3>아름다운 찬양을 만드는 5개의 School</h3><p>각 과정은 지식을 읽는 데서 끝나지 않고 <b>설명 → 실제 예 → 들어보기 → 직접 해보기 → 자기점검</b>으로 이어집니다.</p>
+ <div class="academySteps"><div class="academyStep">정확하게 읽기</div><div class="academyStep">좋은 소리 만들기</div><div class="academyStep">함께 듣기</div><div class="academyStep">가사를 전달하기</div></div></div>
+ <div class="academyGrid">${CHOIR_ACADEMY.map((x,i)=>`<div class="academyCard"><div class="acNo">SCHOOL ${String(i+1).padStart(2,'0')}</div><h4>${x.icon} ${x.name}</h4><p>${x.sub}</p><p>${x.topics.join(' · ')}</p><button class="btn primary" onclick="openAcademySchool('${x.id}')">교재 열기</button></div>`).join('')}</div>
+ <div class="academyLesson"><h4>추천 학습 순서</h4><p>처음부터 전 과정을 순서대로 끝낼 필요는 없습니다. 음정이 불안하면 악보·초견 School, 목에 힘이 들어가면 Voice School, 자기 목소리가 튄다는 이야기를 들으면 Ensemble School처럼 <b>지금 필요한 과정부터</b> 시작하세요.</p></div>`;
+ window.scrollTo({top:0,behavior:'smooth'})
+}
+function acNav(id){return `<div class="lessonNav"><button class="btn" onclick="openChoirAcademy()">〈 5개 School</button><button class="btn primary" onclick="documentsPage()">자료실</button></div>`}
+function openAcademySchool(id){
+ if(id==='score'){openSightSingingClass();return}
+ if(id==='voice'){openVocalClass();return}
+ if(id==='ensemble')acEnsemble();
+ if(id==='expression')acExpression();
+ if(id==='worship')acWorship();
+}
+function acChord(levels=[.16,.16,.16,.16],dur=2.4){
+ const ac=mmAC();if(!ac)return;const notes=[48,55,64,67];notes.forEach((m,i)=>ssToneMidi(m,dur,0,levels[i]))
+}
+function acBlendDemo(type){
+ if(type==='balanced'){acChord([.10,.12,.10,.11]);document.getElementById('acBlendText').textContent='균형 예시: 네 성부가 서로 들을 여유를 남긴 화음입니다.'}
+ else if(type==='top'){acChord([.07,.08,.09,.22]);document.getElementById('acBlendText').textContent='비교 예시: 윗성부가 지나치게 강하면 다른 성부의 화성 기능이 가려질 수 있습니다.'}
+ else {acChord([.16,.05,.18,.07]);document.getElementById('acBlendText').textContent='비교 예시: 성부 간 음량 차이가 지나치면 하나의 합창보다 여러 소리가 겹친 느낌이 납니다.'}
+}
+function acEnsemble(){
+ setBackAction(()=>openChoirAcademy());
+ main.innerHTML=title('Ensemble School')+`<div class="musicLesson"><div class="musicLessonHead"><div class="eyebrow">SOMANG CHOIR ACADEMY · SCHOOL 03</div><h3>🎧 40명이 한 사람처럼</h3><p>Blend · Balance · Harmony · Listening 집중교재 · 약 30분</p></div>
+ <div class="academyLesson"><h4>1. 합창의 출발은 ‘내가 잘 들리는가’가 아닙니다</h4><p>좋은 합창에서는 각 대원이 좋은 소리를 내는 것만으로 충분하지 않습니다. <b>내 소리를 내면서 동시에 옆 사람과 다른 성부를 듣는 능력</b>이 필요합니다.</p><div class="academyExample"><b>연습:</b> 한 구절을 평소대로 부릅니다. 두 번째에는 내 음량을 약 20% 줄였다고 생각하고 양옆 대원의 모음을 듣습니다. 세 번째에는 반대편 성부까지 들으면서 같은 구절을 부릅니다.</div></div>
+ <div class="academyLesson"><h4>2. Blend — 같은 음이 아니라 같은 ‘모양’의 소리</h4><p>Blend를 위해서는 음정뿐 아니라 <b>모음의 모양, 자음의 시점, 비브라토의 폭, 성량, 음색</b>이 서로 가까워져야 합니다. 한 사람이 ‘아’를 넓게, 다른 사람이 어둡게 부르면 같은 음정이어도 합창의 표면이 거칠어집니다.</p><div class="academyExample"><b>예:</b> “하나님”의 ‘하’를 파트 전체가 같은 순간, 비슷한 모음으로 시작하고 ‘님’의 받침도 지휘자의 release에 맞춰 함께 닫습니다.</div></div>
+ <div class="academyLesson"><h4>3. Balance를 귀로 비교하기</h4><p>아래는 실제 성가대 녹음이 아니라 원리를 설명하기 위한 전자음 예시입니다. 어느 성부가 지나치게 크면 화음의 인상이 어떻게 달라지는지 비교해 보세요.</p><div class="academyChoice"><button class="btn" onclick="acBlendDemo('top')">윗성부 과다</button><button class="btn" onclick="acBlendDemo('uneven')">불균형</button><button class="btn primary" onclick="acBlendDemo('balanced')">균형 예시</button></div><div id="acBlendText" class="academyResult">세 가지를 차례로 들어보세요.</div></div>
+ <div class="academyLesson"><h4>4. 화음 속에서 내 음 유지하기</h4><p>다른 파트의 음이 더 크다고 그 음으로 끌려가면 안 됩니다. 먼저 자기 음을 확실히 알고, 그 다음 다른 음과의 <b>관계</b>를 듣습니다.</p><div class="academyChoice"><button class="btn" onclick="ssToneMidi(55,1)">Bass/기준 G 듣기</button><button class="btn" onclick="ssToneMidi(64,1)">Alto E 듣기</button><button class="btn" onclick="ssToneMidi(67,1)">Soprano G 듣기</button><button class="btn primary" onclick="acChord([.1,.1,.1,.1],2.5)">전체 화음 듣기</button></div></div>
+ <div class="academyLesson"><h4>5. 이번 주 합창 자기점검</h4><div class="academyChecklist"><label><input type="checkbox"> 내 목소리보다 옆 사람의 모음을 한 번 이상 의식했다.</label><label><input type="checkbox"> 긴 음에서 음량을 밀지 않고 화음을 들었다.</label><label><input type="checkbox"> 받침과 끝나는 시점을 지휘자에게 맞췄다.</label><label><input type="checkbox"> 다른 파트가 강해도 내 음정을 유지했다.</label></div></div>${acNav('ensemble')}</div>`;window.scrollTo({top:0,behavior:'smooth'})
+}
+function acPhraseDemo(mode){
+ const seq=[60,62,64,65,67,65,64,62,60], gains=mode==='flat'?[.12,.12,.12,.12,.12,.12,.12,.12,.12]:[.07,.08,.10,.12,.16,.13,.10,.08,.06];
+ let d=0;seq.forEach((m,i)=>{ssToneMidi(m,.58,d,gains[i]);d+=.55});
+ document.getElementById('acPhraseText').textContent=mode==='flat'?'모든 음을 비슷한 무게로 연주한 예입니다.':'중간의 정점을 향해 진행하고 다시 풀어주는 예입니다.'
+}
+function acExpression(){
+ setBackAction(()=>openChoirAcademy());
+ main.innerHTML=title('Musical Expression School')+`<div class="musicLesson"><div class="musicLessonHead"><div class="eyebrow">SOMANG CHOIR ACADEMY · SCHOOL 04</div><h3>🌊 음표를 ‘문장’으로 노래하기</h3><p>Phrase · Legato · Dynamics · Tempo · Release · 약 30분</p></div>
+ <div class="academyLesson"><h4>1. 모든 음표는 목적지가 같지 않습니다</h4><p>좋은 프레이즈에는 출발과 진행, 긴장, <b>정점</b>, 그리고 이완이 있습니다. 모든 음을 같은 크기와 같은 무게로 부르면 음정은 정확해도 음악은 평평해집니다.</p><div class="academyQuote">시작 → 전진 → <b>정점</b> → 이완 → 마침</div><div class="academyChoice"><button class="btn" onclick="acPhraseDemo('flat')">평평한 예 듣기</button><button class="btn primary" onclick="acPhraseDemo('shape')">프레이즈 예 듣기</button></div><div id="acPhraseText" class="academyResult"></div></div>
+ <div class="academyLesson"><h4>2. Legato — 자음 사이에서도 모음은 흐릅니다</h4><p>“주 하나님”을 부른다고 생각해 봅니다. 자음 하나하나를 강하게 찍으면 선율이 토막납니다. 자음은 정확하되 짧고, <b>노래의 시간 대부분은 모음 위에서 흐르게</b> 합니다.</p><div class="academyExample">말하듯: 주 / 하 / 나 / 님 → 노래하듯: 모음의 흐름을 유지하면서 자음을 정확한 위치에 얹기. 파트 전체가 같은 시점에 자음을 처리해야 legato와 diction을 함께 얻을 수 있습니다.</div></div>
+ <div class="academyLesson"><h4>3. pp와 ff는 단순한 볼륨 숫자가 아닙니다</h4><p><b>pp</b>에서도 호흡의 흐름과 음정 중심은 살아 있어야 하고, <b>ff</b>에서도 목을 눌러 소리를 밀지 않아야 합니다. crescendo는 각자 마음대로 커지는 것이 아니라 모두가 같은 음악적 목적지를 향하는 과정입니다.</p></div>
+ <div class="academyLesson"><h4>4. 마지막 음이 음악을 결정합니다</h4><p>긴 마지막 음에서 가장 흔한 문제는 호흡이 부족해지면서 음정이 내려가고, 사람마다 다른 순간에 받침을 닫는 것입니다. 마지막까지 지휘자를 보고 <b>모음 유지 → release cue → 자음 정리</b>의 순서를 맞춥니다.</p></div>
+ <div class="academyLesson"><h4>5. 한 문장을 연습하는 4회 방법</h4><div class="academySteps"><div class="academyStep">① 가사 말하기</div><div class="academyStep">② 모음으로 Legato</div><div class="academyStep">③ 정점 표시</div><div class="academyStep">④ 가사로 완성</div></div><p>네 번째에 처음부터 크게 부르지 말고, 지휘자가 원하는 프레이즈와 다이내믹을 넣어 완성합니다.</p></div>${acNav('expression')}</div>`;window.scrollTo({top:0,behavior:'smooth'})
+}
+function acWorshipChoice(v){
+ const el=document.getElementById('acWordResult');if(!el)return;
+ el.textContent=v==='meaning'?'좋습니다. 먼저 문장의 화자·대상·핵심 단어와 의미를 이해한 뒤 음악적 강조를 결정합니다.':'음표와 강약기호도 중요하지만, 성가에서는 가사의 의미와 문장 구조를 함께 이해해야 표현의 방향을 정할 수 있습니다.'
+}
+function acWorship(){
+ setBackAction(()=>openChoirAcademy());
+ main.innerHTML=title('Worship & Choir School')+`<div class="musicLesson"><div class="musicLessonHead"><div class="eyebrow">SOMANG CHOIR ACADEMY · SCHOOL 05</div><h3>🙏 가사를 노래하는 찬양대</h3><p>Text · Meaning · Communication · Worship · 약 25~30분</p></div>
+ <div class="academyLesson"><h4>1. 가사를 먼저 ‘읽어야’ 합니다</h4><p>새 곡을 받으면 곧바로 음부터 익히기 쉽습니다. 그러나 성가의 표현을 결정하려면 먼저 <b>누가 누구에게 말하는가, 무엇을 고백하는가, 문장의 핵심 단어가 무엇인가</b>를 읽어야 합니다.</p><div class="academyExample"><b>예시 문장:</b> “주께 감사하며 새 노래로 찬양하리.”<br>질문해 봅니다. 누구에게? — 주께. 무엇을? — 감사와 찬양을. 어떤 태도로? — 새 노래로. 그렇다면 모든 단어를 똑같이 강조하는 것보다 문장의 의미가 들리도록 음악적 무게를 정할 수 있습니다.</div></div>
+ <div class="academyLesson"><h4>2. 말로 자연스럽지 않으면 노래도 자연스럽기 어렵습니다</h4><p>가사를 리듬 없이 자연스럽게 세 번 읽어봅니다. 어디에서 문장이 이어지고, 어느 단어에서 의미가 완성되는지 표시합니다. 그 다음 그 <b>말의 흐름을 선율 위에 옮깁니다.</b></p></div>
+ <div class="academyLesson"><h4>3. 감정과 과장은 다릅니다</h4><p>기쁨의 찬양이라고 무조건 크게, 회개의 찬양이라고 무조건 어둡게 부르는 것이 표현은 아닙니다. 가사·화성·템포·지휘자의 해석을 함께 보고, 음악이 요구하는 정도 안에서 표현합니다.</p></div>
+ <div class="academyLesson"><h4>4. 무엇부터 확인할까요?</h4><div class="academyChoice"><button class="btn primary" onclick="acWorshipChoice('meaning')">가사의 의미와 문장</button><button class="btn" onclick="acWorshipChoice('notes')">음표와 강약만</button></div><div id="acWordResult" class="academyResult"></div></div>
+ <div class="academyLesson"><h4>5. 예배 직전 5가지 질문</h4><div class="academyChecklist"><label><input type="checkbox"> 오늘 찬양의 핵심 메시지를 한 문장으로 말할 수 있는가?</label><label><input type="checkbox"> 중요한 단어와 문장의 정점을 알고 있는가?</label><label><input type="checkbox"> 숨 쉬는 위치가 가사의 뜻을 끊지는 않는가?</label><label><input type="checkbox"> 회중에게 가사가 또렷하게 전달되는가?</label><label><input type="checkbox"> 지휘자의 해석과 찬양대 전체의 표현을 함께 따르고 있는가?</label></div></div>
+ <div class="academyQuote">악보를 읽고 → 소리를 만들고 → 서로 듣고 → 음악을 표현하고 → <b>가사를 전달합니다.</b></div>${acNav('worship')}</div>`;window.scrollTo({top:0,behavior:'smooth'})
+}
+
 const SS_PARTS={
  soprano:{label:'소프라노',shift:5},alto:{label:'알토',shift:0},tenor:{label:'테너',shift:-5},bass:{label:'베이스',shift:-12}
 };
@@ -2343,7 +2436,7 @@ function choralVocalVideoSection(){
  </section>`;
 }
 
-async function documentsPage(){setBackAction(()=>go('more'));const {data,error}=await sb.from('documents').select('*').order('document_date',{ascending:false});const rows=error?'<div class="muted">등록 자료를 불러오지 못했습니다.</div>':list((data||[]).map(x=>`<div class="row"><span class="tag">${esc(x.category||'자료')}</span> <b>${esc(x.title)}</b><div class="muted">${fmt(x.document_date)}</div><p>${esc(x.description||'')}</p><div class="actions">${linkBtn(x.file_path||x.external_url,'자료 열기')}</div></div>`));main.innerHTML=title('자료실')+musicClassCards()+choralVocalVideoSection()+`<h3 class="documentSectionTitle">기타 자료</h3>`+rows}
+async function documentsPage(){setBackAction(()=>go('more'));const {data,error}=await sb.from('documents').select('*').order('document_date',{ascending:false});const rows=error?'<div class="muted">등록 자료를 불러오지 못했습니다.</div>':list((data||[]).map(x=>`<div class="row"><span class="tag">${esc(x.category||'자료')}</span> <b>${esc(x.title)}</b><div class="muted">${fmt(x.document_date)}</div><p>${esc(x.description||'')}</p><div class="actions">${linkBtn(x.file_path||x.external_url,'자료 열기')}</div></div>`));main.innerHTML=title('자료실')+choirAcademyCards()+musicClassCards()+choralVocalVideoSection()+`<h3 class="documentSectionTitle">기타 자료</h3>`+rows}
 function pollTargetAllowed(x){return (x.target_type||'all')==='all'||(Array.isArray(x.target_parts)&&x.target_parts.includes(me.part))}
 function pollDateState(x){const d=new Date(),today=[d.getFullYear(),String(d.getMonth()+1).padStart(2,'0'),String(d.getDate()).padStart(2,'0')].join('-');if(x.status==='마감'||(x.end_date&&today>x.end_date))return 'closed';if(x.start_date&&today<x.start_date)return 'waiting';return 'open'}
 function pollPeriodText(x){if(x.start_date&&x.end_date)return `${fmt(x.start_date)} ~ ${fmt(x.end_date)}`;return x.end_date?`~ ${fmt(x.end_date)}`:''}
