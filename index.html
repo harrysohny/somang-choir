@@ -1881,11 +1881,9 @@ function openYouTubeModal(url,title='YouTube'){
   document.body.style.overflow='hidden';
 }
 function closeYouTubeModal(){
-  const modal=document.getElementById('ytModal');
-  const frame=document.getElementById('ytFrame');
-  if(frame) frame.src='about:blank';
-  if(modal){modal.classList.remove('show');modal.setAttribute('aria-hidden','true')}
-  document.body.style.overflow='';
+ const modal=document.getElementById('ytModal'), frame=document.getElementById('ytFrame');
+ if(frame) frame.src='about:blank';
+ if(modal){ modal.style.display='none'; modal.setAttribute('aria-hidden','true'); }
 }
 
 document.addEventListener('click',function(e){
@@ -2229,25 +2227,20 @@ function openAcademyVocalVideos(){
 
 
 const ACADEMY_K_LIBRARY={
- score:[{kind:'한국어 시창훈련',title:'모두의 청음 · 시창 연습',org:'모두의 청음',url:'https://www.modoo-music.com/',desc:'악보를 보고 직접 부른 뒤 동영상 모범답안과 비교하며 음정과 리듬을 반복 훈련할 수 있는 한국어 시창 연습 자료입니다.',focus:'기준음 확인 → 먼저 혼자 부르기 → 모범답안 확인 → 틀린 구간 반복의 순서로 연습하세요.',externalOnly:true}],
+ score:[
+  {kind:'한국 성가 파트연습',title:'날마다 숨쉬는 순간마다 · 테너 파트연습',org:'호산나 찬양대 공유자료',id:'3nSg3_GXko8',desc:'한국 교회 찬양대의 실제 파트연습 영상입니다. 악보를 보며 자신의 성부를 독립적으로 따라가는 연습에 활용합니다.',focus:'악보를 먼저 보고 다음 음의 방향과 리듬을 예상한 뒤 영상과 함께 불러보세요.'}
+ ],
  voice:[
-  {kind:'한국어 영상',title:'발성습관 01 · 호흡과 발성 연습',org:'황세진 · 성악비법',url:'https://www.youtube.com/watch?v=lWedLwhiVHE',popup:true,desc:'성악 전공자뿐 아니라 합창단·성가대원도 대상으로 하는 발성 연습 영상입니다.',focus:'몸을 과도하게 긴장시키지 않고 호흡과 발성이 어떻게 연결되는지 실제 연습 부분을 따라 해보세요.'},
-  {kind:'한국어 채널',title:'매일발성 · 성가대·합창 발성 훈련',org:'부부 성악가·합창지휘 활동 채널',url:'https://www.youtube.com/channel/UCqFQOYD3GicJzDxFoFJoAzg',desc:'성가대 연습, 성인 합창, 파트훈련과 기초 성악 발성을 현장 경험 중심으로 다루는 채널입니다.',focus:'개인 독창 발성보다 합창 안에서 사용할 수 있는 발성·파트훈련 영상을 우선 골라보세요.'},
-  {kind:'대학 공개강의',title:'합창1 · 발성법과 준비',org:'한경국립대학교 · 백은경',url:'https://www.kocw.net/home/search/kemView.do?kemId=1094541',desc:'대학 합창 강의 중 발성법과 준비를 별도 차시로 다룹니다.',focus:'Voice School의 호흡·모음·발성 시작을 대학 합창 수업의 관점에서 보충하세요.'}
+  {kind:'한국어 발성강의',title:'발성습관 01 · 복식호흡으로 노래하는 습관',org:'황세진 · 성악비법',id:'lWedLwhiVHE',desc:'성악 전공자뿐 아니라 합창단원·성가대원도 대상으로 설명하는 한국어 발성훈련입니다.',focus:'자세와 호흡을 먼저 확인하고 무리하게 큰 소리를 내지 않은 상태에서 영상의 연습을 따라 하세요.'}
  ],
  ensemble:[
-  {kind:'대학 공개강의',title:'합창1 · 구절법, 균형, 조화',org:'한경국립대학교 · 백은경',url:'https://www.kocw.net/home/search/kemView.do?kemId=1094541',desc:'Phrasing, Balancing, Blending과 합창 리허설 테크닉을 함께 다루는 공개강의입니다.',focus:'우리 School의 Blend·Balance 실습과 바로 연결됩니다. “내 소리”보다 전체 균형을 어떻게 만드는지에 집중하세요.'},
-  {kind:'한국어 합창자료',title:'한국합창아카데미·국내 합창 영상 자료',org:'MsEG TV',url:'https://www.youtube.com/@MsEGTV',desc:'한국합창아카데미와 국내 합창단·지휘자 관련 영상을 볼 수 있는 한국어 합창 채널입니다.',focus:'파트 간 균형, 지휘자의 리허설 방식, 한국 합창의 모음 통일과 ensemble sound를 관찰해 보세요.'}
+  {kind:'한국 합창 실연',title:'어린이합창단 연주 · Ensemble 관찰',org:'서울 중구교육지원센터 연계 합창단',id:'PRJVqTv1FxI',desc:'실제 합창 연주를 보며 여러 사람이 하나의 소리로 맞추는 Ensemble을 관찰하는 자료입니다.',focus:'한 사람의 목소리보다 전체의 모음·리듬·시작과 끝이 얼마나 함께 움직이는지 들어보세요.'}
  ],
  expression:[
-  {kind:'대학 공개강의',title:'합창1 · 구절법, 균형, 조화',org:'한경국립대학교 · 백은경',url:'https://www.kocw.net/home/search/kemView.do?kemId=1094541',desc:'구절법(Phrasing)을 실제 합창 지도와 함께 공부할 수 있는 대학 공개강의입니다.',focus:'Phrase School의 “시작→전진→정점→이완→마침”과 비교하며 들어보세요.'},
-  {kind:'대학 공개강의',title:'합창1 · 시대별 합창곡 해석',org:'한경국립대학교 · 백은경',url:'https://www.kocw.net/home/search/kemView.do?kemId=1094541',desc:'시대와 작품에 따른 합창음악 해석을 다루는 차시입니다.',focus:'같은 dynamics나 legato라도 작품의 성격에 따라 표현이 달라질 수 있다는 점을 살펴보세요.'},
-  {kind:'전문합창 영상',title:'서울시합창단 · 합창 공연·인터뷰',org:'세종문화회관 Sejong Center',url:'https://www.youtube.com/@sejongcenter',desc:'전문 합창단의 실제 연주에서 phrase, dynamics, release와 지휘자 cue를 관찰할 수 있습니다.',focus:'좋아하는 곡 한 곡을 골라 “어디가 정점인가, 긴 음은 어떻게 끝나는가, 지휘자를 언제 보는가”를 체크해 보세요.'}
+  {kind:'한국 전문합창',title:'네 개의 시선 · 합창의 표현 관찰',org:'안양시립합창단',id:'lQTJ33x8rXU',desc:'한국 전문합창단의 창작합창 무대를 통해 음악적 표현과 지휘의 관계를 관찰하는 자료입니다.',focus:'Phrase의 방향, dynamics 변화, 지휘자의 cue와 합창의 release를 중심으로 보세요.'}
  ],
  worship:[
-  {kind:'한국어 연구자료',title:'한국어 합창 딕션 · 발성과 가사의 전달',org:'김형일 · 한국융합학회논문지',url:'https://www.kci.go.kr/kciportal/landing/article.kci?arti_id=ART002232574',desc:'합창에서 발성과 딕션이 함께 작동해야 가사의 의미가 효과적으로 전달된다는 점을 한국어 합창 중심으로 다룹니다.',focus:'Worship School의 “가사를 먼저 읽고 핵심 단어를 전달한다”는 원리를 한국어 발음 관점에서 보충하세요.'},
-  {kind:'한국어 연구자료',title:'합창 커뮤니케이션에서 효과적인 딕션 훈련',org:'김형일 · 한국융합학회논문지',url:'https://www.kci.go.kr/kciportal/landing/article.kci?arti_id=ART002696294',desc:'한국어 음운규칙, 받침, 자음 결합 등 실제 합창에서 가사를 명확하게 전달하기 위한 딕션 훈련을 다룹니다.',focus:'찬양 가사에서 받침과 다음 단어의 첫 자음이 만나는 부분을 실제 악보에 표시해 보세요.'},
-  {kind:'한국 성가 연주',title:'한국 창작 합창성가 · SONG4GOD PROJECT',org:'서울가톨릭싱어즈 등',url:'https://www.youtube.com/results?search_query=SONG4GOD+PROJECT+합창+성가',desc:'한국어 창작 성가의 실제 연주를 통해 가사 전달, 자음 처리, phrase를 관찰할 수 있는 참고자료입니다.',focus:'종교 전통의 차이보다 “한국어 가사가 합창에서 얼마나 또렷하게 전달되는가”라는 음악적 관점으로 들어보세요.'}
+  {kind:'한국 성가 실연',title:'주여! 나의 주여! · 한국 성가 합창',org:'무지카사크라 소년합창단',id:'jEU-WN45D8g',desc:'한국의 성가 합창 실연을 통해 가사 전달과 성가의 음악적 태도를 관찰하는 자료입니다.',focus:'한국어 가사의 자음·모음이 어떻게 들리는지, 긴 phrase에서 가사의 의미가 어떻게 이어지는지 들어보세요.'}
  ]
 };
 
@@ -2261,40 +2254,33 @@ function openAcademyKPopup(url,title){
  }
 }
 
+
+function openAcademyKDirect(id,titleText){
+ const modal=document.getElementById('ytModal'), frame=document.getElementById('ytFrame'), ttl=document.getElementById('ytTitle');
+ if(!modal||!frame){ window.open('https://www.youtube.com/watch?v='+encodeURIComponent(id),'_blank','noopener'); return; }
+ ttl.textContent=titleText||'추천영상(K)';
+ frame.src='https://www.youtube.com/embed/'+encodeURIComponent(id)+'?autoplay=1&rel=0&playsinline=1';
+ const fallback=document.getElementById('ytFallbackLink');
+ if(fallback) fallback.href='https://www.youtube.com/watch?v='+encodeURIComponent(id);
+ modal.style.display='flex';
+ modal.setAttribute('aria-hidden','false');
+}
+
 function openAcademyKVideos(school){
  const meta=CHOIR_ACADEMY.find(x=>x.id===school), items=ACADEMY_K_LIBRARY[school]||[];
  setBackAction(()=>openChoirAcademy());
  const cards=items.map((v,i)=>`<div class="vocalVideoCard"><div class="vNum">추천영상(K) · ${esc(v.kind)} · ${String(i+1).padStart(2,'0')}</div>
  <h4>${esc(v.title)}</h4><div class="vChannel">${esc(v.org)}</div><p>${esc(v.desc)}</p>
  <div class="vFocus"><b>이렇게 보세요</b><br>${esc(v.focus)}</div>
- <div class="actions">${v.popup?`<button class="btn primary" onclick="openAcademyKPopup('${v.url}','${esc(v.title)}')">▶ 팝업으로 보기</button><button class="btn" onclick="window.open('${v.url}','_blank','noopener')">YouTube에서 보기</button>`:`<button class="btn primary" onclick="window.open('${v.url}','_blank','noopener')">▶ ${/(?:youtube\.com|youtu\.be)/i.test(v.url)?'YouTube/채널에서 보기':'자료 열기'}</button>`}</div>`).join('');
- main.innerHTML=title('추천영상(K)')+`<div class="musicLesson"><div class="musicLessonHead"><div class="eyebrow">SOMANG CHOIR ACADEMY · KOREAN LIBRARY</div>
- <h3>🇰🇷 ${meta?meta.name:''} · 추천영상(K)</h3><p>한국어 자료를 선별했습니다. 앱 안 팝업은 직접 재생 가능한 YouTube 단일 영상에만 표시하고, 채널·대학강의·연구자료·외부 사이트는 원문으로 안전하게 연결합니다.</p></div>
- <div class="vocalVideoGrid">${cards}</div><div class="ssTip">한국어 자료는 영어 자료를 대체하지 않고 보완합니다. 특정 영상 하나보다 대학 공개강의나 전문 채널 전체가 유용한 경우에는 해당 강의·채널로 연결했습니다.</div>
+ <div class="actions"><button class="btn primary" onclick="openAcademyKDirect('${v.id}','${esc(v.title)}')">▶ 팝업으로 보기</button>
+ <button class="btn" onclick="window.open('https://www.youtube.com/watch?v=${v.id}','_blank','noopener')">YouTube에서 보기</button></div></div>`).join('');
+ main.innerHTML=title('추천영상(K)')+`<div class="musicLesson"><div class="musicLessonHead"><div class="eyebrow">SOMANG CHOIR ACADEMY · KOREAN VIDEO</div>
+ <h3>🇰🇷 ${meta?meta.name:''} · 추천영상(K)</h3><p>외부 사이트·검색결과·채널 링크를 모두 제거하고, 확인된 YouTube 단일 영상만 구성했습니다.</p></div>
+ <div class="vocalVideoGrid">${cards}</div>
+ <div class="ssTip">YouTube 게시자가 추후 임베드 허용 설정을 변경할 수 있습니다. 앱 내 재생이 차단될 경우 팝업 안의 ‘YouTube에서 보기’를 이용하세요.</div>
  <div class="lessonNav"><button class="btn" onclick="openChoirAcademy()">〈 5개 School</button><button class="btn primary" onclick="documentsPage()">자료실</button></div></div>`;
  window.scrollTo({top:0,behavior:'smooth'});
 }
-
-const ACADEMY_VIDEO_LIBRARY={
- score:[
-  {title:'How to Sight Sing Using Solfege',channel:'ExpertVillage Leaf Group',id:'qtMN3bxem2M',desc:'솔페주를 이용해 악보를 보고 음을 찾아가는 기본적인 초견 방법을 확인합니다.',focus:'교재에서 연습한 “악보 보기 → 계이름·음정 관계 파악 → 직접 부르기” 순서와 연결해 보세요.'},
-  {title:'Sight Singing in Choir Concert! Solfege / Kodály Handsigns',channel:'Topher Keene · Dover-Sherborn Chorus',id:'zWAqdpdfsIo',desc:'실제 합창단이 movable-do solfège와 hand sign을 사용해 3성부 초견을 하는 사례입니다.',focus:'피아노에 계속 의존하지 않고 기준음과 상대적인 음정 관계로 각 파트를 유지하는 모습을 보세요.'},
-  {title:'Sight Singing Practice · Level 1',channel:'Sight-reading practice',id:'MaIlikSVkTg',desc:'초급 악보를 화면으로 보면서 짧은 선율을 반복적으로 읽는 연습 자료입니다.',focus:'영상이 정답을 들려주기 전에 화면을 멈추고 먼저 스스로 불러본 뒤 비교하면 효과가 좋습니다.'}
- ],
- ensemble:[
-  {title:'How to Improve Choir Blend Instantly',channel:'Music Ministry 101',id:'YSswbfS9110',desc:'개별 목소리가 튀지 않고 하나의 합창 소리로 모이는 Blend를 실제 리허설 관점에서 다룹니다.',focus:'“Blend하라”는 말 자체보다 대원들이 서로 듣고 소리를 조정하게 만드는 방법에 집중해 보세요.'},
-  {title:'Choral Warm Up #1 · Full Vocal Warm Up',channel:'Roger Hale · Utah Tech Choirs',id:'tnJW-8a26OA',desc:'발성 워밍업뿐 아니라 후반부의 Balance & Blend 훈련을 실제 합창단 시범으로 확인할 수 있습니다.',focus:'약 8분 이후 Balance & Blend 부분에서 모음·성량·주변 소리를 어떻게 맞추는지 관찰해 보세요.'}
- ],
- expression:[
-  {title:'Silent Night · Choral Phrasing Example',channel:'Eric Nelson arrangement / choral performance',id:'0FnD0ZIZKiI',desc:'큰 프레이즈와 내부 프레이즈, 텍스트의 강조를 어떻게 하나의 흐름으로 만드는지 관찰하기 좋은 예입니다.',focus:'각 음을 똑같이 부르지 않고 문장이 어디로 향하고 어디에서 이완되는지 들어보세요.'},
-  {title:'How Great Thou Art · Gesture, Phrasing & Musical Attitude',channel:'Eric Nelson arrangement / choral performance',id:'RlluY-9JZBQ',desc:'지휘 제스처와 프레이징, 음악의 태도가 실제 연주에서 어떻게 연결되는지 살펴볼 수 있습니다.',focus:'지휘자의 몸짓과 합창의 crescendo·phrase·release가 동시에 어떻게 움직이는지 보세요.'},
-  {title:'Practical Score Markings for Choral Singers',channel:'Emerald Ensemble · Gary D. Cannon',id:'6cPqVH8AD2Q',desc:'리듬·음정뿐 아니라 dynamics, phrasing, ensemble 정보를 악보에 효과적으로 표시하는 방법을 다룹니다.',focus:'연습 때 받은 지시를 악보에 어떻게 남겨 다음 주에도 같은 음악적 표현을 재현하는지에 집중하세요.'}
- ],
- worship:[
-  {title:'The Love of God · Music and Text',channel:'Eric Nelson arrangement / sacred choral performance',id:'4SkGF1f-Xro',desc:'긴 프레이즈와 시적인 가사가 결합된 성가를 통해 “가사를 음악으로 전달한다”는 의미를 생각해 볼 수 있습니다.',focus:'가사의 핵심 단어와 긴 문장이 어느 성부를 거쳐 전달되고 음악이 그 의미를 어떻게 확장하는지 들어보세요.'},
-  {title:'Leaning on the Everlasting Arms · Poetry & Faith Expression',channel:'Eric Nelson arrangement / sacred choral performance',id:'yysjZrGlSdk',desc:'찬송 텍스트의 의미를 음악적 움직임과 결합해 표현하는 성가 사례입니다.',focus:'단순히 음정이 정확한지를 넘어 “leaning” 같은 텍스트의 의미가 음악에서 어떻게 느껴지는지 관찰해 보세요.'}
- ]
-};
 
 function openAcademyVideos(school){
  const meta=CHOIR_ACADEMY.find(x=>x.id===school);
