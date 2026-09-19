@@ -1572,6 +1572,17 @@ button.homeQuickTile{
 .homePianoPictogram.homeKeyboardIcon{display:flex!important;align-items:center!important;justify-content:center!important;overflow:hidden!important}
 .homePianoPictogram.homeKeyboardIcon svg{width:112px!important;height:112px!important;display:block!important}
 @media(max-width:520px){.homePianoPictogram.homeKeyboardIcon,.homeQrTile img{width:104px!important;height:104px!important}.homePianoPictogram.homeKeyboardIcon svg{width:104px!important;height:104px!important}}
+
+/* FINAL: Home Piano / QR responsive layout */
+.homeQuickTools{display:flex!important;flex-direction:row!important;justify-content:center!important;align-items:stretch!important;gap:14px!important;}
+.homeQuickTools .homePianoTile{order:1!important;}
+.homeQuickTools .homeQrTile{order:2!important;}
+@media (max-width:600px){
+ .homeQuickTools{flex-direction:column!important;align-items:center!important;gap:12px!important;}
+ .homeQuickTools .homeQuickTile{width:160px!important;max-width:160px!important;}
+ .homeQuickTools .homePianoTile{order:1!important;}
+ .homeQuickTools .homeQrTile{order:2!important;}
+}
 </style>
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="apple-touch-icon" href="./assets/apple-touch-icon.png">
