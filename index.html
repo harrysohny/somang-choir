@@ -1644,6 +1644,30 @@ button.homeQuickTile{
   .addressSearchRow{grid-template-columns:1fr auto}
   .addressSearchRow .btn{height:48px;padding-left:14px;padding-right:14px}
 }
+
+/* Mobile postcode search stays inside profile editor (prevents PWA returning Home) */
+.postcodeEmbedWrap{
+  margin-top:10px;
+  border:1px solid #dbe5e1;
+  border-radius:14px;
+  background:#fff;
+  overflow:hidden;
+}
+.postcodeEmbedWrap[hidden]{display:none!important}
+.postcodeEmbedHead{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  padding:9px 10px;
+  border-bottom:1px solid #e7eeeb;
+}
+.postcodeEmbedHead .btn{height:38px;padding:0 14px}
+.postcodeEmbed{width:100%;height:500px;background:#fff}
+@media(max-width:700px){
+  .postcodeEmbedWrap{margin-left:-2px;margin-right:-2px}
+  .postcodeEmbed{height:500px}
+}
 </style>
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="apple-touch-icon" href="./assets/apple-touch-icon.png">
@@ -2543,21 +2567,48 @@ function loadDaumPostcode(){
     document.head.appendChild(sc);
   });
 }
+function isMobilePostcodeDevice(){
+  return window.matchMedia('(max-width: 700px)').matches ||
+    /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent||'');
+}
+function closePostcodeEmbed(){
+  const wrap=document.getElementById('postcodeEmbedWrap');
+  const box=document.getElementById('postcodeEmbed');
+  if(wrap)wrap.hidden=true;
+  if(box)box.innerHTML='';
+}
+function applyPostcodeResult(data){
+  const postcode=document.getElementById('pf_postcode');
+  const road=document.getElementById('pf_road_address');
+  const detail=document.getElementById('pf_address_detail');
+  const hidden=document.getElementById('pf_address');
+  if(postcode)postcode.value=data.zonecode||'';
+  if(road)road.value=data.roadAddress||data.jibunAddress||'';
+  if(hidden)hidden.value=road?.value||'';
+  closePostcodeEmbed();
+  setTimeout(()=>detail?.focus(),80);
+}
 async function openPostcodeSearch(){
   try{
     await loadDaumPostcode();
-    new daum.Postcode({
-      oncomplete:function(data){
-        const postcode=document.getElementById('pf_postcode');
-        const road=document.getElementById('pf_road_address');
-        const detail=document.getElementById('pf_address_detail');
-        const hidden=document.getElementById('pf_address');
-        if(postcode)postcode.value=data.zonecode||'';
-        if(road)road.value=data.roadAddress||data.jibunAddress||'';
-        if(hidden)hidden.value=road?.value||'';
-        detail?.focus();
-      }
-    }).open();
+    if(isMobilePostcodeDevice()){
+      const wrap=document.getElementById('postcodeEmbedWrap');
+      const box=document.getElementById('postcodeEmbed');
+      if(!wrap||!box)throw new Error('주소 검색 영역을 찾지 못했습니다.');
+      wrap.hidden=false;
+      box.innerHTML='';
+      new daum.Postcode({
+        oncomplete:applyPostcodeResult,
+        onresize:function(size){
+          box.style.height=Math.max(420,Math.min(size.height||500,560))+'px';
+        },
+        width:'100%',
+        height:'100%'
+      }).embed(box);
+      wrap.scrollIntoView({behavior:'smooth',block:'center'});
+    }else{
+      new daum.Postcode({oncomplete:applyPostcodeResult}).open();
+    }
   }catch(e){toast(e?.message||'주소 검색을 시작하지 못했습니다.');}
 }
 function updateBioCount(){
@@ -2587,6 +2638,10 @@ async function editMyProfile(){
       <input id="pf_road_address" readonly value="${esc(priv.address||'')}" placeholder="도로명주소">
       <input id="pf_address_detail" maxlength="100" placeholder="상세주소 (동·호수 등)">
       <input id="pf_address" type="hidden" value="${esc(priv.address||'')}">
+      <div id="postcodeEmbedWrap" class="postcodeEmbedWrap" hidden>
+        <div class="postcodeEmbedHead"><b>도로명주소 검색</b><button type="button" class="btn" onclick="closePostcodeEmbed()">닫기</button></div>
+        <div id="postcodeEmbed" class="postcodeEmbed"></div>
+      </div>
     </div>
     <div class="field"><label>찬양대 직위 <span class="muted">(복수 선택 가능)</span></label><details class="positionDetails"><summary>${pos.length?`현재 선택 · ${esc(pos.join(' · '))}`:'찬양대 직위 선택'}</summary><div class="multiChecks">${CHOIR_POSITIONS.map(v=>`<label><input class="pf_position" type="checkbox" value="${v}" ${pos.includes(v)?'checked':''}> ${v}</label>`).join('')}</div></details></div>
     <div class="field"><label>자기소개 <span class="muted">(30자 이내)</span></label><input id="pf_bio" maxlength="30" value="${esc(me.bio||'')}" oninput="updateBioCount()"><div id="pf_bio_count" class="charCount">${String(me.bio||'').length} / 30</div></div>
