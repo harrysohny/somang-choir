@@ -1668,6 +1668,19 @@ button.homeQuickTile{
   .postcodeEmbedWrap{margin-left:-2px;margin-right:-2px}
   .postcodeEmbed{height:500px}
 }
+
+/* Home footer: closer to Piano / QR section */
+body.homePageActive .appFooter{
+  margin-top:8px!important;
+  padding-top:8px!important;
+  margin-bottom:10px!important;
+}
+@media(max-width:600px){
+  body.homePageActive .appFooter{
+    margin-top:4px!important;
+    padding-top:5px!important;
+  }
+}
 </style>
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="apple-touch-icon" href="./assets/apple-touch-icon.png">
@@ -2985,7 +2998,7 @@ async function adminPage(){
  main.innerHTML=title('통합 관리센터')+`<div class="adminGroup"><h3>👥 대원 관리</h3><div class="adminGrid">${a||'<div class="muted">권한 없음</div>'}</div></div><div class="adminGroup"><h3>🎵 찬양 관리</h3><div class="adminGrid">${b||'<div class="muted">권한 없음</div>'}</div></div><div class="adminGroup"><h3>📢 소통 관리</h3><div class="adminGrid">${c||'<div class="muted">권한 없음</div>'}</div></div><div class="adminGroup"><h3>⛪ 찬양대 관리</h3><div class="adminGrid">${d||'<div class="muted">권한 없음</div>'}</div></div>`;
 }
 
-async function go(p){page=p;navActive();main.innerHTML='<div class="empty">불러오는 중…</div>';const f={home:homePage,songs:songsPage,events:eventsPage,my:myChoirPage,prayers:prayerPage,members:membersPage,more:morePage,notices:noticesPage,intro:introPage,leaders:leadersPage,gallery:galleryPage,documents:documentsPage,polls:pollsPage,tasks:tasksPage,profile:profilePage,notifications:notificationSettingsPage,adminPush:adminPushPage,notificationCenter:notificationCenterPage,install:installGuidePage,piano:pianoPage,admin:adminPage}[p];if(f)await f();await refreshNotificationBadge()}
+async function go(p){page=p;document.body.classList.toggle('homePageActive',p==='home');navActive();main.innerHTML='<div class="empty">불러오는 중…</div>';const f={home:homePage,songs:songsPage,events:eventsPage,my:myChoirPage,prayers:prayerPage,members:membersPage,more:morePage,notices:noticesPage,intro:introPage,leaders:leadersPage,gallery:galleryPage,documents:documentsPage,polls:pollsPage,tasks:tasksPage,profile:profilePage,notifications:notificationSettingsPage,adminPush:adminPushPage,notificationCenter:notificationCenterPage,install:installGuidePage,piano:pianoPage,admin:adminPage}[p];if(f)await f();await refreshNotificationBadge()}
 
 
 function uiIcon(name,cls='uiIcon'){
