@@ -1543,6 +1543,29 @@ button.homeQuickTile{
   gap:0!important;
   cursor:pointer;
 }
+
+/* Admin permission management: compact checkboxes */
+.permcheck{
+  -webkit-appearance:auto!important;
+  appearance:auto!important;
+  width:18px!important;
+  height:18px!important;
+  min-width:18px!important;
+  min-height:18px!important;
+  padding:0!important;
+  margin:0 8px 0 0!important;
+  flex:0 0 18px!important;
+  accent-color:var(--brand);
+  box-shadow:none!important;
+  vertical-align:middle;
+}
+.field label:has(.permcheck){
+  display:flex!important;
+  align-items:center!important;
+  width:max-content!important;
+  max-width:100%;
+  cursor:pointer;
+}
 </style>
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="apple-touch-icon" href="./assets/apple-touch-icon.png">
