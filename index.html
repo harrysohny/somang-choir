@@ -1583,6 +1583,59 @@ button.homeQuickTile{
  .homeQuickTools .homePianoTile{order:1!important;}
  .homeQuickTools .homeQrTile{order:2!important;}
 }
+
+/* FINAL INNER ARTWORK MATCH:
+   QR actual image and keyboard actual image occupy exactly the same square. */
+.homePianoPictogram.homeKeyboardIcon,
+.homeQrTile img{
+  width:112px!important;
+  height:112px!important;
+  min-width:112px!important;
+  min-height:112px!important;
+  max-width:112px!important;
+  max-height:112px!important;
+  box-sizing:border-box!important;
+  margin:0 auto!important;
+  padding:0!important;
+  border:1px solid #e1e7e4!important;
+  border-radius:10px!important;
+  background:#fff!important;
+}
+.homePianoPictogram.homeKeyboardIcon{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  overflow:hidden!important;
+}
+.homePianoPictogram.homeKeyboardIcon svg{
+  width:112px!important;
+  height:112px!important;
+  min-width:112px!important;
+  min-height:112px!important;
+  display:block!important;
+}
+.homeQrTile img{
+  object-fit:contain!important;
+}
+
+/* Phone: keep same inner artwork size for both; stack Piano -> QR. */
+@media(max-width:600px){
+  .homePianoPictogram.homeKeyboardIcon,
+  .homeQrTile img{
+    width:104px!important;
+    height:104px!important;
+    min-width:104px!important;
+    min-height:104px!important;
+    max-width:104px!important;
+    max-height:104px!important;
+  }
+  .homePianoPictogram.homeKeyboardIcon svg{
+    width:104px!important;
+    height:104px!important;
+    min-width:104px!important;
+    min-height:104px!important;
+  }
+}
 </style>
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="apple-touch-icon" href="./assets/apple-touch-icon.png">
