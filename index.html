@@ -1883,7 +1883,11 @@ function openYouTubeModal(url,title='YouTube'){
 function closeYouTubeModal(){
  const modal=document.getElementById('ytModal'), frame=document.getElementById('ytFrame');
  if(frame) frame.src='about:blank';
- if(modal){ modal.style.display='none'; modal.setAttribute('aria-hidden','true'); }
+ if(modal){
+   modal.classList.remove('show');
+   modal.style.display='none';
+   modal.setAttribute('aria-hidden','true');
+ }
 }
 
 document.addEventListener('click',function(e){
@@ -2256,12 +2260,19 @@ function openAcademyKPopup(url,title){
 
 
 function openAcademyKDirect(id,titleText){
- const modal=document.getElementById('ytModal'), frame=document.getElementById('ytFrame'), ttl=document.getElementById('ytTitle');
- if(!modal||!frame){ window.open('https://www.youtube.com/watch?v='+encodeURIComponent(id),'_blank','noopener'); return; }
- ttl.textContent=titleText||'추천영상(K)';
+ const modal=document.getElementById('ytModal');
+ const frame=document.getElementById('ytFrame');
+ const ttl=document.getElementById('ytTitle');
+ const direct='https://www.youtube.com/watch?v='+encodeURIComponent(id);
+ if(!modal||!frame){
+   window.open(direct,'_blank','noopener');
+   return;
+ }
+ if(ttl) ttl.textContent=titleText||'추천영상(K)';
  frame.src='https://www.youtube.com/embed/'+encodeURIComponent(id)+'?autoplay=1&rel=0&playsinline=1';
  const fallback=document.getElementById('ytFallbackLink');
- if(fallback) fallback.href='https://www.youtube.com/watch?v='+encodeURIComponent(id);
+ if(fallback) fallback.href=direct;
+ modal.classList.add('show');
  modal.style.display='flex';
  modal.setAttribute('aria-hidden','false');
 }
@@ -2272,13 +2283,23 @@ function openAcademyKVideos(school){
  const cards=items.map((v,i)=>`<div class="vocalVideoCard"><div class="vNum">추천영상(K) · ${esc(v.kind)} · ${String(i+1).padStart(2,'0')}</div>
  <h4>${esc(v.title)}</h4><div class="vChannel">${esc(v.org)}</div><p>${esc(v.desc)}</p>
  <div class="vFocus"><b>이렇게 보세요</b><br>${esc(v.focus)}</div>
- <div class="actions"><button class="btn primary" onclick="openAcademyKDirect('${v.id}','${esc(v.title)}')">▶ 팝업으로 보기</button>
- <button class="btn" onclick="window.open('https://www.youtube.com/watch?v=${v.id}','_blank','noopener')">YouTube에서 보기</button></div></div>`).join('');
+ <div class="actions"><button class="btn primary kPopupBtn" data-video-id="${esc(v.id)}" data-video-title="${esc(v.title)}">▶ 팝업으로 보기</button>
+ <button class="btn kYoutubeBtn" data-video-id="${esc(v.id)}">YouTube에서 보기</button></div></div>`).join('');
  main.innerHTML=title('추천영상(K)')+`<div class="musicLesson"><div class="musicLessonHead"><div class="eyebrow">SOMANG CHOIR ACADEMY · KOREAN VIDEO</div>
  <h3>🇰🇷 ${meta?meta.name:''} · 추천영상(K)</h3><p>외부 사이트·검색결과·채널 링크를 모두 제거하고, 확인된 YouTube 단일 영상만 구성했습니다.</p></div>
  <div class="vocalVideoGrid">${cards}</div>
  <div class="ssTip">YouTube 게시자가 추후 임베드 허용 설정을 변경할 수 있습니다. 앱 내 재생이 차단될 경우 팝업 안의 ‘YouTube에서 보기’를 이용하세요.</div>
  <div class="lessonNav"><button class="btn" onclick="openChoirAcademy()">〈 5개 School</button><button class="btn primary" onclick="documentsPage()">자료실</button></div></div>`;
+ document.querySelectorAll('.kPopupBtn').forEach(btn=>{
+   btn.addEventListener('click',()=>{
+     openAcademyKDirect(btn.dataset.videoId,btn.dataset.videoTitle||'추천영상(K)');
+   });
+ });
+ document.querySelectorAll('.kYoutubeBtn').forEach(btn=>{
+   btn.addEventListener('click',()=>{
+     window.open('https://www.youtube.com/watch?v='+encodeURIComponent(btn.dataset.videoId),'_blank','noopener');
+   });
+ });
  window.scrollTo({top:0,behavior:'smooth'});
 }
 
