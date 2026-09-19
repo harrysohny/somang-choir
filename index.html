@@ -2213,6 +2213,16 @@ function openMusicLesson(i){const x=MINI_MUSIC_LESSONS[i];if(!x)return;setBackAc
 
 
 
+
+function openAcademyVocalVideos(){
+ setBackAction(()=>openChoirAcademy());
+ main.innerHTML=title('성가 발성 추천영상')+`<div class="musicLesson">
+ <div class="musicLessonHead"><div class="eyebrow">SOMANG CHOIR ACADEMY · VOICE SCHOOL</div><h3>🎬 성가 발성 추천영상</h3><p>Voice School의 보충 시청자료입니다. 각 영상의 학습 포인트를 먼저 읽고 시청하세요.</p></div>
+ ${choralVocalVideoSection()}
+ <div class="lessonNav"><button class="btn" onclick="openChoirAcademy()">〈 아카데미</button><button class="btn primary" onclick="documentsPage()">자료실</button></div></div>`;
+ window.scrollTo({top:0,behavior:'smooth'});
+}
+
 const CHOIR_ACADEMY=[
  {id:'score',icon:'🎼',name:'악보·초견 School',sub:'악보를 눈으로 보고, 머릿속에서 듣고, 정확하게 노래하기',topics:['오선·음정·조성','초견과 계이름','리듬·도약','파트 독립성']},
  {id:'voice',icon:'🎤',name:'Voice School',sub:'힘으로 밀지 않고 편안하고 건강한 성가 발성 만들기',topics:['호흡·발성 시작','공명·모음','레가토·고음','성부별 워밍업']},
@@ -2229,7 +2239,7 @@ function openChoirAcademy(){
  setBackAction(()=>documentsPage());
  main.innerHTML=title('SOMANG CHOIR ACADEMY')+`<div class="academyHero"><h3>아름다운 찬양을 만드는 5개의 School</h3><p>각 과정은 지식을 읽는 데서 끝나지 않고 <b>설명 → 실제 예 → 들어보기 → 직접 해보기 → 자기점검</b>으로 이어집니다.</p>
  <div class="academySteps"><div class="academyStep">정확하게 읽기</div><div class="academyStep">좋은 소리 만들기</div><div class="academyStep">함께 듣기</div><div class="academyStep">가사를 전달하기</div></div></div>
- <div class="academyGrid">${CHOIR_ACADEMY.map((x,i)=>`<div class="academyCard"><div class="acNo">SCHOOL ${String(i+1).padStart(2,'0')}</div><h4>${x.icon} ${x.name}</h4><p>${x.sub}</p><p>${x.topics.join(' · ')}</p><button class="btn primary" onclick="openAcademySchool('${x.id}')">교재 열기</button></div>`).join('')}</div>
+ <div class="academyGrid">${CHOIR_ACADEMY.map((x,i)=>`<div class="academyCard"><div class="acNo">SCHOOL ${String(i+1).padStart(2,'0')}</div><h4>${x.icon} ${x.name}</h4><p>${x.sub}</p><p>${x.topics.join(' · ')}</p><button class="btn primary" onclick="openAcademySchool('${x.id}')">교재 열기</button>${x.id==='voice'?` <button class="btn" onclick="openAcademyVocalVideos()">추천영상</button>`:''}</div>`).join('')}</div>
  <div class="academyLesson"><h4>추천 학습 순서</h4><p>처음부터 전 과정을 순서대로 끝낼 필요는 없습니다. 음정이 불안하면 악보·초견 School, 목에 힘이 들어가면 Voice School, 자기 목소리가 튄다는 이야기를 들으면 Ensemble School처럼 <b>지금 필요한 과정부터</b> 시작하세요.</p></div>`;
  window.scrollTo({top:0,behavior:'smooth'})
 }
@@ -2436,7 +2446,7 @@ function choralVocalVideoSection(){
  </section>`;
 }
 
-async function documentsPage(){setBackAction(()=>go('more'));const {data,error}=await sb.from('documents').select('*').order('document_date',{ascending:false});const rows=error?'<div class="muted">등록 자료를 불러오지 못했습니다.</div>':list((data||[]).map(x=>`<div class="row"><span class="tag">${esc(x.category||'자료')}</span> <b>${esc(x.title)}</b><div class="muted">${fmt(x.document_date)}</div><p>${esc(x.description||'')}</p><div class="actions">${linkBtn(x.file_path||x.external_url,'자료 열기')}</div></div>`));main.innerHTML=title('자료실')+choirAcademyCards()+musicClassCards()+choralVocalVideoSection()+`<h3 class="documentSectionTitle">기타 자료</h3>`+rows}
+async function documentsPage(){setBackAction(()=>go('more'));const {data,error}=await sb.from('documents').select('*').order('document_date',{ascending:false});const rows=error?'<div class="muted">등록 자료를 불러오지 못했습니다.</div>':list((data||[]).map(x=>`<div class="row"><span class="tag">${esc(x.category||'자료')}</span> <b>${esc(x.title)}</b><div class="muted">${fmt(x.document_date)}</div><p>${esc(x.description||'')}</p><div class="actions">${linkBtn(x.file_path||x.external_url,'자료 열기')}</div></div>`));main.innerHTML=title('자료실')+choirAcademyCards()+`<h3 class="documentSectionTitle">기타 자료</h3>`+rows}
 function pollTargetAllowed(x){return (x.target_type||'all')==='all'||(Array.isArray(x.target_parts)&&x.target_parts.includes(me.part))}
 function pollDateState(x){const d=new Date(),today=[d.getFullYear(),String(d.getMonth()+1).padStart(2,'0'),String(d.getDate()).padStart(2,'0')].join('-');if(x.status==='마감'||(x.end_date&&today>x.end_date))return 'closed';if(x.start_date&&today<x.start_date)return 'waiting';return 'open'}
 function pollPeriodText(x){if(x.start_date&&x.end_date)return `${fmt(x.start_date)} ~ ${fmt(x.end_date)}`;return x.end_date?`~ ${fmt(x.end_date)}`:''}
