@@ -2303,7 +2303,34 @@ function openAcademyKVideos(school){
  window.scrollTo({top:0,behavior:'smooth'});
 }
 
+
+
+function resourceSafeENEmpty(school){
+ const info=(CHOIR_ACADEMY||[]).find(x=>x.id===school);
+ setBackAction(()=>openChoirAcademy());
+ main.innerHTML=title('추천영상(EN)')+
+   `<div class="card"><h3>${esc(info?.title||'Choir School')}</h3>
+   <p class="muted">등록된 영어 추천영상 정보를 불러오지 못했습니다.</p>
+   <button class="btn" onclick="openChoirAcademy()">← Academy로</button></div>`;
+ window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function openAcademyEN(school){
+  if(school==='voice'){
+    openAcademyVocalVideos();
+    return;
+  }
+  openAcademyVideos(school);
+}
+
 function openAcademyVideos(school){
+ if(school==='voice'){ openAcademyVocalVideos(); return; }
+ const enList=(ACADEMY_VIDEO_LIBRARY[school]||[]);
+ if(!enList.length){
+   resourceSafeENEmpty(school);
+   return;
+ }
+
  const meta=CHOIR_ACADEMY.find(x=>x.id===school);
  const vids=ACADEMY_VIDEO_LIBRARY[school]||[];
  if(school==='voice'){openAcademyVocalVideos();return}
@@ -2339,7 +2366,7 @@ function openChoirAcademy(){
  setBackAction(()=>documentsPage());
  main.innerHTML=title('SOMANG CHOIR ACADEMY')+`<div class="academyHero"><h3>아름다운 찬양을 만드는 5개의 School</h3><p>각 과정은 지식을 읽는 데서 끝나지 않고 <b>설명 → 실제 예 → 들어보기 → 직접 해보기 → 자기점검</b>으로 이어집니다.</p>
  <div class="academySteps"><div class="academyStep">정확하게 읽기</div><div class="academyStep">좋은 소리 만들기</div><div class="academyStep">함께 듣기</div><div class="academyStep">가사를 전달하기</div></div></div>
- <div class="academyGrid">${CHOIR_ACADEMY.map((x,i)=>`<div class="academyCard"><div class="acNo">SCHOOL ${String(i+1).padStart(2,'0')}</div><h4>${x.icon} ${x.name}</h4><p>${x.sub}</p><p>${x.topics.join(' · ')}</p><button class="btn primary" onclick="openAcademySchool('${x.id}')">교재 열기</button> <button class="btn" onclick="openAcademyKVideos('${x.id}')">추천영상(K)</button> <button class="btn" onclick="openAcademyVideos('${x.id}')">추천영상(EN)</button></div>`).join('')}</div>
+ <div class="academyGrid">${CHOIR_ACADEMY.map((x,i)=>`<div class="academyCard"><div class="acNo">SCHOOL ${String(i+1).padStart(2,'0')}</div><h4>${x.icon} ${x.name}</h4><p>${x.sub}</p><p>${x.topics.join(' · ')}</p><button class="btn primary" onclick="openAcademySchool('${x.id}')">교재 열기</button> <button class="btn" onclick="openAcademyKVideos('${x.id}')">추천영상(K)</button> <button class="btn" onclick="openAcademyEN('${x.id}')">추천영상(EN)</button></div>`).join('')}</div>
  <div class="academyLesson"><h4>추천 학습 순서</h4><p>처음부터 전 과정을 순서대로 끝낼 필요는 없습니다. 음정이 불안하면 악보·초견 School, 목에 힘이 들어가면 Voice School, 자기 목소리가 튄다는 이야기를 들으면 Ensemble School처럼 <b>지금 필요한 과정부터</b> 시작하세요.</p></div>`;
  window.scrollTo({top:0,behavior:'smooth'})
 }
