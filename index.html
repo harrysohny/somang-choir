@@ -1507,6 +1507,21 @@ button.homeQuickTile{
   transform:scale(1.18);
   transform-origin:center 40%;
 }
+
+/* Header choir logo opens App Info */
+.brandInfoButton{
+  border:0;
+  background:transparent;
+  padding:0;
+  margin:0;
+  font:inherit;
+  color:inherit;
+  text-align:left;
+  cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+}
+.brandInfoButton:hover{opacity:.88}
+.brandInfoButton:focus-visible{outline:2px solid var(--brand);outline-offset:5px;border-radius:8px}
 </style>
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="apple-touch-icon" href="./assets/apple-touch-icon.png">
@@ -1517,7 +1532,7 @@ button.homeQuickTile{
 <meta property="og:url" content="https://harrysohny.github.io/somang-choir/">
 <meta property="og:image" content="https://harrysohny.github.io/somang-choir/assets/og-somang-choir.jpg">
 </head>
-<body><div class="app"><header><div class="head"><div class="brand brandPro"><img src="./assets/changdong-symbol.png" alt=""><div><span class="churchName">대한예수교장로회 창동교회</span><b>소망찬양대</b><small>SOMANG CHURCH CHOIR</small></div></div><div class="headerActions"><button id="notifyBell" class="notifyBell" style="display:none" onclick="go('notificationCenter')" aria-label="알림센터">🔔<span id="notifyBadge" class="notifyBadge" style="display:none">0</span></button><button id="headerBtn" class="topbtn" onclick="headerAction()">로그인</button></div></div></header><main id="main"></main><footer id="appFooter" class="appFooter"><div class="footerKr">대한예수교장로회 창동교회 소망찬양대</div><div class="footerEn">SOMANG CHURCH CHOIR <span class="footerDot">·</span> © 2026</div></footer></div><nav id="nav" style="display:none"><div class="navin"><button onclick="go('home')" data-page="home"><b>⌂</b>홈</button><button onclick="go('songs')" data-page="songs"><b>♫</b>찬양</button><button onclick="go('members')" data-page="members"><b>♧</b>대원</button><button onclick="go('my')" data-page="my"><b>♙</b>나의 소망</button><button onclick="go('more')" data-page="more"><b>☰</b>더보기</button></div></nav><div id="toast" class="toast"></div>
+<body><div class="app"><header><div class="head"><button type="button" class="brand brandPro brandInfoButton" onclick="openAppInfo()" aria-label="소망찬양대 앱 정보 보기"><img src="./assets/changdong-symbol.png" alt=""><div><span class="churchName">대한예수교장로회 창동교회</span><b>소망찬양대</b><small>SOMANG CHURCH CHOIR</small></div></button><div class="headerActions"><button id="notifyBell" class="notifyBell" style="display:none" onclick="go('notificationCenter')" aria-label="알림센터">🔔<span id="notifyBadge" class="notifyBadge" style="display:none">0</span></button><button id="headerBtn" class="topbtn" onclick="headerAction()">로그인</button></div></div></header><main id="main"></main><footer id="appFooter" class="appFooter"><div class="footerKr">대한예수교장로회 창동교회 소망찬양대</div><div class="footerEn">SOMANG CHURCH CHOIR <span class="footerDot">·</span> © 2026</div></footer></div><nav id="nav" style="display:none"><div class="navin"><button onclick="go('home')" data-page="home"><b>⌂</b>홈</button><button onclick="go('songs')" data-page="songs"><b>♫</b>찬양</button><button onclick="go('members')" data-page="members"><b>♧</b>대원</button><button onclick="go('my')" data-page="my"><b>♙</b>나의 소망</button><button onclick="go('more')" data-page="more"><b>☰</b>더보기</button></div></nav><div id="toast" class="toast"></div>
 <script>
 const SUPABASE_URL='https://chsfhwewskydnreodvvq.supabase.co';
 const SUPABASE_PUBLISHABLE_KEY='sb_publishable_MoLRdCftzWbvdGkWyeGoEg_My1j8-XB';
