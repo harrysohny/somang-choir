@@ -1636,6 +1636,14 @@ button.homeQuickTile{
     min-height:104px!important;
   }
 }
+
+.addressSearchRow{display:grid;grid-template-columns:minmax(120px,180px) auto;gap:8px;margin-bottom:8px;align-items:center}
+.addressSearchRow .btn{height:52px;white-space:nowrap}
+#pf_road_address{margin-bottom:8px}
+@media(max-width:600px){
+  .addressSearchRow{grid-template-columns:1fr auto}
+  .addressSearchRow .btn{height:48px;padding-left:14px;padding-right:14px}
+}
 </style>
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="apple-touch-icon" href="./assets/apple-touch-icon.png">
@@ -2516,6 +2524,42 @@ async function profilePage(){
     <div class="privacyNote"><b>개인정보 안내</b><br>생년월일과 주소는 본인과 대원관리 권한자만 확인할 수 있습니다. 전화번호와 전자메일은 본인이 공개 여부를 선택합니다.</div>`;
 }
 
+
+function composeProfileAddress(){
+  const road=(document.getElementById('pf_road_address')?.value||'').trim();
+  const detail=(document.getElementById('pf_address_detail')?.value||'').trim();
+  const legacy=(document.getElementById('pf_address')?.value||'').trim();
+  return [road,detail].filter(Boolean).join(' ').trim()||legacy;
+}
+function loadDaumPostcode(){
+  return new Promise((resolve,reject)=>{
+    if(window.daum?.Postcode)return resolve();
+    const old=document.getElementById('daum-postcode-sdk');
+    if(old){old.addEventListener('load',()=>resolve(),{once:true});old.addEventListener('error',reject,{once:true});return;}
+    const sc=document.createElement('script');
+    sc.id='daum-postcode-sdk';
+    sc.src='https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js';
+    sc.onload=()=>resolve();sc.onerror=()=>reject(new Error('주소 검색 서비스를 불러오지 못했습니다.'));
+    document.head.appendChild(sc);
+  });
+}
+async function openPostcodeSearch(){
+  try{
+    await loadDaumPostcode();
+    new daum.Postcode({
+      oncomplete:function(data){
+        const postcode=document.getElementById('pf_postcode');
+        const road=document.getElementById('pf_road_address');
+        const detail=document.getElementById('pf_address_detail');
+        const hidden=document.getElementById('pf_address');
+        if(postcode)postcode.value=data.zonecode||'';
+        if(road)road.value=data.roadAddress||data.jibunAddress||'';
+        if(hidden)hidden.value=road?.value||'';
+        detail?.focus();
+      }
+    }).open();
+  }catch(e){toast(e?.message||'주소 검색을 시작하지 못했습니다.');}
+}
 function updateBioCount(){
   const e=document.getElementById('pf_bio'),c=document.getElementById('pf_bio_count');
   if(e&&c)c.textContent=`${e.value.length} / 30`;
@@ -2538,7 +2582,12 @@ async function editMyProfile(){
     <div class="field profileVisibilityRow"><label>전자메일 공개</label><label><input id="pf_email_public" type="checkbox" ${me.email_public?'checked':''}> 대원에게 공개</label></div>
     <div class="field"><label>파트</label><select id="pf_part">${PROFILE_PARTS.map(v=>`<option value="${v}" ${me.part===v?'selected':''}>${partKo(v)||v}</option>`).join('')}</select></div>
     <div class="field"><label>생년월일 <span class="privateBadge">🔒 비공개</span></label><input id="pf_birth" type="date" value="${esc(priv.birth_date||'')}"></div>
-    <div class="field"><label>주소 <span class="privateBadge">🔒 비공개</span></label><input id="pf_address" maxlength="200" value="${esc(priv.address||'')}" placeholder="주소"></div>
+    <div class="field"><label>주소 <span class="privateBadge">🔒 비공개</span></label>
+      <div class="addressSearchRow"><input id="pf_postcode" readonly placeholder="우편번호"><button type="button" class="btn" onclick="openPostcodeSearch()">주소 검색</button></div>
+      <input id="pf_road_address" readonly value="${esc(priv.address||'')}" placeholder="도로명주소">
+      <input id="pf_address_detail" maxlength="100" placeholder="상세주소 (동·호수 등)">
+      <input id="pf_address" type="hidden" value="${esc(priv.address||'')}">
+    </div>
     <div class="field"><label>찬양대 직위 <span class="muted">(복수 선택 가능)</span></label><details class="positionDetails"><summary>${pos.length?`현재 선택 · ${esc(pos.join(' · '))}`:'찬양대 직위 선택'}</summary><div class="multiChecks">${CHOIR_POSITIONS.map(v=>`<label><input class="pf_position" type="checkbox" value="${v}" ${pos.includes(v)?'checked':''}> ${v}</label>`).join('')}</div></details></div>
     <div class="field"><label>자기소개 <span class="muted">(30자 이내)</span></label><input id="pf_bio" maxlength="30" value="${esc(me.bio||'')}" oninput="updateBioCount()"><div id="pf_bio_count" class="charCount">${String(me.bio||'').length} / 30</div></div>
     <div class="privacyNote">생년월일과 주소는 비공개 개인정보로 별도 저장됩니다. 다른 일반 대원은 조회할 수 없습니다.</div>
@@ -2600,7 +2649,7 @@ async function saveMyProfile(){
     const priv={
       user_id:me.id,
       birth_date:document.getElementById('pf_birth')?.value||null,
-      address:document.getElementById('pf_address')?.value.trim()||null,
+      address:composeProfileAddress()||null,
       updated_at:new Date().toISOString()
     };
     const {error:e2}=await sb.from('profile_private').upsert(priv,{onConflict:'user_id'});
