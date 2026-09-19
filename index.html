@@ -1522,6 +1522,27 @@ button.homeQuickTile{
 }
 .brandInfoButton:hover{opacity:.88}
 .brandInfoButton:focus-visible{outline:2px solid var(--brand);outline-offset:5px;border-radius:8px}
+
+/* Notice form: compact important-notice checkbox */
+#f_important{
+  width:18px!important;
+  height:18px!important;
+  min-width:18px!important;
+  min-height:18px!important;
+  padding:0!important;
+  margin:0 7px 0 0!important;
+  flex:0 0 18px!important;
+  vertical-align:middle;
+  accent-color:var(--brand);
+}
+#f_important + *{vertical-align:middle}
+.field label:has(#f_important){
+  display:flex!important;
+  align-items:center!important;
+  width:max-content!important;
+  gap:0!important;
+  cursor:pointer;
+}
 </style>
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="apple-touch-icon" href="./assets/apple-touch-icon.png">
