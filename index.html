@@ -1413,7 +1413,7 @@ a.link{color:#1f6759}
 /* 2026-09-19 Home quick tools + app-info signature */
 .appInfoSignature{
   display:block;
-  width:min(210px,64%);
+  width:min(147px,45%);
   height:auto;
   margin:10px auto 5px;
   object-fit:contain;
@@ -1460,11 +1460,14 @@ button.homeQuickTile{
   width:112px;
   height:112px;
   margin:0 auto;
-  color:#809991;
+  color:#8ca29b;
+  background:#fff;
+  border:1px solid #e1e7e4;
+  border-radius:10px;
 }
 .homePianoPictogram svg{
-  width:92px!important;
-  height:92px!important;
+  width:100px!important;
+  height:88px!important;
   stroke:currentColor!important;
   opacity:.88;
 }
@@ -1482,10 +1485,10 @@ button.homeQuickTile{
   .homeQuickTools{gap:10px}
   .homeQuickTile{width:calc(50% - 5px);max-width:160px;min-height:158px;padding:12px 8px 10px}
   .homePianoPictogram,.homeQrTile img{width:104px;height:104px}
-  .homePianoPictogram svg{width:84px!important;height:84px!important}
+  .homePianoPictogram svg{width:94px!important;height:82px!important}
   .homeQuickTile b{font-size:12px}
   .homeQuickTile small{font-size:9px}
-  .appInfoSignature{width:min(185px,62%)}
+  .appInfoSignature{width:min(130px,44%)}
 }
 </style>
 <link rel="manifest" href="./manifest.webmanifest">
@@ -2556,7 +2559,7 @@ async function homePage(){
  <div class="homeTwo"><div class="card"><h3>▶ 지난 주 찬양 다시보기</h3>${replays[0]?`<b>${esc(replays[0].title)}</b><div class="muted">${fmt(replays[0].replay_date)}</div><div class="actions">${linkBtn(replays[0].live_url,'영상 보기')}</div>`:'<div class="muted">등록된 영상이 없습니다.</div>'}</div><div class="card"><h3>🎼 찬양일정표</h3>${schedules.slice(0,2).map(x=>`<div class="mutedBlock"><b>${fmt(x.service_date)} · ${esc(x.title||'-')}</b><span>${esc(x.song_book||'')}${x.song_page?' · '+x.song_page+'쪽':''}${x.note?' · '+esc(x.note):''}</span></div>`).join('')||'<div class="muted">등록된 찬양 일정이 없습니다.</div>'}<div class="actions"><button class="btn" onclick="songSchedulePage()">찬양일정표 보기</button></div></div></div>
  <section class="homeQuickTools" aria-label="소망찬양대 바로가기">
    <button type="button" class="homeQuickTile homePianoTile" onclick="go('piano')" aria-label="소망 피아노 음정연습용">
-     <span class="homePianoPictogram">${uiIcon('piano')}</span>
+     <span class="homePianoPictogram" aria-hidden="true"><svg class="grandPianoIcon" viewBox="0 0 120 100" role="img"><path d="M24 45c7-22 28-35 55-35 13 0 24 3 32 8-4 15-14 27-30 34H50v8h42v8H45c-9 0-17-4-21-10z" fill="currentColor"/><rect x="34" y="60" width="55" height="9" rx="2" fill="currentColor"/><path d="M38 68v24M82 68v24M55 68l-5 24M91 67l8 23" stroke="currentColor" stroke-width="5" stroke-linecap="round"/><path d="M31 54h58" stroke="#f4f7f6" stroke-width="3"/><path d="M40 55v10M48 55v10M56 55v10M64 55v10M72 55v10M80 55v10" stroke="#f4f7f6" stroke-width="2"/></svg></span>
      <b>소망 피아노</b>
      <small>음정연습용</small>
    </button>
