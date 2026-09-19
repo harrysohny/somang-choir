@@ -1872,6 +1872,9 @@ function openYouTubeModal(url,title='YouTube'){
   const ttl=document.getElementById('ytModalTitle');
   if(!modal||!frame||!ttl){toast('영상 팝업을 열 수 없습니다.');return}
   ttl.textContent=title||'YouTube';
+  modal.dataset.watchUrl=`https://www.youtube.com/watch?v=${encodeURIComponent(id)}`;
+  const fallback=document.getElementById('ytFallbackLink');
+  if(fallback) fallback.href=modal.dataset.watchUrl;
   frame.src=`https://www.youtube.com/embed/${encodeURIComponent(id)}?autoplay=1&rel=0&playsinline=1`;
   modal.classList.add('show');
   modal.setAttribute('aria-hidden','false');
@@ -2226,12 +2229,9 @@ function openAcademyVocalVideos(){
 
 
 const ACADEMY_K_LIBRARY={
- score:[
-  {kind:'한국어 영상',title:'악보 이렇게 보면 평생 제자리 걸음 · 초견 마스터',org:'ChaChaPiano 차차와피아노놀이',url:'https://www.youtube.com/watch?v=HkscCHY2XkI',desc:'악보를 한 음씩 더듬기보다 패턴과 구조를 읽는 초견 접근을 한국어로 설명하는 영상입니다.',focus:'합창 악보에서도 음 하나하나만 쫓지 말고 음정의 방향, 반복 패턴, 리듬 덩어리를 먼저 읽는 습관에 적용해 보세요.'},
-  {kind:'한국어 시창훈련',title:'모두의 청음 · 시창 연습',org:'모두의 청음',url:'https://www.modoo-music.com/',desc:'악보를 보고 직접 부른 뒤 동영상 모범답안과 비교하며 음정과 리듬을 반복 훈련할 수 있는 한국어 시창 연습 자료입니다.',focus:'기준음 확인 → 먼저 혼자 부르기 → 모범답안 확인 → 틀린 구간 반복의 순서로 연습하세요.',externalOnly:true}
- ],
+ score:[{kind:'한국어 시창훈련',title:'모두의 청음 · 시창 연습',org:'모두의 청음',url:'https://www.modoo-music.com/',desc:'악보를 보고 직접 부른 뒤 동영상 모범답안과 비교하며 음정과 리듬을 반복 훈련할 수 있는 한국어 시창 연습 자료입니다.',focus:'기준음 확인 → 먼저 혼자 부르기 → 모범답안 확인 → 틀린 구간 반복의 순서로 연습하세요.',externalOnly:true}],
  voice:[
-  {kind:'한국어 영상',title:'발성습관 01 · 호흡과 발성 연습',org:'황세진 · 성악비법',url:'https://www.youtube.com/watch?v=lWedLwhiVHE',desc:'성악 전공자뿐 아니라 합창단·성가대원도 대상으로 하는 발성 연습 영상입니다.',focus:'몸을 과도하게 긴장시키지 않고 호흡과 발성이 어떻게 연결되는지 실제 연습 부분을 따라 해보세요.'},
+  {kind:'한국어 영상',title:'발성습관 01 · 호흡과 발성 연습',org:'황세진 · 성악비법',url:'https://www.youtube.com/watch?v=lWedLwhiVHE',popup:true,desc:'성악 전공자뿐 아니라 합창단·성가대원도 대상으로 하는 발성 연습 영상입니다.',focus:'몸을 과도하게 긴장시키지 않고 호흡과 발성이 어떻게 연결되는지 실제 연습 부분을 따라 해보세요.'},
   {kind:'한국어 채널',title:'매일발성 · 성가대·합창 발성 훈련',org:'부부 성악가·합창지휘 활동 채널',url:'https://www.youtube.com/channel/UCqFQOYD3GicJzDxFoFJoAzg',desc:'성가대 연습, 성인 합창, 파트훈련과 기초 성악 발성을 현장 경험 중심으로 다루는 채널입니다.',focus:'개인 독창 발성보다 합창 안에서 사용할 수 있는 발성·파트훈련 영상을 우선 골라보세요.'},
   {kind:'대학 공개강의',title:'합창1 · 발성법과 준비',org:'한경국립대학교 · 백은경',url:'https://www.kocw.net/home/search/kemView.do?kemId=1094541',desc:'대학 합창 강의 중 발성법과 준비를 별도 차시로 다룹니다.',focus:'Voice School의 호흡·모음·발성 시작을 대학 합창 수업의 관점에서 보충하세요.'}
  ],
@@ -2267,9 +2267,9 @@ function openAcademyKVideos(school){
  const cards=items.map((v,i)=>`<div class="vocalVideoCard"><div class="vNum">추천영상(K) · ${esc(v.kind)} · ${String(i+1).padStart(2,'0')}</div>
  <h4>${esc(v.title)}</h4><div class="vChannel">${esc(v.org)}</div><p>${esc(v.desc)}</p>
  <div class="vFocus"><b>이렇게 보세요</b><br>${esc(v.focus)}</div>
- <div class="actions">${v.externalOnly?`<button class="btn primary" onclick="window.open('${v.url}','_blank','noopener')">▶ 시창 연습 열기</button>`:`<button class="btn primary" onclick="openAcademyKPopup('${v.url}','${esc(v.title)}')">▶ 팝업으로 보기</button><button class="btn" onclick="window.open('${v.url}','_blank','noopener')">${/(?:youtube\.com|youtu\.be)/i.test(v.url)?'YouTube에서 보기':'원문/채널에서 보기'}</button>`}</div></div>`).join('');
+ <div class="actions">${v.popup?`<button class="btn primary" onclick="openAcademyKPopup('${v.url}','${esc(v.title)}')">▶ 팝업으로 보기</button><button class="btn" onclick="window.open('${v.url}','_blank','noopener')">YouTube에서 보기</button>`:`<button class="btn primary" onclick="window.open('${v.url}','_blank','noopener')">▶ ${/(?:youtube\.com|youtu\.be)/i.test(v.url)?'YouTube/채널에서 보기':'자료 열기'}</button>`}</div>`).join('');
  main.innerHTML=title('추천영상(K)')+`<div class="musicLesson"><div class="musicLessonHead"><div class="eyebrow">SOMANG CHOIR ACADEMY · KOREAN LIBRARY</div>
- <h3>🇰🇷 ${meta?meta.name:''} · 추천영상(K)</h3><p>한국어로 이해하기 쉬운 자료 가운데 대학 공개강의, 전문 음악교육 채널, 합창 관련 연구·연주자료를 우선 선별했습니다.</p></div>
+ <h3>🇰🇷 ${meta?meta.name:''} · 추천영상(K)</h3><p>한국어 자료를 선별했습니다. 앱 안 팝업은 직접 재생 가능한 YouTube 단일 영상에만 표시하고, 채널·대학강의·연구자료·외부 사이트는 원문으로 안전하게 연결합니다.</p></div>
  <div class="vocalVideoGrid">${cards}</div><div class="ssTip">한국어 자료는 영어 자료를 대체하지 않고 보완합니다. 특정 영상 하나보다 대학 공개강의나 전문 채널 전체가 유용한 경우에는 해당 강의·채널로 연결했습니다.</div>
  <div class="lessonNav"><button class="btn" onclick="openChoirAcademy()">〈 5개 School</button><button class="btn primary" onclick="documentsPage()">자료실</button></div></div>`;
  window.scrollTo({top:0,behavior:'smooth'});
