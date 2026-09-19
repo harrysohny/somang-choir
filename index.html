@@ -2224,6 +2224,47 @@ function openAcademyVocalVideos(){
 }
 
 
+
+const ACADEMY_K_LIBRARY={
+ score:[
+  {kind:'한국어 채널',title:'Modus Eugene’s · 시창·청음·악보읽기',org:'한국 음악교육 채널',url:'https://www.youtube.com/channel/UC4QUrGF8pPYECuQAwR8sqTw',desc:'악보를 보고 노래하고 연주할 수 있도록 음악이론을 시창·청음과 연결해 설명하는 한국어 채널입니다.',focus:'초견 School에서 배운 기준음·음정 관계·계이름 훈련과 연결해 시창 영상을 골라 연습하세요.'},
+  {kind:'대학 공개강의',title:'합창1 · 합창 음악의 기본 조건',org:'한경국립대학교 · 백은경',url:'https://www.kocw.net/home/search/kemView.do?kemId=1094541',desc:'대학 공개강의로 합창의 기본 조건, 발성, 구절법, 균형·조화와 합창 연습 지도를 다룹니다.',focus:'초견 자체뿐 아니라 악보를 읽은 뒤 실제 합창으로 연결되는 과정을 함께 공부하기 좋습니다.'}
+ ],
+ voice:[
+  {kind:'한국어 영상',title:'발성습관 01 · 호흡과 발성 연습',org:'황세진 · 성악비법',url:'https://www.youtube.com/watch?v=lWedLwhiVHE',desc:'성악 전공자뿐 아니라 합창단·성가대원도 대상으로 하는 발성 연습 영상입니다.',focus:'몸을 과도하게 긴장시키지 않고 호흡과 발성이 어떻게 연결되는지 실제 연습 부분을 따라 해보세요.'},
+  {kind:'한국어 채널',title:'매일발성 · 성가대·합창 발성 훈련',org:'부부 성악가·합창지휘 활동 채널',url:'https://www.youtube.com/channel/UCqFQOYD3GicJzDxFoFJoAzg',desc:'성가대 연습, 성인 합창, 파트훈련과 기초 성악 발성을 현장 경험 중심으로 다루는 채널입니다.',focus:'개인 독창 발성보다 합창 안에서 사용할 수 있는 발성·파트훈련 영상을 우선 골라보세요.'},
+  {kind:'대학 공개강의',title:'합창1 · 발성법과 준비',org:'한경국립대학교 · 백은경',url:'https://www.kocw.net/home/search/kemView.do?kemId=1094541',desc:'대학 합창 강의 중 발성법과 준비를 별도 차시로 다룹니다.',focus:'Voice School의 호흡·모음·발성 시작을 대학 합창 수업의 관점에서 보충하세요.'}
+ ],
+ ensemble:[
+  {kind:'대학 공개강의',title:'합창1 · 구절법, 균형, 조화',org:'한경국립대학교 · 백은경',url:'https://www.kocw.net/home/search/kemView.do?kemId=1094541',desc:'Phrasing, Balancing, Blending과 합창 리허설 테크닉을 함께 다루는 공개강의입니다.',focus:'우리 School의 Blend·Balance 실습과 바로 연결됩니다. “내 소리”보다 전체 균형을 어떻게 만드는지에 집중하세요.'},
+  {kind:'한국어 합창자료',title:'한국합창아카데미·국내 합창 영상 자료',org:'MsEG TV',url:'https://www.youtube.com/@MsEGTV',desc:'한국합창아카데미와 국내 합창단·지휘자 관련 영상을 볼 수 있는 한국어 합창 채널입니다.',focus:'파트 간 균형, 지휘자의 리허설 방식, 한국 합창의 모음 통일과 ensemble sound를 관찰해 보세요.'}
+ ],
+ expression:[
+  {kind:'대학 공개강의',title:'합창1 · 구절법, 균형, 조화',org:'한경국립대학교 · 백은경',url:'https://www.kocw.net/home/search/kemView.do?kemId=1094541',desc:'구절법(Phrasing)을 실제 합창 지도와 함께 공부할 수 있는 대학 공개강의입니다.',focus:'Phrase School의 “시작→전진→정점→이완→마침”과 비교하며 들어보세요.'},
+  {kind:'대학 공개강의',title:'합창1 · 시대별 합창곡 해석',org:'한경국립대학교 · 백은경',url:'https://www.kocw.net/home/search/kemView.do?kemId=1094541',desc:'시대와 작품에 따른 합창음악 해석을 다루는 차시입니다.',focus:'같은 dynamics나 legato라도 작품의 성격에 따라 표현이 달라질 수 있다는 점을 살펴보세요.'},
+  {kind:'전문합창 영상',title:'서울시합창단 · 합창 공연·인터뷰',org:'세종문화회관 Sejong Center',url:'https://www.youtube.com/@sejongcenter',desc:'전문 합창단의 실제 연주에서 phrase, dynamics, release와 지휘자 cue를 관찰할 수 있습니다.',focus:'좋아하는 곡 한 곡을 골라 “어디가 정점인가, 긴 음은 어떻게 끝나는가, 지휘자를 언제 보는가”를 체크해 보세요.'}
+ ],
+ worship:[
+  {kind:'한국어 연구자료',title:'한국어 합창 딕션 · 발성과 가사의 전달',org:'김형일 · 한국융합학회논문지',url:'https://www.kci.go.kr/kciportal/landing/article.kci?arti_id=ART002232574',desc:'합창에서 발성과 딕션이 함께 작동해야 가사의 의미가 효과적으로 전달된다는 점을 한국어 합창 중심으로 다룹니다.',focus:'Worship School의 “가사를 먼저 읽고 핵심 단어를 전달한다”는 원리를 한국어 발음 관점에서 보충하세요.'},
+  {kind:'한국어 연구자료',title:'합창 커뮤니케이션에서 효과적인 딕션 훈련',org:'김형일 · 한국융합학회논문지',url:'https://www.kci.go.kr/kciportal/landing/article.kci?arti_id=ART002696294',desc:'한국어 음운규칙, 받침, 자음 결합 등 실제 합창에서 가사를 명확하게 전달하기 위한 딕션 훈련을 다룹니다.',focus:'찬양 가사에서 받침과 다음 단어의 첫 자음이 만나는 부분을 실제 악보에 표시해 보세요.'},
+  {kind:'한국 성가 연주',title:'한국 창작 합창성가 · SONG4GOD PROJECT',org:'서울가톨릭싱어즈 등',url:'https://www.youtube.com/results?search_query=SONG4GOD+PROJECT+합창+성가',desc:'한국어 창작 성가의 실제 연주를 통해 가사 전달, 자음 처리, phrase를 관찰할 수 있는 참고자료입니다.',focus:'종교 전통의 차이보다 “한국어 가사가 합창에서 얼마나 또렷하게 전달되는가”라는 음악적 관점으로 들어보세요.'}
+ ]
+};
+
+function openAcademyKVideos(school){
+ const meta=CHOIR_ACADEMY.find(x=>x.id===school), items=ACADEMY_K_LIBRARY[school]||[];
+ setBackAction(()=>openChoirAcademy());
+ const cards=items.map((v,i)=>`<div class="vocalVideoCard"><div class="vNum">추천영상(K) · ${esc(v.kind)} · ${String(i+1).padStart(2,'0')}</div>
+ <h4>${esc(v.title)}</h4><div class="vChannel">${esc(v.org)}</div><p>${esc(v.desc)}</p>
+ <div class="vFocus"><b>이렇게 보세요</b><br>${esc(v.focus)}</div>
+ <div class="actions"><button class="btn primary" onclick="window.open('${v.url}','_blank','noopener')">▶ 한국어 자료 열기</button></div></div>`).join('');
+ main.innerHTML=title('추천영상(K)')+`<div class="musicLesson"><div class="musicLessonHead"><div class="eyebrow">SOMANG CHOIR ACADEMY · KOREAN LIBRARY</div>
+ <h3>🇰🇷 ${meta?meta.name:''} · 추천영상(K)</h3><p>한국어로 이해하기 쉬운 자료 가운데 대학 공개강의, 전문 음악교육 채널, 합창 관련 연구·연주자료를 우선 선별했습니다.</p></div>
+ <div class="vocalVideoGrid">${cards}</div><div class="ssTip">한국어 자료는 영어 자료를 대체하지 않고 보완합니다. 특정 영상 하나보다 대학 공개강의나 전문 채널 전체가 유용한 경우에는 해당 강의·채널로 연결했습니다.</div>
+ <div class="lessonNav"><button class="btn" onclick="openChoirAcademy()">〈 5개 School</button><button class="btn primary" onclick="documentsPage()">자료실</button></div></div>`;
+ window.scrollTo({top:0,behavior:'smooth'});
+}
+
 const ACADEMY_VIDEO_LIBRARY={
  score:[
   {title:'How to Sight Sing Using Solfege',channel:'ExpertVillage Leaf Group',id:'qtMN3bxem2M',desc:'솔페주를 이용해 악보를 보고 음을 찾아가는 기본적인 초견 방법을 확인합니다.',focus:'교재에서 연습한 “악보 보기 → 계이름·음정 관계 파악 → 직접 부르기” 순서와 연결해 보세요.'},
@@ -2281,7 +2322,7 @@ function openChoirAcademy(){
  setBackAction(()=>documentsPage());
  main.innerHTML=title('SOMANG CHOIR ACADEMY')+`<div class="academyHero"><h3>아름다운 찬양을 만드는 5개의 School</h3><p>각 과정은 지식을 읽는 데서 끝나지 않고 <b>설명 → 실제 예 → 들어보기 → 직접 해보기 → 자기점검</b>으로 이어집니다.</p>
  <div class="academySteps"><div class="academyStep">정확하게 읽기</div><div class="academyStep">좋은 소리 만들기</div><div class="academyStep">함께 듣기</div><div class="academyStep">가사를 전달하기</div></div></div>
- <div class="academyGrid">${CHOIR_ACADEMY.map((x,i)=>`<div class="academyCard"><div class="acNo">SCHOOL ${String(i+1).padStart(2,'0')}</div><h4>${x.icon} ${x.name}</h4><p>${x.sub}</p><p>${x.topics.join(' · ')}</p><button class="btn primary" onclick="openAcademySchool('${x.id}')">교재 열기</button> <button class="btn" onclick="openAcademyVideos('${x.id}')">추천영상</button></div>`).join('')}</div>
+ <div class="academyGrid">${CHOIR_ACADEMY.map((x,i)=>`<div class="academyCard"><div class="acNo">SCHOOL ${String(i+1).padStart(2,'0')}</div><h4>${x.icon} ${x.name}</h4><p>${x.sub}</p><p>${x.topics.join(' · ')}</p><button class="btn primary" onclick="openAcademySchool('${x.id}')">교재 열기</button> <button class="btn" onclick="openAcademyKVideos('${x.id}')">추천영상(K)</button> <button class="btn" onclick="openAcademyVideos('${x.id}')">추천영상(EN)</button></div>`).join('')}</div>
  <div class="academyLesson"><h4>추천 학습 순서</h4><p>처음부터 전 과정을 순서대로 끝낼 필요는 없습니다. 음정이 불안하면 악보·초견 School, 목에 힘이 들어가면 Voice School, 자기 목소리가 튄다는 이야기를 들으면 Ensemble School처럼 <b>지금 필요한 과정부터</b> 시작하세요.</p></div>`;
  window.scrollTo({top:0,behavior:'smooth'})
 }
