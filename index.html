@@ -1681,6 +1681,28 @@ body.homePageActive .appFooter{
     padding-top:5px!important;
   }
 }
+
+/* V17 Home footer position fix:
+   The previous gap came from MAIN's reserved bottom space, not footer margin. */
+body.homePageActive main{
+  padding-bottom:8px!important;
+}
+body.homePageActive .appFooter{
+  margin-top:2px!important;
+  padding-top:4px!important;
+}
+@media(max-width:600px){
+  body.homePageActive main{
+    padding-bottom:4px!important;
+  }
+  body.homePageActive .appFooter{
+    margin-top:0!important;
+    padding-top:3px!important;
+    /* reserve space AFTER footer text for fixed bottom navigation */
+    padding-bottom:calc(82px + env(safe-area-inset-bottom))!important;
+    margin-bottom:0!important;
+  }
+}
 </style>
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="apple-touch-icon" href="./assets/apple-touch-icon.png">
