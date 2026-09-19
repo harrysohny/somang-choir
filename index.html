@@ -1726,6 +1726,22 @@ body.homePageActive .appFooter{
 .vocalHero{background:linear-gradient(135deg,#eef8f5,#fff8ee);border:1px solid #d9e8e2;border-radius:18px;padding:18px;margin:14px 0}.vocalHero h3{margin:0 0 6px;font-size:20px}.vocalHero p{margin:0 0 12px;color:var(--muted);line-height:1.65}.voiceSelect{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:12px 0}.voiceBtn{border:1px solid #cfdcd7;background:#fff;border-radius:12px;padding:12px 6px;font-weight:800;cursor:pointer}.voiceBtn.active{background:var(--brand);color:#fff;border-color:var(--brand)}.vocalPanel{border:1px solid #dfe8e4;border-radius:16px;padding:16px;background:#fff;margin:12px 0}.vocalPanel h4{margin:0 0 8px}.vocalStep{display:grid;grid-template-columns:42px 1fr;gap:10px;align-items:start;padding:10px 0;border-bottom:1px solid #edf1ef}.vocalStep:last-child{border-bottom:0}.vocalNum{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:#edf7f3;color:var(--brand);font-weight:900}.vocalRange{font-size:13px;font-weight:800;color:var(--brand);margin:7px 0}.vocalNow{padding:12px;border-radius:12px;background:#f5f8f7;text-align:center;font-weight:800;margin:10px 0}.vocalProgress{height:12px;background:#e8efec;border-radius:999px;overflow:hidden}.vocalProgress>span{display:block;height:100%;width:0;background:var(--brand);transition:width .25s}.vocalWarn{font-size:12px;color:var(--muted);line-height:1.6;margin-top:10px}@media(max-width:620px){.voiceSelect{grid-template-columns:repeat(2,1fr)}}
 
 .musicLesson .card h4,.vocalPanel h4{font-size:17px;margin-bottom:10px}.musicLesson .card p,.vocalPanel p{line-height:1.82}.musicPractice{margin-top:12px;padding:13px 14px;border-radius:12px;background:#f7faf8;border-left:4px solid var(--brand);line-height:1.75}.musicLesson .card{padding:17px}.vocalPanel{padding:18px}.musicLessonHead p{line-height:1.65}
+
+/* Recommended choral vocal training videos */
+.vocalVideoSection{margin:26px 0 18px}
+.vocalVideoIntro{margin:0 0 14px;padding:16px 17px;border:1px solid #dfe8e4;border-radius:16px;background:#f8fbfa}
+.vocalVideoIntro h3{margin:0 0 7px;font-size:20px}
+.vocalVideoIntro p{margin:0;color:var(--muted);line-height:1.65}
+.vocalVideoGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.vocalVideoCard{border:1px solid #e2e8e5;border-radius:16px;background:#fff;padding:15px;box-shadow:0 5px 16px rgba(26,55,45,.05)}
+.vocalVideoCard .vNum{font-size:11px;font-weight:800;letter-spacing:.08em;color:#6c7f78;margin-bottom:6px}
+.vocalVideoCard h4{margin:0 0 5px;font-size:17px;line-height:1.4}
+.vocalVideoCard .vChannel{font-size:12px;color:#6b7b75;margin-bottom:9px}
+.vocalVideoCard p{margin:0 0 11px;font-size:14px;line-height:1.65;color:#46544f}
+.vocalVideoCard .vFocus{margin:0 0 12px;padding:9px 10px;border-radius:10px;background:#f3f7f5;font-size:13px;line-height:1.55}
+.vocalVideoCard .actions{display:flex;gap:8px;flex-wrap:wrap}
+@media(max-width:620px){.vocalVideoGrid{grid-template-columns:1fr}.vocalVideoCard{padding:14px}}
+
 </style>
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="apple-touch-icon" href="./assets/apple-touch-icon.png">
@@ -2154,7 +2170,47 @@ function openVocalClass(){setBackAction(()=>documentsPage());main.innerHTML=titl
 function musicClassCards(){return `<div class="musicClassHero"><h3>🎼 소망찬양대 미니 음악교실</h3><p>기초를 넘어 실제 찬양 연습에 적용할 수 있도록, 원리·예시·청음·실습·확인문제까지 단계적으로 배우는 음악교실입니다.</p></div><div class="vocalHero"><h3>🎤 성가 발성 집중교실</h3><p>내 파트의 음역을 선택하고 호흡·발성 시작·모음 통일·레가토·공명·다이내믹·블렌딩을 실제 음으로 듣고 단계별로 훈련합니다.</p><button class="btn primary" onclick="openVocalClass()">내 음역 선택하여 발성 연습하기</button></div><div class="musicClassGrid">${MINI_MUSIC_LESSONS.map((x,i)=>`<button type="button" class="musicClassCard" onclick="openMusicLesson(${i})"><span class="musicClassNo">MINI MUSIC ${x.no}</span><b>${x.icon} ${esc(x.title)}</b><small>${esc(x.sub)}<br>기초+심화 · 약 12~15분</small></button>`).join('')}</div>`}
 function openMusicLesson(i){const x=MINI_MUSIC_LESSONS[i];if(!x)return;setBackAction(()=>documentsPage());const prev=i>0?`<button class="btn" onclick="openMusicLesson(${i-1})">〈 이전</button>`:'<span></span>';const next=i<MINI_MUSIC_LESSONS.length-1?`<button class="btn" onclick="openMusicLesson(${i+1})">다음 〉</button>`:'<span></span>';main.innerHTML=title('미니 음악교실')+`<div class="musicLesson"><div class="musicLessonHead"><div class="eyebrow">SOMANG CHURCH CHOIR · MINI MUSIC ${x.no}</div><h3>${x.icon} ${esc(x.title)}</h3><p>${esc(x.sub)} · 기초+심화 · 약 12~15분</p></div>${x.body}<div class="lessonNav">${prev}<button class="btn primary" onclick="documentsPage()">목록</button>${next}</div></div>`;window.scrollTo({top:0,behavior:'smooth'});setTimeout(()=>mmInitLesson(i),0)}
 
-async function documentsPage(){setBackAction(()=>go('more'));const {data,error}=await sb.from('documents').select('*').order('document_date',{ascending:false});const rows=error?'<div class="muted">등록 자료를 불러오지 못했습니다.</div>':list((data||[]).map(x=>`<div class="row"><span class="tag">${esc(x.category||'자료')}</span> <b>${esc(x.title)}</b><div class="muted">${fmt(x.document_date)}</div><p>${esc(x.description||'')}</p><div class="actions">${linkBtn(x.file_path||x.external_url,'자료 열기')}</div></div>`));main.innerHTML=title('자료실')+musicClassCards()+`<h3 class="documentSectionTitle">기타 자료</h3>`+rows}
+
+const CHORAL_VOCAL_VIDEOS=[
+ {no:'01',title:'Choral Warm up #1: Full Vocal Warm up',channel:'Roger Hale · Utah Tech Choirs',id:'tnJW-8a26OA',
+  desc:'합창 발성의 기본을 한 편에서 연결해 보는 영상입니다. 목과 턱의 이완, 노래 자세, 열린 호흡, 모음 모양, 밸런스와 블렌딩까지 실제 합창단 시범으로 이어집니다.',
+  focus:'추천 학습: 0:11 목·턱 이완 → 0:51 자세 → 1:37 호흡 → 3:44 모음 → 8:06 Balance & Blend'},
+ {no:'02',title:'Virtual Choral Warm Ups: Breathing',channel:'The Arts Unit',id:'YLrqEBjRSiY',
+  desc:'합창 연습을 시작할 때 사용할 수 있는 호흡 워밍업입니다. 깊고 낮은 호흡과 호흡 지지를 실제 연습 동작으로 확인하기 좋습니다.',
+  focus:'추천 학습: 어깨를 들썩이지 않는 편안한 들숨, 일정한 날숨, 노래 시작 전 호흡 준비를 관찰해 보세요.'},
+ {no:'03',title:'20 Choir warm-ups that actually work (and why)',channel:'Enquire 2 Choir',id:'U2WuyvJGTLo',
+  desc:'20가지 합창 워밍업을 단순 반복이 아니라 “왜 하는가, 무엇에 도움이 되는가”와 함께 설명합니다. 지휘자·파트장에게도 활용도가 높은 자료입니다.',
+  focus:'추천 학습: 한 번에 전부 하기보다 필요한 목적을 정해 2~3개씩 골라 실제 연습에 적용해 보세요.'},
+ {no:'04',title:'Epic Warm Up #1 · Eric Whitacre Choir Voices',channel:'Matthew Gawronski Music',id:'cXYpioJJsOE',
+  desc:'Eric Whitacre Choir의 음성을 활용한 따라 하기식 집중 워밍업입니다. 혼자 연습할 때 합창의 울림 속에서 음정과 발성을 맞춰 보는 체험에 좋습니다.',
+  focus:'추천 학습: 자신의 소리만 크게 내기보다 녹음된 합창의 음색과 모음에 귀를 기울이며 가볍게 따라 해 보세요.'},
+ {no:'05',title:'10 Minute Vocal Warm Up',channel:'Jacobs Vocal Academy',id:'ck1pzgy07ZU',
+  desc:'약 10분 동안 순서대로 따라 할 수 있는 실전형 발성 워밍업입니다. 개인 연습이나 주일 찬양 전 짧은 준비운동의 참고 자료로 활용하기 좋습니다.',
+  focus:'추천 학습: 처음에는 편안한 음량으로 따라 하고, 자신의 음역을 벗어나 불편하거나 아프면 즉시 멈추거나 낮춰 연습하세요.'}
+];
+
+function choralVocalVideoSection(){
+ const cards=CHORAL_VOCAL_VIDEOS.map(v=>`<div class="vocalVideoCard">
+   <div class="vNum">CHORAL VOCAL VIDEO ${v.no}</div>
+   <h4>${esc(v.title)}</h4>
+   <div class="vChannel">${esc(v.channel)}</div>
+   <p>${esc(v.desc)}</p>
+   <div class="vFocus"><b>이렇게 보세요</b><br>${esc(v.focus)}</div>
+   <div class="actions">
+     <button class="btn primary" type="button" onclick="openYouTubeModal('https://www.youtube.com/watch?v=${v.id}','${esc(v.title)}')">▶ 팝업으로 시청</button>
+     <button class="btn" type="button" onclick="window.open('https://www.youtube.com/watch?v=${v.id}','_blank','noopener')">YouTube에서 열기</button>
+   </div>
+ </div>`).join('');
+ return `<section class="vocalVideoSection">
+   <div class="vocalVideoIntro">
+     <h3>🎬 추천 성가 발성 영상</h3>
+     <p>미니 음악교실과 성가 발성 집중교실에서 배운 내용을 실제 합창·발성 시범으로 확인하는 보충 영상입니다. 영상은 외부 YouTube 콘텐츠이며, 게시자의 설정 변경에 따라 앱 내 재생이 제한될 수 있습니다.</p>
+   </div>
+   <div class="vocalVideoGrid">${cards}</div>
+ </section>`;
+}
+
+async function documentsPage(){setBackAction(()=>go('more'));const {data,error}=await sb.from('documents').select('*').order('document_date',{ascending:false});const rows=error?'<div class="muted">등록 자료를 불러오지 못했습니다.</div>':list((data||[]).map(x=>`<div class="row"><span class="tag">${esc(x.category||'자료')}</span> <b>${esc(x.title)}</b><div class="muted">${fmt(x.document_date)}</div><p>${esc(x.description||'')}</p><div class="actions">${linkBtn(x.file_path||x.external_url,'자료 열기')}</div></div>`));main.innerHTML=title('자료실')+musicClassCards()+choralVocalVideoSection()+`<h3 class="documentSectionTitle">기타 자료</h3>`+rows}
 function pollTargetAllowed(x){return (x.target_type||'all')==='all'||(Array.isArray(x.target_parts)&&x.target_parts.includes(me.part))}
 function pollDateState(x){const d=new Date(),today=[d.getFullYear(),String(d.getMonth()+1).padStart(2,'0'),String(d.getDate()).padStart(2,'0')].join('-');if(x.status==='마감'||(x.end_date&&today>x.end_date))return 'closed';if(x.start_date&&today<x.start_date)return 'waiting';return 'open'}
 function pollPeriodText(x){if(x.start_date&&x.end_date)return `${fmt(x.start_date)} ~ ${fmt(x.end_date)}`;return x.end_date?`~ ${fmt(x.end_date)}`:''}
