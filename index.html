@@ -1782,6 +1782,14 @@ body.homePageActive .appFooter{
 .academyResult{min-height:28px;font-weight:800;margin-top:9px}
 @media(max-width:620px){.academyGrid{grid-template-columns:1fr}.academySteps{grid-template-columns:repeat(2,1fr)}.academyHero{padding:18px}}
 
+
+/* Notification detail view */
+.notificationDetailCard{max-width:760px;margin:8px auto 0;background:#fff;border:1px solid #e0e8e5;border-radius:18px;padding:24px 22px;box-shadow:0 5px 18px rgba(30,70,60,.045)}
+.notificationDetailMeta{font-size:12px;color:#87918d;margin-bottom:8px}
+.notificationDetailCard h2{margin:0 0 18px;font-size:21px;line-height:1.4;letter-spacing:-.025em}
+.notificationDetailBody{font-size:15px;line-height:1.8;color:#39433f;white-space:normal;overflow-wrap:anywhere}
+.notificationDetailActions{margin-top:24px;padding-top:16px;border-top:1px solid #edf1ef}
+@media(max-width:600px){.notificationDetailCard{padding:20px 17px;border-radius:15px}.notificationDetailCard h2{font-size:19px}.notificationDetailBody{font-size:14px;line-height:1.75}}
 </style>
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="apple-touch-icon" href="./assets/apple-touch-icon.png">
@@ -3415,7 +3423,29 @@ async function notificationCenterPage(){
  main.innerHTML=title('알림센터',`<button class="btn" onclick="markAllNotificationsRead()">모두 읽음</button>`)+`<div class="list">${rows.map(x=>`<button class="notificationRow ${read.has(x.id)?'':'unread'}" onclick="openNotification('${x.id}',${JSON.stringify(x.url||'./')})"><span class="notificationDot"></span><span><b>${esc(x.title)}</b><small>${esc(x.body||'')}</small><em>${new Date(x.created_at).toLocaleString('ko-KR')}</em></span></button>`).join('')||'<div class="empty">아직 알림이 없습니다.</div>'}</div>`;
  await refreshNotificationBadge();
 }
-async function openNotification(id,url){await sb.from('notification_reads').upsert({notification_id:id,user_id:me.id},{onConflict:'notification_id,user_id'});await refreshNotificationBadge();if(url&&url!=='./'&&!url.startsWith('http'))location.href=url;else go('notificationCenter')}
+async function openNotification(id,url){
+  await sb.from('notification_reads').upsert({notification_id:id,user_id:me.id},{onConflict:'notification_id,user_id'});
+  await refreshNotificationBadge();
+  const {data:x,error}=await sb.from('app_notifications').select('*').eq('id',id).maybeSingle();
+  if(error||!x){toast('알림 내용을 불러오지 못했습니다.');return notificationCenterPage()}
+  setBackAction(()=>go('notificationCenter'));
+  const when=x.created_at?new Date(x.created_at).toLocaleString('ko-KR'):'';
+  const link=x.url||url||'./';
+  const hasLink=link&&link!=='./';
+  main.innerHTML=title('알림 내용')+`
+    <section class="notificationDetailCard">
+      <div class="notificationDetailMeta">${esc(when)}</div>
+      <h2>${esc(x.title||'알림')}</h2>
+      <div class="notificationDetailBody">${esc(x.body||'내용이 없습니다.').replace(/\n/g,'<br>')}</div>
+      ${hasLink?`<div class="notificationDetailActions"><button class="btn primary" onclick="openNotificationLink(${JSON.stringify(link)})">관련 내용 보기</button></div>`:''}
+    </section>`;
+}
+function openNotificationLink(url){
+  if(!url||url==='./')return;
+  if(/^https?:\/\//i.test(url)){window.open(url,'_blank','noopener');return}
+  if(url.startsWith('#')){location.hash=url;return}
+  location.href=url;
+}
 async function markAllNotificationsRead(){const rows=await safeRows(sb.from('app_notifications').select('id,target').limit(200));const payload=rows.filter(x=>relevantTarget(x.target)).map(x=>({notification_id:x.id,user_id:me.id}));if(payload.length)await sb.from('notification_reads').upsert(payload,{onConflict:'notification_id,user_id'});toast('모든 알림을 읽음 처리했습니다.');await notificationCenterPage()}
 
 async function homePage(){
