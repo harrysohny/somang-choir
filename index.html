@@ -1843,7 +1843,24 @@ function smartBack(){
 function headerAction(){if(!session) return renderAuth(); if(confirm('로그아웃하시겠습니까?')) logout()}
 async function logout(){await sb.auth.signOut();session=null;me=null;perms=[];renderAuth()}
 let _skipNextPasswordUserUpdated=false;
-async function init(){const {data}=await sb.auth.getSession();session=data.session; if(session) await loadMe(); else renderAuth(); sb.auth.onAuthStateChange(async(e,s)=>{session=s;if(e==='TOKEN_REFRESHED')return;if(e==='SIGNED_OUT'||!s){me=null;perms=[];renderAuth();return}if(e==='USER_UPDATED'&&_skipNextPasswordUserUpdated){_skipNextPasswordUserUpdated=false;return}if(e==='SIGNED_IN'||e==='USER_UPDATED')await loadMe()})}
+async function init(){
+  const {data}=await sb.auth.getSession();
+  session=data.session;
+  if(session) await loadMe(); else renderAuth();
+  sb.auth.onAuthStateChange(async(e,s)=>{
+    const prevUid=session?.user?.id||null;
+    const nextUid=s?.user?.id||null;
+    session=s;
+    if(e==='TOKEN_REFRESHED')return;
+    if(e==='SIGNED_OUT'||!s){me=null;perms=[];renderAuth();return}
+    if(e==='USER_UPDATED'&&_skipNextPasswordUserUpdated){_skipNextPasswordUserUpdated=false;return}
+    /* External app/browser return can emit SIGNED_IN again for the same user.
+       Do not rebuild the whole UI in that case: rebuilding sent every open
+       registration/edit screen back to Home and discarded in-progress input. */
+    if(e==='SIGNED_IN' && me && prevUid===nextUid)return;
+    if(e==='SIGNED_IN'||e==='USER_UPDATED')await loadMe();
+  })
+}
 async function loadMe(){const uid=session.user.id;const {data,error}=await sb.from('profiles').select('*').eq('id',uid).single();if(error){main.innerHTML=`<div class="statusbox">프로필을 불러오지 못했습니다.<br>${esc(error.message)}</div>`;return}me=data;const pr=await sb.from('user_permissions').select('permission').eq('user_id',uid);perms=(pr.data||[]).map(x=>x.permission);document.getElementById('headerBtn').textContent='로그아웃';if(session?.user?.user_metadata?.must_change_password===true){document.getElementById('nav').style.display='none';renderForcePasswordChange();return}if(me.status==='approved'){document.getElementById('nav').style.display='block';const ed=getSongEditorState();const ytReturnAt=Number(localStorage.getItem(SONG_YT_RETURN_KEY)||0);const shouldRestoreEditor=!!ed && ytReturnAt>0 && (Date.now()-ytReturnAt)<30*60*1000;localStorage.removeItem(SONG_YT_RETURN_KEY);if(shouldRestoreEditor){if(ed.mode==='practice-new')await addPracticeSong(true);else if(ed.mode==='replay-new')await addReplaySong(true);else if(ed.mode==='practice-edit'&&ed.id){const r=await sb.from('songs').select('*').eq('id',ed.id).single();if(r.data)await editPracticeSong(r.data);else{clearSongEditorState();go('home')}}else if(ed.mode==='replay-edit'&&ed.id){const r=await sb.from('songs').select('*').eq('id',ed.id).single();if(r.data)await editReplaySong(r.data);else{clearSongEditorState();go('home')}}else{clearSongEditorState();go('home')}}else{clearSongEditorState();page='home';go('home')}}else{document.getElementById('nav').style.display='none';renderPending()}}
 function renderPending(){const st={pending:'승인 대기 중',rejected:'가입 신청이 반려되었습니다',inactive:'현재 비활성화된 계정입니다'}[me.status]||me.status;main.innerHTML=`<div class="loginwrap"><div class="loginbox"><h1>${st}</h1><p><b>${esc(me.name)}</b> 님의 가입 정보가 등록되었습니다.</p><p class="muted">소망 찬양대 관리자가 확인 후 승인하면 전체 메뉴를 사용할 수 있습니다.</p><div class="codehint">휴대전화번호: ${esc(phoneDisplay(me.phone))} · 파트: ${esc(me.part||'-')}</div><button class="btn wide" style="margin-top:16px" onclick="logout()">로그아웃</button></div></div>`}
 function renderForcePasswordChange(){document.getElementById('nav').style.display='none';main.innerHTML=`<div class="loginwrap"><div class="loginbox"><h1>새 비밀번호 설정</h1><p><b>${esc(me?.name||'대원')}</b> 님, 처음 로그인하셨습니다.</p><p class="muted">초기비밀번호는 임시 비밀번호입니다. 계속 사용하시려면 새 비밀번호로 변경해 주세요.</p><div class="field"><label>새 비밀번호 (6자 이상)</label><input id="newpw1" type="password" autocomplete="new-password" placeholder="새 비밀번호"></div><div class="field"><label>새 비밀번호 확인</label><input id="newpw2" type="password" autocomplete="new-password" placeholder="한 번 더 입력"></div><button class="btn primary wide" onclick="completeFirstPasswordChange()">비밀번호 변경하고 시작</button><button class="btn wide" style="margin-top:10px" onclick="logout()">로그아웃</button></div></div>`}
@@ -2885,6 +2902,13 @@ function bindSongDraft(){
     e.addEventListener('input',saveSongDraft);e.addEventListener('change',saveSongDraft);
   });
 }
+/* Preserve an in-progress song form whenever the PWA/browser is backgrounded.
+   This covers switching to the YouTube app manually as well as the YouTube-search button. */
+document.addEventListener('visibilitychange',()=>{
+  if(document.visibilityState==='hidden' && getSongEditorState()){
+    try{saveSongDraft();localStorage.setItem(SONG_YT_RETURN_KEY,String(Date.now()))}catch(e){}
+  }
+});
 async function restoreSongEdit(id){const {data,error}=await sb.from('songs').select('*').eq('id',id).single();if(error){clearSongEditorState();return go('more')}await editRecord('songs',data,true)}
 function collectSong(){
   const o={};
